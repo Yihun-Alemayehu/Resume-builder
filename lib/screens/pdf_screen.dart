@@ -27,7 +27,7 @@ class _PdfScreenState extends State<PdfScreen> {
           centerTitle: true,
         ),
         body: Container(
-          padding: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(3),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

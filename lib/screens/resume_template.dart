@@ -827,7 +827,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
