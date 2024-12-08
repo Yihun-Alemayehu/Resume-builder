@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume/screens/pdf_screen.dart';
+import 'package:my_resume/screens/resume_template.dart';
 
 void main() {
   runApp(const ResumeApp());
@@ -11,7 +13,7 @@ class ResumeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ResumeScreen(),
+      home: ResumeTemplate(),
     );
   }
 }
@@ -101,7 +103,8 @@ class ResumeScreen extends StatelessWidget {
           'Software Engineering',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        Text('Addis Ababa Science and Technology University (05/2022 - Present)'),
+        Text(
+            'Addis Ababa Science and Technology University (05/2022 - Present)'),
         Text(
           'Relevant Courses: Internet programming, Mobile App Development, Object-Oriented Programming, Data Structures, Database, Assembly Language',
         ),
@@ -125,8 +128,10 @@ class ResumeScreen extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text('10/2023 - 01/2024 (Remote)'),
-        Text('- Optimized widget rendering in a critical feature, reducing load times by 20%.'),
-        Text('- Transitioned payment gateway from Telebirr to Chapa, enhancing reliability.'),
+        Text(
+            '- Optimized widget rendering in a critical feature, reducing load times by 20%.'),
+        Text(
+            '- Transitioned payment gateway from Telebirr to Chapa, enhancing reliability.'),
         SizedBox(height: 10),
         Text(
           'Graphics Designer, Tsinat Studio',
@@ -183,6 +188,7 @@ class ResumeScreen extends StatelessWidget {
   }
 
   Widget _buildInterests() {
-    return const Text('Space Science, Programming, Photography, Reading, Artificial Intelligence');
+    return const Text(
+        'Space Science, Programming, Photography, Reading, Artificial Intelligence');
   }
 }
