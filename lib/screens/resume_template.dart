@@ -33,7 +33,7 @@ class TemporaryColumn extends StatelessWidget {
           child: const Padding(
             padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Column(
@@ -43,14 +43,14 @@ class TemporaryColumn extends StatelessWidget {
                         'Yihun Alemayehu',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 30,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
                         'Flutter Developer',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
+                            color: Color.fromARGB(255, 73, 150, 159),
+                            fontSize: 11,
                             fontWeight: FontWeight.normal),
                       ),
                       Padding(
@@ -63,7 +63,7 @@ class TemporaryColumn extends StatelessWidget {
                           'my skills and learn from experienced professionals in a collaborative environment.',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 11,
+                            fontSize: 8,
                           ),
                           overflow: TextOverflow.visible,
                           softWrap: true,
@@ -73,7 +73,7 @@ class TemporaryColumn extends StatelessWidget {
                   ),
                 ),
                 CircleAvatar(
-                  radius: 30,
+                  radius: 50,
                   backgroundColor: Colors.white,
                   backgroundImage: AssetImage('assets/copy.jpg'),
                 ),
@@ -96,14 +96,14 @@ class TemporaryColumn extends StatelessWidget {
                           const Icon(
                             Icons.email,
                             color: Colors.white,
-                            size: 10,
+                            size: 8,
                           ),
                           SizedBox(width: 5),
                           Text(
                             'yankure01@gmail.com',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 11,
+                              fontSize: 8,
                             ),
                           ),
                         ],
@@ -113,14 +113,14 @@ class TemporaryColumn extends StatelessWidget {
                           Icon(
                             Icons.pin_drop,
                             color: Colors.white,
-                            size: 10,
+                            size: 8,
                           ),
                           SizedBox(width: 5),
                           Text(
                             'Addis Ababa, Ethiopia',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 11,
+                              fontSize: 8,
                             ),
                           ),
                         ],
@@ -130,14 +130,14 @@ class TemporaryColumn extends StatelessWidget {
                           Icon(
                             Icons.dataset_linked_outlined,
                             color: Colors.white,
-                            size: 10,
+                            size: 8,
                           ),
                           SizedBox(width: 5),
                           Text(
                             'linkedin.com/in/yihun-alemayehu',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 11,
+                              fontSize: 8,
                             ),
                           ),
                         ],
@@ -150,7 +150,7 @@ class TemporaryColumn extends StatelessWidget {
             Expanded(
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
-                child: Padding(
+                child: const Padding(
                   padding: const EdgeInsets.only(
                       right: 30, left: 20, top: 10, bottom: 10),
                   child: Column(
@@ -160,14 +160,14 @@ class TemporaryColumn extends StatelessWidget {
                           Icon(
                             Icons.phone,
                             color: Colors.white,
-                            size: 10,
+                            size: 8,
                           ),
                           SizedBox(width: 5),
                           Text(
                             '+251 982 39 40 38',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 11,
+                              fontSize: 8,
                             ),
                           ),
                         ],
@@ -178,14 +178,14 @@ class TemporaryColumn extends StatelessWidget {
                             // Icons.gite,
                             const IconData(0xe0be),
                             color: Colors.white,
-                            size: 10,
+                            size: 8,
                           ),
                           SizedBox(width: 5),
                           Text(
                             'github.com/Yihun-Alemayehu',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 11,
+                              fontSize: 8,
                             ),
                           ),
                         ],
@@ -195,14 +195,14 @@ class TemporaryColumn extends StatelessWidget {
                           Icon(
                             Icons.web_sharp,
                             color: Colors.white,
-                            size: 10,
+                            size: 8,
                           ),
                           SizedBox(width: 5),
                           Text(
                             'yihun-alemayehu.netlify.com/app',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 11,
+                              fontSize: 8,
                             ),
                           ),
                         ],
@@ -220,9 +220,9 @@ class TemporaryColumn extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(right: 10, left: 20, top: 20),
+                padding: const EdgeInsets.only(right: 10, left: 20, top: 10),
                 // width: MediaQuery.of(context).size.width * 0.6,
-                child: Column(
+                child: const Column(
                   children: [
                     Column(
                       children: [
@@ -234,46 +234,48 @@ class TemporaryColumn extends StatelessWidget {
                               'EDUCATION',
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
-                                decorationColor: Color.fromARGB(1, 71, 147, 164),
+                                decorationColor:
+                                    Color.fromARGB(255, 73, 150, 159),
                                 decorationThickness: 3,
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 fontSize: 15,
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Text(
                               'Software Engineering',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),
                             Text(
                               'Addis Ababa Science and Technology University',
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 8,
                               ),
                             ),
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   '05/2022 - Present',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
-                                    fontSize: 10,
+                                    color: Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 8,
                                   ),
                                 ),
                                 Text(
                                   'Addis Ababa',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
-                                    fontSize: 10,
+                                    color: Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 8,
                                   ),
                                 ),
                               ],
@@ -282,8 +284,8 @@ class TemporaryColumn extends StatelessWidget {
                               'Courses',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(1, 71, 147, 164),
-                                fontSize: 10,
+                                color: Color.fromARGB(255, 73, 150, 159),
+                                fontSize: 8,
                               ),
                             ),
                             Text('Internet Programming',
@@ -301,57 +303,89 @@ class TemporaryColumn extends StatelessWidget {
                             Text('Internet Programming',
                                 style: TextStyle(
                                   fontSize: 8,
-                                )),
-                            // Bullet(
-                            //   bulletColor: PdfColor.fromHex('#4793a4'),
-                            //   bulletSize: 4,
-                            //   text: 'Internet programming',
-                            //   style: const TextStyle(
-                            //     fontSize: 8,
-                            //   ),
+                                ),),
+                            // const Row(
+                            //   children: [
+                            //     const Text(
+                            //       '\u2022',
+                            //       style: TextStyle(
+                            //         fontStyle: FontStyle.italic,
+                            //         color: Color.fromARGB(255, 73, 150, 159),
+                            //         fontSize: 15,
+                            //       ),
+                            //     ),
+                            //     Text('Internet Programming',
+                            //         style: TextStyle(
+                            //           fontSize: 8,
+                            //         )),
+                            //   ],
                             // ),
-                            // Bullet(
-                            //   bulletColor: PdfColor.fromHex('#4793a4'),
-                            //   bulletSize: 4,
-                            //   text: 'Object-oriented programming',
-                            //   style: const TextStyle(
-                            //     fontSize: 8,
-                            //   ),
+                            // const Row(
+                            //   children: [
+                            //     const Text(
+                            //       '\u2022',
+                            //       style: TextStyle(
+                            //         fontStyle: FontStyle.italic,
+                            //         color: Color.fromARGB(255, 73, 150, 159),
+                            //         fontSize: 15,
+                            //       ),
+                            //     ),
+                            //     Text('Internet Programming',
+                            //         style: TextStyle(
+                            //           fontSize: 8,
+                            //         )),
+                            //   ],
                             // ),
-                            // Bullet(
-                            //   bulletColor: PdfColor.fromHex('#4793a4'),
-                            //   bulletSize: 4,
-                            //   text: 'Mobile app development',
-                            //   style: const TextStyle(
-                            //     fontSize: 8,
-                            //   ),
+                            // const Row(
+                            //   children: [
+                            //     const Text(
+                            //       '\u2022',
+                            //       style: TextStyle(
+                            //         fontStyle: FontStyle.italic,
+                            //         color: Color.fromARGB(255, 73, 150, 159),
+                            //         fontSize: 15,
+                            //       ),
+                            //     ),
+                            //     Text('Internet Programming',
+                            //         style: TextStyle(
+                            //           fontSize: 8,
+                            //         )),
+                            //   ],
                             // ),
-                            // Bullet(
-                            //   bulletColor: PdfColor.fromHex('#4793a4'),
-                            //   bulletSize: 4,
-                            //   text: 'Data structure and algorithm',
-                            //   style: const TextStyle(
-                            //     fontSize: 8,
-                            //   ),
+                            // const Row(
+                            //   children: [
+                            //     const Text(
+                            //       '\u2022',
+                            //       style: TextStyle(
+                            //         fontStyle: FontStyle.italic,
+                            //         color: Color.fromARGB(255, 73, 150, 159),
+                            //         fontSize: 15,
+                            //       ),
+                            //     ),
+                            //     Text('Internet Programming',
+                            //         style: TextStyle(
+                            //           fontSize: 8,
+                            //         )),
+                            //   ],
                             // ),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Mobile app development',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),
                             Text(
                               'GDG AASTU',
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 8,
                               ),
                             ),
                             Row(
@@ -361,16 +395,16 @@ class TemporaryColumn extends StatelessWidget {
                                   '10/2023 - 03/2024',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
-                                    fontSize: 10,
+                                    color: Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 8,
                                   ),
                                 ),
                                 Text(
                                   'Addis Ababa',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
-                                    fontSize: 10,
+                                    color: Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 8,
                                   ),
                                 ),
                               ],
@@ -379,39 +413,23 @@ class TemporaryColumn extends StatelessWidget {
                               'Courses',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(1, 71, 147, 164),
-                                fontSize: 10,
+                                color: Color.fromARGB(255, 73, 150, 159),
+                                fontSize: 8,
                               ),
                             ),
-                            Text('Flutter', style: TextStyle(
-                              fontSize: 8,
-                            )),
-                            Text('Dart', style: TextStyle(
-                              fontSize: 8,
-                            )),
-                            // Bullet(
-                            //   bulletColor: PdfColor.fromHex('#4793a4'),
-                            //   bulletSize: 4,
-                            //   text: 'Flutter',
-                            //   style: const TextStyle(
-                            //     fontSize: 8,
-                            //   ),
-                            // ),
-                            // Bullet(
-                            //   bulletColor: PdfColor.fromHex('#4793a4'),
-                            //   bulletSize: 4,
-                            //   text: 'Dart',
-                            //   style: const TextStyle(
-                            //     fontSize: 8,
-                            //   ),
-                            // ),
+                            Text('Flutter',
+                                style: TextStyle(
+                                  fontSize: 8,
+                                )),
+                            Text('Dart',
+                                style: TextStyle(
+                                  fontSize: 8,
+                                )),
                           ],
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     Column(
                       children: [
                         Column(
@@ -422,27 +440,25 @@ class TemporaryColumn extends StatelessWidget {
                               'WORK EXPERIENCE',
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
-                                decorationColor: Color.fromARGB(1, 71, 147, 164),
+                                decorationColor:
+                                    Color.fromARGB(255, 73, 150, 159),
                                 decorationThickness: 3,
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 fontSize: 15,
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
                             ),
                             Text(
                               'Flutter Developer',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),
                             Text(
                               'Hex-labs',
                               style: const TextStyle(
-                                fontSize: 10,
+                                fontSize: 8,
                               ),
                             ),
                             Row(
@@ -452,7 +468,7 @@ class TemporaryColumn extends StatelessWidget {
                                   '10/2023 - 01/2024',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
+                                    color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
@@ -460,7 +476,7 @@ class TemporaryColumn extends StatelessWidget {
                                   'Remote',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
+                                    color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
@@ -470,7 +486,7 @@ class TemporaryColumn extends StatelessWidget {
                               'Achievements',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 fontSize: 8,
                               ),
                             ),
@@ -480,13 +496,13 @@ class TemporaryColumn extends StatelessWidget {
                               'gateway, streamlining transaction processes and enhancing '
                               'payment reliability.',
                               style: const TextStyle(
-                                fontSize: 9,
+                                fontSize: 8,
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 8,
                         ),
                         Column(
                           // mainAxisAlignment: MainAxisAlignment.start,
@@ -496,13 +512,13 @@ class TemporaryColumn extends StatelessWidget {
                               'Flutter Developer',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),
                             Text(
                               'Horan-software',
                               style: const TextStyle(
-                                fontSize: 10,
+                                fontSize: 8,
                               ),
                             ),
                             Row(
@@ -512,7 +528,7 @@ class TemporaryColumn extends StatelessWidget {
                                   '08/2024 - 11/2024',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
+                                    color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
@@ -520,7 +536,7 @@ class TemporaryColumn extends StatelessWidget {
                                   'Contract',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
+                                    color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
@@ -530,7 +546,7 @@ class TemporaryColumn extends StatelessWidget {
                               'Achievements',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 fontSize: 8,
                               ),
                             ),
@@ -540,13 +556,13 @@ class TemporaryColumn extends StatelessWidget {
                               'authentication, and analytics capabilities, leading to improved app '
                               'performance and user engagement.',
                               style: const TextStyle(
-                                fontSize: 9,
+                                fontSize: 8,
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 8,
                         ),
                         Column(
                           // mainAxisAlignment: MainAxisAlignment.start,
@@ -556,13 +572,13 @@ class TemporaryColumn extends StatelessWidget {
                               'Flutter Developer',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: 10,
                               ),
                             ),
                             Text(
                               'Yize-Tech Ethiopia',
                               style: const TextStyle(
-                                fontSize: 10,
+                                fontSize: 8,
                               ),
                             ),
                             Row(
@@ -572,7 +588,7 @@ class TemporaryColumn extends StatelessWidget {
                                   '02/2023 - 09/2023',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
+                                    color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
@@ -580,7 +596,7 @@ class TemporaryColumn extends StatelessWidget {
                                   'Remote',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(1, 71, 147, 164),
+                                    color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
@@ -590,7 +606,7 @@ class TemporaryColumn extends StatelessWidget {
                               'Achievements',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 fontSize: 8,
                               ),
                             ),
@@ -599,7 +615,7 @@ class TemporaryColumn extends StatelessWidget {
                               'user-centric UI components, ensuring seamless functionality, responsiveness, and an '
                               'engaging user experience across diverse devices and screen sizes.',
                               style: const TextStyle(
-                                fontSize: 9,
+                                fontSize: 8,
                               ),
                             ),
                           ],
@@ -625,10 +641,10 @@ class TemporaryColumn extends StatelessWidget {
                           'SKILLS',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
-                            decorationColor: Color.fromARGB(1, 71, 147, 164),
+                            decorationColor: Color.fromARGB(255, 73, 150, 159),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(1, 71, 147, 164),
+                            color: Color.fromARGB(255, 73, 150, 159),
                             fontSize: 15,
                           ),
                         ),
@@ -644,7 +660,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color:Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -662,7 +678,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -680,7 +696,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color:Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -698,7 +714,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color:Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -716,7 +732,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -734,7 +750,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -752,7 +768,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -770,7 +786,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -788,7 +804,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -806,7 +822,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -824,7 +840,7 @@ class TemporaryColumn extends StatelessWidget {
                                   const EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(1, 71, 147, 164),
+                                  color: Color.fromARGB(255, 73, 150, 159),
                                 ),
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -850,10 +866,10 @@ class TemporaryColumn extends StatelessWidget {
                           'PERSONAL PROJECTS',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
-                            decorationColor: Color.fromARGB(1, 71, 147, 164),
+                            decorationColor: Color.fromARGB(255, 73, 150, 159),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(1, 71, 147, 164),
+                            color: Color.fromARGB(255, 73, 150, 159),
                             fontSize: 15,
                           ),
                         ),
@@ -920,10 +936,10 @@ class TemporaryColumn extends StatelessWidget {
                           'LANGUAGES',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
-                            decorationColor: Color.fromARGB(1, 71, 147, 164),
+                            decorationColor: Color.fromARGB(255, 73, 150, 159),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(1, 71, 147, 164),
+                            color: Color.fromARGB(255, 73, 150, 159),
                             fontSize: 15,
                           ),
                         ),
@@ -988,10 +1004,10 @@ class TemporaryColumn extends StatelessWidget {
                           'INTERESTS',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
-                            decorationColor:Color.fromARGB(1, 71, 147, 164),
+                            decorationColor: Color.fromARGB(255, 73, 150, 159),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(1, 71, 147, 164),
+                            color: Color.fromARGB(255, 73, 150, 159),
                             fontSize: 15,
                           ),
                         ),
@@ -1005,7 +1021,7 @@ class TemporaryColumn extends StatelessWidget {
                               padding: EdgeInsets.all(2),
                               margin: EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -1020,7 +1036,7 @@ class TemporaryColumn extends StatelessWidget {
                               padding: EdgeInsets.all(2),
                               margin: EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -1035,7 +1051,7 @@ class TemporaryColumn extends StatelessWidget {
                               padding: EdgeInsets.all(2),
                               margin: EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -1050,7 +1066,7 @@ class TemporaryColumn extends StatelessWidget {
                               padding: EdgeInsets.all(2),
                               margin: EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -1065,7 +1081,7 @@ class TemporaryColumn extends StatelessWidget {
                               padding: EdgeInsets.all(2),
                               margin: EdgeInsets.only(right: 4, bottom: 4),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(1, 71, 147, 164),
+                                color: Color.fromARGB(255, 73, 150, 159),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
