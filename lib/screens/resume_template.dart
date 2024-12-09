@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_resume/widgets/create_task.dart';
 
 class ResumeTemplate extends StatefulWidget {
   const ResumeTemplate({super.key});
@@ -21,8 +23,15 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
   }
 }
 
-class TemporaryColumn extends StatelessWidget {
+class TemporaryColumn extends StatefulWidget {
   const TemporaryColumn({super.key});
+
+  @override
+  State<TemporaryColumn> createState() => _TemporaryColumnState();
+}
+
+class _TemporaryColumnState extends State<TemporaryColumn> {
+  String fullName = 'Yihun Alemayehu';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +39,7 @@ class TemporaryColumn extends StatelessWidget {
       children: [
         Container(
           color: const Color.fromARGB(255, 49, 60, 75),
-          child: const Padding(
+          child: Padding(
             padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,12 +48,28 @@ class TemporaryColumn extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Yihun Alemayehu',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return CreateTask(
+                                fullName: (value) {
+                                  setState(() {
+                                    fullName = value;
+                                  });
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          fullName,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Text(
                         'Flutter Developer',
@@ -300,10 +325,12 @@ class TemporaryColumn extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 8,
                                 )),
-                            Text('Internet Programming',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                ),),
+                            Text(
+                              'Internet Programming',
+                              style: TextStyle(
+                                fontSize: 8,
+                              ),
+                            ),
                             // const Row(
                             //   children: [
                             //     const Text(
