@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:my_resume/widgets/create_task.dart';
+import 'package:my_resume/widgets/edit_field.dart';
 
 class ResumeTemplate extends StatefulWidget {
   const ResumeTemplate({super.key});
@@ -32,6 +32,108 @@ class TemporaryColumn extends StatefulWidget {
 
 class _TemporaryColumnState extends State<TemporaryColumn> {
   String fullName = 'Yihun Alemayehu';
+  String profession = 'Flutter Developer';
+  String bio =
+      'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
+      'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
+      'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
+      'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
+      'my skills and learn from experienced professionals in a collaborative environment.';
+  String email = 'yankure01@gmail.com';
+  String address = 'Addis Ababa, Ethiopia';
+  String linkedIn = 'linkedin.com/in/yihun-alemayehu';
+  String phone = '+251 982 39 40 38';
+  String github = 'github.com/Yihun-Alemayehu';
+  String website = 'yihun-alemayehu.netlify.com/app';
+  List education1 = [
+    'Software Engineering',
+    'Addis Ababa Science and Technology University',
+    '05/2022',
+    'Present',
+    'Addis Ababa',
+    'Internet Programming',
+    'Object-oriented Programming',
+    'Data Structures and Algorithms',
+    'Mobile app development',
+  ];
+  List education2 = [
+    'Mobile app development',
+    'GDG AASTU',
+    '10/2023',
+    '03/2024',
+    'Addis Ababa',
+    'Flutter',
+    'Dart',
+  ];
+  List workExperience1 = [
+    'FLutter Developer',
+    'Hex-labs',
+    '10/2023',
+    '01/2024',
+    'Remote',
+    'Implemented Payment Gateway Transition: Successfully '
+        'facilitated the transition from Telebirr to Chapa as the payment '
+        'gateway, streamlining transaction processes and enhancing '
+        'payment reliability.',
+  ];
+  List workExperience2 = [
+    'FLutter Developer',
+    'Horan-Software',
+    '08/2024',
+    '11/2024',
+    'Contract',
+    'Implemented Firebase Integration: Successfully integrated Firebase into '
+        'the application, enhancing real-time database management, user '
+        'authentication, and analytics capabilities, leading to improved app '
+        'performance and user engagement.',
+  ];
+  List workExperience3 = [
+    'FLutter Developer',
+    'Yize-Tech Ethiopia',
+    '02/2023',
+    '09/2023',
+    'Remote',
+    'Implemented Complex UI Designs: Successfully developed and integrated intricate, '
+        'user-centric UI components, ensuring seamless functionality, responsiveness, and an '
+        'engaging user experience across diverse devices and screen sizes.',
+  ];
+  List skills = [
+    'Programming',
+    'Flutter',
+    'Dart',
+    'Firebase',
+    'Software development',
+    'Figma',
+    'State Management',
+    'Graphics design',
+    'Leadership',
+    'Communication',
+    'Photography',
+  ];
+  List personalProjects = [
+    'Guadaye Mobile App',
+    'AddisCart Mobile App',
+    'GraceLink Mobile App',
+    'Yize-chat Mobile App',
+    'Nedemy Mobile App',
+  ];
+  List interests = [
+    'Technology',
+    'Design',
+    'Photography',
+    'Cooking',
+    'Reading',
+    'Gaming',
+    'Artificial Intelligence',
+    'Space science',
+    'programming',
+  ];
+  List languages = [
+    'English',
+    'Full Professional Proficient',
+    'Amharic',
+    'Full Professional Proficient',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -53,51 +155,82 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return CreateTask(
-                                fullName: (value) {
+                              return EditField(
+                                editableField: (value) {
                                   setState(() {
                                     fullName = value;
                                   });
                                 },
+                                fieldName: 'Full Name',
                               );
                             },
                           );
                         },
                         child: Text(
                           fullName,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 26,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Text(
-                        'Flutter Developer',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 73, 150, 159),
-                            fontSize: 11,
-                            fontWeight: FontWeight.normal),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditField(
+                                editableField: (value) {
+                                  setState(() {
+                                    profession = value;
+                                  });
+                                },
+                                fieldName: 'Profession',
+                              );
+                            },
+                          );
+                        },
                         child: Text(
-                          'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
-                          'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
-                          'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
-                          'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
-                          'my skills and learn from experienced professionals in a collaborative environment.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 8,
+                          profession,
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 73, 150, 159),
+                              fontSize: 11,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditField(
+                                editableField: (value) {
+                                  setState(() {
+                                    bio = value;
+                                  });
+                                },
+                                fieldName: 'About Yourself',
+                              );
+                            },
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            bio,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 8,
+                            ),
+                            overflow: TextOverflow.visible,
+                            softWrap: true,
                           ),
-                          overflow: TextOverflow.visible,
-                          softWrap: true,
                         ),
                       )
                     ],
                   ),
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 50,
                   backgroundColor: Colors.white,
                   backgroundImage: AssetImage('assets/copy.jpg'),
@@ -111,61 +244,112 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
             Expanded(
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
-                child: const Padding(
+                child: Padding(
                   padding: const EdgeInsets.only(
                       right: 30, left: 20, top: 10, bottom: 10),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.email,
-                            color: Colors.white,
-                            size: 8,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'yankure01@gmail.com',
-                            style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditField(
+                                editableField: (value) {
+                                  setState(() {
+                                    email = value;
+                                  });
+                                },
+                                fieldName: 'Email Address',
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.email,
                               color: Colors.white,
-                              fontSize: 8,
+                              size: 8,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 5),
+                            Text(
+                              email,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.pin_drop,
-                            color: Colors.white,
-                            size: 8,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'Addis Ababa, Ethiopia',
-                            style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditField(
+                                editableField: (value) {
+                                  setState(() {
+                                    address = value;
+                                  });
+                                },
+                                fieldName: 'Address',
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.pin_drop,
                               color: Colors.white,
-                              fontSize: 8,
+                              size: 8,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 5),
+                            Text(
+                              address,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.dataset_linked_outlined,
-                            color: Colors.white,
-                            size: 8,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'linkedin.com/in/yihun-alemayehu',
-                            style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditField(
+                                editableField: (value) {
+                                  setState(() {
+                                    linkedIn = value;
+                                  });
+                                },
+                                fieldName: 'LinkedIn',
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.dataset_linked_outlined,
                               color: Colors.white,
-                              fontSize: 8,
+                              size: 8,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 5),
+                            Text(
+                              linkedIn,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -175,7 +359,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
             Expanded(
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
-                child: const Padding(
+                child: Padding(
                   padding: const EdgeInsets.only(
                       right: 30, left: 20, top: 10, bottom: 10),
                   child: Column(
@@ -189,7 +373,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            '+251 982 39 40 38',
+                            phone,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 8,
@@ -197,40 +381,74 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            // Icons.gite,
-                            const IconData(0xe0be),
-                            color: Colors.white,
-                            size: 8,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'github.com/Yihun-Alemayehu',
-                            style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditField(
+                                editableField: (value) {
+                                  setState(() {
+                                    github = value;
+                                  });
+                                },
+                                fieldName: 'Github',
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              // Icons.gite,
+                              const IconData(0xe0be),
                               color: Colors.white,
-                              fontSize: 8,
+                              size: 8,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 5),
+                            Text(
+                              github,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.web_sharp,
-                            color: Colors.white,
-                            size: 8,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'yihun-alemayehu.netlify.com/app',
-                            style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditField(
+                                editableField: (value) {
+                                  setState(() {
+                                    website = value;
+                                  });
+                                },
+                                fieldName: 'Website',
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.web_sharp,
                               color: Colors.white,
-                              fontSize: 8,
+                              size: 8,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 5),
+                            Text(
+                              website,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -247,7 +465,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
               child: Container(
                 padding: const EdgeInsets.only(right: 10, left: 20, top: 10),
                 // width: MediaQuery.of(context).size.width * 0.6,
-                child: const Column(
+                child: Column(
                   children: [
                     Column(
                       children: [
@@ -271,14 +489,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               height: 5,
                             ),
                             Text(
-                              'Software Engineering',
+                              education1[0],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
                             Text(
-                              'Addis Ababa Science and Technology University',
+                              education1[1],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -288,15 +506,15 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '05/2022 - Present',
-                                  style: TextStyle(
+                                  '${education1[2]} - ${education1[3]}',
+                                  style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
                                 Text(
-                                  'Addis Ababa',
+                                  education1[4],
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -313,20 +531,20 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 8,
                               ),
                             ),
-                            Text('Internet Programming',
+                            Text(education1[5],
                                 style: TextStyle(
                                   fontSize: 8,
                                 )),
-                            Text('Internet Programming',
+                            Text(education1[6],
                                 style: TextStyle(
                                   fontSize: 8,
                                 )),
-                            Text('Internet Programming',
+                            Text(education1[7],
                                 style: TextStyle(
                                   fontSize: 8,
                                 )),
                             Text(
-                              'Internet Programming',
+                              education1[8],
                               style: TextStyle(
                                 fontSize: 8,
                               ),
@@ -403,14 +621,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Mobile app development',
+                              education2[0],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
                             Text(
-                              'GDG AASTU',
+                              education2[1],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -419,7 +637,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '10/2023 - 03/2024',
+                                  '${education2[2]} - ${education2[3]}',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -427,7 +645,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   ),
                                 ),
                                 Text(
-                                  'Addis Ababa',
+                                  education2[4],
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -444,11 +662,11 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 8,
                               ),
                             ),
-                            Text('Flutter',
+                            Text(education2[5],
                                 style: TextStyle(
                                   fontSize: 8,
                                 )),
-                            Text('Dart',
+                            Text(education2[6],
                                 style: TextStyle(
                                   fontSize: 8,
                                 )),
@@ -476,14 +694,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               ),
                             ),
                             Text(
-                              'Flutter Developer',
+                              workExperience1[0],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
                             Text(
-                              'Hex-labs',
+                              workExperience1[1],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -492,7 +710,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '10/2023 - 01/2024',
+                                  '${workExperience1[2]} - ${workExperience1[3]}',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -500,7 +718,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   ),
                                 ),
                                 Text(
-                                  'Remote',
+                                  workExperience1[4],
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -518,10 +736,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               ),
                             ),
                             Text(
-                              'Implemented Payment Gateway Transition: Successfully '
-                              'facilitated the transition from Telebirr to Chapa as the payment '
-                              'gateway, streamlining transaction processes and enhancing '
-                              'payment reliability.',
+                              workExperience1[5],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -536,14 +751,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Flutter Developer',
+                              workExperience2[0],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
                             Text(
-                              'Horan-software',
+                              workExperience2[1],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -552,7 +767,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '08/2024 - 11/2024',
+                                  '${workExperience2[2]} - ${workExperience2[3]}',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -560,7 +775,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   ),
                                 ),
                                 Text(
-                                  'Contract',
+                                  workExperience2[4],
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -578,10 +793,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               ),
                             ),
                             Text(
-                              'Implemented Firebase Integration: Successfully integrated Firebase into '
-                              'the application, enhancing real-time database management, user '
-                              'authentication, and analytics capabilities, leading to improved app '
-                              'performance and user engagement.',
+                              workExperience2[5],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -596,14 +808,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Flutter Developer',
+                              workExperience3[0],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
                             Text(
-                              'Yize-Tech Ethiopia',
+                              workExperience3[1],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -612,7 +824,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '02/2023 - 09/2023',
+                                  '${workExperience3[2]} - ${workExperience3[3]}',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -620,7 +832,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   ),
                                 ),
                                 Text(
-                                  'Remote',
+                                  workExperience3[4],
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
@@ -638,9 +850,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               ),
                             ),
                             Text(
-                              'Implemented Complex UI Designs: Successfully developed and integrated intricate, '
-                              'user-centric UI components, ensuring seamless functionality, responsiveness, and an '
-                              'engaging user experience across diverse devices and screen sizes.',
+                              workExperience3[5],
                               style: const TextStyle(
                                 fontSize: 8,
                               ),
@@ -693,7 +903,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Programming',
+                                skills[0],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -711,7 +921,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Flutter',
+                                skills[1],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -729,7 +939,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Dart',
+                                skills[2],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -747,7 +957,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Firebase',
+                                skills[3],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -765,7 +975,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Software development',
+                                skills[4],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -783,7 +993,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Figma',
+                                skills[5],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -801,7 +1011,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'State Management',
+                                skills[6],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -819,7 +1029,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Graphics design',
+                                skills[7],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -837,7 +1047,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Leadership',
+                                skills[8],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -855,7 +1065,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Communication',
+                                skills[9],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -873,7 +1083,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Photography',
+                                skills[10],
                                 style: const TextStyle(
                                   fontSize: 8,
                                 ),
@@ -908,7 +1118,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           // spacing: 4,
                           children: [
                             Text(
-                              'Guadaye Mobile App',
+                              personalProjects[0],
                               style: TextStyle(
                                 fontSize: 12,
                               ),
@@ -917,7 +1127,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               height: 5,
                             ),
                             Text(
-                              'AddisCart Mobile App',
+                              personalProjects[1],
                               style: TextStyle(
                                 fontSize: 12,
                               ),
@@ -926,7 +1136,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               height: 5,
                             ),
                             Text(
-                              'GraceLink Mobile App',
+                              personalProjects[2],
                               style: TextStyle(
                                 fontSize: 12,
                               ),
@@ -935,7 +1145,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               height: 5,
                             ),
                             Text(
-                              'Yize-chat Mobile App',
+                              personalProjects[3],
                               style: TextStyle(
                                 fontSize: 12,
                               ),
@@ -944,7 +1154,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               height: 5,
                             ),
                             Text(
-                              'Nedemy Mobile App',
+                              personalProjects[4],
                               style: TextStyle(
                                 fontSize: 12,
                               ),
@@ -978,7 +1188,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           // spacing: 4,
                           children: [
                             Text(
-                              'English',
+                              languages[0],
                               style: TextStyle(
                                 fontSize: 8,
                               ),
@@ -987,7 +1197,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               height: 3,
                             ),
                             Text(
-                              'Full Professional Proficient',
+                              languages[1],
                               style: TextStyle(
                                 fontSize: 8,
                               ),
@@ -1004,7 +1214,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Amharic',
+                                languages[2],
                                 style: TextStyle(
                                   fontSize: 8,
                                 ),
@@ -1013,7 +1223,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 height: 3,
                               ),
                               Text(
-                                'Full Professional Proficient',
+                                languages[3],
                                 style: TextStyle(
                                   fontSize: 8,
                                 ),
@@ -1052,7 +1262,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Space science',
+                                interests[0],
                                 style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.white,
@@ -1067,7 +1277,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'programming',
+                                interests[1],
                                 style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.white,
@@ -1082,7 +1292,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'photography',
+                                interests[2],
                                 style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.white,
@@ -1097,7 +1307,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'reading',
+                                interests[3],
                                 style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.white,
@@ -1112,7 +1322,67 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                'Artificial Intelligence',
+                                interests[4],
+                                style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(2),
+                              margin: EdgeInsets.only(right: 4, bottom: 4),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 73, 150, 159),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                interests[5],
+                                style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(2),
+                              margin: EdgeInsets.only(right: 4, bottom: 4),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 73, 150, 159),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                interests[6],
+                                style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(2),
+                              margin: EdgeInsets.only(right: 4, bottom: 4),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 73, 150, 159),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                interests[7],
+                                style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(2),
+                              margin: EdgeInsets.only(right: 4, bottom: 4),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 73, 150, 159),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                interests[8],
                                 style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.white,

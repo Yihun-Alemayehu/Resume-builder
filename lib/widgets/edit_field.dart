@@ -1,17 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:my_resume/widgets/container_decoration.dart';
 
-class CreateTask extends StatefulWidget {
-  final Function(String) fullName;
-  const CreateTask({
-    super.key, required this.fullName,
-  });
+class EditField extends StatefulWidget {
+  final Function(String) editableField;
+  final String fieldName;
+
+  const EditField({
+    Key? key,
+    required this.editableField,
+    required this.fieldName,
+  }) : super(key: key);
 
   @override
-  State<CreateTask> createState() => _CreateTaskState();
+  State<EditField> createState() => _CreateTaskState();
 }
 
-class _CreateTaskState extends State<CreateTask> {
+class _CreateTaskState extends State<EditField> {
   final TextEditingController _textController = TextEditingController();
 
   @override
@@ -29,7 +35,7 @@ class _CreateTaskState extends State<CreateTask> {
           children: [
             Row(
               children: [
-                const Text('Add Task',
+                Text(widget.fieldName,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -48,15 +54,15 @@ class _CreateTaskState extends State<CreateTask> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Task Name',
+                  Text(
+                    widget.fieldName,
                     style: TextStyle(fontSize: 17),
                   ),
                   ContainerDecoration(
                     child: TextFormField(
                       controller: _textController,
                       decoration: InputDecoration(
-                        hintText: 'Task Name',
+                        hintText: widget.fieldName,
                         hintStyle:
                             const TextStyle(fontSize: 15, color: Colors.grey),
                         fillColor: Colors.white,
@@ -68,23 +74,22 @@ class _CreateTaskState extends State<CreateTask> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize:
-                            Size(MediaQuery.of(context).size.width, 50),
+                        fixedSize: Size(MediaQuery.of(context).size.width, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        backgroundColor: const Color.fromARGB(255, 73, 18, 167),
+                        backgroundColor: Colors.black,
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
-                        widget.fullName(_textController.text);
+                        widget.editableField(_textController.text);
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        'Create Task',
+                        'Done',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
