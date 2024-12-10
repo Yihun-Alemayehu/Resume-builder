@@ -14,6 +14,17 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tap to edit'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.save),
+            onPressed: () {
+              // Save the resume
+            },
+          )
+        ],
+      ),
       body: SafeArea(
         child: InteractiveViewer(
           child: TemporaryColumn(),
@@ -473,7 +484,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           // mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'EDUCATION',
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
@@ -485,20 +496,54 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 15,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              education1[0],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education1[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'Field of study',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education1[0],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
-                            Text(
-                              education1[1],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education1[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Institution name',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education1[1],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                             Row(
@@ -513,17 +558,34 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                     fontSize: 8,
                                   ),
                                 ),
-                                Text(
-                                  education1[4],
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return EditField(
+                                          editableField: (value) {
+                                            setState(() {
+                                              education1[4] = value;
+                                            });
+                                          },
+                                          fieldName: 'Institution address',
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    education1[4],
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 73, 150, 159),
+                                      fontSize: 8,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            Text(
+                            const Text(
                               'Courses',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
@@ -531,22 +593,96 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 8,
                               ),
                             ),
-                            Text(education1[5],
-                                style: TextStyle(
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education1[5] = value;
+                                        });
+                                      },
+                                      fieldName: 'Courses',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education1[5],
+                                style: const TextStyle(
                                   fontSize: 8,
-                                )),
-                            Text(education1[6],
-                                style: TextStyle(
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education1[6] = value;
+                                        });
+                                      },
+                                      fieldName: 'Courses',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education1[6],
+                                style: const TextStyle(
                                   fontSize: 8,
-                                )),
-                            Text(education1[7],
-                                style: TextStyle(
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education1[7] = value;
+                                        });
+                                      },
+                                      fieldName: 'Courses',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education1[7],
+                                style: const TextStyle(
                                   fontSize: 8,
-                                )),
-                            Text(
-                              education1[8],
-                              style: TextStyle(
-                                fontSize: 8,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education1[8] = value;
+                                        });
+                                      },
+                                      fieldName: 'Courses',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education1[8],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                             // const Row(
@@ -615,22 +751,56 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             // ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              education2[0],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education2[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'Field of study',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education2[0],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
-                            Text(
-                              education2[1],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education2[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Institution name',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                education2[1],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                             Row(
@@ -638,23 +808,40 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               children: [
                                 Text(
                                   '${education2[2]} - ${education2[3]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
-                                Text(
-                                  education2[4],
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return EditField(
+                                          editableField: (value) {
+                                            setState(() {
+                                              education2[4] = value;
+                                            });
+                                          },
+                                          fieldName: 'Institution address',
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    education2[4],
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 73, 150, 159),
+                                      fontSize: 8,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            Text(
+                            const Text(
                               'Courses',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
@@ -662,26 +849,60 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 8,
                               ),
                             ),
-                            Text(education2[5],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                )),
-                            Text(education2[6],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                )),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education2[5] = value;
+                                        });
+                                      },
+                                      fieldName: 'Courses',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(education2[5],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  )),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          education2[6] = value;
+                                        });
+                                      },
+                                      fieldName: 'Courses',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(education2[6],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  )),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Column(
                       children: [
                         Column(
                           // mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'WORK EXPERIENCE',
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
@@ -693,17 +914,51 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 15,
                               ),
                             ),
-                            Text(
-                              workExperience1[0],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience1[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'Work Position',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience1[0],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
-                            Text(
-                              workExperience1[1],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience1[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Company',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience1[1],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                             Row(
@@ -711,23 +966,40 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               children: [
                                 Text(
                                   '${workExperience1[2]} - ${workExperience1[3]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
-                                Text(
-                                  workExperience1[4],
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return EditField(
+                                          editableField: (value) {
+                                            setState(() {
+                                              workExperience1[4] = value;
+                                            });
+                                          },
+                                          fieldName: 'Work type',
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    workExperience1[4],
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 73, 150, 159),
+                                      fontSize: 8,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            Text(
+                            const Text(
                               'Achievements',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
@@ -735,32 +1007,83 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 8,
                               ),
                             ),
-                            Text(
-                              workExperience1[5],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience1[5] = value;
+                                        });
+                                      },
+                                      fieldName: 'Achievement',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience1[5],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Column(
                           // mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              workExperience2[0],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience2[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'Work Position',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience2[0],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
-                            Text(
-                              workExperience2[1],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience2[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Company',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience2[1],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                             Row(
@@ -768,23 +1091,40 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               children: [
                                 Text(
                                   '${workExperience2[2]} - ${workExperience2[3]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
-                                Text(
-                                  workExperience2[4],
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return EditField(
+                                          editableField: (value) {
+                                            setState(() {
+                                              workExperience2[4] = value;
+                                            });
+                                          },
+                                          fieldName: 'Work type',
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    workExperience2[4],
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 73, 150, 159),
+                                      fontSize: 8,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            Text(
+                            const Text(
                               'Achievements',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
@@ -792,32 +1132,83 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 8,
                               ),
                             ),
-                            Text(
-                              workExperience2[5],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience2[5] = value;
+                                        });
+                                      },
+                                      fieldName: 'Achievement',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience2[5],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Column(
                           // mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              workExperience3[0],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience3[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'Work Position',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience3[0],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
-                            Text(
-                              workExperience3[1],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience3[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Company',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience3[1],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                             Row(
@@ -825,23 +1216,40 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               children: [
                                 Text(
                                   '${workExperience3[2]} - ${workExperience3[3]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 73, 150, 159),
                                     fontSize: 8,
                                   ),
                                 ),
-                                Text(
-                                  workExperience3[4],
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return EditField(
+                                          editableField: (value) {
+                                            setState(() {
+                                              workExperience3[4] = value;
+                                            });
+                                          },
+                                          fieldName: 'Work type',
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    workExperience3[4],
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 73, 150, 159),
+                                      fontSize: 8,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            Text(
+                            const Text(
                               'Achievements',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
@@ -849,10 +1257,27 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 fontSize: 8,
                               ),
                             ),
-                            Text(
-                              workExperience3[5],
-                              style: const TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          workExperience3[5] = value;
+                                        });
+                                      },
+                                      fieldName: 'Achievement',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                workExperience3[5],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                           ],
@@ -874,7 +1299,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'SKILLS',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -885,207 +1310,405 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Wrap(
                           spacing: 4,
                           children: [
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[0],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
-                                ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[1],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
-                                ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[2],
-                                style: const TextStyle(
-                                  fontSize: 8,
+                                child: Text(
+                                  skills[0],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[3],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
-                                ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[4],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
-                                ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[5],
-                                style: const TextStyle(
-                                  fontSize: 8,
+                                child: Text(
+                                  skills[1],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[2] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[6],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
-                                ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[7],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
-                                ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[8],
-                                style: const TextStyle(
-                                  fontSize: 8,
+                                child: Text(
+                                  skills[2],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[3] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                skills[9],
-                                style: const TextStyle(
-                                  fontSize: 8,
+                                child: Text(
+                                  skills[3],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 73, 150, 159),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[4] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
+                                child: Text(
+                                  skills[4],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
+                                ),
                               ),
-                              child: Text(
-                                skills[10],
-                                style: const TextStyle(
-                                  fontSize: 8,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[5] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  skills[5],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[6] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  skills[6],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[7] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  skills[7],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[8] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  skills[8],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[9] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  skills[9],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          skills[10] = value;
+                                        });
+                                      },
+                                      fieldName: 'Skill',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  skills[10],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1093,13 +1716,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'PERSONAL PROJECTS',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -1110,66 +1733,154 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // spacing: 4,
                           children: [
-                            Text(
-                              personalProjects[0],
-                              style: TextStyle(
-                                fontSize: 12,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          personalProjects[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'Project Name',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                personalProjects[0],
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              personalProjects[1],
-                              style: TextStyle(
-                                fontSize: 12,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          personalProjects[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Project Name',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                personalProjects[1],
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              personalProjects[2],
-                              style: TextStyle(
-                                fontSize: 12,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          personalProjects[2] = value;
+                                        });
+                                      },
+                                      fieldName: 'Project Name',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                personalProjects[2],
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              personalProjects[3],
-                              style: TextStyle(
-                                fontSize: 12,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          personalProjects[3] = value;
+                                        });
+                                      },
+                                      fieldName: 'Project Name',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                personalProjects[3],
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              personalProjects[4],
-                              style: TextStyle(
-                                fontSize: 12,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          personalProjects[4] = value;
+                                        });
+                                      },
+                                      fieldName: 'Project Name',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                personalProjects[4],
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: 5,
                             ),
                           ],
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'LANGUAGES',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -1180,64 +1891,132 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // spacing: 4,
                           children: [
-                            Text(
-                              languages[0],
-                              style: TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          languages[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'language',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                languages[0],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
-                            Text(
-                              languages[1],
-                              style: TextStyle(
-                                fontSize: 8,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          languages[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'Proficiency',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                languages[1],
+                                style: const TextStyle(
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                languages[2],
-                                style: TextStyle(
-                                  fontSize: 8,
+                              GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return EditField(
+                                        editableField: (value) {
+                                          setState(() {
+                                            languages[2] = value;
+                                          });
+                                        },
+                                        fieldName: 'language',
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  languages[2],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 3,
                               ),
-                              Text(
-                                languages[3],
-                                style: TextStyle(
-                                  fontSize: 8,
+                              GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return EditField(
+                                        editableField: (value) {
+                                          setState(() {
+                                            languages[3] = value;
+                                          });
+                                        },
+                                        fieldName: 'Proficiency',
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  languages[3],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
                               ),
                             ]),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'INTERESTS',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -1248,144 +2027,315 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Wrap(
                           spacing: 4,
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[0],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[0] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[0],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[1],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[1] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[1],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[2],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[2] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[2],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[3],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[3] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[3],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[4],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[4] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[4],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[5],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[5] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[5],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[6],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[6] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[6],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[7],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[7] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[7],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                interests[8],
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.white,
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return EditField(
+                                      editableField: (value) {
+                                        setState(() {
+                                          interests[8] = value;
+                                        });
+                                      },
+                                      fieldName: 'interest',
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  interests[8],
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
