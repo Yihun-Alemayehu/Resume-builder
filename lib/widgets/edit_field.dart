@@ -29,19 +29,19 @@ class _CreateTaskState extends State<EditField> {
       ),
       // color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Text(widget.fieldName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     )),
                 const Spacer(),
-                Text(
+                const Text(
                   'X',
                   style: TextStyle(
                     fontSize: 20,
@@ -49,7 +49,7 @@ class _CreateTaskState extends State<EditField> {
                 ),
               ],
             ),
-            SizedBox(height: 18),
+            const SizedBox(height: 18),
             Form(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

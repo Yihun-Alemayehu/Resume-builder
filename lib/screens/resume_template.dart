@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_resume/widgets/date_pick_form_field.dart';
+import 'package:my_resume/widgets/date_picker.dart';
 import 'package:my_resume/widgets/edit_field.dart';
+import 'package:my_resume/widgets/phone_number_field.dart';
 
 class ResumeTemplate extends StatefulWidget {
   const ResumeTemplate({super.key});
@@ -375,22 +378,39 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                       right: 30, left: 20, top: 10, bottom: 10),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.phone,
-                            color: Colors.white,
-                            size: 8,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            phone,
-                            style: TextStyle(
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return PhoneNumberField(
+                                editableField: (value) {
+                                  setState(() {
+                                    phone = value;
+                                  });
+                                },
+                                fieldName: 'Phone Number',
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.phone,
                               color: Colors.white,
-                              fontSize: 8,
+                              size: 8,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 5),
+                            Text(
+                              phone,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -550,12 +570,30 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  '${education1[2]} - ${education1[3]}',
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return DatePickFormField(
+                                          editableField: (startDate, endDate) {
+                                            setState(() {
+                                              education1[2] = startDate;
+                                              education1[3] = endDate;
+                                            });
+                                          },
+                                          fieldName: 'Start Date',
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    '${education1[2]} - ${education1[3]}',
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 73, 150, 159),
+                                      fontSize: 8,
+                                    ),
                                   ),
                                 ),
                                 GestureDetector(
