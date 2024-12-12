@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:my_resume/widgets/container_decoration.dart';
 
 class PhoneNumberField extends StatefulWidget {
   final Function(String) editableField;

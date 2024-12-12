@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:my_resume/widgets/date_pick_form_field.dart';
-import 'package:my_resume/widgets/date_picker.dart';
 import 'package:my_resume/widgets/edit_field.dart';
 import 'package:my_resume/widgets/phone_number_field.dart';
 
@@ -180,12 +177,33 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             },
                           );
                         },
-                        child: Text(
-                          fullName,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold),
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                fullName,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const Positioned(
+                              right: 0,
+                              top: 0,
+                              child: Icon(
+                                Icons.disabled_by_default_outlined,
+                                color: Colors.red,
+                                size: 15,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       GestureDetector(
@@ -2386,6 +2404,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
               ),
             ),
           ],
+        ),
+        const Align(
+          alignment: Alignment.topCenter,
+          child: Card(
+            color: Colors.amber,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Tap on any section to edit',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
         ),
       ],
     );
