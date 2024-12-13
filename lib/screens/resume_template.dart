@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:my_resume/data/model/user_model.dart';
 import 'package:my_resume/widgets/date_pick_form_field.dart';
 import 'package:my_resume/widgets/edit_field.dart';
 import 'package:my_resume/widgets/phone_number_field.dart';
@@ -42,20 +45,40 @@ class TemporaryColumn extends StatefulWidget {
 }
 
 class _TemporaryColumnState extends State<TemporaryColumn> {
-  String fullName = 'Yihun Alemayehu';
-  String profession = 'Flutter Developer';
-  String bio =
-      'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
-      'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
-      'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
-      'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
-      'my skills and learn from experienced professionals in a collaborative environment.';
-  String email = 'yankure01@gmail.com';
-  String address = 'Addis Ababa, Ethiopia';
-  String linkedIn = 'linkedin.com/in/yihun-alemayehu';
-  String phone = '+251 982 39 40 38';
-  String github = 'github.com/Yihun-Alemayehu';
-  String website = 'yihun-alemayehu.netlify.com/app';
+
+  MyUser myUser = MyUser(
+    fullName: 'Yihun Alemayehu',
+    profession: 'Flutter Developer',
+    bio:
+        'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
+        'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
+        'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
+        'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
+        'my skills and learn from experienced professionals in a collaborative environment.',
+    profilePic: File('assets/copy.jpg'),
+    email: 'yankure01@gmail.com',
+    address: 'Addis Ababa, Ethiopia',
+    phoneNumber: '+251 982 39 40 38',
+    linkedIn: 'linkedin.com/in/yihun-alemayehu',
+    github: 'github.com/Yihun-Alemayehu',
+    website: 'yihun-alemayehu.netlify.com/app',
+  );
+
+  // String fullName = 'Yihun Alemayehu';
+  // String profession = 'Flutter Developer';
+  // String bio =
+  //     'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
+  //     'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
+  //     'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
+  //     'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
+  //     'my skills and learn from experienced professionals in a collaborative environment.';
+  // String email = 'yankure01@gmail.com';
+  // String address = 'Addis Ababa, Ethiopia';
+  // String linkedIn = 'linkedin.com/in/yihun-alemayehu';
+  // String phone = '+251 982 39 40 38';
+  // String github = 'github.com/Yihun-Alemayehu';
+  // String website = 'yihun-alemayehu.netlify.com/app';
+
   List education1 = [
     'Software Engineering',
     'Addis Ababa Science and Technology University',
@@ -169,8 +192,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    fullName = value;
+                                    myUser = myUser.copyWith(fullName: value);
                                   });
+                                  print(myUser.fullName);
                                 },
                                 fieldName: 'Full Name',
                               );
@@ -187,7 +211,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 ),
                               ),
                               child: Text(
-                                fullName,
+                                myUser.fullName,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 26,
@@ -214,7 +238,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    profession = value;
+                                    myUser = myUser.copyWith(profession: value);
                                   });
                                 },
                                 fieldName: 'Profession',
@@ -223,7 +247,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           );
                         },
                         child: Text(
-                          profession,
+                          myUser.profession,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 73, 150, 159),
                               fontSize: 11,
@@ -238,7 +262,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    bio = value;
+                                    myUser = myUser.copyWith(bio: value);
                                   });
                                 },
                                 fieldName: 'About Yourself',
@@ -249,7 +273,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
-                            bio,
+                            myUser.bio,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 8,
@@ -262,10 +286,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     ],
                   ),
                 ),
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 50,
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/copy.jpg'),
+                  backgroundImage: AssetImage(myUser.profilePic.path),
                 ),
               ],
             ),
@@ -289,7 +313,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    email = value;
+                                    myUser = myUser.copyWith(email: value);
                                   });
                                 },
                                 fieldName: 'Email Address',
@@ -304,9 +328,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               color: Colors.white,
                               size: 8,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              email,
+                              myUser.email,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 8,
@@ -323,7 +347,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    address = value;
+                                    myUser = myUser.copyWith(address: value);
                                   });
                                 },
                                 fieldName: 'Address',
@@ -333,15 +357,15 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.pin_drop,
                               color: Colors.white,
                               size: 8,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              address,
-                              style: TextStyle(
+                              myUser.address,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 8,
                               ),
@@ -357,7 +381,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    linkedIn = value;
+                                    myUser = myUser.copyWith(linkedIn: value);
                                   });
                                 },
                                 fieldName: 'LinkedIn',
@@ -367,15 +391,15 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.dataset_linked_outlined,
                               color: Colors.white,
                               size: 8,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              linkedIn,
-                              style: TextStyle(
+                              myUser.linkedIn!,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 8,
                               ),
@@ -404,7 +428,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return PhoneNumberField(
                                 editableField: (value) {
                                   setState(() {
-                                    phone = value;
+                                    myUser = myUser.copyWith(phoneNumber: value);
                                   });
                                 },
                                 fieldName: 'Phone Number',
@@ -414,15 +438,15 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.phone,
                               color: Colors.white,
                               size: 8,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              phone,
-                              style: TextStyle(
+                              myUser.phoneNumber,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 8,
                               ),
@@ -438,7 +462,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    github = value;
+                                    myUser = myUser.copyWith(github: value);
                                   });
                                 },
                                 fieldName: 'Github',
@@ -448,16 +472,16 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         child: Row(
                           children: [
-                            Icon(
-                              // Icons.gite,
-                              const IconData(0xe0be),
+                            const Icon(
+                              Icons.gite,
+                              // const IconData(0xe0be),
                               color: Colors.white,
                               size: 8,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              github,
-                              style: TextStyle(
+                              myUser.github!,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 8,
                               ),
@@ -473,7 +497,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return EditField(
                                 editableField: (value) {
                                   setState(() {
-                                    website = value;
+                                    myUser = myUser.copyWith(website: value);
                                   });
                                 },
                                 fieldName: 'Website',
@@ -483,15 +507,15 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.web_sharp,
                               color: Colors.white,
                               size: 8,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              website,
-                              style: TextStyle(
+                              myUser.website!,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 8,
                               ),
