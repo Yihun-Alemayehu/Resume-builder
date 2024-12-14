@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_resume/data/model/education_model.dart';
 import 'package:my_resume/data/model/user_model.dart';
 import 'package:my_resume/widgets/date_pick_form_field.dart';
 import 'package:my_resume/widgets/edit_field.dart';
@@ -162,26 +163,50 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   // String github = 'github.com/Yihun-Alemayehu';
   // String website = 'yihun-alemayehu.netlify.com/app';
 
-  List education1 = [
-    'Software Engineering',
-    'Addis Ababa Science and Technology University',
-    '05/2022',
-    'Present',
-    'Addis Ababa',
-    'Internet Programming',
-    'Object-oriented Programming',
-    'Data Structures and Algorithms',
-    'Mobile app development',
+  List<EducationBackground> edu = [
+    EducationBackground(
+      fieldOfStudy: 'Software Engineering',
+      institutionName: 'Addis Ababa Science and Technology University',
+      startDate: '05/2022',
+      endDate: 'Present',
+      institutionAddress: 'Addis Ababa',
+      courses: [
+        'Internet Programming',
+        'Object-oriented Programming',
+        'Data Structures and Algorithms',
+        'Mobile app development',
+      ],
+    ),
+    EducationBackground(
+      fieldOfStudy: 'Mobile app development',
+      institutionName: 'GDG AASTU',
+      startDate: '10/2023',
+      endDate: '03/2024',
+      institutionAddress: 'Addis Ababa',
+      courses: ['Flutter', 'Dart'],
+    ),
   ];
-  List education2 = [
-    'Mobile app development',
-    'GDG AASTU',
-    '10/2023',
-    '03/2024',
-    'Addis Ababa',
-    'Flutter',
-    'Dart',
-  ];
+
+  // List education1 = [
+  //   'Software Engineering',
+  //   'Addis Ababa Science and Technology University',
+  //   '05/2022',
+  //   'Present',
+  //   'Addis Ababa',
+  //   'Internet Programming',
+  //   'Object-oriented Programming',
+  //   'Data Structures and Algorithms',
+  //   'Mobile app development',
+  // ];
+  // List education2 = [
+  //   'Mobile app development',
+  //   'GDG AASTU',
+  //   '10/2023',
+  //   '03/2024',
+  //   'Addis Ababa',
+  //   'Flutter',
+  //   'Dart',
+  // ];
   List workExperience1 = [
     'FLutter Developer',
     'Hex-labs',
@@ -261,6 +286,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _githubController = TextEditingController();
   final TextEditingController _websiteController = TextEditingController();
+  final TextEditingController _fieldOfStudyController = TextEditingController();
+  final TextEditingController _institutionNameController = TextEditingController();
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+  final TextEditingController _institutionAddressController = TextEditingController();
+  final TextEditingController _coursesController = TextEditingController();
+
+  var _overlayController = OverlayPortalController();
 
   final List _iconsList1 = [
     Icons.email,
@@ -308,6 +341,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _phoneController.text = myUser.phoneNumber;
     _githubController.text = myUser.github!;
     _websiteController.text = myUser.website!;
+
+    _fieldOfStudyController.text = edu[0].fieldOfStudy;
+    _institutionNameController.text = edu[0].institutionName;
+    _startDateController.text = edu[0].startDate;
+    _endDateController.text = edu[0].endDate;
+    _institutionAddressController.text = edu[0].institutionAddress;
+    _coursesController.text = edu[0].courses.join(', ');
+
 
     _controllersList1
         .addAll([_emailController, _addressController, _linkedInController, 1]);
@@ -730,27 +771,104 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             const SizedBox(
                               height: 5,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education1[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'Field of study',
-                                    );
-                                  },
+                            // ElevatedButton(
+                            //   onPressed: () {
+                            //     _overlayController.toggle();
+                            //     print(_overlayController.isShowing);
+                            //   },
+                            //   child: const Text('toggle'),
+                            // ),
+                            OverlayPortal(
+                              controller: _overlayController,
+                              overlayChildBuilder: (BuildContext context) {
+                                return Positioned(
+                                  top: 315,
+                                  left: 110,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                        ),
+                                        height: 17,
+                                        width: 17,
+                                        child: const Icon(
+                                          Icons.arrow_downward_rounded,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 3,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                        ),
+                                        height: 17,
+                                        width: 17,
+                                        child: const Icon(
+                                          Icons.copy,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 3,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                        ),
+                                        height: 17,
+                                        width: 17,
+                                        child: const Icon(
+                                          Icons.delete_forever_rounded,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               },
-                              child: Text(
-                                education1[0],
+                              child: TextField(
+                                onTap: () {
+                                  _overlayController.toggle();
+                                  print(_overlayController.isShowing);
+                                },
+                                onTapOutside: (event) {
+                                  setState(() {
+                                  });
+                                  FocusScope.of(context).unfocus();
+                                },
+                                onSubmitted: (value) {
+                                  setState(() {
+                                  });
+                                  FocusScope.of(context).unfocus();
+                                },
+                                controller: _fieldOfStudyController,
+                                // focusNode: widget.professionFocusNode,
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                   fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                  border: InputBorder.none,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.zero,
+                                    borderSide:
+                                        BorderSide(color: Colors.green),
+                                  ),
                                 ),
                               ),
                             ),
