@@ -73,6 +73,10 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tap to edit'),
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.menu_open_sharp),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
@@ -258,10 +262,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _githubController = TextEditingController();
   final TextEditingController _websiteController = TextEditingController();
 
-  List _iconsList = [
+  final List _iconsList1 = [
     Icons.email,
     Icons.pin_drop,
     Icons.dataset_linked_outlined,
+  ];
+
+  final List _iconsList2 = [
     Icons.phone,
     Icons.gite,
     Icons.web_sharp,
@@ -276,16 +283,18 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     setState(() {});
   }
 
-  final List<String> _personalDataList = [
-    'email',
-    'address',
-    'linkedIn',
-    'phone',
-    'github',
-    'website',
-  ];
+  List _controllersList1 = [];
+  List _controllersList2 = [];
 
-  List _controllersList = [];
+  int _itemCount() {
+    if (myUser.github != null && myUser.website != null) {
+      return 3;
+    } else if (myUser.github != null || myUser.website != null) {
+      return 2;
+    } else {
+      return 1;
+    }
+  }
 
   @override
   void initState() {
@@ -300,10 +309,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _githubController.text = myUser.github!;
     _websiteController.text = myUser.website!;
 
-    _controllersList.addAll([
-      _emailController,
-      _addressController,
-      _linkedInController,
+    _controllersList1
+        .addAll([_emailController, _addressController, _linkedInController, 1]);
+
+    _controllersList2.addAll([
       _phoneController,
       _githubController,
       _websiteController,
@@ -523,12 +532,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   child: SizedBox(
                     height: 30,
                     child: ListView.builder(
-                      itemCount: 3,
+                      itemCount: myUser.linkedIn != null ? 3 : 2,
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
                             Icon(
-                              _iconsList[index],
+                              _iconsList1[index],
                               color: Colors.white,
                               size: 8,
                             ),
@@ -539,17 +548,17 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   setState(() {
                                     if (index == 0) {
                                       myUser = myUser.copyWith(
-                                          email: _controllersList[index].text);
+                                          email: _controllersList1[index].text);
                                       print(myUser.email);
                                     } else if (index == 1) {
                                       myUser = myUser.copyWith(
                                           address:
-                                              _controllersList[index].text);
+                                              _controllersList1[index].text);
                                       print(myUser.address);
                                     } else if (index == 2) {
                                       myUser = myUser.copyWith(
                                           linkedIn:
-                                              _controllersList[index].text);
+                                              _controllersList1[index].text);
                                       print(myUser.linkedIn);
                                     }
                                   });
@@ -559,29 +568,28 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   setState(() {
                                     if (index == 0) {
                                       myUser = myUser.copyWith(
-                                          email: _controllersList[index].text);
+                                          email: _controllersList1[index].text);
                                       print(myUser.email);
                                     } else if (index == 1) {
                                       myUser = myUser.copyWith(
                                           address:
-                                              _controllersList[index].text);
+                                              _controllersList1[index].text);
                                       print(myUser.address);
                                     } else if (index == 2) {
                                       myUser = myUser.copyWith(
                                           linkedIn:
-                                              _controllersList[index].text);
+                                              _controllersList1[index].text);
                                       print(myUser.linkedIn);
                                     }
                                   });
                                   FocusScope.of(context).unfocus();
                                 },
-                                controller: _emailController,
+                                controller: _controllersList1[index],
                                 // focusNode: widget.professionFocusNode,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 8,
                                 ),
-
                                 decoration: const InputDecoration(
                                   isDense: true,
                                   contentPadding: EdgeInsets.zero,
@@ -601,264 +609,90 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                 ),
               ),
             ),
-            // Expanded(
-            //   child: Container(
-            //     color: const Color.fromARGB(255, 34, 42, 51),
-            //     child: Padding(
-            //       padding: const EdgeInsets.only(
-            //           right: 30, left: 20, top: 10, bottom: 10),
-            //       child: Column(
-            //         children: [
-            //           Row(
-            //             children: [
-            //               const Icon(
-            //                 Icons.email,
-            //                 color: Colors.white,
-            //                 size: 8,
-            //               ),
-            //               const SizedBox(width: 5),
-            //               Expanded(
-            //                 child: TextField(
-            //                   onTapOutside: (event) {
-            //                     setState(() {
-            //                       myUser = myUser.copyWith(
-            //                           email: _emailController.text);
-            //                     });
-            //                     print(myUser.email);
-            //                     FocusScope.of(context).unfocus();
-            //                   },
-            //                   onSubmitted: (value) {
-            //                     setState(() {
-            //                       myUser = myUser.copyWith(email: value);
-            //                     });
-            //                     print(myUser.email);
-            //                   },
-            //                   controller: _emailController,
-            //                   // focusNode: widget.professionFocusNode,
-            //                   style: const TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 8,
-            //                   ),
 
-            //                   decoration: const InputDecoration(
-            //                     isDense: true,
-            //                     contentPadding: EdgeInsets.zero,
-            //                     border: InputBorder.none,
-            //                     focusedBorder: OutlineInputBorder(
-            //                       borderRadius: BorderRadius.zero,
-            //                       borderSide: BorderSide(color: Colors.white),
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //           Row(
-            //             children: [
-            //               const Icon(
-            //                 Icons.pin_drop,
-            //                 color: Colors.white,
-            //                 size: 8,
-            //               ),
-            //               const SizedBox(width: 5),
-            //               Expanded(
-            //                 child: TextField(
-            //                   onTapOutside: (event) {
-            //                     setState(() {
-            //                       myUser = myUser.copyWith(
-            //                           address: _addressController.text);
-            //                     });
-            //                     print(myUser.address);
-            //                     FocusScope.of(context).unfocus();
-            //                   },
-            //                   onSubmitted: (value) {
-            //                     setState(() {
-            //                       myUser = myUser.copyWith(address: value);
-            //                     });
-            //                     print(myUser.address);
-            //                   },
-            //                   controller: _addressController,
-            //                   // focusNode: widget.professionFocusNode,
-            //                   style: const TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 8,
-            //                   ),
-
-            //                   decoration: const InputDecoration(
-            //                     isDense: true,
-            //                     contentPadding: EdgeInsets.zero,
-            //                     border: InputBorder.none,
-            //                     focusedBorder: OutlineInputBorder(
-            //                       borderRadius: BorderRadius.zero,
-            //                       borderSide: BorderSide(color: Colors.white),
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //           Row(
-            //             children: [
-            //               const Icon(
-            //                 Icons.dataset_linked_outlined,
-            //                 color: Colors.white,
-            //                 size: 8,
-            //               ),
-            //               const SizedBox(width: 5),
-            //               Expanded(
-            //                 child: TextField(
-            //                   onTapOutside: (event) {
-            //                     setState(() {
-            //                       myUser = myUser.copyWith(
-            //                           linkedIn: _linkedInController.text);
-            //                     });
-            //                     print(myUser.linkedIn);
-            //                     FocusScope.of(context).unfocus();
-            //                   },
-            //                   onSubmitted: (value) {
-            //                     setState(() {
-            //                       myUser = myUser.copyWith(linkedIn: value);
-            //                     });
-            //                     print(myUser.linkedIn);
-            //                   },
-            //                   controller: _linkedInController,
-            //                   // focusNode: widget.professionFocusNode,
-            //                   style: const TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 8,
-            //                   ),
-
-            //                   decoration: const InputDecoration(
-            //                     isDense: true,
-            //                     contentPadding: EdgeInsets.zero,
-            //                     border: InputBorder.none,
-            //                     focusedBorder: OutlineInputBorder(
-            //                       borderRadius: BorderRadius.zero,
-            //                       borderSide: BorderSide(color: Colors.white),
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            // Phone number, github and website section
             Expanded(
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
                 child: Padding(
                   padding: const EdgeInsets.only(
                       right: 30, left: 20, top: 10, bottom: 10),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return PhoneNumberField(
-                                editableField: (value) {
-                                  setState(() {
-                                    myUser =
-                                        myUser.copyWith(phoneNumber: value);
-                                  });
-                                },
-                                fieldName: 'Phone Number',
-                              );
-                            },
-                          );
-                        },
-                        child: Row(
+                  child: SizedBox(
+                    height: 30,
+                    child: ListView.builder(
+                      itemCount: _itemCount(),
+                      itemBuilder: (context, index) {
+                        return Row(
                           children: [
-                            const Icon(
-                              Icons.phone,
+                            Icon(
+                              _iconsList2[index],
                               color: Colors.white,
                               size: 8,
                             ),
                             const SizedBox(width: 5),
-                            Text(
-                              myUser.phoneNumber,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
+                            Expanded(
+                              child: TextField(
+                                onTapOutside: (event) {
                                   setState(() {
-                                    myUser = myUser.copyWith(github: value);
+                                    if (index == 0) {
+                                      myUser = myUser.copyWith(
+                                          email: _controllersList2[index].text);
+                                      print(myUser.email);
+                                    } else if (index == 1) {
+                                      myUser = myUser.copyWith(
+                                          address:
+                                              _controllersList2[index].text);
+                                      print(myUser.address);
+                                    } else if (index == 2) {
+                                      myUser = myUser.copyWith(
+                                          linkedIn:
+                                              _controllersList2[index].text);
+                                      print(myUser.linkedIn);
+                                    }
                                   });
+                                  FocusScope.of(context).unfocus();
                                 },
-                                fieldName: 'Github',
-                              );
-                            },
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.gite,
-                              // const IconData(0xe0be),
-                              color: Colors.white,
-                              size: 8,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              myUser.github!,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
+                                onSubmitted: (value) {
                                   setState(() {
-                                    myUser = myUser.copyWith(website: value);
+                                    if (index == 0) {
+                                      myUser = myUser.copyWith(
+                                          email: _controllersList2[index].text);
+                                      print(myUser.email);
+                                    } else if (index == 1) {
+                                      myUser = myUser.copyWith(
+                                          address:
+                                              _controllersList2[index].text);
+                                      print(myUser.address);
+                                    } else if (index == 2) {
+                                      myUser = myUser.copyWith(
+                                          linkedIn:
+                                              _controllersList2[index].text);
+                                      print(myUser.linkedIn);
+                                    }
                                   });
+                                  FocusScope.of(context).unfocus();
                                 },
-                                fieldName: 'Website',
-                              );
-                            },
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.web_sharp,
-                              color: Colors.white,
-                              size: 8,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              myUser.website!,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
+                                controller: _controllersList2[index],
+                                // focusNode: widget.professionFocusNode,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                  border: InputBorder.none,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.zero,
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                    ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -2986,7 +2820,7 @@ class MyColumn extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.only(right: 10, left: 20),
                 // width: MediaQuery.of(context).size.width * 0.6,
-                child: Column(
+                child: const Column(
                   children: [
                     Column(
                       children: [
@@ -3317,8 +3151,8 @@ class MyColumn extends StatelessWidget {
             // SKILLS Section
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(left: 20),
-                child: Column(
+                padding: const EdgeInsets.only(left: 20),
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
