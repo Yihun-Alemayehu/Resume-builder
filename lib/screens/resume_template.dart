@@ -30,7 +30,16 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
       ),
       body: SafeArea(
         child: InteractiveViewer(
-          child: TemporaryColumn(),
+          constrained: true, // Set to false to allow it to expand freely
+          boundaryMargin:
+              const EdgeInsets.all(20.0), // Optional for boundary padding
+          minScale: 0.5, // Minimum zoom scale
+          maxScale: 3.0,
+          child: const SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            primary: true,
+            child: TemporaryColumn(),
+          ),
         ),
       ),
     );
@@ -45,7 +54,6 @@ class TemporaryColumn extends StatefulWidget {
 }
 
 class _TemporaryColumnState extends State<TemporaryColumn> {
-
   MyUser myUser = MyUser(
     fullName: 'Yihun Alemayehu',
     profession: 'Flutter Developer',
@@ -169,6 +177,16 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     'Full Professional Proficient',
   ];
 
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _professionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = myUser.fullName;
+    _professionController.text = myUser.profession;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -201,33 +219,35 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             },
                           );
                         },
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Text(
-                                myUser.fullName,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                        child: TextField(
+                          onTapOutside: (event) {
+                            setState(() {
+                              myUser = myUser.copyWith(
+                                  fullName: _nameController.text);
+                            });
+                            print(myUser.fullName);
+                            FocusScope.of(context).unfocus();
+                          },
+                          onSubmitted: (value) {
+                            setState(() {
+                              myUser = myUser.copyWith(fullName: value);
+                            });
+                            print(myUser.fullName);
+                          },
+                          controller: _nameController,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
                             ),
-                            const Positioned(
-                              right: 0,
-                              top: 0,
-                              child: Icon(
-                                Icons.disabled_by_default_outlined,
-                                color: Colors.red,
-                                size: 15,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                       GestureDetector(
@@ -246,12 +266,35 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             },
                           );
                         },
-                        child: Text(
-                          myUser.profession,
+                        child: TextField(
+                          onTapOutside: (event) {
+                            setState(() {
+                              myUser = myUser.copyWith(
+                                  profession: _professionController.text);
+                            });
+                            print(myUser.profession);
+                            FocusScope.of(context).unfocus();
+                          },
+                          onSubmitted: (value) {
+                            setState(() {
+                              myUser = myUser.copyWith(profession: value);
+                            });
+                            print(myUser.profession);
+                          },
+                          controller: _professionController,
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 73, 150, 159),
-                              fontSize: 11,
-                              fontWeight: FontWeight.normal),
+                            color: Color.fromARGB(255, 73, 150, 159),
+                            fontSize: 11,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                       GestureDetector(
@@ -428,7 +471,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               return PhoneNumberField(
                                 editableField: (value) {
                                   setState(() {
-                                    myUser = myUser.copyWith(phoneNumber: value);
+                                    myUser =
+                                        myUser.copyWith(phoneNumber: value);
                                   });
                                 },
                                 fieldName: 'Phone Number',
