@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/data/model/user_model.dart';
 import 'package:my_resume/widgets/date_pick_form_field.dart';
 import 'package:my_resume/widgets/edit_field.dart';
@@ -14,6 +15,59 @@ class ResumeTemplate extends StatefulWidget {
 }
 
 class _ResumeTemplateState extends State<ResumeTemplate> {
+  final TransformationController _transformationController =
+      TransformationController(); // Manages zoom
+  final FocusNode _nameFocusNode = FocusNode(); // Focus for name field
+  final FocusNode _professionFocusNode =
+      FocusNode(); // Focus for profession field
+
+  final GlobalKey nameFieldKey = GlobalKey(); // Key for the name field
+
+  void _zoomToField(GlobalKey fieldKey) {
+    // Get the field's position
+    final RenderBox? renderBox =
+        fieldKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox != null) {
+      final position =
+          renderBox.localToGlobal(Offset.zero); // Position on screen
+      final size = renderBox.size; // Size of the field
+      print('Field position: $position, Size: $size');
+
+      // Adjust zoom to focus on the field
+      setState(() {
+        _transformationController.value = Matrix4.identity()
+          ..scale(2.0) // Zoom scale
+          ..translate(-position.dx + size.width / 2, -size.height);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Add listeners for zoom behavior
+    _nameFocusNode.addListener(() {
+      if (_nameFocusNode.hasFocus) {
+        _zoomToField(nameFieldKey); // Adjust for name field position
+      }
+    });
+
+    _professionFocusNode.addListener(() {
+      if (_professionFocusNode.hasFocus) {
+        _zoomToField(nameFieldKey); // Adjust for profession field position
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _transformationController.dispose();
+    _nameFocusNode.dispose();
+    _professionFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,15 +84,21 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
       ),
       body: SafeArea(
         child: InteractiveViewer(
+          // transformationController: _transformationController,
           constrained: true, // Set to false to allow it to expand freely
           boundaryMargin:
               const EdgeInsets.all(20.0), // Optional for boundary padding
           minScale: 0.5, // Minimum zoom scale
           maxScale: 3.0,
           child: const SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             primary: true,
-            child: TemporaryColumn(),
+            child: TemporaryColumn(
+                // nameFieldKey: nameFieldKey,
+                // nameFocusNode: _nameFocusNode,
+                // professionFocusNode: _professionFocusNode,
+                // onFocusField: _zoomToField,
+                ),
           ),
         ),
       ),
@@ -47,7 +107,18 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
 }
 
 class TemporaryColumn extends StatefulWidget {
-  const TemporaryColumn({super.key});
+  // final GlobalKey nameFieldKey;
+  // final FocusNode nameFocusNode;
+  // final FocusNode professionFocusNode;
+  // final Function(GlobalKey) onFocusField;
+
+  const TemporaryColumn({
+    super.key,
+    // required this.nameFocusNode,
+    // required this.professionFocusNode,
+    // required this.nameFieldKey,
+    // required this.onFocusField,
+  });
 
   @override
   State<TemporaryColumn> createState() => _TemporaryColumnState();
@@ -179,12 +250,64 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _professionController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _linkedInController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _githubController = TextEditingController();
+  final TextEditingController _websiteController = TextEditingController();
+
+  List _iconsList = [
+    Icons.email,
+    Icons.pin_drop,
+    Icons.dataset_linked_outlined,
+    Icons.phone,
+    Icons.gite,
+    Icons.web_sharp,
+  ];
+
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> pickImage() async {
+    var image = await _picker.pickImage(source: ImageSource.gallery);
+    _image = File(image!.path);
+    setState(() {});
+  }
+
+  final List<String> _personalDataList = [
+    'email',
+    'address',
+    'linkedIn',
+    'phone',
+    'github',
+    'website',
+  ];
+
+  List _controllersList = [];
 
   @override
   void initState() {
     super.initState();
     _nameController.text = myUser.fullName;
     _professionController.text = myUser.profession;
+    _bioController.text = myUser.bio;
+    _emailController.text = myUser.email;
+    _addressController.text = myUser.address;
+    _linkedInController.text = myUser.linkedIn!;
+    _phoneController.text = myUser.phoneNumber;
+    _githubController.text = myUser.github!;
+    _websiteController.text = myUser.website!;
+
+    _controllersList.addAll([
+      _emailController,
+      _addressController,
+      _linkedInController,
+      _phoneController,
+      _githubController,
+      _websiteController,
+    ]);
   }
 
   @override
@@ -202,138 +325,189 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
-                                  setState(() {
-                                    myUser = myUser.copyWith(fullName: value);
-                                  });
-                                  print(myUser.fullName);
-                                },
-                                fieldName: 'Full Name',
-                              );
-                            },
-                          );
+                      // Focus(
+                      //   onFocusChange: (hasFocus) {
+                      //     if (hasFocus) {
+                      //       widget.onFocusField(widget.nameFieldKey);
+                      //     }
+                      //   },
+                      //   child: TextField(
+                      //     key: widget.nameFieldKey,
+                      //     onTapOutside: (event) {
+                      //       setState(() {
+                      //         myUser = myUser.copyWith(
+                      //             fullName: _nameController.text);
+                      //       });
+                      //       print(myUser.fullName);
+                      //       FocusScope.of(context).unfocus();
+                      //     },
+                      //     onSubmitted: (value) {
+                      //       setState(() {
+                      //         myUser = myUser.copyWith(fullName: value);
+                      //       });
+                      //       print(myUser.fullName);
+                      //     },
+                      //     controller: _nameController,
+                      //     focusNode: widget.nameFocusNode,
+                      //     style: const TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: 20,
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //     decoration: const InputDecoration(
+                      //       isDense: true,
+                      //       contentPadding: EdgeInsets.zero,
+                      //       border: InputBorder.none,
+                      //       focusedBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(color: Colors.white),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      TextField(
+                        onTapOutside: (event) {
+                          setState(() {
+                            myUser =
+                                myUser.copyWith(fullName: _nameController.text);
+                          });
+                          print(myUser.fullName);
+                          FocusScope.of(context).unfocus();
                         },
-                        child: TextField(
-                          onTapOutside: (event) {
-                            setState(() {
-                              myUser = myUser.copyWith(
-                                  fullName: _nameController.text);
-                            });
-                            print(myUser.fullName);
-                            FocusScope.of(context).unfocus();
-                          },
-                          onSubmitted: (value) {
-                            setState(() {
-                              myUser = myUser.copyWith(fullName: value);
-                            });
-                            print(myUser.fullName);
-                          },
-                          controller: _nameController,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            border: InputBorder.none,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
+                        onSubmitted: (value) {
+                          setState(() {
+                            myUser = myUser.copyWith(fullName: value);
+                          });
+                          print(myUser.fullName);
+                        },
+                        controller: _nameController,
+                        // focusNode: widget.nameFocusNode,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.zero,
+                          border: InputBorder.none,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(color: Colors.white),
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
-                                  setState(() {
-                                    myUser = myUser.copyWith(profession: value);
-                                  });
-                                },
-                                fieldName: 'Profession',
-                              );
-                            },
-                          );
+                      TextField(
+                        onTapOutside: (event) {
+                          setState(() {
+                            myUser = myUser.copyWith(
+                                profession: _professionController.text);
+                          });
+                          print(myUser.profession);
+                          FocusScope.of(context).unfocus();
                         },
-                        child: TextField(
-                          onTapOutside: (event) {
-                            setState(() {
-                              myUser = myUser.copyWith(
-                                  profession: _professionController.text);
-                            });
-                            print(myUser.profession);
-                            FocusScope.of(context).unfocus();
-                          },
-                          onSubmitted: (value) {
-                            setState(() {
-                              myUser = myUser.copyWith(profession: value);
-                            });
-                            print(myUser.profession);
-                          },
-                          controller: _professionController,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 73, 150, 159),
-                            fontSize: 11,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            border: InputBorder.none,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
+                        onSubmitted: (value) {
+                          setState(() {
+                            myUser = myUser.copyWith(profession: value);
+                          });
+                          print(myUser.profession);
+                        },
+                        controller: _professionController,
+                        // focusNode: widget.professionFocusNode,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 73, 150, 159),
+                          fontSize: 11,
+                          fontWeight: FontWeight.normal,
+                        ),
+
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.zero,
+                          border: InputBorder.none,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(color: Colors.white),
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
-                                  setState(() {
-                                    myUser = myUser.copyWith(bio: value);
-                                  });
-                                },
-                                fieldName: 'About Yourself',
-                              );
-                            },
-                          );
+                      TextField(
+                        maxLines: 10,
+                        onTapOutside: (event) {
+                          setState(() {
+                            myUser = myUser.copyWith(bio: _bioController.text);
+                          });
+                          print(myUser.bio);
+                          FocusScope.of(context).unfocus();
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Text(
-                            myUser.bio,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 8,
-                            ),
-                            overflow: TextOverflow.visible,
-                            softWrap: true,
+                        onSubmitted: (value) {
+                          setState(() {
+                            myUser = myUser.copyWith(bio: value);
+                          });
+                          print(myUser.bio);
+                        },
+                        controller: _bioController,
+                        // focusNode: widget.professionFocusNode,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 8,
+                        ),
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.zero,
+                          border: InputBorder.none,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.zero,
+                            borderSide: BorderSide(color: Colors.white),
                           ),
                         ),
-                      )
+                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     showModalBottomSheet(
+                      //       context: context,
+                      //       builder: (context) {
+                      //         return EditField(
+                      //           editableField: (value) {
+                      //             setState(() {
+                      //               myUser = myUser.copyWith(bio: value);
+                      //             });
+                      //           },
+                      //           fieldName: 'About Yourself',
+                      //         );
+                      //       },
+                      //     );
+                      //   },
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.only(bottom: 10),
+                      //     child: Text(
+                      //       myUser.bio,
+                      //       style: const TextStyle(
+                      //         color: Colors.white,
+                      //         fontSize: 8,
+                      //       ),
+                      //       overflow: TextOverflow.visible,
+                      //       softWrap: true,
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage(myUser.profilePic.path),
-                ),
+                _image == null
+                    ? GestureDetector(
+                        onTap: () {
+                          pickImage();
+                        },
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.white,
+                          backgroundImage: AssetImage(myUser.profilePic.path),
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.white,
+                        backgroundImage: FileImage(_image!),
+                      ),
               ],
             ),
           ),
@@ -346,115 +520,232 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                 child: Padding(
                   padding: const EdgeInsets.only(
                       right: 30, left: 20, top: 10, bottom: 10),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
-                                  setState(() {
-                                    myUser = myUser.copyWith(email: value);
-                                  });
-                                },
-                                fieldName: 'Email Address',
-                              );
-                            },
-                          );
-                        },
-                        child: Row(
+                  child: SizedBox(
+                    height: 30,
+                    child: ListView.builder(
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return Row(
                           children: [
-                            const Icon(
-                              Icons.email,
+                            Icon(
+                              _iconsList[index],
                               color: Colors.white,
                               size: 8,
                             ),
                             const SizedBox(width: 5),
-                            Text(
-                              myUser.email,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
+                            Expanded(
+                              child: TextField(
+                                onTapOutside: (event) {
                                   setState(() {
-                                    myUser = myUser.copyWith(address: value);
+                                    if (index == 0) {
+                                      myUser = myUser.copyWith(
+                                          email: _controllersList[index].text);
+                                      print(myUser.email);
+                                    } else if (index == 1) {
+                                      myUser = myUser.copyWith(
+                                          address:
+                                              _controllersList[index].text);
+                                      print(myUser.address);
+                                    } else if (index == 2) {
+                                      myUser = myUser.copyWith(
+                                          linkedIn:
+                                              _controllersList[index].text);
+                                      print(myUser.linkedIn);
+                                    }
                                   });
+                                  FocusScope.of(context).unfocus();
                                 },
-                                fieldName: 'Address',
-                              );
-                            },
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.pin_drop,
-                              color: Colors.white,
-                              size: 8,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              myUser.address,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return EditField(
-                                editableField: (value) {
+                                onSubmitted: (value) {
                                   setState(() {
-                                    myUser = myUser.copyWith(linkedIn: value);
+                                    if (index == 0) {
+                                      myUser = myUser.copyWith(
+                                          email: _controllersList[index].text);
+                                      print(myUser.email);
+                                    } else if (index == 1) {
+                                      myUser = myUser.copyWith(
+                                          address:
+                                              _controllersList[index].text);
+                                      print(myUser.address);
+                                    } else if (index == 2) {
+                                      myUser = myUser.copyWith(
+                                          linkedIn:
+                                              _controllersList[index].text);
+                                      print(myUser.linkedIn);
+                                    }
                                   });
+                                  FocusScope.of(context).unfocus();
                                 },
-                                fieldName: 'LinkedIn',
-                              );
-                            },
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.dataset_linked_outlined,
-                              color: Colors.white,
-                              size: 8,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              myUser.linkedIn!,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
+                                controller: _emailController,
+                                // focusNode: widget.professionFocusNode,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                  border: InputBorder.none,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.zero,
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                    ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
+            // Expanded(
+            //   child: Container(
+            //     color: const Color.fromARGB(255, 34, 42, 51),
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(
+            //           right: 30, left: 20, top: 10, bottom: 10),
+            //       child: Column(
+            //         children: [
+            //           Row(
+            //             children: [
+            //               const Icon(
+            //                 Icons.email,
+            //                 color: Colors.white,
+            //                 size: 8,
+            //               ),
+            //               const SizedBox(width: 5),
+            //               Expanded(
+            //                 child: TextField(
+            //                   onTapOutside: (event) {
+            //                     setState(() {
+            //                       myUser = myUser.copyWith(
+            //                           email: _emailController.text);
+            //                     });
+            //                     print(myUser.email);
+            //                     FocusScope.of(context).unfocus();
+            //                   },
+            //                   onSubmitted: (value) {
+            //                     setState(() {
+            //                       myUser = myUser.copyWith(email: value);
+            //                     });
+            //                     print(myUser.email);
+            //                   },
+            //                   controller: _emailController,
+            //                   // focusNode: widget.professionFocusNode,
+            //                   style: const TextStyle(
+            //                     color: Colors.white,
+            //                     fontSize: 8,
+            //                   ),
+
+            //                   decoration: const InputDecoration(
+            //                     isDense: true,
+            //                     contentPadding: EdgeInsets.zero,
+            //                     border: InputBorder.none,
+            //                     focusedBorder: OutlineInputBorder(
+            //                       borderRadius: BorderRadius.zero,
+            //                       borderSide: BorderSide(color: Colors.white),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //           Row(
+            //             children: [
+            //               const Icon(
+            //                 Icons.pin_drop,
+            //                 color: Colors.white,
+            //                 size: 8,
+            //               ),
+            //               const SizedBox(width: 5),
+            //               Expanded(
+            //                 child: TextField(
+            //                   onTapOutside: (event) {
+            //                     setState(() {
+            //                       myUser = myUser.copyWith(
+            //                           address: _addressController.text);
+            //                     });
+            //                     print(myUser.address);
+            //                     FocusScope.of(context).unfocus();
+            //                   },
+            //                   onSubmitted: (value) {
+            //                     setState(() {
+            //                       myUser = myUser.copyWith(address: value);
+            //                     });
+            //                     print(myUser.address);
+            //                   },
+            //                   controller: _addressController,
+            //                   // focusNode: widget.professionFocusNode,
+            //                   style: const TextStyle(
+            //                     color: Colors.white,
+            //                     fontSize: 8,
+            //                   ),
+
+            //                   decoration: const InputDecoration(
+            //                     isDense: true,
+            //                     contentPadding: EdgeInsets.zero,
+            //                     border: InputBorder.none,
+            //                     focusedBorder: OutlineInputBorder(
+            //                       borderRadius: BorderRadius.zero,
+            //                       borderSide: BorderSide(color: Colors.white),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //           Row(
+            //             children: [
+            //               const Icon(
+            //                 Icons.dataset_linked_outlined,
+            //                 color: Colors.white,
+            //                 size: 8,
+            //               ),
+            //               const SizedBox(width: 5),
+            //               Expanded(
+            //                 child: TextField(
+            //                   onTapOutside: (event) {
+            //                     setState(() {
+            //                       myUser = myUser.copyWith(
+            //                           linkedIn: _linkedInController.text);
+            //                     });
+            //                     print(myUser.linkedIn);
+            //                     FocusScope.of(context).unfocus();
+            //                   },
+            //                   onSubmitted: (value) {
+            //                     setState(() {
+            //                       myUser = myUser.copyWith(linkedIn: value);
+            //                     });
+            //                     print(myUser.linkedIn);
+            //                   },
+            //                   controller: _linkedInController,
+            //                   // focusNode: widget.professionFocusNode,
+            //                   style: const TextStyle(
+            //                     color: Colors.white,
+            //                     fontSize: 8,
+            //                   ),
+
+            //                   decoration: const InputDecoration(
+            //                     isDense: true,
+            //                     contentPadding: EdgeInsets.zero,
+            //                     border: InputBorder.none,
+            //                     focusedBorder: OutlineInputBorder(
+            //                       borderRadius: BorderRadius.zero,
+            //                       borderSide: BorderSide(color: Colors.white),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
