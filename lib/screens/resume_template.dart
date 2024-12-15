@@ -279,7 +279,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _endDateController = TextEditingController();
   final TextEditingController _institutionAddressController =
       TextEditingController();
-  final TextEditingController _coursesController = TextEditingController();
   final TextEditingController _fieldOfStudyController2 =
       TextEditingController();
   final TextEditingController _institutionNameController2 =
@@ -288,7 +287,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _endDateController2 = TextEditingController();
   final TextEditingController _institutionAddressController2 =
       TextEditingController();
-  final TextEditingController _coursesController2 = TextEditingController();
+  final TextEditingController _coursesController = TextEditingController();
+  final TextEditingController _coursesController4eduOne1 = TextEditingController();
+  final TextEditingController _coursesController4eduOne2 = TextEditingController();
+  final TextEditingController _coursesController4eduOne3 = TextEditingController();
+  final TextEditingController _coursesController4eduOne4 = TextEditingController();
+  final TextEditingController _coursesController4eduTwo1 = TextEditingController();
+  final TextEditingController _coursesController4eduTwo2 = TextEditingController();
+  final TextEditingController _coursesController4eduTwo3 = TextEditingController();
+  final TextEditingController _coursesController4eduTwo4 = TextEditingController();
+  final TextEditingController _coursesController4eduThree1 = TextEditingController();
+  final TextEditingController _coursesController4eduThree2 = TextEditingController();
+  final TextEditingController _coursesController4eduThree3 = TextEditingController();
+  final TextEditingController _coursesController4eduThree4 = TextEditingController();
 
   var _overlayController = OverlayPortalController();
 
@@ -319,6 +330,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   List _controllersList2 = [];
   List _controllersList3 = [];
   List _controllersList4 = [];
+  List _coursesControllersList = [];
 
   int _itemCount() {
     if (myUser.github != null && myUser.website != null) {
@@ -348,6 +360,21 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     }
   }
 
+  int _heightFunction() {
+    int length = edu.length;
+    if (length == 1) {
+      return 110;
+    } else if (length == 2) {
+      return 220;
+    } else if (length == 3) {
+      return 330;
+    }else if (length == 4) {
+      return 440;
+    } else {
+      return 550;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -366,14 +393,23 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _startDateController.text = edu[0].startDate;
     _endDateController.text = edu[0].endDate;
     _institutionAddressController.text = edu[0].institutionAddress;
-    _coursesController.text = edu[0].courses.join(', ');
+    _coursesController.text = edu[0].courses[0];
 
     _fieldOfStudyController2.text = edu[1].fieldOfStudy;
     _institutionNameController2.text = edu[1].institutionName;
     _startDateController2.text = edu[1].startDate;
     _endDateController2.text = edu[1].endDate;
     _institutionAddressController2.text = edu[1].institutionAddress;
-    _coursesController2.text = edu[1].courses.join(', ');
+
+    _coursesController4eduOne1.text = edu[0].courses[0];
+    _coursesController4eduOne2.text = edu[0].courses[1];
+    _coursesController4eduOne3.text = edu[0].courses[2];
+    _coursesController4eduOne4.text = edu[0].courses[3];
+    _coursesController4eduTwo1.text = edu[1].courses[0];
+    _coursesController4eduTwo2.text = edu[1].courses[1];
+    // _coursesController4eduTwo3.text = edu[1].courses[2];
+    // _coursesController4eduTwo4.text = edu[1].courses[3];
+
 
     _controllersList1
         .addAll([_emailController, _addressController, _linkedInController, 1]);
@@ -399,7 +435,17 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       _startDateController2,
       _endDateController2,
       _institutionAddressController2,
-      _coursesController2,
+    ]);
+
+    _coursesControllersList.addAll([
+      _coursesController4eduOne1,
+      _coursesController4eduOne2,
+      _coursesController4eduOne3,
+      _coursesController4eduOne4,
+      _coursesController4eduTwo1,
+      _coursesController4eduTwo2,
+      _coursesController4eduTwo3,
+      _coursesController4eduTwo4,
     ]);
   }
 
@@ -757,9 +803,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     Column(
                       children: [
                         SizedBox(
-                          height: 220,
+                          height: _heightFunction().toDouble(),
                           child: ListView.builder(
-                            itemCount: 2,
+                            itemCount: edu.length,
                             itemBuilder: (context, index) {
                               return Container(
                                 decoration: BoxDecoration(
@@ -950,7 +996,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       .unfocus();
                                                 },
                                                 controller: _controllerFunction(
-                                                    index: index, count: 3),
+                                                    index: index, count: 4),
                                                 // focusNode: widget.professionFocusNode,
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
@@ -1176,38 +1222,52 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 const SizedBox(
                                                   width: 3,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                  ),
-                                                  height: 17,
-                                                  width: 17,
-                                                  child: const Icon(
-                                                    Icons.copy,
-                                                    color: Colors.white,
-                                                    size: 15,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      edu.insert(index, edu.elementAt(index));
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.grey,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              2),
+                                                    ),
+                                                    height: 17,
+                                                    width: 17,
+                                                    child: const Icon(
+                                                      Icons.copy,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    ),
                                                   ),
                                                 ),
                                                 const SizedBox(
                                                   width: 3,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                  ),
-                                                  height: 17,
-                                                  width: 17,
-                                                  child: const Icon(
-                                                    Icons
-                                                        .delete_forever_rounded,
-                                                    color: Colors.white,
-                                                    size: 15,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      edu.removeAt(index);
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              2),
+                                                    ),
+                                                    height: 17,
+                                                    width: 17,
+                                                    child: const Icon(
+                                                      Icons
+                                                          .delete_forever_rounded,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
