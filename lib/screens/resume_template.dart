@@ -148,20 +148,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     website: 'yihun-alemayehu.netlify.com/app',
   );
 
-  // String fullName = 'Yihun Alemayehu';
-  // String profession = 'Flutter Developer';
-  // String bio =
-  //     'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
-  //     'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
-  //     'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
-  //     'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
-  //     'my skills and learn from experienced professionals in a collaborative environment.';
-  // String email = 'yankure01@gmail.com';
-  // String address = 'Addis Ababa, Ethiopia';
-  // String linkedIn = 'linkedin.com/in/yihun-alemayehu';
-  // String phone = '+251 982 39 40 38';
-  // String github = 'github.com/Yihun-Alemayehu';
-  // String website = 'yihun-alemayehu.netlify.com/app';
 
   List<EducationBackground> edu = [
     EducationBackground(
@@ -187,26 +173,26 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     ),
   ];
 
-  // List education1 = [
-  //   'Software Engineering',
-  //   'Addis Ababa Science and Technology University',
-  //   '05/2022',
-  //   'Present',
-  //   'Addis Ababa',
-  //   'Internet Programming',
-  //   'Object-oriented Programming',
-  //   'Data Structures and Algorithms',
-  //   'Mobile app development',
-  // ];
-  // List education2 = [
-  //   'Mobile app development',
-  //   'GDG AASTU',
-  //   '10/2023',
-  //   '03/2024',
-  //   'Addis Ababa',
-  //   'Flutter',
-  //   'Dart',
-  // ];
+  List education1 = [
+    'Software Engineering',
+    'Addis Ababa Science and Technology University',
+    '05/2022',
+    'Present',
+    'Addis Ababa',
+    'Internet Programming',
+    'Object-oriented Programming',
+    'Data Structures and Algorithms',
+    'Mobile app development',
+  ];
+  List education2 = [
+    'Mobile app development',
+    'GDG AASTU',
+    '10/2023',
+    '03/2024',
+    'Addis Ababa',
+    'Flutter',
+    'Dart',
+  ];
   List workExperience1 = [
     'FLutter Developer',
     'Hex-labs',
@@ -287,13 +273,26 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _githubController = TextEditingController();
   final TextEditingController _websiteController = TextEditingController();
   final TextEditingController _fieldOfStudyController = TextEditingController();
-  final TextEditingController _institutionNameController = TextEditingController();
+  final TextEditingController _institutionNameController =
+      TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
-  final TextEditingController _institutionAddressController = TextEditingController();
+  final TextEditingController _institutionAddressController =
+      TextEditingController();
   final TextEditingController _coursesController = TextEditingController();
+  final TextEditingController _fieldOfStudyController2 =
+      TextEditingController();
+  final TextEditingController _institutionNameController2 =
+      TextEditingController();
+  final TextEditingController _startDateController2 = TextEditingController();
+  final TextEditingController _endDateController2 = TextEditingController();
+  final TextEditingController _institutionAddressController2 =
+      TextEditingController();
+  final TextEditingController _coursesController2 = TextEditingController();
 
   var _overlayController = OverlayPortalController();
+
+  List<bool> _borderColor = [false, false, false, false, false];
 
   final List _iconsList1 = [
     Icons.email,
@@ -318,6 +317,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
   List _controllersList1 = [];
   List _controllersList2 = [];
+  List _controllersList3 = [];
+  List _controllersList4 = [];
 
   int _itemCount() {
     if (myUser.github != null && myUser.website != null) {
@@ -326,6 +327,24 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       return 2;
     } else {
       return 1;
+    }
+  }
+
+  TextEditingController _controllerFunction(
+      {required int index, required int count}) {
+    if (index == 0) {
+      return _controllersList3[count];
+    } else if (index == 1) {
+      return _controllersList4[count];
+    }
+    // else if (index == 2) {
+    //   return _controllersList5[count];
+    // }
+    // else if (index == 3) {
+    //   return _controllersList6[count];
+    // }
+    else {
+      return _controllersList1[count];
     }
   }
 
@@ -349,6 +368,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _institutionAddressController.text = edu[0].institutionAddress;
     _coursesController.text = edu[0].courses.join(', ');
 
+    _fieldOfStudyController2.text = edu[1].fieldOfStudy;
+    _institutionNameController2.text = edu[1].institutionName;
+    _startDateController2.text = edu[1].startDate;
+    _endDateController2.text = edu[1].endDate;
+    _institutionAddressController2.text = edu[1].institutionAddress;
+    _coursesController2.text = edu[1].courses.join(', ');
 
     _controllersList1
         .addAll([_emailController, _addressController, _linkedInController, 1]);
@@ -357,6 +382,24 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       _phoneController,
       _githubController,
       _websiteController,
+    ]);
+
+    _controllersList3.addAll([
+      _fieldOfStudyController,
+      _institutionNameController,
+      _startDateController,
+      _endDateController,
+      _institutionAddressController,
+      _coursesController,
+    ]);
+
+    _controllersList4.addAll([
+      _fieldOfStudyController2,
+      _institutionNameController2,
+      _startDateController2,
+      _endDateController2,
+      _institutionAddressController2,
+      _coursesController2,
     ]);
   }
 
@@ -375,45 +418,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Focus(
-                      //   onFocusChange: (hasFocus) {
-                      //     if (hasFocus) {
-                      //       widget.onFocusField(widget.nameFieldKey);
-                      //     }
-                      //   },
-                      //   child: TextField(
-                      //     key: widget.nameFieldKey,
-                      //     onTapOutside: (event) {
-                      //       setState(() {
-                      //         myUser = myUser.copyWith(
-                      //             fullName: _nameController.text);
-                      //       });
-                      //       print(myUser.fullName);
-                      //       FocusScope.of(context).unfocus();
-                      //     },
-                      //     onSubmitted: (value) {
-                      //       setState(() {
-                      //         myUser = myUser.copyWith(fullName: value);
-                      //       });
-                      //       print(myUser.fullName);
-                      //     },
-                      //     controller: _nameController,
-                      //     focusNode: widget.nameFocusNode,
-                      //     style: const TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 20,
-                      //       fontWeight: FontWeight.bold,
-                      //     ),
-                      //     decoration: const InputDecoration(
-                      //       isDense: true,
-                      //       contentPadding: EdgeInsets.zero,
-                      //       border: InputBorder.none,
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderSide: BorderSide(color: Colors.white),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       TextField(
                         onTapOutside: (event) {
                           setState(() {
@@ -752,513 +756,469 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   children: [
                     Column(
                       children: [
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'EDUCATION',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor:
-                                    Color.fromARGB(255, 73, 150, 159),
-                                decorationThickness: 3,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                fontSize: 15,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            // ElevatedButton(
-                            //   onPressed: () {
-                            //     _overlayController.toggle();
-                            //     print(_overlayController.isShowing);
-                            //   },
-                            //   child: const Text('toggle'),
-                            // ),
-                            OverlayPortal(
-                              controller: _overlayController,
-                              overlayChildBuilder: (BuildContext context) {
-                                return Positioned(
-                                  top: 315,
-                                  left: 110,
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius:
-                                              BorderRadius.circular(2),
-                                        ),
-                                        height: 17,
-                                        width: 17,
-                                        child: const Icon(
-                                          Icons.arrow_downward_rounded,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(2),
-                                        ),
-                                        height: 17,
-                                        width: 17,
-                                        child: const Icon(
-                                          Icons.copy,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(2),
-                                        ),
-                                        height: 17,
-                                        width: 17,
-                                        child: const Icon(
-                                          Icons.delete_forever_rounded,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              child: TextField(
-                                onTap: () {
-                                  _overlayController.toggle();
-                                  print(_overlayController.isShowing);
-                                },
-                                onTapOutside: (event) {
-                                  setState(() {
-                                  });
-                                  FocusScope.of(context).unfocus();
-                                },
-                                onSubmitted: (value) {
-                                  setState(() {
-                                  });
-                                  FocusScope.of(context).unfocus();
-                                },
-                                controller: _fieldOfStudyController,
-                                // focusNode: widget.professionFocusNode,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                decoration: const InputDecoration(
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.zero,
-                                  border: InputBorder.none,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.zero,
-                                    borderSide:
-                                        BorderSide(color: Colors.green),
+                        SizedBox(
+                          height: 220,
+                          child: ListView.builder(
+                            itemCount: 2,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: _borderColor[index]
+                                        ? const Color.fromARGB(
+                                            255, 73, 150, 159)
+                                        : Colors.white,
                                   ),
                                 ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education1[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Institution name',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                education1[1],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return DatePickFormField(
-                                          editableField: (startDate, endDate) {
+                                child: Stack(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        index == 0
+                                            ? const Text(
+                                                'EDUCATION',
+                                                style: TextStyle(
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  decorationColor:
+                                                      Color.fromARGB(
+                                                          255, 73, 150, 159),
+                                                  decorationThickness: 3,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromARGB(
+                                                      255, 73, 150, 159),
+                                                  fontSize: 15,
+                                                ),
+                                              )
+                                            : const SizedBox(),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        TextField(
+                                          onTap: () {
                                             setState(() {
-                                              education1[2] = startDate;
-                                              education1[3] = endDate;
+                                              _borderColor[index] =
+                                                  !_borderColor[index];
                                             });
+                                            // _overlayController.toggle();
+                                            print(_overlayController.isShowing);
                                           },
-                                          fieldName: 'Start Date',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    '${education1[2]} - ${education1[3]}',
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color.fromARGB(255, 73, 150, 159),
-                                      fontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return EditField(
-                                          editableField: (value) {
+                                          onTapOutside: (event) {
+                                            setState(() {});
+                                            FocusScope.of(context).unfocus();
+                                          },
+                                          onSubmitted: (value) {
+                                            setState(() {});
+                                            FocusScope.of(context).unfocus();
+                                          },
+                                          controller: _controllerFunction(
+                                              index: index, count: 0),
+                                          // focusNode: widget.professionFocusNode,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.zero,
+                                              borderSide: BorderSide(
+                                                  color: Colors.green),
+                                            ),
+                                          ),
+                                        ),
+                                        TextField(
+                                          maxLines: 2,
+                                          onTap: () {
                                             setState(() {
-                                              education1[4] = value;
+                                              _borderColor[index] =
+                                                  !_borderColor[index];
                                             });
+                                            // _overlayController.toggle();
+                                            print(_overlayController.isShowing);
                                           },
-                                          fieldName: 'Institution address',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    education1[4],
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color.fromARGB(255, 73, 150, 159),
-                                      fontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Text(
-                              'Courses',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                fontSize: 8,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education1[5] = value;
-                                        });
-                                      },
-                                      fieldName: 'Courses',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                education1[5],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education1[6] = value;
-                                        });
-                                      },
-                                      fieldName: 'Courses',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                education1[6],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education1[7] = value;
-                                        });
-                                      },
-                                      fieldName: 'Courses',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                education1[7],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education1[8] = value;
-                                        });
-                                      },
-                                      fieldName: 'Courses',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                education1[8],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            // const Row(
-                            //   children: [
-                            //     const Text(
-                            //       '\u2022',
-                            //       style: TextStyle(
-                            //         fontStyle: FontStyle.italic,
-                            //         color: Color.fromARGB(255, 73, 150, 159),
-                            //         fontSize: 15,
-                            //       ),
-                            //     ),
-                            //     Text('Internet Programming',
-                            //         style: TextStyle(
-                            //           fontSize: 8,
-                            //         )),
-                            //   ],
-                            // ),
-                            // const Row(
-                            //   children: [
-                            //     const Text(
-                            //       '\u2022',
-                            //       style: TextStyle(
-                            //         fontStyle: FontStyle.italic,
-                            //         color: Color.fromARGB(255, 73, 150, 159),
-                            //         fontSize: 15,
-                            //       ),
-                            //     ),
-                            //     Text('Internet Programming',
-                            //         style: TextStyle(
-                            //           fontSize: 8,
-                            //         )),
-                            //   ],
-                            // ),
-                            // const Row(
-                            //   children: [
-                            //     const Text(
-                            //       '\u2022',
-                            //       style: TextStyle(
-                            //         fontStyle: FontStyle.italic,
-                            //         color: Color.fromARGB(255, 73, 150, 159),
-                            //         fontSize: 15,
-                            //       ),
-                            //     ),
-                            //     Text('Internet Programming',
-                            //         style: TextStyle(
-                            //           fontSize: 8,
-                            //         )),
-                            //   ],
-                            // ),
-                            // const Row(
-                            //   children: [
-                            //     const Text(
-                            //       '\u2022',
-                            //       style: TextStyle(
-                            //         fontStyle: FontStyle.italic,
-                            //         color: Color.fromARGB(255, 73, 150, 159),
-                            //         fontSize: 15,
-                            //       ),
-                            //     ),
-                            //     Text('Internet Programming',
-                            //         style: TextStyle(
-                            //           fontSize: 8,
-                            //         )),
-                            //   ],
-                            // ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education2[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'Field of study',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                education2[0],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education2[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Institution name',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                education2[1],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${education2[2]} - ${education2[3]}',
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return EditField(
-                                          editableField: (value) {
-                                            setState(() {
-                                              education2[4] = value;
-                                            });
+                                          onTapOutside: (event) {
+                                            setState(() {});
+                                            FocusScope.of(context).unfocus();
                                           },
-                                          fieldName: 'Institution address',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    education2[4],
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color.fromARGB(255, 73, 150, 159),
-                                      fontSize: 8,
+                                          onSubmitted: (value) {
+                                            setState(() {});
+                                            FocusScope.of(context).unfocus();
+                                          },
+                                          controller: _controllerFunction(
+                                              index: index, count: 1),
+                                          // focusNode: widget.professionFocusNode,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 8,
+                                          ),
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.zero,
+                                              borderSide: BorderSide(
+                                                  color: Colors.green),
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.22,
+                                              child: TextField(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _borderColor[index] =
+                                                        !_borderColor[index];
+                                                  });
+                                                  // _overlayController.toggle();
+                                                  print(_overlayController
+                                                      .isShowing);
+                                                },
+                                                onTapOutside: (event) {
+                                                  setState(() {});
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                onSubmitted: (value) {
+                                                  setState(() {});
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                controller: _controllerFunction(
+                                                    index: index, count: 2),
+                                                // focusNode: widget.professionFocusNode,
+                                                style: const TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Color.fromARGB(
+                                                      255, 73, 150, 159),
+                                                  fontSize: 8,
+                                                ),
+                                                decoration:
+                                                    const InputDecoration(
+                                                  isDense: true,
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  border: InputBorder.none,
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.zero,
+                                                    borderSide: BorderSide(
+                                                        color: Colors.green),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.15,
+                                              child: TextField(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _borderColor[index] =
+                                                        !_borderColor[index];
+                                                  });
+                                                  // _overlayController.toggle();
+                                                  print(_overlayController
+                                                      .isShowing);
+                                                },
+                                                onTapOutside: (event) {
+                                                  setState(() {});
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                onSubmitted: (value) {
+                                                  setState(() {});
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                controller: _controllerFunction(
+                                                    index: index, count: 3),
+                                                // focusNode: widget.professionFocusNode,
+                                                style: const TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Color.fromARGB(
+                                                      255, 73, 150, 159),
+                                                  fontSize: 8,
+                                                ),
+                                                decoration:
+                                                    const InputDecoration(
+                                                  isDense: true,
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  border: InputBorder.none,
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.zero,
+                                                    borderSide: BorderSide(
+                                                        color: Colors.green),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Text(
+                                          'Courses',
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            color: Color.fromARGB(
+                                                255, 73, 150, 159),
+                                            fontSize: 8,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: TextField(
+                                            onTap: () {
+                                              setState(() {
+                                                _borderColor[index] =
+                                                    !_borderColor[index];
+                                              });
+                                              // _overlayController.toggle();
+                                              print(
+                                                  _overlayController.isShowing);
+                                            },
+                                            onTapOutside: (event) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            onSubmitted: (value) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            controller: _coursesController,
+                                            // focusNode: widget.professionFocusNode,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8,
+                                            ),
+                                            decoration: const InputDecoration(
+                                              isDense: true,
+                                              contentPadding: EdgeInsets.zero,
+                                              border: InputBorder.none,
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.zero,
+                                                borderSide: BorderSide(
+                                                    color: Colors.green),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: TextField(
+                                            onTap: () {
+                                              setState(() {
+                                                _borderColor[index] =
+                                                    !_borderColor[index];
+                                              });
+                                              // _overlayController.toggle();
+                                              print(
+                                                  _overlayController.isShowing);
+                                            },
+                                            onTapOutside: (event) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            onSubmitted: (value) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            controller: _coursesController,
+                                            // focusNode: widget.professionFocusNode,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8,
+                                            ),
+                                            decoration: const InputDecoration(
+                                              isDense: true,
+                                              contentPadding: EdgeInsets.zero,
+                                              border: InputBorder.none,
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.zero,
+                                                borderSide: BorderSide(
+                                                    color: Colors.green),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: TextField(
+                                            onTap: () {
+                                              setState(() {
+                                                _borderColor[index] =
+                                                    !_borderColor[index];
+                                              });
+                                              // _overlayController.toggle();
+                                              print(
+                                                  _overlayController.isShowing);
+                                            },
+                                            onTapOutside: (event) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            onSubmitted: (value) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            controller: _coursesController,
+                                            // focusNode: widget.professionFocusNode,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8,
+                                            ),
+                                            decoration: const InputDecoration(
+                                              isDense: true,
+                                              contentPadding: EdgeInsets.zero,
+                                              border: InputBorder.none,
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.zero,
+                                                borderSide: BorderSide(
+                                                    color: Colors.green),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: TextField(
+                                            onTap: () {
+                                              setState(() {
+                                                _borderColor[index] =
+                                                    !_borderColor[index];
+                                              });
+                                              // _overlayController.toggle();
+                                              print(
+                                                  _overlayController.isShowing);
+                                            },
+                                            onTapOutside: (event) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            onSubmitted: (value) {
+                                              setState(() {});
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            controller: _coursesController,
+                                            // focusNode: widget.professionFocusNode,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8,
+                                            ),
+                                            decoration: const InputDecoration(
+                                              isDense: true,
+                                              contentPadding: EdgeInsets.zero,
+                                              border: InputBorder.none,
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.zero,
+                                                borderSide: BorderSide(
+                                                    color: Colors.green),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                    _borderColor[index]
+                                        ? Positioned(
+                                            top: 0,
+                                            right: 0,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                  ),
+                                                  height: 17,
+                                                  width: 17,
+                                                  child: const Icon(
+                                                    Icons
+                                                        .arrow_downward_rounded,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                  ),
+                                                  height: 17,
+                                                  width: 17,
+                                                  child: const Icon(
+                                                    Icons.copy,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                  ),
+                                                  height: 17,
+                                                  width: 17,
+                                                  child: const Icon(
+                                                    Icons
+                                                        .delete_forever_rounded,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            const Text(
-                              'Courses',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                fontSize: 8,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education2[5] = value;
-                                        });
-                                      },
-                                      fieldName: 'Courses',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(education2[5],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  )),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          education2[6] = value;
-                                        });
-                                      },
-                                      fieldName: 'Courses',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(education2[6],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  )),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
