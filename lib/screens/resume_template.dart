@@ -148,7 +148,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     website: 'yihun-alemayehu.netlify.com/app',
   );
 
-
   List<EducationBackground> edu = [
     EducationBackground(
       fieldOfStudy: 'Software Engineering',
@@ -288,18 +287,30 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _institutionAddressController2 =
       TextEditingController();
   final TextEditingController _coursesController = TextEditingController();
-  final TextEditingController _coursesController4eduOne1 = TextEditingController();
-  final TextEditingController _coursesController4eduOne2 = TextEditingController();
-  final TextEditingController _coursesController4eduOne3 = TextEditingController();
-  final TextEditingController _coursesController4eduOne4 = TextEditingController();
-  final TextEditingController _coursesController4eduTwo1 = TextEditingController();
-  final TextEditingController _coursesController4eduTwo2 = TextEditingController();
-  final TextEditingController _coursesController4eduTwo3 = TextEditingController();
-  final TextEditingController _coursesController4eduTwo4 = TextEditingController();
-  final TextEditingController _coursesController4eduThree1 = TextEditingController();
-  final TextEditingController _coursesController4eduThree2 = TextEditingController();
-  final TextEditingController _coursesController4eduThree3 = TextEditingController();
-  final TextEditingController _coursesController4eduThree4 = TextEditingController();
+  final TextEditingController _coursesController4eduOne1 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduOne2 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduOne3 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduOne4 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduTwo1 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduTwo2 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduTwo3 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduTwo4 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduThree1 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduThree2 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduThree3 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduThree4 =
+      TextEditingController();
 
   var _overlayController = OverlayPortalController();
 
@@ -368,7 +379,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       return 220;
     } else if (length == 3) {
       return 330;
-    }else if (length == 4) {
+    } else if (length == 4) {
       return 440;
     } else {
       return 550;
@@ -409,7 +420,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _coursesController4eduTwo2.text = edu[1].courses[1];
     // _coursesController4eduTwo3.text = edu[1].courses[2];
     // _coursesController4eduTwo4.text = edu[1].courses[3];
-
 
     _controllersList1
         .addAll([_emailController, _addressController, _linkedInController, 1]);
@@ -1031,170 +1041,184 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             fontSize: 8,
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: TextField(
-                                            onTap: () {
-                                              setState(() {
-                                                _borderColor[index] =
-                                                    !_borderColor[index];
-                                              });
-                                              // _overlayController.toggle();
-                                              print(
-                                                  _overlayController.isShowing);
+                                        Column(
+                                          children: List.generate(
+                                            edu[index].courses.length,
+                                            (innerIndex) {
+                                              return SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.4,
+                                                child: TextField(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      _borderColor[index] =
+                                                          !_borderColor[index];
+                                                    });
+                                                    // _overlayController.toggle();
+                                                    print(_overlayController
+                                                        .isShowing);
+                                                  },
+                                                  onTapOutside: (event) {
+                                                    setState(() {});
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                  },
+                                                  onSubmitted: (value) {
+                                                    setState(() {});
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                  },
+                                                  controller:
+                                                      _coursesController,
+                                                  // focusNode: widget.professionFocusNode,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 8,
+                                                  ),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    isDense: true,
+                                                    contentPadding:
+                                                        EdgeInsets.zero,
+                                                    border: InputBorder.none,
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.zero,
+                                                      borderSide: BorderSide(
+                                                          color: Colors.green),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
                                             },
-                                            onTapOutside: (event) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            onSubmitted: (value) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            controller: _coursesController,
-                                            // focusNode: widget.professionFocusNode,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8,
-                                            ),
-                                            decoration: const InputDecoration(
-                                              isDense: true,
-                                              contentPadding: EdgeInsets.zero,
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.zero,
-                                                borderSide: BorderSide(
-                                                    color: Colors.green),
-                                              ),
-                                            ),
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: TextField(
-                                            onTap: () {
-                                              setState(() {
-                                                _borderColor[index] =
-                                                    !_borderColor[index];
-                                              });
-                                              // _overlayController.toggle();
-                                              print(
-                                                  _overlayController.isShowing);
-                                            },
-                                            onTapOutside: (event) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            onSubmitted: (value) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            controller: _coursesController,
-                                            // focusNode: widget.professionFocusNode,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8,
-                                            ),
-                                            decoration: const InputDecoration(
-                                              isDense: true,
-                                              contentPadding: EdgeInsets.zero,
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.zero,
-                                                borderSide: BorderSide(
-                                                    color: Colors.green),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: TextField(
-                                            onTap: () {
-                                              setState(() {
-                                                _borderColor[index] =
-                                                    !_borderColor[index];
-                                              });
-                                              // _overlayController.toggle();
-                                              print(
-                                                  _overlayController.isShowing);
-                                            },
-                                            onTapOutside: (event) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            onSubmitted: (value) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            controller: _coursesController,
-                                            // focusNode: widget.professionFocusNode,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8,
-                                            ),
-                                            decoration: const InputDecoration(
-                                              isDense: true,
-                                              contentPadding: EdgeInsets.zero,
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.zero,
-                                                borderSide: BorderSide(
-                                                    color: Colors.green),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: TextField(
-                                            onTap: () {
-                                              setState(() {
-                                                _borderColor[index] =
-                                                    !_borderColor[index];
-                                              });
-                                              // _overlayController.toggle();
-                                              print(
-                                                  _overlayController.isShowing);
-                                            },
-                                            onTapOutside: (event) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            onSubmitted: (value) {
-                                              setState(() {});
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            controller: _coursesController,
-                                            // focusNode: widget.professionFocusNode,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8,
-                                            ),
-                                            decoration: const InputDecoration(
-                                              isDense: true,
-                                              contentPadding: EdgeInsets.zero,
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.zero,
-                                                borderSide: BorderSide(
-                                                    color: Colors.green),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        // SizedBox(
+                                        //   width: MediaQuery.of(context)
+                                        //           .size
+                                        //           .width *
+                                        //       0.4,
+                                        //   child: TextField(
+                                        //     onTap: () {
+                                        //       setState(() {
+                                        //         _borderColor[index] =
+                                        //             !_borderColor[index];
+                                        //       });
+                                        //       // _overlayController.toggle();
+                                        //       print(
+                                        //           _overlayController.isShowing);
+                                        //     },
+                                        //     onTapOutside: (event) {
+                                        //       setState(() {});
+                                        //       FocusScope.of(context).unfocus();
+                                        //     },
+                                        //     onSubmitted: (value) {
+                                        //       setState(() {});
+                                        //       FocusScope.of(context).unfocus();
+                                        //     },
+                                        //     controller: _coursesController,
+                                        //     // focusNode: widget.professionFocusNode,
+                                        //     style: const TextStyle(
+                                        //       color: Colors.black,
+                                        //       fontSize: 8,
+                                        //     ),
+                                        //     decoration: const InputDecoration(
+                                        //       isDense: true,
+                                        //       contentPadding: EdgeInsets.zero,
+                                        //       border: InputBorder.none,
+                                        //       focusedBorder: OutlineInputBorder(
+                                        //         borderRadius: BorderRadius.zero,
+                                        //         borderSide: BorderSide(
+                                        //             color: Colors.green),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        // SizedBox(
+                                        //   width: MediaQuery.of(context)
+                                        //           .size
+                                        //           .width *
+                                        //       0.4,
+                                        //   child: TextField(
+                                        //     onTap: () {
+                                        //       setState(() {
+                                        //         _borderColor[index] =
+                                        //             !_borderColor[index];
+                                        //       });
+                                        //       // _overlayController.toggle();
+                                        //       print(
+                                        //           _overlayController.isShowing);
+                                        //     },
+                                        //     onTapOutside: (event) {
+                                        //       setState(() {});
+                                        //       FocusScope.of(context).unfocus();
+                                        //     },
+                                        //     onSubmitted: (value) {
+                                        //       setState(() {});
+                                        //       FocusScope.of(context).unfocus();
+                                        //     },
+                                        //     controller: _coursesController,
+                                        //     // focusNode: widget.professionFocusNode,
+                                        //     style: const TextStyle(
+                                        //       color: Colors.black,
+                                        //       fontSize: 8,
+                                        //     ),
+                                        //     decoration: const InputDecoration(
+                                        //       isDense: true,
+                                        //       contentPadding: EdgeInsets.zero,
+                                        //       border: InputBorder.none,
+                                        //       focusedBorder: OutlineInputBorder(
+                                        //         borderRadius: BorderRadius.zero,
+                                        //         borderSide: BorderSide(
+                                        //             color: Colors.green),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        // SizedBox(
+                                        //   width: MediaQuery.of(context)
+                                        //           .size
+                                        //           .width *
+                                        //       0.4,
+                                        //   child: TextField(
+                                        //     onTap: () {
+                                        //       setState(() {
+                                        //         _borderColor[index] =
+                                        //             !_borderColor[index];
+                                        //       });
+                                        //       // _overlayController.toggle();
+                                        //       print(
+                                        //           _overlayController.isShowing);
+                                        //     },
+                                        //     onTapOutside: (event) {
+                                        //       setState(() {});
+                                        //       FocusScope.of(context).unfocus();
+                                        //     },
+                                        //     onSubmitted: (value) {
+                                        //       setState(() {});
+                                        //       FocusScope.of(context).unfocus();
+                                        //     },
+                                        //     controller: _coursesController,
+                                        //     // focusNode: widget.professionFocusNode,
+                                        //     style: const TextStyle(
+                                        //       color: Colors.black,
+                                        //       fontSize: 8,
+                                        //     ),
+                                        //     decoration: const InputDecoration(
+                                        //       isDense: true,
+                                        //       contentPadding: EdgeInsets.zero,
+                                        //       border: InputBorder.none,
+                                        //       focusedBorder: OutlineInputBorder(
+                                        //         borderRadius: BorderRadius.zero,
+                                        //         borderSide: BorderSide(
+                                        //             color: Colors.green),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                     _borderColor[index]
@@ -1225,7 +1249,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      edu.insert(index, edu.elementAt(index));
+                                                      edu.insert(index,
+                                                          edu.elementAt(index));
                                                     });
                                                   },
                                                   child: Container(
