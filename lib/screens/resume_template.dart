@@ -153,7 +153,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     EducationBackground(
       fieldOfStudy: 'Software Engineering',
       institutionName: 'Addis Ababa Science and Technology University',
-      startDate: '05/2022',
+      startDate: '05/2022 - Present',
       endDate: 'Present',
       institutionAddress: 'Addis Ababa',
       courses: [
@@ -166,39 +166,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     EducationBackground(
       fieldOfStudy: 'Mobile app development',
       institutionName: 'GDG AASTU',
-      startDate: '10/2023',
+      startDate: '10/2023 - 03/2024',
       endDate: '03/2024',
       institutionAddress: 'Addis Ababa',
-      courses: ['Flutter', 'Dart'],
+      courses: ['Flutter', 'Dart', 'Firebase', 'Bloc State Management'],
     ),
   ];
 
-  // List education1 = [
-  //   'Software Engineering',
-  //   'Addis Ababa Science and Technology University',
-  //   '05/2022',
-  //   'Present',
-  //   'Addis Ababa',
-  //   'Internet Programming',
-  //   'Object-oriented Programming',
-  //   'Data Structures and Algorithms',
-  //   'Mobile app development',
-  // ];
-  // List education2 = [
-  //   'Mobile app development',
-  //   'GDG AASTU',
-  //   '10/2023',
-  //   '03/2024',
-  //   'Addis Ababa',
-  //   'Flutter',
-  //   'Dart',
-  // ];
 
   List<WorkExperience> workExp = [
     WorkExperience(
       jobTitle: 'FLutter Developer',
       companyName: 'Hex-labs',
-      startDate: '10/2023',
+      startDate: '10/2023 - 01/2024',
       endDate: '01/2024',
       jobType: 'Remote',
       achievements:
@@ -207,7 +187,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     WorkExperience(
       jobTitle: 'FLutter Developer',
       companyName: 'Horan-Software',
-      startDate: '08/2024',
+      startDate: '08/2024 - 11/2024',
       endDate: '11/2024',
       jobType: 'Contract',
       achievements:
@@ -216,45 +196,15 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     WorkExperience(
       jobTitle: 'FLutter Developer',
       companyName: 'Yize-Tech Ethiopia',
-      startDate: '02/2023',
+      startDate: '02/2023 - 09/2023',
       endDate: '09/2023',
       jobType: 'Remote',
       achievements:
           'Implemented Complex UI Designs: Successfully developed and integrated intricate, user-centric UI components, ensuring seamless functionality, responsiveness, and an engaging user experience across diverse devices and screen sizes.',
     ),
   ];
-  List workExperience1 = [
-    'FLutter Developer',
-    'Hex-labs',
-    '10/2023',
-    '01/2024',
-    'Remote',
-    'Implemented Payment Gateway Transition: Successfully '
-        'facilitated the transition from Telebirr to Chapa as the payment '
-        'gateway, streamlining transaction processes and enhancing '
-        'payment reliability.',
-  ];
-  List workExperience2 = [
-    'FLutter Developer',
-    'Horan-Software',
-    '08/2024',
-    '11/2024',
-    'Contract',
-    'Implemented Firebase Integration: Successfully integrated Firebase into '
-        'the application, enhancing real-time database management, user '
-        'authentication, and analytics capabilities, leading to improved app '
-        'performance and user engagement.',
-  ];
-  List workExperience3 = [
-    'FLutter Developer',
-    'Yize-Tech Ethiopia',
-    '02/2023',
-    '09/2023',
-    'Remote',
-    'Implemented Complex UI Designs: Successfully developed and integrated intricate, '
-        'user-centric UI components, ensuring seamless functionality, responsiveness, and an '
-        'engaging user experience across diverse devices and screen sizes.',
-  ];
+  
+
   List skills = [
     'Programming',
     'Flutter',
@@ -646,7 +596,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _startDateController.text = edu[0].startDate;
     _endDateController.text = edu[0].endDate;
     _institutionAddressController.text = edu[0].institutionAddress;
-    _coursesController.text = edu[0].courses[0];
 
     _fieldOfStudyController2.text = edu[1].fieldOfStudy;
     _institutionNameController2.text = edu[1].institutionName;
@@ -686,8 +635,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
     _coursesController4eduTwo1.text = edu[1].courses[0];
     _coursesController4eduTwo2.text = edu[1].courses[1];
-    _coursesController4eduTwo3.text = edu[1].courses[0];
-    _coursesController4eduTwo4.text = edu[1].courses[1];
+    _coursesController4eduTwo3.text = edu[1].courses[2];
+    _coursesController4eduTwo4.text = edu[1].courses[3];
 
     _coursesController4eduThree1.text = edu[0].courses[0];
     _coursesController4eduThree2.text = edu[0].courses[1];
@@ -696,8 +645,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
     _coursesController4eduFour1.text = edu[1].courses[0];
     _coursesController4eduFour2.text = edu[1].courses[1];
-    _coursesController4eduFour3.text = edu[1].courses[0];
-    _coursesController4eduFour4.text = edu[1].courses[1];
+    _coursesController4eduFour3.text = edu[1].courses[2];
+    _coursesController4eduFour4.text = edu[1].courses[3];
 
     _coursesController4eduFive1.text = edu[0].courses[0];
     _coursesController4eduFive2.text = edu[0].courses[1];
@@ -706,8 +655,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
     _coursesController4eduSix1.text = edu[1].courses[0];
     _coursesController4eduSix2.text = edu[1].courses[1];
-    _coursesController4eduSix3.text = edu[1].courses[0];
-    _coursesController4eduSix4.text = edu[1].courses[1];
+    _coursesController4eduSix3.text = edu[1].courses[2];
+    _coursesController4eduSix4.text = edu[1].courses[3];
 
     // Work Experience controllers
     _workExpJobTitleController1.text = workExp[0].jobTitle;
@@ -1022,35 +971,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           ),
                         ),
                       ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     showModalBottomSheet(
-                      //       context: context,
-                      //       builder: (context) {
-                      //         return EditField(
-                      //           editableField: (value) {
-                      //             setState(() {
-                      //               myUser = myUser.copyWith(bio: value);
-                      //             });
-                      //           },
-                      //           fieldName: 'About Yourself',
-                      //         );
-                      //       },
-                      //     );
-                      //   },
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(bottom: 10),
-                      //     child: Text(
-                      //       myUser.bio,
-                      //       style: const TextStyle(
-                      //         color: Colors.white,
-                      //         fontSize: 8,
-                      //       ),
-                      //       overflow: TextOverflow.visible,
-                      //       softWrap: true,
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
