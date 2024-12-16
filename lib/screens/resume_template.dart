@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/data/model/education_model.dart';
 import 'package:my_resume/data/model/user_model.dart';
+import 'package:my_resume/data/model/work_experience_model.dart';
 import 'package:my_resume/widgets/date_pick_form_field.dart';
 import 'package:my_resume/widgets/edit_field.dart';
 import 'package:my_resume/widgets/phone_number_field.dart';
@@ -172,25 +173,55 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     ),
   ];
 
-  List education1 = [
-    'Software Engineering',
-    'Addis Ababa Science and Technology University',
-    '05/2022',
-    'Present',
-    'Addis Ababa',
-    'Internet Programming',
-    'Object-oriented Programming',
-    'Data Structures and Algorithms',
-    'Mobile app development',
-  ];
-  List education2 = [
-    'Mobile app development',
-    'GDG AASTU',
-    '10/2023',
-    '03/2024',
-    'Addis Ababa',
-    'Flutter',
-    'Dart',
+  // List education1 = [
+  //   'Software Engineering',
+  //   'Addis Ababa Science and Technology University',
+  //   '05/2022',
+  //   'Present',
+  //   'Addis Ababa',
+  //   'Internet Programming',
+  //   'Object-oriented Programming',
+  //   'Data Structures and Algorithms',
+  //   'Mobile app development',
+  // ];
+  // List education2 = [
+  //   'Mobile app development',
+  //   'GDG AASTU',
+  //   '10/2023',
+  //   '03/2024',
+  //   'Addis Ababa',
+  //   'Flutter',
+  //   'Dart',
+  // ];
+
+  List<WorkExperience> workExp = [
+    WorkExperience(
+      jobTitle: 'FLutter Developer',
+      companyName: 'Hex-labs',
+      startDate: '10/2023',
+      endDate: '01/2024',
+      jobType: 'Remote',
+      achievements:
+          'Implemented Payment Gateway Transition: Successfully facilitated the transition from Telebirr to Chapa as the payment gateway, streamlining transaction processes and enhancing payment reliability.',
+    ),
+    WorkExperience(
+      jobTitle: 'FLutter Developer',
+      companyName: 'Horan-Software',
+      startDate: '08/2024',
+      endDate: '11/2024',
+      jobType: 'Contract',
+      achievements:
+          'Implemented Firebase Integration: Successfully integrated Firebase into the application, enhancing real-time database management, user authentication, and analytics capabilities, leading to improved app performance and user engagement.',
+    ),
+    WorkExperience(
+      jobTitle: 'FLutter Developer',
+      companyName: 'Yize-Tech Ethiopia',
+      startDate: '02/2023',
+      endDate: '09/2023',
+      jobType: 'Remote',
+      achievements:
+          'Implemented Complex UI Designs: Successfully developed and integrated intricate, user-centric UI components, ensuring seamless functionality, responsiveness, and an engaging user experience across diverse devices and screen sizes.',
+    ),
   ];
   List workExperience1 = [
     'FLutter Developer',
@@ -368,9 +399,95 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _coursesController4eduSix4 =
       TextEditingController();
 
+  final TextEditingController _workExpJobTitleController1 =
+      TextEditingController();
+  final TextEditingController _workExpCompanyNameController1 =
+      TextEditingController();
+  final TextEditingController _workExpStartDateController1 =
+      TextEditingController();
+  final TextEditingController _workExpEndDateController1 =
+      TextEditingController();
+  final TextEditingController _workExpJobTypeController1 =
+      TextEditingController();
+  final TextEditingController _workExpAchievementController1 =
+      TextEditingController();
+
+  final TextEditingController _workExpJobTitleController2 =
+      TextEditingController();
+  final TextEditingController _workExpCompanyNameController2 =
+      TextEditingController();
+  final TextEditingController _workExpStartDateController2 =
+      TextEditingController();
+  final TextEditingController _workExpEndDateController2 =
+      TextEditingController();
+  final TextEditingController _workExpJobTypeController2 =
+      TextEditingController();
+  final TextEditingController _workExpAchievementController2 =
+      TextEditingController();
+
+  final TextEditingController _workExpJobTitleController3 =
+      TextEditingController();
+  final TextEditingController _workExpCompanyNameController3 =
+      TextEditingController();
+  final TextEditingController _workExpStartDateController3 =
+      TextEditingController();
+  final TextEditingController _workExpEndDateController3 =
+      TextEditingController();
+  final TextEditingController _workExpJobTypeController3 =
+      TextEditingController();
+  final TextEditingController _workExpAchievementController3 =
+      TextEditingController();
+
+  final TextEditingController _workExpJobTitleController4 =
+      TextEditingController();
+  final TextEditingController _workExpCompanyNameController4 =
+      TextEditingController();
+  final TextEditingController _workExpStartDateController4 =
+      TextEditingController();
+  final TextEditingController _workExpEndDateController4 =
+      TextEditingController();
+  final TextEditingController _workExpJobTypeController4 =
+      TextEditingController();
+  final TextEditingController _workExpAchievementController4 =
+      TextEditingController();
+
+  final TextEditingController _workExpJobTitleController5 =
+      TextEditingController();
+  final TextEditingController _workExpCompanyNameController5 =
+      TextEditingController();
+  final TextEditingController _workExpStartDateController5 =
+      TextEditingController();
+  final TextEditingController _workExpEndDateController5 =
+      TextEditingController();
+  final TextEditingController _workExpJobTypeController5 =
+      TextEditingController();
+  final TextEditingController _workExpAchievementController5 =
+      TextEditingController();
+
+  final TextEditingController _workExpJobTitleController6 =
+      TextEditingController();
+  final TextEditingController _workExpCompanyNameController6 =
+      TextEditingController();
+  final TextEditingController _workExpStartDateController6 =
+      TextEditingController();
+  final TextEditingController _workExpEndDateController6 =
+      TextEditingController();
+  final TextEditingController _workExpJobTypeController6 =
+      TextEditingController();
+  final TextEditingController _workExpAchievementController6 =
+      TextEditingController();
+
   var _overlayController = OverlayPortalController();
 
-  List<bool> _borderColor = [false, false, false, false, false];
+  List<bool> _borderColorForEdu = [false, false, false, false, false, false];
+  List<bool> _borderColorForWorkExp = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
 
   final List _iconsList1 = [
     Icons.email,
@@ -404,6 +521,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   List _controllersList7 = [];
   List _controllersList8 = [];
 
+  // Work experience count controllers
+  List _workExperienceControllersList1 = [];
+  List _workExperienceControllersList2 = [];
+  List _workExperienceControllersList3 = [];
+  List _workExperienceControllersList4 = [];
+  List _workExperienceControllersList5 = [];
+  List _workExperienceControllersList6 = [];
+
   List _coursesControllersList1 = [];
   List _coursesControllersList2 = [];
   List _coursesControllersList3 = [];
@@ -430,19 +555,16 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
         return _controllersList3[count];
       } else if (index == 1) {
         return _controllersList4[count];
-      }
-      else if (index == 2) {
+      } else if (index == 2) {
         return _controllersList5[count];
-      }
-      else if (index == 3) {
+      } else if (index == 3) {
         return _controllersList6[count];
       } else if (index == 4) {
         return _controllersList7[count];
-      }
-      else {
+      } else {
         return _controllersList8[count];
       }
-    } else {
+    } else if (controllerType == 'courses') {
       if (index == 0) {
         return _coursesControllersList1[count];
       } else if (index == 1) {
@@ -456,27 +578,58 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       } else {
         return _coursesControllersList6[count];
       }
+    } else {
+      if (index == 0) {
+        return _workExperienceControllersList1[count];
+      } else if (index == 1) {
+        return _workExperienceControllersList2[count];
+      } else if (index == 2) {
+        return _workExperienceControllersList3[count];
+      } else if (index == 3) {
+        return _workExperienceControllersList4[count];
+      } else if (index == 4) {
+        return _workExperienceControllersList5[count];
+      } else {
+        return _workExperienceControllersList6[count];
+      }
     }
   }
 
-  int _heightFunction() {
-    int length = edu.length;
-    if (length == 1) {
-      return 110;
-    } else if (length == 2) {
-      return 220;
-    } else if (length == 3) {
-      return 330;
-    } else if (length == 4) {
-      return 440;
+  int _heightFunction({required String sectionType}) {
+    if (sectionType == 'edu') {
+      int eduLength = edu.length;
+      if (eduLength == 1) {
+        return 110;
+      } else if (eduLength == 2) {
+        return 220;
+      } else if (eduLength == 3) {
+        return 330;
+      } else if (eduLength == 4) {
+        return 440;
+      } else {
+        return 550;
+      }
     } else {
-      return 550;
+      int workExpLength = workExp.length;
+      if (workExpLength == 1) {
+        return 140;
+      } else if (workExpLength == 2) {
+        return 280;
+      } else if (workExpLength == 3) {
+        return 420;
+      } else if (workExpLength == 4) {
+        return 560;
+      } else {
+        return 700;
+      }
     }
   }
 
   @override
   void initState() {
     super.initState();
+
+    // User controllers
     _nameController.text = myUser.fullName;
     _professionController.text = myUser.profession;
     _bioController.text = myUser.bio;
@@ -487,6 +640,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _githubController.text = myUser.github!;
     _websiteController.text = myUser.website!;
 
+    // Education Background controllers
     _fieldOfStudyController.text = edu[0].fieldOfStudy;
     _institutionNameController.text = edu[0].institutionName;
     _startDateController.text = edu[0].startDate;
@@ -523,8 +677,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _startDateController4.text = edu[1].startDate;
     _endDateController4.text = edu[1].endDate;
     _institutionAddressController4.text = edu[1].institutionAddress;
-    
 
+    // Course controllers
     _coursesController4eduOne1.text = edu[0].courses[0];
     _coursesController4eduOne2.text = edu[0].courses[1];
     _coursesController4eduOne3.text = edu[0].courses[2];
@@ -555,6 +709,50 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _coursesController4eduSix3.text = edu[1].courses[0];
     _coursesController4eduSix4.text = edu[1].courses[1];
 
+    // Work Experience controllers
+    _workExpJobTitleController1.text = workExp[0].jobTitle;
+    _workExpCompanyNameController1.text = workExp[0].companyName;
+    _workExpStartDateController1.text = workExp[0].startDate;
+    _workExpEndDateController1.text = workExp[0].endDate;
+    _workExpJobTypeController1.text = workExp[0].jobType;
+    _workExpAchievementController1.text = workExp[0].achievements;
+
+    _workExpJobTitleController2.text = workExp[1].jobTitle;
+    _workExpCompanyNameController2.text = workExp[1].companyName;
+    _workExpStartDateController2.text = workExp[1].startDate;
+    _workExpEndDateController2.text = workExp[1].endDate;
+    _workExpJobTypeController2.text = workExp[1].jobType;
+    _workExpAchievementController2.text = workExp[1].achievements;
+
+    _workExpJobTitleController3.text = workExp[2].jobTitle;
+    _workExpCompanyNameController3.text = workExp[2].companyName;
+    _workExpStartDateController3.text = workExp[2].startDate;
+    _workExpEndDateController3.text = workExp[2].endDate;
+    _workExpJobTypeController3.text = workExp[2].jobType;
+    _workExpAchievementController3.text = workExp[2].achievements;
+
+    _workExpJobTitleController4.text = workExp[0].jobTitle;
+    _workExpCompanyNameController4.text = workExp[0].companyName;
+    _workExpStartDateController4.text = workExp[0].startDate;
+    _workExpEndDateController4.text = workExp[0].endDate;
+    _workExpJobTypeController4.text = workExp[0].jobType;
+    _workExpAchievementController4.text = workExp[0].achievements;
+
+    _workExpJobTitleController5.text = workExp[1].jobTitle;
+    _workExpCompanyNameController5.text = workExp[1].companyName;
+    _workExpStartDateController5.text = workExp[1].startDate;
+    _workExpEndDateController5.text = workExp[1].endDate;
+    _workExpJobTypeController5.text = workExp[1].jobType;
+    _workExpAchievementController5.text = workExp[1].achievements;
+
+    _workExpJobTitleController6.text = workExp[2].jobTitle;
+    _workExpCompanyNameController6.text = workExp[2].companyName;
+    _workExpStartDateController6.text = workExp[2].startDate;
+    _workExpEndDateController6.text = workExp[2].endDate;
+    _workExpJobTypeController6.text = workExp[2].jobType;
+    _workExpAchievementController6.text = workExp[2].achievements;
+
+    // Personal info Controllers
     _controllersList1
         .addAll([_emailController, _addressController, _linkedInController, 1]);
 
@@ -564,6 +762,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       _websiteController,
     ]);
 
+    // Education Background controllers
     _controllersList3.addAll([
       _fieldOfStudyController,
       _institutionNameController,
@@ -655,6 +854,61 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       _coursesController4eduSix3,
       _coursesController4eduSix4,
     ]);
+
+    // Work Experience controllers
+    _workExperienceControllersList1.addAll([
+      _workExpJobTitleController1,
+      _workExpCompanyNameController1,
+      _workExpStartDateController1,
+      _workExpEndDateController1,
+      _workExpJobTypeController1,
+      _workExpAchievementController1,
+    ]);
+
+    _workExperienceControllersList2.addAll([
+      _workExpJobTitleController2,
+      _workExpCompanyNameController2,
+      _workExpStartDateController2,
+      _workExpEndDateController2,
+      _workExpJobTypeController2,
+      _workExpAchievementController2,
+    ]);
+
+    _workExperienceControllersList3.addAll([
+      _workExpJobTitleController3,
+      _workExpCompanyNameController3,
+      _workExpStartDateController3,
+      _workExpEndDateController3,
+      _workExpJobTypeController3,
+      _workExpAchievementController3,
+    ]);
+
+    _workExperienceControllersList4.addAll([
+      _workExpJobTitleController4,
+      _workExpCompanyNameController4,
+      _workExpStartDateController4,
+      _workExpEndDateController4,
+      _workExpJobTypeController4,
+      _workExpAchievementController4,
+    ]);
+
+    _workExperienceControllersList5.addAll([
+      _workExpJobTitleController5,
+      _workExpCompanyNameController5,
+      _workExpStartDateController5,
+      _workExpEndDateController5,
+      _workExpJobTypeController5,
+      _workExpAchievementController5,
+    ]);
+
+    _workExperienceControllersList6.addAll([
+      _workExpJobTitleController6,
+      _workExpCompanyNameController6,
+      _workExpStartDateController6,
+      _workExpEndDateController6,
+      _workExpJobTypeController6,
+      _workExpAchievementController6,
+    ]);
   }
 
   @override
@@ -738,7 +992,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         ),
                       ),
                       TextField(
-                        maxLines: 10,
+                        maxLines: null,
                         onTapOutside: (event) {
                           setState(() {
                             myUser = myUser.copyWith(bio: _bioController.text);
@@ -1011,14 +1265,16 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     Column(
                       children: [
                         SizedBox(
-                          height: _heightFunction().toDouble(),
+                          height:
+                              _heightFunction(sectionType: 'edu').toDouble(),
                           child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: edu.length,
                             itemBuilder: (context, index) {
                               return Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _borderColor[index]
+                                    color: _borderColorForEdu[index]
                                         ? const Color.fromARGB(
                                             255, 73, 150, 159)
                                         : Colors.white,
@@ -1053,8 +1309,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                         TextField(
                                           onTap: () {
                                             setState(() {
-                                              _borderColor[index] =
-                                                  !_borderColor[index];
+                                              _borderColorForEdu[index] =
+                                                  !_borderColorForEdu[index];
                                             });
                                             // _overlayController.toggle();
                                             print(_overlayController.isShowing);
@@ -1090,11 +1346,11 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           ),
                                         ),
                                         TextField(
-                                          maxLines: 2,
+                                          maxLines: null,
                                           onTap: () {
                                             setState(() {
-                                              _borderColor[index] =
-                                                  !_borderColor[index];
+                                              _borderColorForEdu[index] =
+                                                  !_borderColorForEdu[index];
                                             });
                                             // _overlayController.toggle();
                                             print(_overlayController.isShowing);
@@ -1142,8 +1398,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                               child: TextField(
                                                 onTap: () {
                                                   setState(() {
-                                                    _borderColor[index] =
-                                                        !_borderColor[index];
+                                                    _borderColorForEdu[index] =
+                                                        !_borderColorForEdu[
+                                                            index];
                                                   });
                                                   // _overlayController.toggle();
                                                   print(_overlayController
@@ -1195,8 +1452,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                               child: TextField(
                                                 onTap: () {
                                                   setState(() {
-                                                    _borderColor[index] =
-                                                        !_borderColor[index];
+                                                    _borderColorForEdu[index] =
+                                                        !_borderColorForEdu[
+                                                            index];
                                                   });
                                                   // _overlayController.toggle();
                                                   print(_overlayController
@@ -1263,8 +1521,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 child: TextField(
                                                   onTap: () {
                                                     setState(() {
-                                                      _borderColor[index] =
-                                                          !_borderColor[index];
+                                                      _borderColorForEdu[
+                                                              index] =
+                                                          !_borderColorForEdu[
+                                                              index];
                                                     });
                                                     // _overlayController.toggle();
                                                     print(_overlayController
@@ -1282,8 +1542,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                   },
                                                   controller:
                                                       _controllerFunction(
-                                                    controllerType:
-                                                        'courses',
+                                                    controllerType: 'courses',
                                                     index: index,
                                                     count: innerIndex,
                                                   ),
@@ -1311,132 +1570,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             },
                                           ),
                                         ),
-                                        // SizedBox(
-                                        //   width: MediaQuery.of(context)
-                                        //           .size
-                                        //           .width *
-                                        //       0.4,
-                                        //   child: TextField(
-                                        //     onTap: () {
-                                        //       setState(() {
-                                        //         _borderColor[index] =
-                                        //             !_borderColor[index];
-                                        //       });
-                                        //       // _overlayController.toggle();
-                                        //       print(
-                                        //           _overlayController.isShowing);
-                                        //     },
-                                        //     onTapOutside: (event) {
-                                        //       setState(() {});
-                                        //       FocusScope.of(context).unfocus();
-                                        //     },
-                                        //     onSubmitted: (value) {
-                                        //       setState(() {});
-                                        //       FocusScope.of(context).unfocus();
-                                        //     },
-                                        //     controller: _coursesController,
-                                        //     // focusNode: widget.professionFocusNode,
-                                        //     style: const TextStyle(
-                                        //       color: Colors.black,
-                                        //       fontSize: 8,
-                                        //     ),
-                                        //     decoration: const InputDecoration(
-                                        //       isDense: true,
-                                        //       contentPadding: EdgeInsets.zero,
-                                        //       border: InputBorder.none,
-                                        //       focusedBorder: OutlineInputBorder(
-                                        //         borderRadius: BorderRadius.zero,
-                                        //         borderSide: BorderSide(
-                                        //             color: Colors.green),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        // SizedBox(
-                                        //   width: MediaQuery.of(context)
-                                        //           .size
-                                        //           .width *
-                                        //       0.4,
-                                        //   child: TextField(
-                                        //     onTap: () {
-                                        //       setState(() {
-                                        //         _borderColor[index] =
-                                        //             !_borderColor[index];
-                                        //       });
-                                        //       // _overlayController.toggle();
-                                        //       print(
-                                        //           _overlayController.isShowing);
-                                        //     },
-                                        //     onTapOutside: (event) {
-                                        //       setState(() {});
-                                        //       FocusScope.of(context).unfocus();
-                                        //     },
-                                        //     onSubmitted: (value) {
-                                        //       setState(() {});
-                                        //       FocusScope.of(context).unfocus();
-                                        //     },
-                                        //     controller: _coursesController,
-                                        //     // focusNode: widget.professionFocusNode,
-                                        //     style: const TextStyle(
-                                        //       color: Colors.black,
-                                        //       fontSize: 8,
-                                        //     ),
-                                        //     decoration: const InputDecoration(
-                                        //       isDense: true,
-                                        //       contentPadding: EdgeInsets.zero,
-                                        //       border: InputBorder.none,
-                                        //       focusedBorder: OutlineInputBorder(
-                                        //         borderRadius: BorderRadius.zero,
-                                        //         borderSide: BorderSide(
-                                        //             color: Colors.green),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        // SizedBox(
-                                        //   width: MediaQuery.of(context)
-                                        //           .size
-                                        //           .width *
-                                        //       0.4,
-                                        //   child: TextField(
-                                        //     onTap: () {
-                                        //       setState(() {
-                                        //         _borderColor[index] =
-                                        //             !_borderColor[index];
-                                        //       });
-                                        //       // _overlayController.toggle();
-                                        //       print(
-                                        //           _overlayController.isShowing);
-                                        //     },
-                                        //     onTapOutside: (event) {
-                                        //       setState(() {});
-                                        //       FocusScope.of(context).unfocus();
-                                        //     },
-                                        //     onSubmitted: (value) {
-                                        //       setState(() {});
-                                        //       FocusScope.of(context).unfocus();
-                                        //     },
-                                        //     controller: _coursesController,
-                                        //     // focusNode: widget.professionFocusNode,
-                                        //     style: const TextStyle(
-                                        //       color: Colors.black,
-                                        //       fontSize: 8,
-                                        //     ),
-                                        //     decoration: const InputDecoration(
-                                        //       isDense: true,
-                                        //       contentPadding: EdgeInsets.zero,
-                                        //       border: InputBorder.none,
-                                        //       focusedBorder: OutlineInputBorder(
-                                        //         borderRadius: BorderRadius.zero,
-                                        //         borderSide: BorderSide(
-                                        //             color: Colors.green),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
-                                    _borderColor[index]
+                                    _borderColorForEdu[index]
                                         ? Positioned(
                                             top: 0,
                                             right: 0,
@@ -1529,382 +1665,418 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           // mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'WORK EXPERIENCE',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor:
-                                    Color.fromARGB(255, 73, 150, 159),
-                                decorationThickness: 3,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                fontSize: 15,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience1[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'Work Position',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience1[0],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience1[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Company',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience1[1],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${workExperience1[2]} - ${workExperience1[3]}',
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return EditField(
-                                          editableField: (value) {
-                                            setState(() {
-                                              workExperience1[4] = value;
-                                            });
-                                          },
-                                          fieldName: 'Work type',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    workExperience1[4],
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color.fromARGB(255, 73, 150, 159),
-                                      fontSize: 8,
+                            SizedBox(
+                              height: _heightFunction(sectionType: 'workExp')
+                                  .toDouble(),
+                              child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: workExp.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: _borderColorForWorkExp[index]
+                                            ? const Color.fromARGB(
+                                                255, 73, 150, 159)
+                                            : Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Text(
-                              'Achievements',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                fontSize: 8,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience1[5] = value;
-                                        });
-                                      },
-                                      fieldName: 'Achievement',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience1[5],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience2[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'Work Position',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience2[0],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience2[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Company',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience2[1],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${workExperience2[2]} - ${workExperience2[3]}',
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return EditField(
-                                          editableField: (value) {
-                                            setState(() {
-                                              workExperience2[4] = value;
-                                            });
-                                          },
-                                          fieldName: 'Work type',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    workExperience2[4],
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color.fromARGB(255, 73, 150, 159),
-                                      fontSize: 8,
+                                    child: Stack(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            index == 0
+                                                ? const Text(
+                                                    'WORK EXPERIENCE',
+                                                    style: TextStyle(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      decorationColor:
+                                                          Color.fromARGB(255,
+                                                              73, 150, 159),
+                                                      decorationThickness: 3,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color.fromARGB(
+                                                          255, 73, 150, 159),
+                                                      fontSize: 15,
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextField(
+                                              onTap: () {
+                                                setState(() {
+                                                  _borderColorForWorkExp[
+                                                          index] =
+                                                      !_borderColorForWorkExp[
+                                                          index];
+                                                });
+                                                // _overlayController.toggle();
+                                                print(_overlayController
+                                                    .isShowing);
+                                              },
+                                              onTapOutside: (event) {
+                                                setState(() {});
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              onSubmitted: (value) {
+                                                setState(() {});
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              controller: _controllerFunction(
+                                                controllerType: 'workExp',
+                                                index: index,
+                                                count: 0,
+                                              ),
+                                              // focusNode: widget.professionFocusNode,
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              decoration: const InputDecoration(
+                                                isDense: true,
+                                                contentPadding: EdgeInsets.zero,
+                                                border: InputBorder.none,
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.zero,
+                                                  borderSide: BorderSide(
+                                                      color: Colors.green),
+                                                ),
+                                              ),
+                                            ),
+                                            TextField(
+                                              maxLines: null,
+                                              onTap: () {
+                                                setState(() {
+                                                  _borderColorForWorkExp[
+                                                          index] =
+                                                      !_borderColorForWorkExp[
+                                                          index];
+                                                });
+                                                // _overlayController.toggle();
+                                                print(_overlayController
+                                                    .isShowing);
+                                              },
+                                              onTapOutside: (event) {
+                                                setState(() {});
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              onSubmitted: (value) {
+                                                setState(() {});
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                              },
+                                              controller: _controllerFunction(
+                                                controllerType: 'workExp',
+                                                index: index,
+                                                count: 1,
+                                              ),
+                                              // focusNode: widget.professionFocusNode,
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 8,
+                                              ),
+                                              decoration: const InputDecoration(
+                                                isDense: true,
+                                                contentPadding: EdgeInsets.zero,
+                                                border: InputBorder.none,
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.zero,
+                                                  borderSide: BorderSide(
+                                                      color: Colors.green),
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.22,
+                                                  child: TextField(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _borderColorForWorkExp[
+                                                                index] =
+                                                            !_borderColorForWorkExp[
+                                                                index];
+                                                      });
+                                                      // _overlayController.toggle();
+                                                      print(_overlayController
+                                                          .isShowing);
+                                                    },
+                                                    onTapOutside: (event) {
+                                                      setState(() {});
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                    },
+                                                    onSubmitted: (value) {
+                                                      setState(() {});
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                    },
+                                                    controller:
+                                                        _controllerFunction(
+                                                      controllerType: 'workExp',
+                                                      index: index,
+                                                      count: 2,
+                                                    ),
+                                                    // focusNode: widget.professionFocusNode,
+                                                    style: const TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      color: Color.fromARGB(
+                                                          255, 73, 150, 159),
+                                                      fontSize: 8,
+                                                    ),
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      isDense: true,
+                                                      contentPadding:
+                                                          EdgeInsets.zero,
+                                                      border: InputBorder.none,
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.zero,
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.green),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.15,
+                                                  child: TextField(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _borderColorForWorkExp[
+                                                                index] =
+                                                            !_borderColorForWorkExp[
+                                                                index];
+                                                      });
+                                                      // _overlayController.toggle();
+                                                      print(_overlayController
+                                                          .isShowing);
+                                                    },
+                                                    onTapOutside: (event) {
+                                                      setState(() {});
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                    },
+                                                    onSubmitted: (value) {
+                                                      setState(() {});
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                    },
+                                                    controller:
+                                                        _controllerFunction(
+                                                      controllerType: 'work',
+                                                      index: index,
+                                                      count: 4,
+                                                    ),
+                                                    // focusNode: widget.professionFocusNode,
+                                                    style: const TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      color: Color.fromARGB(
+                                                          255, 73, 150, 159),
+                                                      fontSize: 8,
+                                                    ),
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      isDense: true,
+                                                      contentPadding:
+                                                          EdgeInsets.zero,
+                                                      border: InputBorder.none,
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.zero,
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.green),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const Text(
+                                              'Achievements',
+                                              style: TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                                color: Color.fromARGB(
+                                                    255, 73, 150, 159),
+                                                fontSize: 8,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.4,
+                                              child: TextField(
+                                                maxLines: null,
+                                                onTap: () {
+                                                  setState(() {
+                                                    _borderColorForWorkExp[
+                                                            index] =
+                                                        !_borderColorForWorkExp[
+                                                            index];
+                                                  });
+                                                  // _overlayController.toggle();
+                                                  print(_overlayController
+                                                      .isShowing);
+                                                },
+                                                onTapOutside: (event) {
+                                                  setState(() {});
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                onSubmitted: (value) {
+                                                  setState(() {});
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                },
+                                                controller: _controllerFunction(
+                                                  controllerType: 'workExp',
+                                                  index: index,
+                                                  count: 5,
+                                                ),
+                                                // focusNode: widget.professionFocusNode,
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 8,
+                                                ),
+                                                decoration:
+                                                    const InputDecoration(
+                                                  isDense: true,
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  border: InputBorder.none,
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.zero,
+                                                    borderSide: BorderSide(
+                                                        color: Colors.green),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        _borderColorForWorkExp[index]
+                                            ? Positioned(
+                                                top: 0,
+                                                right: 0,
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.green,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                      ),
+                                                      height: 17,
+                                                      width: 17,
+                                                      child: const Icon(
+                                                        Icons
+                                                            .arrow_downward_rounded,
+                                                        color: Colors.white,
+                                                        size: 15,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 3,
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          workExp.insert(
+                                                              index,
+                                                              workExp.elementAt(
+                                                                  index));
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.grey,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(2),
+                                                        ),
+                                                        height: 17,
+                                                        width: 17,
+                                                        child: const Icon(
+                                                          Icons.copy,
+                                                          color: Colors.white,
+                                                          size: 15,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 3,
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          workExp
+                                                              .removeAt(index);
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.red,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(2),
+                                                        ),
+                                                        height: 17,
+                                                        width: 17,
+                                                        child: const Icon(
+                                                          Icons
+                                                              .delete_forever_rounded,
+                                                          color: Colors.white,
+                                                          size: 15,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : const SizedBox(),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Text(
-                              'Achievements',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                fontSize: 8,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience2[5] = value;
-                                        });
-                                      },
-                                      fieldName: 'Achievement',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience2[5],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience3[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'Work Position',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience3[0],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience3[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Company',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience3[1],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${workExperience3[2]} - ${workExperience3[3]}',
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return EditField(
-                                          editableField: (value) {
-                                            setState(() {
-                                              workExperience3[4] = value;
-                                            });
-                                          },
-                                          fieldName: 'Work type',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text(
-                                    workExperience3[4],
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color.fromARGB(255, 73, 150, 159),
-                                      fontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Text(
-                              'Achievements',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Color.fromARGB(255, 73, 150, 159),
-                                fontSize: 8,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          workExperience3[5] = value;
-                                        });
-                                      },
-                                      fieldName: 'Achievement',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                workExperience3[5],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
+                                  );
+                                },
                               ),
                             ),
                           ],
