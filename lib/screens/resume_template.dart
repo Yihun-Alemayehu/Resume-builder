@@ -286,6 +286,38 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _endDateController2 = TextEditingController();
   final TextEditingController _institutionAddressController2 =
       TextEditingController();
+  final TextEditingController _fieldOfStudyController3 =
+      TextEditingController();
+  final TextEditingController _institutionNameController3 =
+      TextEditingController();
+  final TextEditingController _startDateController3 = TextEditingController();
+  final TextEditingController _endDateController3 = TextEditingController();
+  final TextEditingController _institutionAddressController3 =
+      TextEditingController();
+  final TextEditingController _fieldOfStudyController4 =
+      TextEditingController();
+  final TextEditingController _institutionNameController4 =
+      TextEditingController();
+  final TextEditingController _startDateController4 = TextEditingController();
+  final TextEditingController _endDateController4 = TextEditingController();
+  final TextEditingController _institutionAddressController4 =
+      TextEditingController();
+  final TextEditingController _fieldOfStudyController5 =
+      TextEditingController();
+  final TextEditingController _institutionNameController5 =
+      TextEditingController();
+  final TextEditingController _startDateController5 = TextEditingController();
+  final TextEditingController _endDateController5 = TextEditingController();
+  final TextEditingController _institutionAddressController5 =
+      TextEditingController();
+  final TextEditingController _fieldOfStudyController6 =
+      TextEditingController();
+  final TextEditingController _institutionNameController6 =
+      TextEditingController();
+  final TextEditingController _startDateController6 = TextEditingController();
+  final TextEditingController _endDateController6 = TextEditingController();
+  final TextEditingController _institutionAddressController6 =
+      TextEditingController();
   final TextEditingController _coursesController = TextEditingController();
   final TextEditingController _coursesController4eduOne1 =
       TextEditingController();
@@ -310,6 +342,30 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _coursesController4eduThree3 =
       TextEditingController();
   final TextEditingController _coursesController4eduThree4 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFour1 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFour2 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFour3 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFour4 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFive1 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFive2 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFive3 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduFive4 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduSix1 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduSix2 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduSix3 =
+      TextEditingController();
+  final TextEditingController _coursesController4eduSix4 =
       TextEditingController();
 
   var _overlayController = OverlayPortalController();
@@ -339,9 +395,21 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
   List _controllersList1 = [];
   List _controllersList2 = [];
+
+  // Education Background count controllers
   List _controllersList3 = [];
   List _controllersList4 = [];
-  List _coursesControllersList = [];
+  List _controllersList5 = [];
+  List _controllersList6 = [];
+  List _controllersList7 = [];
+  List _controllersList8 = [];
+
+  List _coursesControllersList1 = [];
+  List _coursesControllersList2 = [];
+  List _coursesControllersList3 = [];
+  List _coursesControllersList4 = [];
+  List _coursesControllersList5 = [];
+  List _coursesControllersList6 = [];
 
   int _itemCount() {
     if (myUser.github != null && myUser.website != null) {
@@ -354,20 +422,40 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   }
 
   TextEditingController _controllerFunction(
-      {required int index, required int count}) {
-    if (index == 0) {
-      return _controllersList3[count];
-    } else if (index == 1) {
-      return _controllersList4[count];
-    }
-    // else if (index == 2) {
-    //   return _controllersList5[count];
-    // }
-    // else if (index == 3) {
-    //   return _controllersList6[count];
-    // }
-    else {
-      return _controllersList1[count];
+      {required String controllerType,
+      required int index,
+      required int count}) {
+    if (controllerType == 'edu') {
+      if (index == 0) {
+        return _controllersList3[count];
+      } else if (index == 1) {
+        return _controllersList4[count];
+      }
+      else if (index == 2) {
+        return _controllersList5[count];
+      }
+      else if (index == 3) {
+        return _controllersList6[count];
+      } else if (index == 4) {
+        return _controllersList7[count];
+      }
+      else {
+        return _controllersList8[count];
+      }
+    } else {
+      if (index == 0) {
+        return _coursesControllersList1[count];
+      } else if (index == 1) {
+        return _coursesControllersList2[count];
+      } else if (index == 2) {
+        return _coursesControllersList3[count];
+      } else if (index == 3) {
+        return _coursesControllersList4[count];
+      } else if (index == 4) {
+        return _coursesControllersList5[count];
+      } else {
+        return _coursesControllersList6[count];
+      }
     }
   }
 
@@ -412,14 +500,60 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     _endDateController2.text = edu[1].endDate;
     _institutionAddressController2.text = edu[1].institutionAddress;
 
+    _fieldOfStudyController3.text = edu[0].fieldOfStudy;
+    _institutionNameController3.text = edu[0].institutionName;
+    _startDateController3.text = edu[0].startDate;
+    _endDateController3.text = edu[0].endDate;
+    _institutionAddressController3.text = edu[0].institutionAddress;
+
+    _fieldOfStudyController4.text = edu[1].fieldOfStudy;
+    _institutionNameController4.text = edu[1].institutionName;
+    _startDateController4.text = edu[1].startDate;
+    _endDateController4.text = edu[1].endDate;
+    _institutionAddressController4.text = edu[1].institutionAddress;
+
+    _fieldOfStudyController5.text = edu[0].fieldOfStudy;
+    _institutionNameController5.text = edu[0].institutionName;
+    _startDateController5.text = edu[0].startDate;
+    _endDateController5.text = edu[0].endDate;
+    _institutionAddressController5.text = edu[0].institutionAddress;
+
+    _fieldOfStudyController4.text = edu[1].fieldOfStudy;
+    _institutionNameController4.text = edu[1].institutionName;
+    _startDateController4.text = edu[1].startDate;
+    _endDateController4.text = edu[1].endDate;
+    _institutionAddressController4.text = edu[1].institutionAddress;
+    
+
     _coursesController4eduOne1.text = edu[0].courses[0];
     _coursesController4eduOne2.text = edu[0].courses[1];
     _coursesController4eduOne3.text = edu[0].courses[2];
     _coursesController4eduOne4.text = edu[0].courses[3];
+
     _coursesController4eduTwo1.text = edu[1].courses[0];
     _coursesController4eduTwo2.text = edu[1].courses[1];
-    // _coursesController4eduTwo3.text = edu[1].courses[2];
-    // _coursesController4eduTwo4.text = edu[1].courses[3];
+    _coursesController4eduTwo3.text = edu[1].courses[0];
+    _coursesController4eduTwo4.text = edu[1].courses[1];
+
+    _coursesController4eduThree1.text = edu[0].courses[0];
+    _coursesController4eduThree2.text = edu[0].courses[1];
+    _coursesController4eduThree3.text = edu[0].courses[2];
+    _coursesController4eduThree4.text = edu[0].courses[3];
+
+    _coursesController4eduFour1.text = edu[1].courses[0];
+    _coursesController4eduFour2.text = edu[1].courses[1];
+    _coursesController4eduFour3.text = edu[1].courses[0];
+    _coursesController4eduFour4.text = edu[1].courses[1];
+
+    _coursesController4eduFive1.text = edu[0].courses[0];
+    _coursesController4eduFive2.text = edu[0].courses[1];
+    _coursesController4eduFive3.text = edu[0].courses[2];
+    _coursesController4eduFive4.text = edu[0].courses[3];
+
+    _coursesController4eduSix1.text = edu[1].courses[0];
+    _coursesController4eduSix2.text = edu[1].courses[1];
+    _coursesController4eduSix3.text = edu[1].courses[0];
+    _coursesController4eduSix4.text = edu[1].courses[1];
 
     _controllersList1
         .addAll([_emailController, _addressController, _linkedInController, 1]);
@@ -447,15 +581,79 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       _institutionAddressController2,
     ]);
 
-    _coursesControllersList.addAll([
+    _controllersList5.addAll([
+      _fieldOfStudyController3,
+      _institutionNameController3,
+      _startDateController3,
+      _endDateController3,
+      _institutionAddressController3,
+      // _coursesController3,
+    ]);
+
+    _controllersList6.addAll([
+      _fieldOfStudyController4,
+      _institutionNameController4,
+      _startDateController4,
+      _endDateController4,
+      _institutionAddressController4,
+    ]);
+
+    _controllersList7.addAll([
+      _fieldOfStudyController5,
+      _institutionNameController5,
+      _startDateController5,
+      _endDateController5,
+      _institutionAddressController5,
+      // _coursesController5,
+    ]);
+
+    _controllersList8.addAll([
+      _fieldOfStudyController6,
+      _institutionNameController6,
+      _startDateController6,
+      _endDateController6,
+      _institutionAddressController6,
+    ]);
+
+    _coursesControllersList1.addAll([
       _coursesController4eduOne1,
       _coursesController4eduOne2,
       _coursesController4eduOne3,
       _coursesController4eduOne4,
+    ]);
+
+    _coursesControllersList2.addAll([
       _coursesController4eduTwo1,
       _coursesController4eduTwo2,
       _coursesController4eduTwo3,
       _coursesController4eduTwo4,
+    ]);
+
+    _coursesControllersList3.addAll([
+      _coursesController4eduThree1,
+      _coursesController4eduThree2,
+      _coursesController4eduThree3,
+      _coursesController4eduThree4,
+    ]);
+
+    _coursesControllersList4.addAll([
+      _coursesController4eduFour1,
+      _coursesController4eduFour2,
+      _coursesController4eduFour3,
+      _coursesController4eduFour4,
+    ]);
+    _coursesControllersList5.addAll([
+      _coursesController4eduFive1,
+      _coursesController4eduFive2,
+      _coursesController4eduFive3,
+      _coursesController4eduFive4,
+    ]);
+
+    _coursesControllersList6.addAll([
+      _coursesController4eduSix1,
+      _coursesController4eduSix2,
+      _coursesController4eduSix3,
+      _coursesController4eduSix4,
     ]);
   }
 
@@ -870,7 +1068,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             FocusScope.of(context).unfocus();
                                           },
                                           controller: _controllerFunction(
-                                              index: index, count: 0),
+                                            controllerType: 'edu',
+                                            index: index,
+                                            count: 0,
+                                          ),
                                           // focusNode: widget.professionFocusNode,
                                           style: const TextStyle(
                                             color: Colors.black,
@@ -907,7 +1108,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             FocusScope.of(context).unfocus();
                                           },
                                           controller: _controllerFunction(
-                                              index: index, count: 1),
+                                            controllerType: 'edu',
+                                            index: index,
+                                            count: 1,
+                                          ),
                                           // focusNode: widget.professionFocusNode,
                                           style: const TextStyle(
                                             color: Colors.black,
@@ -956,7 +1160,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       .unfocus();
                                                 },
                                                 controller: _controllerFunction(
-                                                    index: index, count: 2),
+                                                  controllerType: 'edu',
+                                                  index: index,
+                                                  count: 2,
+                                                ),
                                                 // focusNode: widget.professionFocusNode,
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
@@ -1006,7 +1213,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       .unfocus();
                                                 },
                                                 controller: _controllerFunction(
-                                                    index: index, count: 4),
+                                                  controllerType: 'edu',
+                                                  index: index,
+                                                  count: 4,
+                                                ),
                                                 // focusNode: widget.professionFocusNode,
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
@@ -1071,7 +1281,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                         .unfocus();
                                                   },
                                                   controller:
-                                                      _coursesController,
+                                                      _controllerFunction(
+                                                    controllerType:
+                                                        'courses',
+                                                    index: index,
+                                                    count: innerIndex,
+                                                  ),
                                                   // focusNode: widget.professionFocusNode,
                                                   style: const TextStyle(
                                                     color: Colors.black,
