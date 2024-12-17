@@ -173,7 +173,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     ),
   ];
 
-
   List<WorkExperience> workExp = [
     WorkExperience(
       jobTitle: 'FLutter Developer',
@@ -203,7 +202,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
           'Implemented Complex UI Designs: Successfully developed and integrated intricate, user-centric UI components, ensuring seamless functionality, responsiveness, and an engaging user experience across diverse devices and screen sizes.',
     ),
   ];
-  
 
   List skills = [
     'Programming',
@@ -454,12 +452,16 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
+  // SKills section input chips count
+  int inputs = 3;
+
   Future<void> pickImage() async {
     var image = await _picker.pickImage(source: ImageSource.gallery);
     _image = File(image!.path);
     setState(() {});
   }
 
+  // Personal info controllers list
   List _controllersList1 = [];
   List _controllersList2 = [];
 
@@ -479,6 +481,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   List _workExperienceControllersList5 = [];
   List _workExperienceControllersList6 = [];
 
+  // Education background course controllers list
   List _coursesControllersList1 = [];
   List _coursesControllersList2 = [];
   List _coursesControllersList3 = [];
@@ -486,6 +489,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   List _coursesControllersList5 = [];
   List _coursesControllersList6 = [];
 
+  // Item count for personal info
   int _itemCount() {
     if (myUser.github != null && myUser.website != null) {
       return 3;
@@ -496,6 +500,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     }
   }
 
+  // controllers fuction for education, courses and work experience
   TextEditingController _controllerFunction(
       {required String controllerType,
       required int index,
@@ -545,6 +550,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     }
   }
 
+  // Height fuction for edu and work experience sections
   int _heightFunction({required String sectionType}) {
     if (sectionType == 'edu') {
       int eduLength = edu.length;
@@ -2033,406 +2039,61 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           height: 10,
                         ),
                         Wrap(
-                          spacing: 4,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
+                            spacing: 4,
+                            children: List.generate(
+                              skills.length,
+                              (index) {
+                                return IntrinsicWidth(
+                                  child: Container(
+                                    height: 25,
+                                    padding: const EdgeInsets.all(2),
+                                    margin: const EdgeInsets.only(
+                                        right: 4, bottom: 4),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 73, 150, 159),
+                                      ),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          skills[index],
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              skills.removeAt(index);
+                                            });
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.shade400,
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: const Icon(
+                                              Icons.close,
+                                              size: 10,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 );
                               },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[0],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
+                            )
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[1],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[2] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[2],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[3] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[3],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[4] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[4],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[5] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[5],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[6] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[6],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[7] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[7],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[8] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[8],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[9] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[9],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          skills[10] = value;
-                                        });
-                                      },
-                                      fieldName: 'Skill',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
-                                  ),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  skills[10],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                     const SizedBox(
