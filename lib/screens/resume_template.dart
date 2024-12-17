@@ -437,6 +437,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     false
   ];
 
+  bool _borderColorForSkills = false;
+
   final List _iconsList1 = [
     Icons.email,
     Icons.pin_drop,
@@ -579,6 +581,44 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
         return 700;
       }
     }
+  }
+
+  final TextEditingController _addSkillController = TextEditingController();
+
+  Widget AddSkill() {
+    return Material(
+      type: MaterialType.transparency,
+      child: Center(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _addSkillController,
+                  decoration: InputDecoration(
+                    hintText: 'Add Skill',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    skills.add(_addSkillController.text);
+                    _addSkillController.clear();
+                  });
+                },
+                child: const Text('Add'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -2021,80 +2061,138 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'SKILLS',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color.fromARGB(255, 73, 150, 159),
-                            decorationThickness: 3,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 73, 150, 159),
-                            fontSize: 15,
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: _borderColorForSkills
+                              ? const Color.fromARGB(255, 73, 150, 159)
+                              : Colors.white,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Wrap(
-                            spacing: 4,
-                            children: List.generate(
-                              skills.length,
-                              (index) {
-                                return IntrinsicWidth(
-                                  child: Container(
-                                    height: 25,
-                                    padding: const EdgeInsets.all(2),
-                                    margin: const EdgeInsets.only(
-                                        right: 4, bottom: 4),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: const Color.fromARGB(
-                                            255, 73, 150, 159),
-                                      ),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          skills[index],
-                                          style: const TextStyle(
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 4,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              skills.removeAt(index);
-                                            });
-                                          },
+                      ),
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'SKILLS',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationColor:
+                                      Color.fromARGB(255, 73, 150, 159),
+                                  decorationThickness: 3,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 73, 150, 159),
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _borderColorForSkills =
+                                        !_borderColorForSkills;
+                                  });
+                                },
+                                child: Wrap(
+                                    spacing: 4,
+                                    children: List.generate(
+                                      skills.length,
+                                      (index) {
+                                        return IntrinsicWidth(
                                           child: Container(
+                                            height: 25,
+                                            padding: const EdgeInsets.all(2),
+                                            margin: const EdgeInsets.only(
+                                                right: 4, bottom: 4),
                                             decoration: BoxDecoration(
-                                              color: Colors.grey.shade400,
+                                              border: Border.all(
+                                                color: const Color.fromARGB(
+                                                    255, 73, 150, 159),
+                                              ),
+                                              color: Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
-                                            child: const Icon(
-                                              Icons.close,
-                                              size: 10,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  skills[index],
+                                                  style: const TextStyle(
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 4,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      skills.removeAt(index);
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          Colors.grey.shade400,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.close,
+                                                      size: 10,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    ),
+                                        );
+                                      },
+                                    )),
+                              ),
+                            ],
+                          ),
+                          _borderColorForSkills
+                              ? Positioned(
+                                  top: 2,
+                                  right: 2,
+                                  child: Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AddSkill();
+                                            },
+                                          );
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(2),
+                                          ),
+                                          height: 20,
+                                          width: 20,
+                                          child: const Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                            size: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                );
-                              },
-                            )
-                            ),
-                      ],
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
