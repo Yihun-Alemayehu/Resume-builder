@@ -585,6 +585,63 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
   final TextEditingController _addSkillController = TextEditingController();
 
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add Skill'),
+          content: SizedBox(
+            height: 40,
+            width: MediaQuery.of(context).size.width * .9,
+            child: TextField(
+              controller: _addSkillController,
+              decoration: InputDecoration(
+                hintText: 'Add Skill',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.red,
+              ),
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue.shade900,
+              ),
+              child: const Text('Done'),
+              onPressed: () {
+                setState(() {
+                  skills.add(_addSkillController.text);
+                  _addSkillController.clear();
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget AddSkill() {
     return Material(
       type: MaterialType.transparency,
@@ -2164,14 +2221,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AddSkill();
-                                            },
-                                          );
-                                        },
+                                        onTap: () => _showMyDialog(),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.green,
