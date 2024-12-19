@@ -438,6 +438,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   ];
 
   bool _borderColorForSkills = false;
+  bool _borderColorForPersonalProjects = false;
 
   final List _iconsList1 = [
     Icons.email,
@@ -584,21 +585,27 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   }
 
   final TextEditingController _addSkillController = TextEditingController();
+  final TextEditingController _addPersonalProjectController =
+      TextEditingController();
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog({
+    required String title,
+  }) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Add Skill'),
+          title: Text(title),
           content: SizedBox(
             height: 40,
             width: MediaQuery.of(context).size.width * .9,
             child: TextField(
-              controller: _addSkillController,
+              controller: title == 'Add Skill'
+                  ? _addSkillController
+                  : _addPersonalProjectController,
               decoration: InputDecoration(
-                hintText: 'Add Skill',
+                hintText: title,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -630,8 +637,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
               child: const Text('Done'),
               onPressed: () {
                 setState(() {
-                  skills.add(_addSkillController.text);
+                  title == 'Add Skill'
+                      ? skills.add(_addSkillController.text)
+                      : personalProjects
+                          .add(_addPersonalProjectController.text);
                   _addSkillController.clear();
+                  _addPersonalProjectController.clear();
                 });
                 Navigator.of(context).pop();
               },
@@ -639,42 +650,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
           ],
         );
       },
-    );
-  }
-
-  Widget AddSkill() {
-    return Material(
-      type: MaterialType.transparency,
-      child: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _addSkillController,
-                  decoration: InputDecoration(
-                    hintText: 'Add Skill',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    skills.add(_addSkillController.text);
-                    _addSkillController.clear();
-                  });
-                },
-                child: const Text('Add'),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -2146,72 +2121,119 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _borderColorForSkills =
-                                        !_borderColorForSkills;
-                                  });
-                                },
-                                child: Wrap(
-                                    spacing: 4,
-                                    children: List.generate(
-                                      skills.length,
-                                      (index) {
-                                        return IntrinsicWidth(
-                                          child: Container(
-                                            height: 25,
-                                            padding: const EdgeInsets.all(2),
-                                            margin: const EdgeInsets.only(
-                                                right: 4, bottom: 4),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: const Color.fromARGB(
-                                                    255, 73, 150, 159),
-                                              ),
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  skills[index],
-                                                  style: const TextStyle(
-                                                    fontSize: 10,
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 4,
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      skills.removeAt(index);
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          Colors.grey.shade400,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                    ),
-                                                    child: const Icon(
-                                                      Icons.close,
-                                                      size: 10,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
+                              _borderColorForSkills
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _borderColorForSkills =
+                                              !_borderColorForSkills;
+                                        });
                                       },
-                                    )),
-                              ),
+                                      child: Wrap(
+                                          spacing: 4,
+                                          children: List.generate(
+                                            skills.length,
+                                            (index) {
+                                              return IntrinsicWidth(
+                                                child: Container(
+                                                  height: 25,
+                                                  padding:
+                                                      const EdgeInsets.all(2),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 4, bottom: 4),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              73,
+                                                              150,
+                                                              159),
+                                                    ),
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Text(
+                                                        skills[index],
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 4,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            skills.removeAt(
+                                                                index);
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .grey.shade400,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons.close,
+                                                            size: 10,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          )),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _borderColorForSkills =
+                                              !_borderColorForSkills;
+                                        });
+                                      },
+                                      child: Wrap(
+                                        spacing: 4,
+                                        children: List.generate(
+                                          skills.length,
+                                          (index) {
+                                            return Container(
+                                              padding: const EdgeInsets.all(2),
+                                              margin: const EdgeInsets.only(
+                                                  right: 4, bottom: 4),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: const Color.fromARGB(
+                                                      255, 73, 150, 159),
+                                                ),
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              child: Text(
+                                                skills[index],
+                                                style: const TextStyle(
+                                                  fontSize: 8,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
                           _borderColorForSkills
@@ -2221,7 +2243,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                        onTap: () => _showMyDialog(),
+                                        onTap: () =>
+                                            _showMyDialog(title: 'Add Skill'),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.green,
@@ -2247,161 +2270,196 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'PERSONAL PROJECTS',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color.fromARGB(255, 73, 150, 159),
-                            decorationThickness: 3,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 73, 150, 159),
-                            fontSize: 15,
+                    _borderColorForPersonalProjects
+                        ? Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: _borderColorForPersonalProjects
+                                    ? const Color.fromARGB(255, 73, 150, 159)
+                                    : Colors.white,
+                              ),
+                            ),
+                            child: Stack(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'PERSONAL PROJECTS',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            Color.fromARGB(255, 73, 150, 159),
+                                        decorationThickness: 3,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 73, 150, 159),
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _borderColorForPersonalProjects =
+                                              !_borderColorForPersonalProjects;
+                                        });
+                                      },
+                                      child: Wrap(
+                                          spacing: 4,
+                                          children: List.generate(
+                                            personalProjects.length,
+                                            (index) {
+                                              return IntrinsicWidth(
+                                                child: Container(
+                                                  height: 25,
+                                                  padding:
+                                                      const EdgeInsets.all(2),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 4, bottom: 4),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              73,
+                                                              150,
+                                                              159),
+                                                    ),
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Text(
+                                                        personalProjects[index],
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 4,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            personalProjects
+                                                                .removeAt(
+                                                                    index);
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .grey.shade400,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons.close,
+                                                            size: 10,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                _borderColorForPersonalProjects
+                                    ? Positioned(
+                                        top: 2,
+                                        right: 2,
+                                        child: Row(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () => _showMyDialog(
+                                                  title:
+                                                      'Add Personal Project'),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius:
+                                                      BorderRadius.circular(2),
+                                                ),
+                                                height: 20,
+                                                width: 20,
+                                                child: const Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            ),
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _borderColorForPersonalProjects =
+                                    !_borderColorForPersonalProjects;
+                              });
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'PERSONAL PROJECTS',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor:
+                                        Color.fromARGB(255, 73, 150, 159),
+                                    decorationThickness: 3,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                    personalProjects.length,
+                                    (index) {
+                                      return Column(
+                                        children: [
+                                          Text(
+                                            personalProjects[index],
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // spacing: 4,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          personalProjects[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'Project Name',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                personalProjects[0],
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          personalProjects[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Project Name',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                personalProjects[1],
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          personalProjects[2] = value;
-                                        });
-                                      },
-                                      fieldName: 'Project Name',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                personalProjects[2],
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          personalProjects[3] = value;
-                                        });
-                                      },
-                                      fieldName: 'Project Name',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                personalProjects[3],
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          personalProjects[4] = value;
-                                        });
-                                      },
-                                      fieldName: 'Project Name',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                personalProjects[4],
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
                     const SizedBox(
                       height: 20,
                     ),
