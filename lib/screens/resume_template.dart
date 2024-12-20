@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/data/model/education_model.dart';
+import 'package:my_resume/data/model/language_model.dart';
 import 'package:my_resume/data/model/user_model.dart';
 import 'package:my_resume/data/model/work_experience_model.dart';
 import 'package:my_resume/widgets/date_pick_form_field.dart';
@@ -203,6 +204,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     ),
   ];
 
+  List<LanguageModel> languages = [
+    LanguageModel(
+        language: 'English', proficiency: 'Full Professional Proficient'),
+    LanguageModel(
+        language: 'Amharic', proficiency: 'Full Professional Proficient'),
+  ];
+
   List skills = [
     'Programming',
     'Flutter',
@@ -234,12 +242,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     'Space science',
     'programming',
   ];
-  List languages = [
-    'English',
-    'Full Professional Proficient',
-    'Amharic',
-    'Full Professional Proficient',
-  ];
+  // List languages = [
+  //   'English',
+  //   'Full Professional Proficient',
+  //   'Amharic',
+  //   'Full Professional Proficient',
+  // ];
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _professionController = TextEditingController();
@@ -439,6 +447,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
 
   bool _borderColorForSkills = false;
   bool _borderColorForPersonalProjects = false;
+  bool _borderColorForLanguage = false;
 
   final List _iconsList1 = [
     Icons.email,
@@ -587,31 +596,84 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _addSkillController = TextEditingController();
   final TextEditingController _addPersonalProjectController =
       TextEditingController();
+  final TextEditingController _addLanguageControllerForLanguageName =
+      TextEditingController();
+  final TextEditingController _addLanguageControllerForProficiency =
+      TextEditingController();
 
   Future<void> _showMyDialog({
     required String title,
+    required String type,
   }) async {
+    const List<String> proficiencyList = [
+      'Full Professional Proficient',
+      'Professional Proficient',
+      'Intermediate Proficient',
+      'Basic Proficient',
+    ];
+    String dropDownValue = proficiencyList[0];
+
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
-          content: SizedBox(
-            height: 40,
-            width: MediaQuery.of(context).size.width * .9,
-            child: TextField(
-              controller: title == 'Add Skill'
-                  ? _addSkillController
-                  : _addPersonalProjectController,
-              decoration: InputDecoration(
-                hintText: title,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+          content: type == 'language'
+              ? ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 90),
+                  // height: 60,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 40,
+                        child: TextField(
+                          controller: _addLanguageControllerForLanguageName,
+                          decoration: InputDecoration(
+                            hintText: 'Add Language',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 40,
+                        child: DropdownButton(
+                          items: proficiencyList
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              dropDownValue = value.toString();
+                            });
+                          },
+                          value: dropDownValue,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : SizedBox(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width * .9,
+                  child: TextField(
+                    controller: title == 'Add Skill'
+                        ? _addSkillController
+                        : _addPersonalProjectController,
+                    decoration: InputDecoration(
+                      hintText: title,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
@@ -637,12 +699,20 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
               child: const Text('Done'),
               onPressed: () {
                 setState(() {
-                  title == 'Add Skill'
-                      ? skills.add(_addSkillController.text)
-                      : personalProjects
-                          .add(_addPersonalProjectController.text);
-                  _addSkillController.clear();
-                  _addPersonalProjectController.clear();
+                  if (title == 'Add Skill') {
+                    skills.add(_addSkillController.text);
+                    _addSkillController.clear();
+                  } else if (title == 'Add Personal Project') {
+                    personalProjects.add(_addPersonalProjectController.text);
+                    _addPersonalProjectController.clear();
+                  } else {
+                    languages.add(
+                      LanguageModel(
+                        language: _addLanguageControllerForLanguageName.text,
+                        proficiency: dropDownValue,
+                      ),
+                    );
+                  }
                 });
                 Navigator.of(context).pop();
               },
@@ -936,6 +1006,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       _workExpJobTypeController6,
       _workExpAchievementController6,
     ]);
+
+    // Language controller
+    _addLanguageControllerForLanguageName.text = languages[0].language;
+    _addLanguageControllerForProficiency.text = languages[0].proficiency;
   }
 
   @override
@@ -2243,8 +2317,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                        onTap: () =>
-                                            _showMyDialog(title: 'Add Skill'),
+                                        onTap: () => _showMyDialog(
+                                            title: 'Add Skill', type: 'skills'),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.green,
@@ -2387,8 +2461,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           children: [
                                             GestureDetector(
                                               onTap: () => _showMyDialog(
-                                                  title:
-                                                      'Add Personal Project'),
+                                                  title: 'Add Personal Project',
+                                                  type: 'personalProjects'),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
@@ -2463,139 +2537,352 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'LANGUAGES',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color.fromARGB(255, 73, 150, 159),
-                            decorationThickness: 3,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 73, 150, 159),
-                            fontSize: 15,
+                    _borderColorForLanguage
+                        ? Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: _borderColorForLanguage
+                                    ? const Color.fromARGB(255, 73, 150, 159)
+                                    : Colors.white,
+                              ),
+                            ),
+                            child: Stack(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'LANGUAGES',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            Color.fromARGB(255, 73, 150, 159),
+                                        decorationThickness: 3,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 73, 150, 159),
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _borderColorForLanguage =
+                                              !_borderColorForLanguage;
+                                        });
+                                      },
+                                      child: Wrap(
+                                          spacing: 4,
+                                          children: List.generate(
+                                            languages.length,
+                                            (index) {
+                                              return IntrinsicWidth(
+                                                child: Container(
+                                                  height: 35,
+                                                  padding:
+                                                      const EdgeInsets.all(2),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 4, bottom: 4),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              73,
+                                                              150,
+                                                              159),
+                                                    ),
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            languages[index]
+                                                                .language,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 10,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Text(
+                                                            languages[index]
+                                                                .proficiency,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 10,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            languages.removeAt(
+                                                                index);
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .grey.shade400,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                          ),
+                                                          child: const Icon(
+                                                            Icons.close,
+                                                            size: 10,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                _borderColorForLanguage
+                                    ? Positioned(
+                                        top: 2,
+                                        right: 2,
+                                        child: Row(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () => _showMyDialog(
+                                                  title: 'Add Language',
+                                                  type: 'language'),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius:
+                                                      BorderRadius.circular(2),
+                                                ),
+                                                height: 20,
+                                                width: 20,
+                                                child: const Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            ),
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _borderColorForLanguage =
+                                    !_borderColorForLanguage;
+                              });
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Languages',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor:
+                                        Color.fromARGB(255, 73, 150, 159),
+                                    decorationThickness: 3,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                    languages.length,
+                                    (index) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            languages[index].language,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            languages[index].proficiency,
+                                            style: const TextStyle(
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // spacing: 4,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          languages[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'language',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                languages[0],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          languages[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'Proficiency',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Text(
-                                languages[1],
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return EditField(
-                                        editableField: (value) {
-                                          setState(() {
-                                            languages[2] = value;
-                                          });
-                                        },
-                                        fieldName: 'language',
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Text(
-                                  languages[2],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return EditField(
-                                        editableField: (value) {
-                                          setState(() {
-                                            languages[3] = value;
-                                          });
-                                        },
-                                        fieldName: 'Proficiency',
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Text(
-                                  languages[3],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
-                            ]),
-                      ],
-                    ),
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     const Text(
+                    //       'LANGUAGES',
+                    //       style: TextStyle(
+                    //         decoration: TextDecoration.underline,
+                    //         decorationColor: Color.fromARGB(255, 73, 150, 159),
+                    //         decorationThickness: 3,
+                    //         fontWeight: FontWeight.bold,
+                    //         color: Color.fromARGB(255, 73, 150, 159),
+                    //         fontSize: 15,
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       height: 10,
+                    //     ),
+                    //     Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         GestureDetector(
+                    //           onTap: () {
+                    //             showModalBottomSheet(
+                    //               context: context,
+                    //               builder: (context) {
+                    //                 return EditField(
+                    //                   editableField: (value) {
+                    //                     setState(() {
+                    //                       languages[0] = value;
+                    //                     });
+                    //                   },
+                    //                   fieldName: 'language',
+                    //                 );
+                    //               },
+                    //             );
+                    //           },
+                    //           child: Text(
+                    //             languages[0],
+                    //             style: const TextStyle(
+                    //               fontSize: 8,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         const SizedBox(
+                    //           height: 3,
+                    //         ),
+                    //         GestureDetector(
+                    //           onTap: () {
+                    //             showModalBottomSheet(
+                    //               context: context,
+                    //               builder: (context) {
+                    //                 return EditField(
+                    //                   editableField: (value) {
+                    //                     setState(() {
+                    //                       languages[1] = value;
+                    //                     });
+                    //                   },
+                    //                   fieldName: 'Proficiency',
+                    //                 );
+                    //               },
+                    //             );
+                    //           },
+                    //           child: Text(
+                    //             languages[1],
+                    //             style: const TextStyle(
+                    //               fontSize: 8,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         const SizedBox(
+                    //           height: 3,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     const SizedBox(
+                    //       height: 6,
+                    //     ),
+                    //     Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           GestureDetector(
+                    //             onTap: () {
+                    //               showModalBottomSheet(
+                    //                 context: context,
+                    //                 builder: (context) {
+                    //                   return EditField(
+                    //                     editableField: (value) {
+                    //                       setState(() {
+                    //                         languages[2] = value;
+                    //                       });
+                    //                     },
+                    //                     fieldName: 'language',
+                    //                   );
+                    //                 },
+                    //               );
+                    //             },
+                    //             child: Text(
+                    //               languages[2],
+                    //               style: const TextStyle(
+                    //                 fontSize: 8,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           const SizedBox(
+                    //             height: 3,
+                    //           ),
+                    //           GestureDetector(
+                    //             onTap: () {
+                    //               showModalBottomSheet(
+                    //                 context: context,
+                    //                 builder: (context) {
+                    //                   return EditField(
+                    //                     editableField: (value) {
+                    //                       setState(() {
+                    //                         languages[3] = value;
+                    //                       });
+                    //                     },
+                    //                     fieldName: 'Proficiency',
+                    //                   );
+                    //                 },
+                    //               );
+                    //             },
+                    //             child: Text(
+                    //               languages[3],
+                    //               style: const TextStyle(
+                    //                 fontSize: 8,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ]),
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 20,
                     ),
