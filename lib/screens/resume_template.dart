@@ -448,6 +448,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   bool _borderColorForSkills = false;
   bool _borderColorForPersonalProjects = false;
   bool _borderColorForLanguage = false;
+  bool _borderColorForInterests = false;
 
   final List _iconsList1 = [
     Icons.email,
@@ -600,6 +601,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       TextEditingController();
   final TextEditingController _addLanguageControllerForProficiency =
       TextEditingController();
+  final TextEditingController _addInterestsController = TextEditingController();
 
   Future<void> _showMyDialog({
     required String title,
@@ -665,7 +667,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   child: TextField(
                     controller: title == 'Add Skill'
                         ? _addSkillController
-                        : _addPersonalProjectController,
+                        : title == 'Add Personal Project'
+                            ? _addPersonalProjectController
+                            : _addInterestsController,
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
@@ -705,6 +709,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   } else if (title == 'Add Personal Project') {
                     personalProjects.add(_addPersonalProjectController.text);
                     _addPersonalProjectController.clear();
+                  } else if (title == 'Add Interest') {
+                    interests.add(_addInterestsController.text);
+                    _addInterestsController.clear();
                   } else {
                     languages.add(
                       LanguageModel(
@@ -2751,468 +2758,187 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                               ],
                             ),
                           ),
-                    // Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     const Text(
-                    //       'LANGUAGES',
-                    //       style: TextStyle(
-                    //         decoration: TextDecoration.underline,
-                    //         decorationColor: Color.fromARGB(255, 73, 150, 159),
-                    //         decorationThickness: 3,
-                    //         fontWeight: FontWeight.bold,
-                    //         color: Color.fromARGB(255, 73, 150, 159),
-                    //         fontSize: 15,
-                    //       ),
-                    //     ),
-                    //     const SizedBox(
-                    //       height: 10,
-                    //     ),
-                    //     Column(
-                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       children: [
-                    //         GestureDetector(
-                    //           onTap: () {
-                    //             showModalBottomSheet(
-                    //               context: context,
-                    //               builder: (context) {
-                    //                 return EditField(
-                    //                   editableField: (value) {
-                    //                     setState(() {
-                    //                       languages[0] = value;
-                    //                     });
-                    //                   },
-                    //                   fieldName: 'language',
-                    //                 );
-                    //               },
-                    //             );
-                    //           },
-                    //           child: Text(
-                    //             languages[0],
-                    //             style: const TextStyle(
-                    //               fontSize: 8,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         const SizedBox(
-                    //           height: 3,
-                    //         ),
-                    //         GestureDetector(
-                    //           onTap: () {
-                    //             showModalBottomSheet(
-                    //               context: context,
-                    //               builder: (context) {
-                    //                 return EditField(
-                    //                   editableField: (value) {
-                    //                     setState(() {
-                    //                       languages[1] = value;
-                    //                     });
-                    //                   },
-                    //                   fieldName: 'Proficiency',
-                    //                 );
-                    //               },
-                    //             );
-                    //           },
-                    //           child: Text(
-                    //             languages[1],
-                    //             style: const TextStyle(
-                    //               fontSize: 8,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         const SizedBox(
-                    //           height: 3,
-                    //         ),
-                    //       ],
-                    //     ),
-                    //     const SizedBox(
-                    //       height: 6,
-                    //     ),
-                    //     Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           GestureDetector(
-                    //             onTap: () {
-                    //               showModalBottomSheet(
-                    //                 context: context,
-                    //                 builder: (context) {
-                    //                   return EditField(
-                    //                     editableField: (value) {
-                    //                       setState(() {
-                    //                         languages[2] = value;
-                    //                       });
-                    //                     },
-                    //                     fieldName: 'language',
-                    //                   );
-                    //                 },
-                    //               );
-                    //             },
-                    //             child: Text(
-                    //               languages[2],
-                    //               style: const TextStyle(
-                    //                 fontSize: 8,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           const SizedBox(
-                    //             height: 3,
-                    //           ),
-                    //           GestureDetector(
-                    //             onTap: () {
-                    //               showModalBottomSheet(
-                    //                 context: context,
-                    //                 builder: (context) {
-                    //                   return EditField(
-                    //                     editableField: (value) {
-                    //                       setState(() {
-                    //                         languages[3] = value;
-                    //                       });
-                    //                     },
-                    //                     fieldName: 'Proficiency',
-                    //                   );
-                    //                 },
-                    //               );
-                    //             },
-                    //             child: Text(
-                    //               languages[3],
-                    //               style: const TextStyle(
-                    //                 fontSize: 8,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ]),
-                    //   ],
-                    // ),
                     const SizedBox(
                       height: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'INTERESTS',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color.fromARGB(255, 73, 150, 159),
-                            decorationThickness: 3,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 73, 150, 159),
-                            fontSize: 15,
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: _borderColorForInterests
+                                  ? const Color.fromARGB(255, 73, 150, 159)
+                                  : Colors.white,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Wrap(
-                          spacing: 4,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[0] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[0],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
+                          child: Stack(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'INTERESTS',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      decorationColor:
+                                          Color.fromARGB(255, 73, 150, 159),
+                                      decorationThickness: 3,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 73, 150, 159),
+                                      fontSize: 15,
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[1] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[1],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                ),
+                                  _borderColorForInterests
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _borderColorForInterests =
+                                                  !_borderColorForInterests;
+                                            });
+                                          },
+                                          child: Wrap(
+                                            spacing: 4,
+                                            children: List.generate(
+                                              interests.length,
+                                              (index) {
+                                                return IntrinsicWidth(
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 4,
+                                                            bottom: 4),
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              73,
+                                                              150,
+                                                              159),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Text(
+                                                          interests[index],
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 10,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 4,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              interests
+                                                                  .removeAt(
+                                                                      index);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors.grey
+                                                                  .shade400,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4),
+                                                            ),
+                                                            child: const Icon(
+                                                              Icons.close,
+                                                              size: 10,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                      : GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _borderColorForInterests =
+                                                  !_borderColorForInterests;
+                                            });
+                                          },
+                                          child: Wrap(
+                                            spacing: 4,
+                                            children: List.generate(
+                                              interests.length,
+                                              (index) {
+                                                return Container(
+                                                  padding:
+                                                      const EdgeInsets.all(2),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 4, bottom: 4),
+                                                  decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 73, 150, 159),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: Text(
+                                                    interests[index],
+                                                    style: const TextStyle(
+                                                      fontSize: 8,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                ],
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[2] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[2],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[3] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[3],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[4] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[4],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[5] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[5],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[6] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[6],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[7] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[7],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditField(
-                                      editableField: (value) {
-                                        setState(() {
-                                          interests[8] = value;
-                                        });
-                                      },
-                                      fieldName: 'interest',
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                margin:
-                                    const EdgeInsets.only(right: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  interests[8],
-                                  style: const TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                              _borderColorForInterests
+                                  ? Positioned(
+                                      top: 2,
+                                      right: 2,
+                                      child: Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () => _showMyDialog(
+                                                title: 'Add Interest',
+                                                type: 'interest'),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(2),
+                                              ),
+                                              height: 20,
+                                              width: 20,
+                                              child: const Icon(
+                                                Icons.add,
+                                                color: Colors.white,
+                                                size: 15,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          ),
                         ),
                       ],
                     ),
