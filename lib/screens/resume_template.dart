@@ -653,6 +653,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           onChanged: (value) {
                             setState(() {
                               dropDownValue = value.toString();
+
                             });
                           },
                           value: dropDownValue,
@@ -1050,7 +1051,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           print(myUser.fullName);
                         },
                         controller: _nameController,
-                        // focusNode: widget.nameFocusNode,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -1082,7 +1082,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           print(myUser.profession);
                         },
                         controller: _professionController,
-                        // focusNode: widget.professionFocusNode,
                         style: const TextStyle(
                           color: Color.fromARGB(255, 73, 150, 159),
                           fontSize: 11,
@@ -1115,7 +1114,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           print(myUser.bio);
                         },
                         controller: _bioController,
-                        // focusNode: widget.professionFocusNode,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 8,
@@ -1217,7 +1215,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   FocusScope.of(context).unfocus();
                                 },
                                 controller: _controllersList1[index],
-                                // focusNode: widget.professionFocusNode,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 8,
