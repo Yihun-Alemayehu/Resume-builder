@@ -6,9 +6,6 @@ import 'package:my_resume/data/model/education_model.dart';
 import 'package:my_resume/data/model/language_model.dart';
 import 'package:my_resume/data/model/user_model.dart';
 import 'package:my_resume/data/model/work_experience_model.dart';
-import 'package:my_resume/widgets/date_pick_form_field.dart';
-import 'package:my_resume/widgets/edit_field.dart';
-import 'package:my_resume/widgets/phone_number_field.dart';
 
 class ResumeTemplate extends StatefulWidget {
   const ResumeTemplate({super.key});
@@ -19,10 +16,7 @@ class ResumeTemplate extends StatefulWidget {
 
 class _ResumeTemplateState extends State<ResumeTemplate> {
   final TransformationController _transformationController =
-      TransformationController(); // Manages zoom
-  final FocusNode _nameFocusNode = FocusNode(); // Focus for name field
-  final FocusNode _professionFocusNode =
-      FocusNode(); // Focus for profession field
+      TransformationController();
 
   final GlobalKey nameFieldKey = GlobalKey(); // Key for the name field
 
@@ -46,28 +40,8 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    // Add listeners for zoom behavior
-    _nameFocusNode.addListener(() {
-      if (_nameFocusNode.hasFocus) {
-        _zoomToField(nameFieldKey); // Adjust for name field position
-      }
-    });
-
-    _professionFocusNode.addListener(() {
-      if (_professionFocusNode.hasFocus) {
-        _zoomToField(nameFieldKey); // Adjust for profession field position
-      }
-    });
-  }
-
-  @override
   void dispose() {
     _transformationController.dispose();
-    _nameFocusNode.dispose();
-    _professionFocusNode.dispose();
     super.dispose();
   }
 
@@ -98,14 +72,9 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
           minScale: 0.5, // Minimum zoom scale
           maxScale: 3.0,
           child: const SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             primary: true,
-            child: TemporaryColumn(
-                // nameFieldKey: nameFieldKey,
-                // nameFocusNode: _nameFocusNode,
-                // professionFocusNode: _professionFocusNode,
-                // onFocusField: _zoomToField,
-                ),
+            child: TemporaryColumn(),
           ),
         ),
       ),
@@ -114,17 +83,8 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
 }
 
 class TemporaryColumn extends StatefulWidget {
-  // final GlobalKey nameFieldKey;
-  // final FocusNode nameFocusNode;
-  // final FocusNode professionFocusNode;
-  // final Function(GlobalKey) onFocusField;
-
   const TemporaryColumn({
     super.key,
-    // required this.nameFocusNode,
-    // required this.professionFocusNode,
-    // required this.nameFieldKey,
-    // required this.onFocusField,
   });
 
   @override
@@ -242,12 +202,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     'Space science',
     'programming',
   ];
-  // List languages = [
-  //   'English',
-  //   'Full Professional Proficient',
-  //   'Amharic',
-  //   'Full Professional Proficient',
-  // ];
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _professionController = TextEditingController();

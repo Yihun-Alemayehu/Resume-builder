@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume/screens/main_screen.dart';
 import 'package:my_resume/screens/pdf_screen.dart';
 import 'package:my_resume/screens/resume_template.dart';
 
@@ -13,7 +14,7 @@ class ResumeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ResumeTemplate(),
+      home: MainScreen(),
     );
   }
 }
