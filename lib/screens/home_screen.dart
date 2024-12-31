@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume/screens/resume_template.dart';
 import 'package:my_resume/widgets/templates_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,18 +30,30 @@ class HomeScreen extends StatelessWidget {
         ),
         itemCount: templates.length,
         itemBuilder: (context, index) {
-          return Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: ClipRRect(
+          return GestureDetector(
+            onTap: () {
+              Navigator.push( 
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ResumeTemplate(
+                    // template: templates[index],
+                  ),
+                ),
+              );
+            },
+            child: Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  templates[index],
-                  fit: BoxFit.cover,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.asset(
+                    templates[index],
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
