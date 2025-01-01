@@ -37,10 +37,10 @@ class PdfParagraphApi {
 
           return Container(
             alignment: Alignment.centerRight,
-            margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+            margin: const EdgeInsets.only(top: 1 * PdfPageFormat.cm),
             child: Text(
               text,
-              style: TextStyle(color: PdfColors.black),
+              style: const TextStyle(color: PdfColors.black),
             ),
           );
         },

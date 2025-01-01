@@ -17,10 +17,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   List<DateTime?> _singleDatePickerValueWithDefaultValue = [
     DateTime.now().add(const Duration(days: 1)),
   ];
-  List<DateTime?> _rangeDatePickerValueWithDefaultValue = [
-    DateTime(1999, 5, 6),
-    DateTime(1999, 5, 21),
-  ];
 
   @override
   void initState() {

@@ -14,7 +14,7 @@ class _MainScreenState extends State<MainScreen> {
   int currentTab = 0;
 
   List<Widget> screens = [
-    HomeScreen(),
+    const HomeScreen(),
     const MyResumeScreen(),
     const ProfileScreen(),
   ];
