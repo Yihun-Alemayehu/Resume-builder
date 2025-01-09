@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_resume/API/pdf_api.dart';
+import 'package:my_resume/API/pdf_resume_template.dart';
 import 'package:my_resume/data/model/education_model.dart';
 import 'package:my_resume/data/model/language_model.dart';
 import 'package:my_resume/data/model/user_model.dart';
@@ -57,8 +59,10 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
-            onPressed: () {
+            onPressed: () async{
               // Save the resume
+              final pdfFile = await PdfApi.generateCenteredText('text');
+              PdfApi.openFile(pdfFile);
             },
           )
         ],
