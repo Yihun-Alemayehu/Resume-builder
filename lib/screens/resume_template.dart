@@ -6,6 +6,7 @@ import 'package:my_resume/API/pdf_api.dart';
 import 'package:my_resume/API/pdf_resume_template.dart';
 import 'package:my_resume/data/model/education_model.dart';
 import 'package:my_resume/data/model/language_model.dart';
+import 'package:my_resume/data/model/user_data_model.dart';
 import 'package:my_resume/data/model/user_model.dart';
 import 'package:my_resume/data/model/work_experience_model.dart';
 
@@ -20,7 +21,8 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
   final TransformationController _transformationController =
       TransformationController();
 
-  final GlobalKey nameFieldKey = GlobalKey(); // Key for the name field
+  final GlobalKey<_TemporaryColumnState> _childKey =
+      GlobalKey<_TemporaryColumnState>(); // Key for the name field
 
   void _zoomToField(GlobalKey fieldKey) {
     // Get the field's position
@@ -59,9 +61,27 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
-            onPressed: () async{
+            onPressed: () async {
+              final myUser = _childKey.currentState?.myUser;
+              final education = _childKey.currentState?.edu;
+              final workExperience = _childKey.currentState?.workExp;
+              final skills = _childKey.currentState?.skills;
+              final personalProjects = _childKey.currentState?.personalProjects;
+              final languages = _childKey.currentState?.languages;
+              final interests = _childKey.currentState?.interests;
+
               // Save the resume
-              final pdfFile = await PdfApi.generateCenteredText('text');
+              final pdfFile = await PdfApi.generateResume(
+                userData: UserData(
+                  userData: myUser!,
+                  educationBackground: education!,
+                  workExperience: workExperience!,
+                  skills: skills!,
+                  personalProjects: personalProjects!,
+                  languages: languages!,
+                  interests: interests!,
+                ),
+              );
               PdfApi.openFile(pdfFile);
             },
           )
@@ -75,10 +95,12 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
               const EdgeInsets.all(20.0), // Optional for boundary padding
           minScale: 0.5, // Minimum zoom scale
           maxScale: 3.0,
-          child: const SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             primary: true,
-            child: TemporaryColumn(),
+            child: TemporaryColumn(
+              key: _childKey,
+            ),
           ),
         ),
       ),
@@ -175,7 +197,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
         language: 'Amharic', proficiency: 'Full Professional Proficient'),
   ];
 
-  List skills = [
+  List<String> skills = [
     'Programming',
     'Flutter',
     'Dart',
@@ -188,14 +210,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     'Communication',
     'Photography',
   ];
-  List personalProjects = [
+  List<String> personalProjects = [
     'Guadaye Mobile App',
     'AddisCart Mobile App',
     'GraceLink Mobile App',
     'Yize-chat Mobile App',
     'Nedemy Mobile App',
   ];
-  List interests = [
+  List<String> interests = [
     'Technology',
     'Design',
     'Photography',
@@ -429,6 +451,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   Future<void> pickImage() async {
     var image = await _picker.pickImage(source: ImageSource.gallery);
     _image = File(image!.path);
+    myUser = myUser.copyWith(profilePic: _image!);
     setState(() {});
   }
 
@@ -611,7 +634,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           onChanged: (value) {
                             setState(() {
                               dropDownValue = value.toString();
-
                             });
                           },
                           value: dropDownValue,
@@ -1045,7 +1067,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
-
                         decoration: const InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.zero,

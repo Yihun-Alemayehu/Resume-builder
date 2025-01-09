@@ -35,10 +35,10 @@ class _PdfScreenState extends State<PdfScreen> {
                 MaterialButton(
                   child: const Text('Simple PDF'),
                   onPressed: () async {
-                    final pdfFile =
-                        await PdfApi.generateCenteredText('Sample Text');
+                    // final pdfFile =
+                        // await PdfApi.generateCenteredText('Sample Text');
 
-                    PdfApi.openFile(pdfFile);
+                    // PdfApi.openFile(pdfFile);
                     // PDFView(
                     //   filePath: pdfFile.path,
                     //   enableSwipe: true,

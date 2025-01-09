@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:my_resume/data/model/user_data_model.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -8,24 +9,22 @@ import 'package:pdf/widgets.dart';
 import 'package:flutter/material.dart' as mt;
 
 class PdfApi {
-  static Future<File> generateCenteredText(String text) async {
+  static Future<File> generateResume({required UserData userData}) async {
     final pdf = Document();
-    // pdf.document.defaultOutlineBorder!.size = 0;
-    final imageUrl = await _loadImage('assets/copy.jpg');
-
-    // mt.Color.fromARGB(255, 49, 60, 75);
+    final imageUrl = await _loadImage(userData.userData.profilePic.path);
 
     pdf.addPage(
       Page(
-        build: (context) => CustomColumn(imageUrl),
+        build: (context) => customColumn(userData: userData, imageUrl: imageUrl),
         pageFormat: PdfPageFormat.a4,
+        margin: const EdgeInsets.all(0),
       ),
     );
 
-    return saveDocument(name: 'my_example.pdf', pdf: pdf);
+    return saveDocument(name: '${userData.userData.fullName}.pdf', pdf: pdf);
   }
 
-  static Column CustomColumn(Uint8List imageUrl) {
+  static Column customColumn({required UserData userData, required Uint8List imageUrl}) {
     return Column(
       children: [
         Container(
@@ -40,7 +39,7 @@ class PdfApi {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Yihun Alemayehu',
+                        userData.userData.fullName,
                         style: TextStyle(
                             color: PdfColor.fromHex('#ffffff'),
                             fontSize: 30,
@@ -1084,9 +1083,17 @@ class PdfApi {
   }
 
   static Future<Uint8List> _loadImage(String path) async {
+  if (path.startsWith('/')) {
+    // Handle local file paths
+    final file = File(path);
+    return await file.readAsBytes();
+  } else {
+    // Handle asset paths
     final byteData = await rootBundle.load(path);
     return byteData.buffer.asUint8List();
   }
+}
+
 
   static Future<File> saveDocument({
     required String name,
