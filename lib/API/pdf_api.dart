@@ -46,7 +46,7 @@ class PdfApi {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Flutter Developer',
+                        userData.userData.profession,
                         style: TextStyle(
                             color: PdfColor.fromHex('#3e6e6f'),
                             fontSize: 15,
@@ -55,11 +55,7 @@ class PdfApi {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
-                          'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
-                          'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
-                          'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
-                          'my skills and learn from experienced professionals in a collaborative environment.',
+                          userData.userData.bio,
                           style: TextStyle(
                             color: PdfColor.fromHex('#ffffff'),
                             fontSize: 11,
@@ -110,7 +106,7 @@ class PdfApi {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'yankure01@gmail.com',
+                            userData.userData.email,
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -128,7 +124,7 @@ class PdfApi {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'Addis Ababa, Ethiopia',
+                            userData.userData.address,
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -146,7 +142,7 @@ class PdfApi {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'linkedin.com/in/yihun-alemayehu',
+                            userData.userData.linkedIn ?? '',
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -177,7 +173,7 @@ class PdfApi {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            '+251 982 39 40 38',
+                            userData.userData.phoneNumber,
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -195,7 +191,7 @@ class PdfApi {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'github.com/Yihun-Alemayehu',
+                            userData.userData.github ?? '',
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -213,7 +209,7 @@ class PdfApi {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'yihun-alemayehu.netlify.com/app',
+                            userData.userData.website ?? '',
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,

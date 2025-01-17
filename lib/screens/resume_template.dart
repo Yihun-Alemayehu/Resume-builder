@@ -70,6 +70,10 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
               final languages = _childKey.currentState?.languages;
               final interests = _childKey.currentState?.interests;
 
+              debugPrint('-------------USER DATA-------------');
+              debugPrint('User Data: $myUser');
+              debugPrint('-------------USER DATA-------------');
+
               // Save the resume
               final pdfFile = await PdfApi.generateResume(
                 userData: UserData(
