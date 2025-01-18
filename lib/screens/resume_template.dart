@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/API/pdf_api.dart';
-import 'package:my_resume/API/pdf_resume_template.dart';
 import 'package:my_resume/data/model/education_model.dart';
 import 'package:my_resume/data/model/language_model.dart';
 import 'package:my_resume/data/model/user_data_model.dart';
 import 'package:my_resume/data/model/user_model.dart';
 import 'package:my_resume/data/model/work_experience_model.dart';
+import 'package:my_resume/utils/height_function.dart';
 
 class ResumeTemplate extends StatefulWidget {
   const ResumeTemplate({super.key});
@@ -544,37 +544,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
         return _workExperienceControllersList5[count];
       } else {
         return _workExperienceControllersList6[count];
-      }
-    }
-  }
-
-  // Height fuction for edu and work experience sections
-  int _heightFunction({required String sectionType}) {
-    if (sectionType == 'edu') {
-      int eduLength = edu.length;
-      if (eduLength == 1) {
-        return 110;
-      } else if (eduLength == 2) {
-        return 220;
-      } else if (eduLength == 3) {
-        return 330;
-      } else if (eduLength == 4) {
-        return 440;
-      } else {
-        return 550;
-      }
-    } else {
-      int workExpLength = workExp.length;
-      if (workExpLength == 1) {
-        return 140;
-      } else if (workExpLength == 2) {
-        return 280;
-      } else if (workExpLength == 3) {
-        return 420;
-      } else if (workExpLength == 4) {
-        return 560;
-      } else {
-        return 700;
       }
     }
   }
@@ -1324,8 +1293,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     Column(
                       children: [
                         SizedBox(
-                          height:
-                              _heightFunction(sectionType: 'edu').toDouble(),
+                          height: heightFunction(
+                                  sectionType: 'edu', length: edu.length, screen: 'resume-template')
+                              .toDouble(),
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: edu.length,
@@ -1725,7 +1695,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: _heightFunction(sectionType: 'workExp')
+                              height: heightFunction(
+                                      sectionType: 'workExp',
+                                      length: workExp.length, screen: 'resume-template')
                                   .toDouble(),
                               child: ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),

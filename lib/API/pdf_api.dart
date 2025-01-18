@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:my_resume/data/model/user_data_model.dart';
+import 'package:my_resume/utils/height_function.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -12,11 +13,36 @@ class PdfApi {
   static Future<File> generateResume({required UserData userData}) async {
     final pdf = Document();
     final imageUrl = await _loadImage(userData.userData.profilePic.path);
+    PdfPageFormat customPageFormat = PdfPageFormat.a4;
+
+    if (userData.educationBackground.length + userData.workExperience.length ==
+        6) {
+      customPageFormat = PdfPageFormat.e6;
+    } else if (userData.educationBackground.length +
+            userData.workExperience.length ==
+        7) {
+      customPageFormat = PdfPageFormat.e7;
+    } else if (userData.educationBackground.length +
+            userData.workExperience.length ==
+        8) {
+      customPageFormat = PdfPageFormat.e8;
+    } else if (userData.educationBackground.length +
+            userData.workExperience.length ==
+        9) {
+      customPageFormat = PdfPageFormat.e9;
+    } else if (userData.educationBackground.length +
+            userData.workExperience.length ==
+        5) {
+      customPageFormat = PdfPageFormat.e5;
+    } else {
+      customPageFormat = PdfPageFormat.a4;
+    }
 
     pdf.addPage(
       Page(
-        build: (context) => customColumn(userData: userData, imageUrl: imageUrl),
-        pageFormat: PdfPageFormat.a4,
+        build: (context) =>
+            customColumn(userData: userData, imageUrl: imageUrl),
+        pageFormat: customPageFormat,
         margin: const EdgeInsets.all(0),
       ),
     );
@@ -24,7 +50,8 @@ class PdfApi {
     return saveDocument(name: '${userData.userData.fullName}.pdf', pdf: pdf);
   }
 
-  static Column customColumn({required UserData userData, required Uint8List imageUrl}) {
+  static Column customColumn(
+      {required UserData userData, required Uint8List imageUrl}) {
     return Column(
       children: [
         Container(
@@ -224,6 +251,8 @@ class PdfApi {
             ),
           ],
         ),
+
+        // EDUCATION, WORK EXPERIENCE, SKILLS, PERSONAL PROJECTS, LANGUAGES AND INTERESTS SECTION
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,363 +263,199 @@ class PdfApi {
                 // width: MediaQuery.of(context).size.width * 0.6,
                 child: Column(
                   children: [
+                    // EDUCATION SECTION
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'EDUCATION',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor: PdfColor.fromHex('#4793a4'),
-                                decorationThickness: 3,
-                                fontWeight: FontWeight.bold,
-                                color: PdfColor.fromHex('#4793a4'),
-                                fontSize: 15,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Software Engineering',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              'Addis Ababa Science and Technology University',
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '05/2022 - Present',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 10,
-                                  ),
-                                ),
-                                Text(
-                                  'Addis Ababa',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Courses',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: PdfColor.fromHex('#4793a4'),
-                                fontSize: 10,
-                              ),
-                            ),
-                            Bullet(
-                              bulletColor: PdfColor.fromHex('#4793a4'),
-                              bulletSize: 4,
-                              text: 'Internet programming',
-                              style: const TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                            Bullet(
-                              bulletColor: PdfColor.fromHex('#4793a4'),
-                              bulletSize: 4,
-                              text: 'Object-oriented programming',
-                              style: const TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                            Bullet(
-                              bulletColor: PdfColor.fromHex('#4793a4'),
-                              bulletSize: 4,
-                              text: 'Mobile app development',
-                              style: const TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                            Bullet(
-                              bulletColor: PdfColor.fromHex('#4793a4'),
-                              bulletSize: 4,
-                              text: 'Data structure and algorithm',
-                              style: const TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          'EDUCATION',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            decorationColor: PdfColor.fromHex('#4793a4'),
+                            decorationThickness: 3,
+                            fontWeight: FontWeight.bold,
+                            color: PdfColor.fromHex('#4793a4'),
+                            fontSize: 15,
+                          ),
                         ),
-                        SizedBox(height: 20),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Mobile app development',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              'GDG AASTU',
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '10/2023 - 03/2024',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 10,
+                        SizedBox(
+                          height: heightFunction(
+                                  sectionType: 'edu',
+                                  length: userData.educationBackground.length,
+                                  screen: 'generate-resume')
+                              .toDouble(),
+                          child: ListView.builder(
+                            itemCount: userData.educationBackground.length,
+                            itemBuilder: (context, index) {
+                              mt.debugPrint(
+                                  '-------------EDUCATION BACKGROUND---------------');
+                              mt.debugPrint(userData.educationBackground.length
+                                  .toString());
+                              mt.debugPrint(
+                                  '-------------EDUCATION BACKGROUND---------------');
+                              final education =
+                                  userData.educationBackground[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10,
                                   ),
-                                ),
-                                Text(
-                                  'Addis Ababa',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 10,
+                                  Text(
+                                    education.fieldOfStudy,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Courses',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: PdfColor.fromHex('#4793a4'),
-                                fontSize: 10,
-                              ),
-                            ),
-                            Bullet(
-                              bulletColor: PdfColor.fromHex('#4793a4'),
-                              bulletSize: 4,
-                              text: 'Flutter',
-                              style: const TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                            Bullet(
-                              bulletColor: PdfColor.fromHex('#4793a4'),
-                              bulletSize: 4,
-                              text: 'Dart',
-                              style: const TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
+                                  Text(
+                                    education.institutionName,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '${education.startDate} - ${education.endDate}',
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#4793a4'),
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                      Text(
+                                        education.institutionAddress,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#4793a4'),
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    'Courses',
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: PdfColor.fromHex('#4793a4'),
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  for (var course in education.courses)
+                                    Bullet(
+                                      bulletColor: PdfColor.fromHex('#4793a4'),
+                                      bulletSize: 4,
+                                      text: course,
+                                      style: const TextStyle(
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(
                       height: 10,
                     ),
+
+                    // WORK EXPERIENCE SECTION
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'WORK EXPERIENCE',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor: PdfColor.fromHex('#4793a4'),
-                                decorationThickness: 3,
-                                fontWeight: FontWeight.bold,
-                                color: PdfColor.fromHex('#4793a4'),
-                                fontSize: 15,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Flutter Developer',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              'Hex-labs',
-                              style: const TextStyle(
-                                fontSize: 10,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '10/2023 - 01/2024',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                Text(
-                                  'Remote',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Achievements',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: PdfColor.fromHex('#4793a4'),
-                                fontSize: 8,
-                              ),
-                            ),
-                            Text(
-                              'Implemented Payment Gateway Transition: Successfully '
-                              'facilitated the transition from Telebirr to Chapa as the payment '
-                              'gateway, streamlining transaction processes and enhancing '
-                              'payment reliability.',
-                              style: const TextStyle(
-                                fontSize: 9,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          'WORK EXPERIENCE',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            decorationColor: PdfColor.fromHex('#4793a4'),
+                            decorationThickness: 3,
+                            fontWeight: FontWeight.bold,
+                            color: PdfColor.fromHex('#4793a4'),
+                            fontSize: 15,
+                          ),
                         ),
                         SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Flutter Developer',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              'Horan-software',
-                              style: const TextStyle(
-                                fontSize: 10,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '08/2024 - 11/2024',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 8,
+                          height: heightFunction(
+                                  sectionType: 'work',
+                                  length: userData.workExperience.length,
+                                  screen: 'generate-resume')
+                              .toDouble(),
+                          child: ListView.builder(
+                            itemCount: userData.workExperience.length,
+                            itemBuilder: (context, index) {
+                              mt.debugPrint(
+                                  '-------------WORK EXPERIENCE---------------');
+                              mt.debugPrint(
+                                  userData.workExperience.length.toString());
+                              mt.debugPrint(
+                                  '-------------WORK EXPERIENCE---------------');
+                              final workExperience =
+                                  userData.workExperience[index];
+
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10,
                                   ),
-                                ),
-                                Text(
-                                  'Contract',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 8,
+                                  Text(
+                                    workExperience.jobTitle,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Achievements',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: PdfColor.fromHex('#4793a4'),
-                                fontSize: 8,
-                              ),
-                            ),
-                            Text(
-                              'Implemented Firebase Integration: Successfully integrated Firebase into '
-                              'the application, enhancing real-time database management, user '
-                              'authentication, and analytics capabilities, leading to improved app '
-                              'performance and user engagement.',
-                              style: const TextStyle(
-                                fontSize: 9,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Flutter Developer',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              'Yize-Tech Ethiopia',
-                              style: const TextStyle(
-                                fontSize: 10,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '02/2023 - 09/2023',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 8,
+                                  Text(
+                                    workExperience.companyName,
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'Remote',
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: PdfColor.fromHex('#4793a4'),
-                                    fontSize: 8,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '${workExperience.startDate} - ${workExperience.endDate}',
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#4793a4'),
+                                          fontSize: 8,
+                                        ),
+                                      ),
+                                      Text(
+                                        workExperience.jobType,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#4793a4'),
+                                          fontSize: 8,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Achievements',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: PdfColor.fromHex('#4793a4'),
-                                fontSize: 8,
-                              ),
-                            ),
-                            Text(
-                              'Implemented Complex UI Designs: Successfully developed and integrated intricate, '
-                              'user-centric UI components, ensuring seamless functionality, responsiveness, and an '
-                              'engaging user experience across diverse devices and screen sizes.',
-                              style: const TextStyle(
-                                fontSize: 9,
-                              ),
-                            ),
-                          ],
+                                  Text(
+                                    'Achievements',
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: PdfColor.fromHex('#4793a4'),
+                                      fontSize: 8,
+                                    ),
+                                  ),
+                                  Text(
+                                    workExperience.achievements,
+                                    style: const TextStyle(
+                                      fontSize: 9,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -625,212 +490,38 @@ class PdfApi {
                         ),
                         Wrap(
                           spacing: 4,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
+                          children: List.generate(
+                            userData.skills.length,
+                            (index) {
+                              final skill = userData.skills[index];
+                              return Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: PdfColor.fromHex('#313c4e'),
+                                  ),
+                                  color: PdfColor.fromHex('#ffffff'),
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Programming',
-                                style: const TextStyle(
-                                  fontSize: 8,
+                                child: Text(
+                                  skill,
+                                  style: const TextStyle(
+                                    fontSize: 8,
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Flutter',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Dart',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Firebase',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Software development',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Figma',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'State Management',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Graphics design',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Leadership',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Communication',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              margin:
-                                  const EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: PdfColor.fromHex('#313c4e'),
-                                ),
-                                color: PdfColor.fromHex('#ffffff'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Photography',
-                                style: const TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(
                       height: 20,
                     ),
+
+                    // PERSONAL PROJECTS SECTION
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -848,59 +539,28 @@ class PdfApi {
                         SizedBox(
                           height: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // spacing: 4,
-                          children: [
-                            Text(
-                              'Guadaye Mobile App',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'AddisCart Mobile App',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'GraceLink Mobile App',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Yize-chat Mobile App',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Nedemy Mobile App',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
+                        Wrap(
+                          direction: Axis.vertical,
+                          children: List.generate(
+                            userData.personalProjects.length,
+                            (index) {
+                              final project = userData.personalProjects[index];
+                              return Text(
+                                project,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(
                       height: 20,
                     ),
+
+                    // LANGUAGES SECTION
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -918,57 +578,45 @@ class PdfApi {
                         SizedBox(
                           height: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // spacing: 4,
-                          children: [
-                            Text(
-                              'English',
-                              style: TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              'Full Professional Proficient',
-                              style: TextStyle(
-                                fontSize: 8,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                          ],
-                        ),
+                        Wrap(
+                            direction: Axis.vertical,
+                            // spacing: 4,
+                            children: List.generate(
+                              userData.languages.length,
+                              (index) {
+                                final language = userData.languages[index];
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      language.language,
+                                      style: const TextStyle(
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    Text(
+                                      language.proficiency,
+                                      style: const TextStyle(
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            )),
                         SizedBox(
                           height: 6,
                         ),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Amharic',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                'Full Professional Proficient',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                ),
-                              ),
-                            ]),
                       ],
                     ),
                     SizedBox(
                       height: 20,
                     ),
+
+                    // INTERESTS SECTION
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -988,83 +636,28 @@ class PdfApi {
                         ),
                         Wrap(
                           spacing: 4,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: PdfColor.fromHex('#313c4e'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Space science',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: PdfColor.fromHex('#ffffff'),
+                          children: List.generate(
+                            userData.interests.length,
+                            (index) {
+                              final interest = userData.interests[index];
+                              return Container(
+                                padding: const EdgeInsets.all(2),
+                                margin:
+                                    const EdgeInsets.only(right: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color: PdfColor.fromHex('#313c4e'),
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: PdfColor.fromHex('#313c4e'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'programming',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: PdfColor.fromHex('#ffffff'),
+                                child: Text(
+                                  interest,
+                                  style: TextStyle(
+                                    fontSize: 8,
+                                    color: PdfColor.fromHex('#ffffff'),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: PdfColor.fromHex('#313c4e'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'photography',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: PdfColor.fromHex('#ffffff'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: PdfColor.fromHex('#313c4e'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'reading',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: PdfColor.fromHex('#ffffff'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              margin: EdgeInsets.only(right: 4, bottom: 4),
-                              decoration: BoxDecoration(
-                                color: PdfColor.fromHex('#313c4e'),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                'Artificial Intelligence',
-                                style: TextStyle(
-                                  fontSize: 8,
-                                  color: PdfColor.fromHex('#ffffff'),
-                                ),
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -1079,17 +672,16 @@ class PdfApi {
   }
 
   static Future<Uint8List> _loadImage(String path) async {
-  if (path.startsWith('/')) {
-    // Handle local file paths
-    final file = File(path);
-    return await file.readAsBytes();
-  } else {
-    // Handle asset paths
-    final byteData = await rootBundle.load(path);
-    return byteData.buffer.asUint8List();
+    if (path.startsWith('/')) {
+      // Handle local file paths
+      final file = File(path);
+      return await file.readAsBytes();
+    } else {
+      // Handle asset paths
+      final byteData = await rootBundle.load(path);
+      return byteData.buffer.asUint8List();
+    }
   }
-}
-
 
   static Future<File> saveDocument({
     required String name,
