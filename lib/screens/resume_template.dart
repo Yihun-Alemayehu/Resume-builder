@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/API/pdf_api.dart';
+import 'package:my_resume/bloc/user_bloc.dart';
+import 'package:my_resume/bloc/user_event.dart';
 import 'package:my_resume/data/model/education_model.dart';
 import 'package:my_resume/data/model/language_model.dart';
 import 'package:my_resume/data/model/user_data_model.dart';
@@ -11,7 +14,8 @@ import 'package:my_resume/data/model/work_experience_model.dart';
 import 'package:my_resume/utils/height_function.dart';
 
 class ResumeTemplate extends StatefulWidget {
-  const ResumeTemplate({super.key});
+  final UserData userData;
+  const ResumeTemplate({super.key, required this.userData});
 
   @override
   State<ResumeTemplate> createState() => _ResumeTemplateState();
@@ -75,17 +79,24 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
               debugPrint('-------------USER DATA-------------');
 
               // Save the resume
-              final pdfFile = await PdfApi.generateResume(
-                userData: UserData(
-                  userData: myUser!,
-                  educationBackground: education!,
-                  workExperience: workExperience!,
-                  skills: skills!,
-                  personalProjects: personalProjects!,
-                  languages: languages!,
-                  interests: interests!,
-                ),
+              final userData = UserData(
+                userData: myUser!,
+                educationBackground: education!,
+                workExperience: workExperience!,
+                skills: skills!,
+                personalProjects: personalProjects!,
+                languages: languages!,
+                interests: interests!,
               );
+              debugPrint('-------------SAVED USER DATA-------------');
+              debugPrint('Saved User Data: ${userData.educationBackground}');
+              debugPrint('-------------SAVED USER DATA-------------');
+              final pdfFile = await PdfApi.generateResume(
+                userData: userData,
+              );
+              context
+                  .read<UserDataBloc>()
+                  .add(SaveUserData(userData: userData));
               PdfApi.openFile(pdfFile);
             },
           )
@@ -104,6 +115,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
             primary: true,
             child: TemporaryColumn(
               key: _childKey,
+              userData: widget.userData,
             ),
           ),
         ),
@@ -113,9 +125,8 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
 }
 
 class TemporaryColumn extends StatefulWidget {
-  const TemporaryColumn({
-    super.key,
-  });
+  final UserData userData;
+  const TemporaryColumn({super.key, required this.userData});
 
   @override
   State<TemporaryColumn> createState() => _TemporaryColumnState();
@@ -688,6 +699,28 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   void initState() {
     super.initState();
 
+    debugPrint('-----USER FROM ARGUMENTS----------');
+    debugPrint(widget.userData.userData.toString());
+    debugPrint('-----USER FROM ARGUMENTS----------');
+
+    myUser = widget.userData.userData.fullName != ''
+        ? myUser.copyWith(
+            fullName: widget.userData.userData.fullName,
+            profession: widget.userData.userData.profession,
+            bio: widget.userData.userData.bio,
+            email: widget.userData.userData.email,
+            address: widget.userData.userData.address,
+            linkedIn: widget.userData.userData.linkedIn,
+            phoneNumber: widget.userData.userData.phoneNumber,
+            github: widget.userData.userData.github,
+            website: widget.userData.userData.website,
+          )
+        : myUser;
+
+    debugPrint('-----MY UPDATED LOCAL USER');
+    debugPrint(myUser.toString());
+    debugPrint('-----MY UPDATED LOCAL USER');
+
     // User controllers
     _nameController.text = myUser.fullName;
     _professionController.text = myUser.profession;
@@ -988,6 +1021,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // FULL NAME
                       TextField(
                         onTapOutside: (event) {
                           setState(() {
@@ -998,6 +1032,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           FocusScope.of(context).unfocus();
                         },
                         onSubmitted: (value) {
+                          setState(() {
+                            myUser = myUser.copyWith(fullName: value);
+                          });
+                          print(myUser.fullName);
+                        },
+                        onChanged: (value) {
                           setState(() {
                             myUser = myUser.copyWith(fullName: value);
                           });
@@ -1019,6 +1059,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           ),
                         ),
                       ),
+
+                      // PROFESSION
                       TextField(
                         onTapOutside: (event) {
                           setState(() {
@@ -1027,6 +1069,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           });
                           print(myUser.profession);
                           FocusScope.of(context).unfocus();
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            myUser = myUser.copyWith(profession: value);
+                          });
+                          print(myUser.profession);
                         },
                         onSubmitted: (value) {
                           setState(() {
@@ -1050,6 +1098,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           ),
                         ),
                       ),
+
+                      // BIO
                       TextField(
                         maxLines: null,
                         onTapOutside: (event) {
@@ -1058,6 +1108,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                           });
                           print(myUser.bio);
                           FocusScope.of(context).unfocus();
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            myUser = myUser.copyWith(bio: value);
+                          });
+                          print(myUser.profession);
                         },
                         onSubmitted: (value) {
                           setState(() {
@@ -1105,6 +1161,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
         ),
         Row(
           children: [
+            // EMAIL, ADDRESS AND LINKEDIN
             Expanded(
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
@@ -1145,6 +1202,25 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                     }
                                   });
                                   FocusScope.of(context).unfocus();
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (index == 0) {
+                                      myUser = myUser.copyWith(
+                                          email: _controllersList1[index].text);
+                                      print(myUser.email);
+                                    } else if (index == 1) {
+                                      myUser = myUser.copyWith(
+                                          address:
+                                              _controllersList1[index].text);
+                                      print(myUser.address);
+                                    } else if (index == 2) {
+                                      myUser = myUser.copyWith(
+                                          linkedIn:
+                                              _controllersList1[index].text);
+                                      print(myUser.linkedIn);
+                                    }
+                                  });
                                 },
                                 onSubmitted: (value) {
                                   setState(() {
@@ -1217,38 +1293,60 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                   setState(() {
                                     if (index == 0) {
                                       myUser = myUser.copyWith(
-                                          email: _controllersList2[index].text);
-                                      print(myUser.email);
+                                          phoneNumber:
+                                              _controllersList2[index].text);
+                                      print(myUser.phoneNumber);
                                     } else if (index == 1) {
                                       myUser = myUser.copyWith(
-                                          address:
+                                          github:
                                               _controllersList2[index].text);
-                                      print(myUser.address);
+                                      print(myUser.github);
                                     } else if (index == 2) {
                                       myUser = myUser.copyWith(
-                                          linkedIn:
+                                          website:
                                               _controllersList2[index].text);
-                                      print(myUser.linkedIn);
+                                      print(myUser.website);
                                     }
                                   });
                                   FocusScope.of(context).unfocus();
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (index == 0) {
+                                      myUser = myUser.copyWith(
+                                          phoneNumber:
+                                              _controllersList2[index].text);
+                                      print(myUser.phoneNumber);
+                                    } else if (index == 1) {
+                                      myUser = myUser.copyWith(
+                                          github:
+                                              _controllersList2[index].text);
+                                      print(myUser.github);
+                                    } else if (index == 2) {
+                                      myUser = myUser.copyWith(
+                                          website:
+                                              _controllersList2[index].text);
+                                      print(myUser.website);
+                                    }
+                                  });
                                 },
                                 onSubmitted: (value) {
                                   setState(() {
                                     if (index == 0) {
                                       myUser = myUser.copyWith(
-                                          email: _controllersList2[index].text);
-                                      print(myUser.email);
+                                          phoneNumber:
+                                              _controllersList2[index].text);
+                                      print(myUser.phoneNumber);
                                     } else if (index == 1) {
                                       myUser = myUser.copyWith(
-                                          address:
+                                          github:
                                               _controllersList2[index].text);
-                                      print(myUser.address);
+                                      print(myUser.github);
                                     } else if (index == 2) {
                                       myUser = myUser.copyWith(
-                                          linkedIn:
+                                          website:
                                               _controllersList2[index].text);
-                                      print(myUser.linkedIn);
+                                      print(myUser.website);
                                     }
                                   });
                                   FocusScope.of(context).unfocus();
@@ -1290,11 +1388,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                 // width: MediaQuery.of(context).size.width * 0.6,
                 child: Column(
                   children: [
+                    // EDUCATIONAL BACKGROUND
                     Column(
                       children: [
                         SizedBox(
                           height: heightFunction(
-                                  sectionType: 'edu', length: edu.length, screen: 'resume-template')
+                                  sectionType: 'edu',
+                                  length: edu.length,
+                                  screen: 'resume-template')
                               .toDouble(),
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
@@ -1335,6 +1436,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                         const SizedBox(
                                           height: 5,
                                         ),
+
+                                        // FIELD OF STUDY
                                         TextField(
                                           onTap: () {
                                             setState(() {
@@ -1351,6 +1454,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           onSubmitted: (value) {
                                             setState(() {});
                                             FocusScope.of(context).unfocus();
+                                          },
+                                          onChanged: (value) {
+                                            setState(() {
+                                              edu[index] = edu[index].copyWith(
+                                                fieldOfStudy: value,
+                                              );
+                                            });
                                           },
                                           controller: _controllerFunction(
                                             controllerType: 'edu',
@@ -1374,6 +1484,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             ),
                                           ),
                                         ),
+
+                                        // INSTITUTION NAME
                                         TextField(
                                           maxLines: null,
                                           onTap: () {
@@ -1391,6 +1503,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           onSubmitted: (value) {
                                             setState(() {});
                                             FocusScope.of(context).unfocus();
+                                          },
+                                          onChanged: (value) {
+                                            setState(() {
+                                              edu[index] = edu[index].copyWith(
+                                                institutionName: value,
+                                              );
+                                            });
                                           },
                                           controller: _controllerFunction(
                                             controllerType: 'edu',
@@ -1445,6 +1564,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                   FocusScope.of(context)
                                                       .unfocus();
                                                 },
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    edu[index] =
+                                                        edu[index].copyWith(
+                                                      startDate: value,
+                                                    );
+                                                  });
+                                                },
                                                 controller: _controllerFunction(
                                                   controllerType: 'edu',
                                                   index: index,
@@ -1493,6 +1620,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                   setState(() {});
                                                   FocusScope.of(context)
                                                       .unfocus();
+                                                },
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    edu[index] =
+                                                        edu[index].copyWith(
+                                                      institutionAddress: value,
+                                                    );
+                                                  });
                                                 },
                                                 onSubmitted: (value) {
                                                   setState(() {});
@@ -1563,6 +1698,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                     setState(() {});
                                                     FocusScope.of(context)
                                                         .unfocus();
+                                                  },
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      edu[index].courses[
+                                                          innerIndex] = value;
+                                                    });
                                                   },
                                                   onSubmitted: (value) {
                                                     setState(() {});
@@ -1688,6 +1829,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                       ],
                     ),
                     const SizedBox(height: 10),
+
+                    // WORK EXPERIENCE SECTION
                     Column(
                       children: [
                         Column(
@@ -1697,7 +1840,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             SizedBox(
                               height: heightFunction(
                                       sectionType: 'workExp',
-                                      length: workExp.length, screen: 'resume-template')
+                                      length: workExp.length,
+                                      screen: 'resume-template')
                                   .toDouble(),
                               child: ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume/data/model/user_data_model.dart';
 import 'package:my_resume/screens/resume_template.dart';
 import 'package:my_resume/widgets/templates_list.dart';
 
@@ -35,8 +36,8 @@ class HomeScreen extends StatelessWidget {
               Navigator.push( 
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ResumeTemplate(
-                    // template: templates[index],
+                  builder: (context) => ResumeTemplate(
+                    userData: UserData.empty(),
                   ),
                 ),
               );

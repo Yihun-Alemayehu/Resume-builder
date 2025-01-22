@@ -59,6 +59,18 @@ class UserData {
     };
   }
 
+  factory UserData.empty(){
+    return UserData(
+      userData: MyUser.empty(),
+      educationBackground: [],
+      workExperience: [],
+      skills: [],
+      personalProjects: [],
+      languages: [],
+      interests: [],
+    );
+  }
+
   factory UserData.fromMap(Map<String, dynamic> map) {
     return UserData(
         userData: MyUser.fromMap(map['userData'] as Map<String, dynamic>),

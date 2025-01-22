@@ -68,6 +68,21 @@ class MyUser {
     };
   }
 
+  factory MyUser.empty(){
+    return MyUser(
+      fullName: '',
+      profession: '',
+      bio: '',
+      profilePic: File(''),
+      email: '',
+      address: '',
+      phoneNumber: '',
+      linkedIn: null,
+      github: null,
+      website: null,
+    );
+  }
+
   factory MyUser.fromMap(Map<String, dynamic> map) {
     return MyUser(
       fullName: map['fullName'] as String,

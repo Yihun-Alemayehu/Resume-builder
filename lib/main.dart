@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_resume/bloc/user_bloc.dart';
+import 'package:my_resume/db/db_helper.dart';
 import 'package:my_resume/screens/main_screen.dart';
 import 'package:my_resume/screens/pdf_screen.dart';
 import 'package:my_resume/screens/resume_template.dart';
@@ -12,9 +15,15 @@ class ResumeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MainScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => UserDataBloc(dbHelper: const DatabaseHelper()),
+        ),
+      ],
+      child: const MaterialApp(
+        home: MainScreen(),
+      ),
     );
   }
 }
