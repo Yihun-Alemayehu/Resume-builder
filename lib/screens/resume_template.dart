@@ -26,7 +26,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
       TransformationController();
 
   final GlobalKey<_TemporaryColumnState> _childKey =
-      GlobalKey<_TemporaryColumnState>(); // Key for the name field
+      GlobalKey<_TemporaryColumnState>();
 
   void _zoomToField(GlobalKey fieldKey) {
     // Get the field's position
@@ -104,11 +104,9 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
       ),
       body: SafeArea(
         child: InteractiveViewer(
-          // transformationController: _transformationController,
-          constrained: true, // Set to false to allow it to expand freely
-          boundaryMargin:
-              const EdgeInsets.all(20.0), // Optional for boundary padding
-          minScale: 0.5, // Minimum zoom scale
+          constrained: true,
+          boundaryMargin: const EdgeInsets.all(20.0),
+          minScale: 0.5,
           maxScale: 3.0,
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -427,8 +425,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       TextEditingController();
   final TextEditingController _workExpAchievementController6 =
       TextEditingController();
-
-  var _overlayController = OverlayPortalController();
 
   List<bool> _borderColorForEdu = [false, false, false, false, false, false];
   List<bool> _borderColorForWorkExp = [
@@ -1024,18 +1020,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                       // FULL NAME
                       TextField(
                         onTapOutside: (event) {
-                          setState(() {
-                            myUser =
-                                myUser.copyWith(fullName: _nameController.text);
-                          });
-                          print(myUser.fullName);
                           FocusScope.of(context).unfocus();
-                        },
-                        onSubmitted: (value) {
-                          setState(() {
-                            myUser = myUser.copyWith(fullName: value);
-                          });
-                          print(myUser.fullName);
                         },
                         onChanged: (value) {
                           setState(() {
@@ -1063,20 +1048,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                       // PROFESSION
                       TextField(
                         onTapOutside: (event) {
-                          setState(() {
-                            myUser = myUser.copyWith(
-                                profession: _professionController.text);
-                          });
-                          print(myUser.profession);
                           FocusScope.of(context).unfocus();
                         },
                         onChanged: (value) {
-                          setState(() {
-                            myUser = myUser.copyWith(profession: value);
-                          });
-                          print(myUser.profession);
-                        },
-                        onSubmitted: (value) {
                           setState(() {
                             myUser = myUser.copyWith(profession: value);
                           });
@@ -1103,19 +1077,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                       TextField(
                         maxLines: null,
                         onTapOutside: (event) {
-                          setState(() {
-                            myUser = myUser.copyWith(bio: _bioController.text);
-                          });
-                          print(myUser.bio);
                           FocusScope.of(context).unfocus();
                         },
                         onChanged: (value) {
-                          setState(() {
-                            myUser = myUser.copyWith(bio: value);
-                          });
-                          print(myUser.profession);
-                        },
-                        onSubmitted: (value) {
                           setState(() {
                             myUser = myUser.copyWith(bio: value);
                           });
@@ -1184,23 +1148,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             Expanded(
                               child: TextField(
                                 onTapOutside: (event) {
-                                  setState(() {
-                                    if (index == 0) {
-                                      myUser = myUser.copyWith(
-                                          email: _controllersList1[index].text);
-                                      print(myUser.email);
-                                    } else if (index == 1) {
-                                      myUser = myUser.copyWith(
-                                          address:
-                                              _controllersList1[index].text);
-                                      print(myUser.address);
-                                    } else if (index == 2) {
-                                      myUser = myUser.copyWith(
-                                          linkedIn:
-                                              _controllersList1[index].text);
-                                      print(myUser.linkedIn);
-                                    }
-                                  });
                                   FocusScope.of(context).unfocus();
                                 },
                                 onChanged: (value) {
@@ -1221,26 +1168,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                       print(myUser.linkedIn);
                                     }
                                   });
-                                },
-                                onSubmitted: (value) {
-                                  setState(() {
-                                    if (index == 0) {
-                                      myUser = myUser.copyWith(
-                                          email: _controllersList1[index].text);
-                                      print(myUser.email);
-                                    } else if (index == 1) {
-                                      myUser = myUser.copyWith(
-                                          address:
-                                              _controllersList1[index].text);
-                                      print(myUser.address);
-                                    } else if (index == 2) {
-                                      myUser = myUser.copyWith(
-                                          linkedIn:
-                                              _controllersList1[index].text);
-                                      print(myUser.linkedIn);
-                                    }
-                                  });
-                                  FocusScope.of(context).unfocus();
                                 },
                                 controller: _controllersList1[index],
                                 style: const TextStyle(
@@ -1290,24 +1217,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             Expanded(
                               child: TextField(
                                 onTapOutside: (event) {
-                                  setState(() {
-                                    if (index == 0) {
-                                      myUser = myUser.copyWith(
-                                          phoneNumber:
-                                              _controllersList2[index].text);
-                                      print(myUser.phoneNumber);
-                                    } else if (index == 1) {
-                                      myUser = myUser.copyWith(
-                                          github:
-                                              _controllersList2[index].text);
-                                      print(myUser.github);
-                                    } else if (index == 2) {
-                                      myUser = myUser.copyWith(
-                                          website:
-                                              _controllersList2[index].text);
-                                      print(myUser.website);
-                                    }
-                                  });
                                   FocusScope.of(context).unfocus();
                                 },
                                 onChanged: (value) {
@@ -1330,29 +1239,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                     }
                                   });
                                 },
-                                onSubmitted: (value) {
-                                  setState(() {
-                                    if (index == 0) {
-                                      myUser = myUser.copyWith(
-                                          phoneNumber:
-                                              _controllersList2[index].text);
-                                      print(myUser.phoneNumber);
-                                    } else if (index == 1) {
-                                      myUser = myUser.copyWith(
-                                          github:
-                                              _controllersList2[index].text);
-                                      print(myUser.github);
-                                    } else if (index == 2) {
-                                      myUser = myUser.copyWith(
-                                          website:
-                                              _controllersList2[index].text);
-                                      print(myUser.website);
-                                    }
-                                  });
-                                  FocusScope.of(context).unfocus();
-                                },
                                 controller: _controllersList2[index],
-                                // focusNode: widget.professionFocusNode,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 8,
@@ -1444,14 +1331,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                               _borderColorForEdu[index] =
                                                   !_borderColorForEdu[index];
                                             });
-                                            // _overlayController.toggle();
-                                            print(_overlayController.isShowing);
                                           },
                                           onTapOutside: (event) {
-                                            setState(() {});
-                                            FocusScope.of(context).unfocus();
-                                          },
-                                          onSubmitted: (value) {
                                             setState(() {});
                                             FocusScope.of(context).unfocus();
                                           },
@@ -1467,7 +1348,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             index: index,
                                             count: 0,
                                           ),
-                                          // focusNode: widget.professionFocusNode,
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 10,
@@ -1493,14 +1373,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                               _borderColorForEdu[index] =
                                                   !_borderColorForEdu[index];
                                             });
-                                            // _overlayController.toggle();
-                                            print(_overlayController.isShowing);
                                           },
                                           onTapOutside: (event) {
-                                            setState(() {});
-                                            FocusScope.of(context).unfocus();
-                                          },
-                                          onSubmitted: (value) {
                                             setState(() {});
                                             FocusScope.of(context).unfocus();
                                           },
@@ -1516,7 +1390,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             index: index,
                                             count: 1,
                                           ),
-                                          // focusNode: widget.professionFocusNode,
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 8,
@@ -1550,16 +1423,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                         !_borderColorForEdu[
                                                             index];
                                                   });
-                                                  // _overlayController.toggle();
-                                                  print(_overlayController
-                                                      .isShowing);
                                                 },
                                                 onTapOutside: (event) {
-                                                  setState(() {});
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                },
-                                                onSubmitted: (value) {
                                                   setState(() {});
                                                   FocusScope.of(context)
                                                       .unfocus();
@@ -1577,7 +1442,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                   index: index,
                                                   count: 2,
                                                 ),
-                                                // focusNode: widget.professionFocusNode,
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
                                                   color: Color.fromARGB(
@@ -1612,9 +1476,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                         !_borderColorForEdu[
                                                             index];
                                                   });
-                                                  // _overlayController.toggle();
-                                                  print(_overlayController
-                                                      .isShowing);
                                                 },
                                                 onTapOutside: (event) {
                                                   setState(() {});
@@ -1629,17 +1490,11 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                     );
                                                   });
                                                 },
-                                                onSubmitted: (value) {
-                                                  setState(() {});
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                },
                                                 controller: _controllerFunction(
                                                   controllerType: 'edu',
                                                   index: index,
                                                   count: 4,
                                                 ),
-                                                // focusNode: widget.professionFocusNode,
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
                                                   color: Color.fromARGB(
@@ -1690,9 +1545,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                           !_borderColorForEdu[
                                                               index];
                                                     });
-                                                    // _overlayController.toggle();
-                                                    print(_overlayController
-                                                        .isShowing);
                                                   },
                                                   onTapOutside: (event) {
                                                     setState(() {});
@@ -1705,18 +1557,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                           innerIndex] = value;
                                                     });
                                                   },
-                                                  onSubmitted: (value) {
-                                                    setState(() {});
-                                                    FocusScope.of(context)
-                                                        .unfocus();
-                                                  },
                                                   controller:
                                                       _controllerFunction(
                                                     controllerType: 'courses',
                                                     index: index,
                                                     count: innerIndex,
                                                   ),
-                                                  // focusNode: widget.professionFocusNode,
                                                   style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 8,
@@ -1834,7 +1680,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                     Column(
                       children: [
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
@@ -1883,6 +1728,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             const SizedBox(
                                               height: 5,
                                             ),
+
+                                            // Work experience Job title
                                             TextField(
                                               onTap: () {
                                                 setState(() {
@@ -1891,26 +1738,25 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       !_borderColorForWorkExp[
                                                           index];
                                                 });
-                                                // _overlayController.toggle();
-                                                print(_overlayController
-                                                    .isShowing);
                                               },
                                               onTapOutside: (event) {
                                                 setState(() {});
                                                 FocusScope.of(context)
                                                     .unfocus();
                                               },
-                                              onSubmitted: (value) {
-                                                setState(() {});
-                                                FocusScope.of(context)
-                                                    .unfocus();
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  workExp[index] =
+                                                      workExp[index].copyWith(
+                                                    jobTitle: value,
+                                                  );
+                                                });
                                               },
                                               controller: _controllerFunction(
                                                 controllerType: 'workExp',
                                                 index: index,
                                                 count: 0,
                                               ),
-                                              // focusNode: widget.professionFocusNode,
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 10,
@@ -1929,6 +1775,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 ),
                                               ),
                                             ),
+
+                                            // work experience company name
                                             TextField(
                                               maxLines: null,
                                               onTap: () {
@@ -1938,26 +1786,25 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       !_borderColorForWorkExp[
                                                           index];
                                                 });
-                                                // _overlayController.toggle();
-                                                print(_overlayController
-                                                    .isShowing);
                                               },
                                               onTapOutside: (event) {
                                                 setState(() {});
                                                 FocusScope.of(context)
                                                     .unfocus();
                                               },
-                                              onSubmitted: (value) {
-                                                setState(() {});
-                                                FocusScope.of(context)
-                                                    .unfocus();
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  workExp[index] =
+                                                      workExp[index].copyWith(
+                                                    companyName: value,
+                                                  );
+                                                });
                                               },
                                               controller: _controllerFunction(
                                                 controllerType: 'workExp',
                                                 index: index,
                                                 count: 1,
                                               ),
-                                              // focusNode: widget.professionFocusNode,
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 8,
@@ -1995,19 +1842,20 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                             !_borderColorForWorkExp[
                                                                 index];
                                                       });
-                                                      // _overlayController.toggle();
-                                                      print(_overlayController
-                                                          .isShowing);
                                                     },
                                                     onTapOutside: (event) {
                                                       setState(() {});
                                                       FocusScope.of(context)
                                                           .unfocus();
                                                     },
-                                                    onSubmitted: (value) {
-                                                      setState(() {});
-                                                      FocusScope.of(context)
-                                                          .unfocus();
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        workExp[index] =
+                                                            workExp[index]
+                                                                .copyWith(
+                                                          startDate: value,
+                                                        );
+                                                      });
                                                     },
                                                     controller:
                                                         _controllerFunction(
@@ -2015,7 +1863,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       index: index,
                                                       count: 2,
                                                     ),
-                                                    // focusNode: widget.professionFocusNode,
                                                     style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
@@ -2053,19 +1900,20 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                             !_borderColorForWorkExp[
                                                                 index];
                                                       });
-                                                      // _overlayController.toggle();
-                                                      print(_overlayController
-                                                          .isShowing);
                                                     },
                                                     onTapOutside: (event) {
                                                       setState(() {});
                                                       FocusScope.of(context)
                                                           .unfocus();
                                                     },
-                                                    onSubmitted: (value) {
-                                                      setState(() {});
-                                                      FocusScope.of(context)
-                                                          .unfocus();
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        workExp[index] =
+                                                            workExp[index]
+                                                                .copyWith(
+                                                          jobType: value,
+                                                        );
+                                                      });
                                                     },
                                                     controller:
                                                         _controllerFunction(
@@ -2073,7 +1921,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       index: index,
                                                       count: 4,
                                                     ),
-                                                    // focusNode: widget.professionFocusNode,
                                                     style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
@@ -2123,26 +1970,25 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                         !_borderColorForWorkExp[
                                                             index];
                                                   });
-                                                  // _overlayController.toggle();
-                                                  print(_overlayController
-                                                      .isShowing);
                                                 },
                                                 onTapOutside: (event) {
                                                   setState(() {});
                                                   FocusScope.of(context)
                                                       .unfocus();
                                                 },
-                                                onSubmitted: (value) {
-                                                  setState(() {});
-                                                  FocusScope.of(context)
-                                                      .unfocus();
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    workExp[index] =
+                                                        workExp[index].copyWith(
+                                                      achievements: value,
+                                                    );
+                                                  });
                                                 },
                                                 controller: _controllerFunction(
                                                   controllerType: 'workExp',
                                                   index: index,
                                                   count: 5,
                                                 ),
-                                                // focusNode: widget.professionFocusNode,
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 8,
