@@ -80,15 +80,15 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
           } else if (state is UserDataError) {
             return Center(child: Text(state.message));
           }
-          return const Center(child: Text('Welcome!'));
+          return const SizedBox.shrink();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<UserDataBloc>().add(FetchUserData());
-        },
-        child: const Icon(Icons.refresh),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     context.read<UserDataBloc>().add(FetchUserData());
+      //   },
+      //   child: const Icon(Icons.refresh),
+      // ),
     );
   }
 }

@@ -699,19 +699,45 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     debugPrint(widget.userData.userData.toString());
     debugPrint('-----USER FROM ARGUMENTS----------');
 
-    myUser = widget.userData.userData.fullName != ''
-        ? myUser.copyWith(
-            fullName: widget.userData.userData.fullName,
-            profession: widget.userData.userData.profession,
-            bio: widget.userData.userData.bio,
-            email: widget.userData.userData.email,
-            address: widget.userData.userData.address,
-            linkedIn: widget.userData.userData.linkedIn,
-            phoneNumber: widget.userData.userData.phoneNumber,
-            github: widget.userData.userData.github,
-            website: widget.userData.userData.website,
-          )
-        : myUser;
+    if(widget.userData.userData.fullName != ''){
+      myUser = myUser.copyWith(
+        fullName: widget.userData.userData.fullName,
+        profession: widget.userData.userData.profession,
+        bio: widget.userData.userData.bio,
+        email: widget.userData.userData.email,
+        address: widget.userData.userData.address,
+        linkedIn: widget.userData.userData.linkedIn,
+        phoneNumber: widget.userData.userData.phoneNumber,
+        github: widget.userData.userData.github,
+        website: widget.userData.userData.website,
+      );
+      edu = widget.userData.educationBackground;
+      workExp = widget.userData.workExperience;
+      skills = widget.userData.skills;
+      personalProjects = widget.userData.personalProjects;
+      languages = widget.userData.languages;
+      interests = widget.userData.interests;
+    } else {
+      myUser;
+    }
+        // ? myUser.copyWith(
+        //     fullName: widget.userData.userData.fullName,
+        //     profession: widget.userData.userData.profession,
+        //     bio: widget.userData.userData.bio,
+        //     email: widget.userData.userData.email,
+        //     address: widget.userData.userData.address,
+        //     linkedIn: widget.userData.userData.linkedIn,
+        //     phoneNumber: widget.userData.userData.phoneNumber,
+        //     github: widget.userData.userData.github,
+        //     website: widget.userData.userData.website,
+        //   );
+        //   edu = widget.userData.educationBackground;
+        //   workExperience = widget.userData.workExperience;
+        //   skills = widget.userData.skills;
+        //   personalProjects = widget.userData.personalProjects;
+        //   languages = widget.userData.languages;
+        //   interests = widget.userData.interests;
+        // : myUser;
 
     debugPrint('-----MY UPDATED LOCAL USER');
     debugPrint(myUser.toString());

@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Resume Builder'),
         centerTitle: true,
-        leading: const Icon(Icons.menu_outlined),
+        leading: const Icon(Icons.menu_open_sharp),
         actions: [
           IconButton(
             onPressed: () {},
@@ -25,15 +25,15 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 8.0, 
-          mainAxisSpacing: 8.0, 
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
           childAspectRatio: 0.7,
         ),
         itemCount: templates.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              Navigator.push( 
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ResumeTemplate(

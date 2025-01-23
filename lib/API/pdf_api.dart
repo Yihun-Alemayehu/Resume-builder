@@ -50,6 +50,38 @@ class PdfApi {
     return saveDocument(name: '${userData.userData.fullName}.pdf', pdf: pdf);
   }
 
+  static Future<Uint8List> _loadImage(String path) async {
+    if (path.startsWith('/')) {
+      // Handle local file paths
+      final file = File(path);
+      return await file.readAsBytes();
+    } else {
+      // Handle asset paths
+      final byteData = await rootBundle.load(path);
+      return byteData.buffer.asUint8List();
+    }
+  }
+
+  static Future<File> saveDocument({
+    required String name,
+    required Document pdf,
+  }) async {
+    final bytes = await pdf.save();
+
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/$name');
+
+    await file.writeAsBytes(bytes);
+
+    return file;
+  }
+
+  static Future openFile(File file) async {
+    final url = file.path;
+
+    await OpenFile.open(url);
+  }
+
   static Column customColumn(
       {required UserData userData, required Uint8List imageUrl}) {
     return Column(
@@ -319,7 +351,7 @@ class PdfApi {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        '${education.startDate} - ${education.endDate}',
+                                        education.startDate,
                                         style: TextStyle(
                                           fontStyle: FontStyle.italic,
                                           color: PdfColor.fromHex('#4793a4'),
@@ -421,7 +453,7 @@ class PdfApi {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        '${workExperience.startDate} - ${workExperience.endDate}',
+                                        workExperience.startDate,
                                         style: TextStyle(
                                           fontStyle: FontStyle.italic,
                                           color: PdfColor.fromHex('#4793a4'),
@@ -669,37 +701,5 @@ class PdfApi {
         ),
       ],
     );
-  }
-
-  static Future<Uint8List> _loadImage(String path) async {
-    if (path.startsWith('/')) {
-      // Handle local file paths
-      final file = File(path);
-      return await file.readAsBytes();
-    } else {
-      // Handle asset paths
-      final byteData = await rootBundle.load(path);
-      return byteData.buffer.asUint8List();
-    }
-  }
-
-  static Future<File> saveDocument({
-    required String name,
-    required Document pdf,
-  }) async {
-    final bytes = await pdf.save();
-
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$name');
-
-    await file.writeAsBytes(bytes);
-
-    return file;
-  }
-
-  static Future openFile(File file) async {
-    final url = file.path;
-
-    await OpenFile.open(url);
   }
 }

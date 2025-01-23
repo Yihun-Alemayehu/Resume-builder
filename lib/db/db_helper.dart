@@ -59,7 +59,6 @@ class DatabaseHelper {
   Future<void> upsertUserData(UserData userData) async {
   final db = await database;
 
-  // Safely encode complex fields and handle potential null values
   try {
     await db.insert(
       'UserData',
@@ -71,9 +70,9 @@ class DatabaseHelper {
         'email': userData.userData.email,
         'address': userData.userData.address,
         'phoneNumber': userData.userData.phoneNumber,
-        'linkedIn': userData.userData.linkedIn ?? '', // Default to an empty string
-        'github': userData.userData.github ?? '',    // Default to an empty string
-        'website': userData.userData.website ?? '',  // Default to an empty string
+        'linkedIn': userData.userData.linkedIn ?? '',
+        'github': userData.userData.github ?? '',   
+        'website': userData.userData.website ?? '', 
         'educationBackground': jsonEncode(userData.educationBackground
             .map((e) => {
                   'fieldOfStudy': e.fieldOfStudy,
@@ -107,7 +106,6 @@ class DatabaseHelper {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   } catch (e) {
-    // Log or handle the error
     print('Error inserting user data: $e');
   }
 }

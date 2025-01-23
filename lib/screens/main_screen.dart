@@ -29,17 +29,36 @@ class _MainScreenState extends State<MainScreen> {
             currentTab = index;
           });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: currentTab == 0
+                ? Image.asset(
+                    'assets/Icons/home-1.png',
+                    width: 25,
+                    height: 25,
+                  )
+                : Image.asset('assets/Icons/home-0.png', width: 25, height: 25),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.work),
+            icon: currentTab == 1
+                ? Image.asset(
+                    'assets/Icons/resume-1.png',
+                    width: 25,
+                    height: 25,
+                  )
+                : Image.asset('assets/Icons/resume-0.png',
+                    width: 25, height: 25),
             label: 'My Resume',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: currentTab == 2
+                ? Image.asset(
+                    'assets/Icons/user-1.png',
+                    width: 25,
+                    height: 25,
+                  )
+                : Image.asset('assets/Icons/user-0.png', width: 25, height: 25),
             label: 'Profile',
           ),
         ],
