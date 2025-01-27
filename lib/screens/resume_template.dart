@@ -15,7 +15,13 @@ import 'package:my_resume/utils/height_function.dart';
 
 class ResumeTemplate extends StatefulWidget {
   final UserData userData;
-  const ResumeTemplate({super.key, required this.userData});
+  final bool isNewTemplate;
+  final int index;
+  const ResumeTemplate(
+      {super.key,
+      required this.userData,
+      required this.isNewTemplate,
+      required this.index});
 
   @override
   State<ResumeTemplate> createState() => _ResumeTemplateState();
@@ -66,6 +72,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () async {
+              final templateIndex = _childKey.currentState?.templateIndex;
               final myUser = _childKey.currentState?.myUser;
               final education = _childKey.currentState?.edu;
               final workExperience = _childKey.currentState?.workExp;
@@ -80,6 +87,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
 
               // Save the resume
               final userData = UserData(
+                templateIndex: templateIndex!,
                 userData: myUser!,
                 educationBackground: education!,
                 workExperience: workExperience!,
@@ -94,9 +102,12 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
               final pdfFile = await PdfApi.generateResume(
                 userData: userData,
               );
-              context
-                  .read<UserDataBloc>()
-                  .add(SaveUserData(userData: userData));
+              widget.isNewTemplate
+                  ? context
+                      .read<UserDataBloc>()
+                      .add(SaveTemplateData(userData: userData))
+                  : context.read<UserDataBloc>().add(
+                      UpdateTemplateData(id: widget.index, userData: userData));
               PdfApi.openFile(pdfFile);
             },
           )
@@ -131,6 +142,7 @@ class TemporaryColumn extends StatefulWidget {
 }
 
 class _TemporaryColumnState extends State<TemporaryColumn> {
+  int templateIndex = 0;
   MyUser myUser = MyUser(
     fullName: 'Yihun Alemayehu',
     profession: 'Flutter Developer',
@@ -699,9 +711,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     debugPrint(widget.userData.userData.toString());
     debugPrint('-----USER FROM ARGUMENTS----------');
 
-    if(widget.userData.userData.fullName != ''){
+    if (widget.userData.userData.fullName != '') {
       myUser = myUser.copyWith(
         fullName: widget.userData.userData.fullName,
+        profilePic: widget.userData.userData.profilePic,
         profession: widget.userData.userData.profession,
         bio: widget.userData.userData.bio,
         email: widget.userData.userData.email,
@@ -720,24 +733,24 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     } else {
       myUser;
     }
-        // ? myUser.copyWith(
-        //     fullName: widget.userData.userData.fullName,
-        //     profession: widget.userData.userData.profession,
-        //     bio: widget.userData.userData.bio,
-        //     email: widget.userData.userData.email,
-        //     address: widget.userData.userData.address,
-        //     linkedIn: widget.userData.userData.linkedIn,
-        //     phoneNumber: widget.userData.userData.phoneNumber,
-        //     github: widget.userData.userData.github,
-        //     website: widget.userData.userData.website,
-        //   );
-        //   edu = widget.userData.educationBackground;
-        //   workExperience = widget.userData.workExperience;
-        //   skills = widget.userData.skills;
-        //   personalProjects = widget.userData.personalProjects;
-        //   languages = widget.userData.languages;
-        //   interests = widget.userData.interests;
-        // : myUser;
+    // ? myUser.copyWith(
+    //     fullName: widget.userData.userData.fullName,
+    //     profession: widget.userData.userData.profession,
+    //     bio: widget.userData.userData.bio,
+    //     email: widget.userData.userData.email,
+    //     address: widget.userData.userData.address,
+    //     linkedIn: widget.userData.userData.linkedIn,
+    //     phoneNumber: widget.userData.userData.phoneNumber,
+    //     github: widget.userData.userData.github,
+    //     website: widget.userData.userData.website,
+    //   );
+    //   edu = widget.userData.educationBackground;
+    //   workExperience = widget.userData.workExperience;
+    //   skills = widget.userData.skills;
+    //   personalProjects = widget.userData.personalProjects;
+    //   languages = widget.userData.languages;
+    //   interests = widget.userData.interests;
+    // : myUser;
 
     debugPrint('-----MY UPDATED LOCAL USER');
     debugPrint(myUser.toString());
@@ -1137,7 +1150,11 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: Colors.white,
-                          backgroundImage: AssetImage(myUser.profilePic.path),
+                          backgroundImage:
+                              File(myUser.profilePic.path).existsSync()
+                                  ? FileImage(File(myUser.profilePic.path))
+                                  : const AssetImage('assets/copy.jpg')
+                                      as ImageProvider,
                         ),
                       )
                     : CircleAvatar(

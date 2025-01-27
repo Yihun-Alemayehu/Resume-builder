@@ -24,7 +24,7 @@ class ResumeApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: AuthenticationScreen(),
+        home: MainScreen(),
       ),
     );
   }

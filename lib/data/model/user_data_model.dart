@@ -10,6 +10,7 @@ import 'package:my_resume/data/model/work_experience_model.dart';
 
 class UserData {
   UserData({
+    required this.templateIndex,
     required this.userData,
     required this.educationBackground,
     required this.workExperience,
@@ -19,6 +20,7 @@ class UserData {
     required this.interests,
   });
 
+  final int templateIndex;
   final MyUser userData;
   final List<EducationBackground> educationBackground;
   final List<WorkExperience> workExperience;
@@ -28,6 +30,7 @@ class UserData {
   final List<String> interests;
 
   UserData copyWith({
+    int? templateIndex,
     MyUser? userData,
     List<EducationBackground>? educationBackground,
     List<WorkExperience>? workExperience,
@@ -37,6 +40,7 @@ class UserData {
     List<String>? interests,
   }) {
     return UserData(
+      templateIndex: templateIndex ?? this.templateIndex,
       userData: userData ?? this.userData,
       educationBackground: educationBackground ?? this.educationBackground,
       workExperience: workExperience ?? this.workExperience,
@@ -49,6 +53,7 @@ class UserData {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'templateIndex': templateIndex,
       'userData': userData.toMap(),
       'educationBackground': educationBackground.map((x) => x.toMap()).toList(),
       'workExperience': workExperience.map((x) => x.toMap()).toList(),
@@ -61,6 +66,7 @@ class UserData {
 
   factory UserData.empty(){
     return UserData(
+      templateIndex: 0,
       userData: MyUser.empty(),
       educationBackground: [],
       workExperience: [],
@@ -73,6 +79,7 @@ class UserData {
 
   factory UserData.fromMap(Map<String, dynamic> map) {
     return UserData(
+        templateIndex: map['templateIndex'] as int,
         userData: MyUser.fromMap(map['userData'] as Map<String, dynamic>),
         educationBackground: List<EducationBackground>.from(
           (map['educationBackground'] as List<int>).map<EducationBackground>(

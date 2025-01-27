@@ -16,7 +16,7 @@ class MyResumeScreen extends StatefulWidget {
 class _MyResumeScreenState extends State<MyResumeScreen> {
   @override
   void initState() {
-    context.read<UserDataBloc>().add(FetchUserData());
+    context.read<UserDataBloc>().add(FetchTemplateData());
     super.initState();
   }
 
@@ -24,11 +24,11 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('My Resume')),
-      body: BlocBuilder<UserDataBloc, UserDataState>(
+      body: BlocBuilder<UserDataBloc, TemplateDataState>(
         builder: (context, state) {
-          if (state is UserDataLoading) {
+          if (state is TemplateDataLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is UserDataLoaded) {
+          } else if (state is TemplateDataLoaded) {
             final userData = state.userData;
             debugPrint(userData.toString());
             return GridView.builder(
@@ -41,20 +41,22 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                 mainAxisSpacing: 8.0,
                 childAspectRatio: 0.7,
               ),
-              itemCount: 1,
+              itemCount: userData.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onLongPress: () {
                     context
                         .read<UserDataBloc>()
-                        .add(const DeleteUserData(id: 2));
+                        .add(const DeleteTemplateData(id: 2));
                   },
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => ResumeTemplate(
-                                userData: userData,
+                                userData: userData[index],
+                                isNewTemplate: false,
+                                index: index + 1,
                               )),
                     );
                   },
@@ -68,7 +70,7 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
-                          templates[index],
+                          templates[userData[index].templateIndex],
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -77,7 +79,7 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                 );
               },
             );
-          } else if (state is UserDataError) {
+          } else if (state is TemplateDataError) {
             return Center(child: Text(state.message));
           }
           return const SizedBox.shrink();

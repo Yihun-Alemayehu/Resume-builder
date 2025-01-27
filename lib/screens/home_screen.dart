@@ -38,6 +38,8 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => ResumeTemplate(
                     userData: UserData.empty(),
+                    isNewTemplate: true,
+                    index: index + 1,
                   ),
                 ),
               );

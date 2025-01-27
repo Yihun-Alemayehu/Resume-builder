@@ -1,36 +1,38 @@
 import 'package:equatable/equatable.dart';
 import 'package:my_resume/data/model/user_data_model.dart';
 
-abstract class UserDataState extends Equatable {
-  const UserDataState();
+abstract class TemplateDataState extends Equatable {
+  const TemplateDataState();
 
   @override
   List<Object?> get props => [];
 }
 
 // Initial state
-class UserDataInitial extends UserDataState {}
+class TemplateDataInitial extends TemplateDataState {}
 
 // Loading state
-class UserDataLoading extends UserDataState {}
+class TemplateDataLoading extends TemplateDataState {}
+
+class TemplateDataSaved extends TemplateDataState {}
 
 // Loaded state
-class UserDataLoaded extends UserDataState {
-  final UserData userData;
+class TemplateDataLoaded extends TemplateDataState {
+  final List<UserData> userData;
 
-  const UserDataLoaded({required this.userData});
+  const TemplateDataLoaded({required this.userData});
 
   @override
   List<Object?> get props => [userData];
 }
 
-class UserDataError extends UserDataState {
+class TemplateDataError extends TemplateDataState {
   final String message;
 
-  const UserDataError({required this.message});
+  const TemplateDataError({required this.message});
 
   @override
   List<Object?> get props => [message];
 }
 
-class UserDataDeleted extends UserDataState {}
+class TemplateDataDeleted extends TemplateDataState {}

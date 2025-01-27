@@ -1,54 +1,68 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/bloc/user_event.dart';
 import 'package:my_resume/bloc/user_state.dart';
+import 'package:my_resume/data/model/user_data_model.dart';
 import 'package:my_resume/db/db_helper.dart';
 
-class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
+class UserDataBloc extends Bloc<TemplateDataEvent, TemplateDataState> {
   final DatabaseHelper dbHelper;
 
-  UserDataBloc({required this.dbHelper}) : super(UserDataInitial()) {
-    on<FetchUserData>(_onFetchUserData);
-    on<SaveUserData>(_onSaveUserData);
-    on<DeleteUserData>(_onDeleteUserData);
+  UserDataBloc({required this.dbHelper}) : super(TemplateDataInitial()) {
+    on<SaveTemplateData>(_onSaveTemplate);
+    on<FetchTemplateData>(_onFetchTemplates);
+    on<UpdateTemplateData>(_onUpdateTemplate);
+    on<DeleteTemplateData>(_onDeleteTemplate);
   }
 
-  // Handle FetchUserData event
-  Future<void> _onFetchUserData(
-      FetchUserData event, Emitter<UserDataState> emit) async {
-    emit(UserDataLoading());
+  // Handle SaveTemplateData event
+  Future<void> _onSaveTemplate(
+      SaveTemplateData event, Emitter<TemplateDataState> emit) async {
+    emit(TemplateDataLoading());
     try {
-      final userData = await dbHelper.fetchUserData();
+      await dbHelper.insertTemplate(template: event.userData);
+      emit(TemplateDataSaved());
+    } catch (e) {
+      emit(TemplateDataError(message: 'Failed to save template data: $e'));
+    }
+  }
+
+  // Handle FetchTemplateData event
+  Future<void> _onFetchTemplates(
+      FetchTemplateData event, Emitter<TemplateDataState> emit) async {
+    emit(TemplateDataLoading());
+    try {
+      final List<UserData>? userData = await dbHelper.fetchTemplates();
       if (userData != null) {
-        emit(UserDataLoaded(userData: userData));
+        emit(TemplateDataLoaded(userData: userData));
       } else {
-        emit(const UserDataError(message: 'You do not have any resume'));
+        emit(const TemplateDataError(message: 'You do not have any resume'));
       }
     } catch (e) {
-      emit(UserDataError(message: 'Failed to load user data: $e'));
+      emit(TemplateDataError(message: 'Failed to load user data: $e'));
+    }
+  }
+
+  // Handle UpdateTemplateData event
+  Future<void> _onUpdateTemplate(
+      UpdateTemplateData event, Emitter<TemplateDataState> emit) async {
+    emit(TemplateDataLoading());
+    try {
+      await dbHelper.updateTemplate(id: event.id, template: event.userData);
+      emit(TemplateDataSaved());
+    } catch (e) {
+      emit(TemplateDataError(message: 'Failed to update template data: $e'));
     }
   }
 
   // Handle SaveUserData event
-  Future<void> _onSaveUserData(
-      SaveUserData event, Emitter<UserDataState> emit) async {
-    emit(UserDataLoading());
+  Future<void> _onDeleteTemplate(
+      DeleteTemplateData event, Emitter<TemplateDataState> emit) async {
+    emit(TemplateDataLoading());
     try {
-      await dbHelper.upsertUserData(event.userData);
-      emit(UserDataLoaded(userData: event.userData));
+      await dbHelper.deleteTemplate(id: event.id);
+      emit(TemplateDataDeleted());
     } catch (e) {
-      emit(UserDataError(message: 'Failed to save user data: $e'));
-    }
-  }
-
-  // Handle SaveUserData event
-  Future<void> _onDeleteUserData(
-      DeleteUserData event, Emitter<UserDataState> emit) async {
-    emit(UserDataLoading());
-    try {
-      await dbHelper.deleteUserData(event.id);
-      emit(UserDataDeleted());
-    } catch (e) {
-      emit(UserDataError(message: 'Failed to delete user data: $e'));
+      emit(TemplateDataError(message: 'Failed to delete user data: $e'));
     }
   }
 }
