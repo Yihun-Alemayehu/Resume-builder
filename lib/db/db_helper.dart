@@ -239,7 +239,7 @@ class DatabaseHelper {
     await db.update(
       'Templates',
       {
-        'template_index': template.templateIndex,
+        'templateIndex': template.templateIndex,
         // 'name': template.userData.fullName, // Assuming this is a template name
         'fullName': template.userData.fullName,
         'profession': template.userData.profession,

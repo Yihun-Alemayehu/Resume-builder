@@ -72,6 +72,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () async {
+              final icons = _childKey.currentState?.icons;
               final templateIndex = _childKey.currentState?.templateIndex;
               final myUser = _childKey.currentState?.myUser;
               final education = _childKey.currentState?.edu;
@@ -101,6 +102,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
               debugPrint('-------------SAVED USER DATA-------------');
               final pdfFile = await PdfApi.generateResume(
                 userData: userData,
+                icons: icons!
               );
               widget.isNewTemplate
                   ? context
@@ -142,7 +144,17 @@ class TemporaryColumn extends StatefulWidget {
 }
 
 class _TemporaryColumnState extends State<TemporaryColumn> {
+  List<File> icons = [
+    File('assets/Icons/mail.png'),
+    File('assets/Icons/pin.png'),
+    File('assets/Icons/linkedin.png'),
+    File('assets/Icons/telephone.png'),
+    File('assets/Icons/github.png'),
+    File('assets/Icons/internet.png'),
+  ];
+
   int templateIndex = 0;
+  
   MyUser myUser = MyUser(
     fullName: 'Yihun Alemayehu',
     profession: 'Flutter Developer',

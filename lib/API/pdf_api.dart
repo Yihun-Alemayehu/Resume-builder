@@ -10,9 +10,15 @@ import 'package:pdf/widgets.dart';
 import 'package:flutter/material.dart' as mt;
 
 class PdfApi {
-  static Future<File> generateResume({required UserData userData}) async {
+  static Future<File> generateResume(
+      {required UserData userData, required List<File> icons}) async {
     final pdf = Document();
     final imageUrl = await _loadImage(userData.userData.profilePic.path);
+    final List<Uint8List> iconsList = [];
+    for (File icon in icons) {
+      final iconFile = await _loadImage(icon.path);
+      iconsList.add(iconFile);
+    }
     PdfPageFormat customPageFormat = PdfPageFormat.a4;
 
     if (userData.educationBackground.length + userData.workExperience.length ==
@@ -40,8 +46,8 @@ class PdfApi {
 
     pdf.addPage(
       Page(
-        build: (context) =>
-            customColumn(userData: userData, imageUrl: imageUrl),
+        build: (context) => customColumn(
+            userData: userData, imageUrl: imageUrl, icons: iconsList),
         pageFormat: customPageFormat,
         margin: const EdgeInsets.all(0),
       ),
@@ -83,7 +89,9 @@ class PdfApi {
   }
 
   static Column customColumn(
-      {required UserData userData, required Uint8List imageUrl}) {
+      {required UserData userData,
+      required Uint8List imageUrl,
+      required List<Uint8List> icons}) {
     return Column(
       children: [
         Container(
@@ -158,11 +166,7 @@ class PdfApi {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            const IconData(0xe145),
-                            color: PdfColor.fromHex('#ffffff'),
-                            size: 10,
-                          ),
+                          Image(MemoryImage(icons[0]), height: 10, width: 10),
                           SizedBox(width: 5),
                           Text(
                             userData.userData.email,
@@ -175,12 +179,7 @@ class PdfApi {
                       ),
                       Row(
                         children: [
-                          Icon(
-                            // Icons.pin_drop,
-                            const IconData(0xe0be),
-                            color: PdfColor.fromHex('#ffffff'),
-                            size: 10,
-                          ),
+                          Image(MemoryImage(icons[1]), height: 10, width: 10),
                           SizedBox(width: 5),
                           Text(
                             userData.userData.address,
@@ -193,12 +192,7 @@ class PdfApi {
                       ),
                       Row(
                         children: [
-                          Icon(
-                            // Icons.dataset_linked_outlined,
-                            const IconData(0xe0be),
-                            color: PdfColor.fromHex('#ffffff'),
-                            size: 10,
-                          ),
+                          Image(MemoryImage(icons[2]), height: 10, width: 10),
                           SizedBox(width: 5),
                           Text(
                             userData.userData.linkedIn ?? '',
@@ -224,12 +218,7 @@ class PdfApi {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            const IconData(0xe0be),
-                            // Icons.phone,
-                            color: PdfColor.fromHex('#ffffff'),
-                            size: 10,
-                          ),
+                          Image(MemoryImage(icons[3]), height: 10, width: 10),
                           SizedBox(width: 5),
                           Text(
                             userData.userData.phoneNumber,
@@ -242,12 +231,7 @@ class PdfApi {
                       ),
                       Row(
                         children: [
-                          Icon(
-                            // Icons.gite,
-                            const IconData(0xe0be),
-                            color: PdfColor.fromHex('#ffffff'),
-                            size: 10,
-                          ),
+                          Image(MemoryImage(icons[4]), height: 10, width: 10),
                           SizedBox(width: 5),
                           Text(
                             userData.userData.github ?? '',
@@ -260,12 +244,7 @@ class PdfApi {
                       ),
                       Row(
                         children: [
-                          Icon(
-                            // Icons.web_sharp,
-                            const IconData(0xe0be),
-                            color: PdfColor.fromHex('#ffffff'),
-                            size: 10,
-                          ),
+                          Image(MemoryImage(icons[5]), height: 10, width: 10),
                           SizedBox(width: 5),
                           Text(
                             userData.userData.website ?? '',
@@ -532,7 +511,7 @@ class PdfApi {
                                     const EdgeInsets.only(right: 4, bottom: 4),
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: PdfColor.fromHex('#313c4e'),
+                                    color: PdfColor.fromHex('#49969f'),
                                   ),
                                   color: PdfColor.fromHex('#ffffff'),
                                   borderRadius: BorderRadius.circular(4),
@@ -540,7 +519,7 @@ class PdfApi {
                                 child: Text(
                                   skill,
                                   style: const TextStyle(
-                                    fontSize: 8,
+                                    fontSize: 10,
                                   ),
                                 ),
                               );
@@ -577,10 +556,13 @@ class PdfApi {
                             userData.personalProjects.length,
                             (index) {
                               final project = userData.personalProjects[index];
-                              return Text(
-                                project,
-                                style: const TextStyle(
-                                  fontSize: 12,
+                              return Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Text(
+                                  project,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
                               );
                             },
@@ -623,7 +605,7 @@ class PdfApi {
                                     Text(
                                       language.language,
                                       style: const TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 12,
                                       ),
                                     ),
                                     SizedBox(
@@ -631,8 +613,9 @@ class PdfApi {
                                     ),
                                     Text(
                                       language.proficiency,
-                                      style: const TextStyle(
-                                        fontSize: 8,
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        fontStyle: FontStyle.italic,
                                       ),
                                     ),
                                   ],
@@ -656,7 +639,7 @@ class PdfApi {
                           'INTERESTS',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
-                            decorationColor: PdfColor.fromHex('#4793a4'),
+                            decorationColor: PdfColor.fromHex('#49969f'),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
                             color: PdfColor.fromHex('#4793a4'),
@@ -677,13 +660,13 @@ class PdfApi {
                                 margin:
                                     const EdgeInsets.only(right: 4, bottom: 4),
                                 decoration: BoxDecoration(
-                                  color: PdfColor.fromHex('#313c4e'),
+                                  color: PdfColor.fromHex('#49969f'),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
                                   interest,
                                   style: TextStyle(
-                                    fontSize: 8,
+                                    fontSize: 12,
                                     color: PdfColor.fromHex('#ffffff'),
                                   ),
                                 ),
