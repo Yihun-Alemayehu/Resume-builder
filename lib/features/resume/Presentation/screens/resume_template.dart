@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_resume/features/profile/data/model/award_model.dart';
+import 'package:my_resume/features/profile/data/model/certificate_model.dart';
+import 'package:my_resume/features/resume/data/model/templates_model.dart';
 import 'package:my_resume/features/resume/domain/generate_resume_repo.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
@@ -14,12 +17,12 @@ import 'package:my_resume/features/resume/data/model/work_experience_model.dart'
 import 'package:my_resume/core/utils/height_function.dart';
 
 class ResumeTemplate extends StatefulWidget {
-  final UserData userData;
+  final TemplateModel templateData;
   final bool isNewTemplate;
   final int index;
   const ResumeTemplate(
       {super.key,
-      required this.userData,
+      required this.templateData,
       required this.isNewTemplate,
       required this.index});
 
@@ -81,35 +84,43 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
               final personalProjects = _childKey.currentState?.personalProjects;
               final languages = _childKey.currentState?.languages;
               final interests = _childKey.currentState?.interests;
+              final templateName = _childKey.currentState?.templateName;
+              final certificates = _childKey.currentState?.certificates;
+              final awards = _childKey.currentState?.awards;
+              final references = _childKey.currentState?.references;
 
               debugPrint('-------------USER DATA-------------');
               debugPrint('User Data: $myUser');
               debugPrint('-------------USER DATA-------------');
 
               // Save the resume
-              final userData = UserData(
+              final templateData = TemplateModel(
+                templateName: templateName!,
                 templateIndex: templateIndex!,
                 userData: myUser!,
                 educationBackground: education!,
                 workExperience: workExperience!,
+                certificates: certificates!,
+                awards: awards!,
                 skills: skills!,
                 personalProjects: personalProjects!,
                 languages: languages!,
                 interests: interests!,
+                references: references!,
               );
               debugPrint('-------------SAVED USER DATA-------------');
-              debugPrint('Saved User Data: ${userData.educationBackground}');
+              debugPrint('Saved User Data: ${templateData.educationBackground}');
               debugPrint('-------------SAVED USER DATA-------------');
               final pdfFile = await PdfApi.generateResume(
-                userData: userData,
+                userData: templateData,
                 icons: icons!
               );
               widget.isNewTemplate
                   ? context
                       .read<UserDataBloc>()
-                      .add(SaveTemplateData(userData: userData))
+                      .add(SaveTemplateData(templateData: templateData))
                   : context.read<UserDataBloc>().add(
-                      UpdateTemplateData(id: widget.index, userData: userData));
+                      UpdateTemplateData(id: widget.index, templateData: templateData));
               PdfApi.openFile(pdfFile);
             },
           )
@@ -126,7 +137,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
             primary: true,
             child: TemporaryColumn(
               key: _childKey,
-              userData: widget.userData,
+              userData: widget.templateData,
             ),
           ),
         ),
@@ -136,7 +147,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
 }
 
 class TemporaryColumn extends StatefulWidget {
-  final UserData userData;
+  final TemplateModel userData;
   const TemporaryColumn({super.key, required this.userData});
 
   @override
@@ -144,6 +155,11 @@ class TemporaryColumn extends StatefulWidget {
 }
 
 class _TemporaryColumnState extends State<TemporaryColumn> {
+  final String templateName = 'Neat';
+  final List<CertificateModel> certificates = [];
+  final List<AwardModel> awards = [];
+  final List<String> references = [];
+  
   List<File> icons = [
     File('assets/Icons/mail.png'),
     File('assets/Icons/pin.png'),

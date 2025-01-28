@@ -54,7 +54,7 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ResumeTemplate(
-                                userData: userData[index],
+                                templateData: userData[index],
                                 isNewTemplate: false,
                                 index: index + 1,
                               )),

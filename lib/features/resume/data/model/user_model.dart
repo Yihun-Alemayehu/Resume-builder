@@ -62,9 +62,9 @@ class MyUser {
       'email': email,
       'address': address,
       'phoneNumber': phoneNumber,
-      'linkedIn': linkedIn,
-      'github': github,
-      'website': website,
+      'linkedIn': linkedIn ?? '',
+      'github': github ?? '',
+      'website': website ?? '',
     };
   }
 

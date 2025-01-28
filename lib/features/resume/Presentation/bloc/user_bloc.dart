@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_state.dart';
+import 'package:my_resume/features/resume/data/model/templates_model.dart';
 import 'package:my_resume/features/resume/data/model/user_data_model.dart';
 import 'package:my_resume/features/resume/data/db/db_helper.dart';
 
@@ -19,7 +20,7 @@ class UserDataBloc extends Bloc<TemplateDataEvent, TemplateDataState> {
       SaveTemplateData event, Emitter<TemplateDataState> emit) async {
     emit(TemplateDataLoading());
     try {
-      await dbHelper.insertTemplate(template: event.userData);
+      await dbHelper.insertTemplate(template: event.templateData);
       emit(TemplateDataSaved());
     } catch (e) {
       emit(TemplateDataError(message: 'Failed to save template data: $e'));
@@ -31,7 +32,7 @@ class UserDataBloc extends Bloc<TemplateDataEvent, TemplateDataState> {
       FetchTemplateData event, Emitter<TemplateDataState> emit) async {
     emit(TemplateDataLoading());
     try {
-      final List<UserData>? userData = await dbHelper.fetchTemplates();
+      final List<TemplateModel>? userData = await dbHelper.fetchTemplates();
       if (userData != null) {
         emit(TemplateDataLoaded(userData: userData));
       } else {
@@ -47,7 +48,7 @@ class UserDataBloc extends Bloc<TemplateDataEvent, TemplateDataState> {
       UpdateTemplateData event, Emitter<TemplateDataState> emit) async {
     emit(TemplateDataLoading());
     try {
-      await dbHelper.updateTemplate(id: event.id, template: event.userData);
+      await dbHelper.updateTemplate(id: event.id, template: event.templateData);
       emit(TemplateDataSaved());
     } catch (e) {
       emit(TemplateDataError(message: 'Failed to update template data: $e'));

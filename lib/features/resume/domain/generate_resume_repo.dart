@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:my_resume/features/resume/data/model/templates_model.dart';
 import 'package:my_resume/features/resume/data/model/user_data_model.dart';
 import 'package:my_resume/core/utils/height_function.dart';
 import 'package:open_file/open_file.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/material.dart' as mt;
 
 class PdfApi {
   static Future<File> generateResume(
-      {required UserData userData, required List<File> icons}) async {
+      {required TemplateModel userData, required List<File> icons}) async {
     final pdf = Document();
     final imageUrl = await _loadImage(userData.userData.profilePic.path);
     final List<Uint8List> iconsList = [];
@@ -89,7 +90,7 @@ class PdfApi {
   }
 
   static Column customColumn(
-      {required UserData userData,
+      {required TemplateModel userData,
       required Uint8List imageUrl,
       required List<Uint8List> icons}) {
     return Column(

@@ -1,7 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:my_resume/features/profile/data/model/award_model.dart';
+import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
+import 'package:my_resume/features/resume/data/model/templates_model.dart';
 import 'package:my_resume/features/resume/data/model/user_data_model.dart';
 import 'package:my_resume/features/resume/data/model/user_model.dart';
 import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
@@ -44,23 +48,18 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE Templates (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        templateName TEXT NOT NULL,
         templateIndex INTEGER NOT NULL,
-        fullName TEXT NOT NULL,
-        profession TEXT NOT NULL,
-        bio TEXT NOT NULL,
-        profilePic TEXT NOT NULL,
-        email TEXT NOT NULL,
-        address TEXT NOT NULL,
-        phoneNumber TEXT NOT NULL,
-        linkedIn TEXT,
-        github TEXT,
-        website TEXT,
+        userData TEXT NOT NULL,
         educationBackground TEXT NOT NULL,
         workExperience TEXT NOT NULL,
+        languages TEXT NOT NULL,
+        certificates TEXT NOT NULL,
+        awards TEXT NOT NULL,
         skills TEXT NOT NULL,
         personalProjects TEXT NOT NULL,
-        languages TEXT NOT NULL,
-        interests TEXT NOT NULL
+        interests TEXT NOT NULL,
+        reference TEXT NOT NULL
       )
     ''');
   }
@@ -85,7 +84,7 @@ class DatabaseHelper {
   // CRUD OPERATION FOR TEMPLATES
 
   // CREATE
-  Future<int> insertTemplate({required UserData template}) async {
+  Future<int> insertTemplate({required TemplateModel template}) async {
     try {
       final db = await database;
 
@@ -96,17 +95,20 @@ class DatabaseHelper {
       final int id = await db.insert(
         'Templates',
         {
-          'templateIndex':template.templateIndex,
-          'fullName': template.userData.fullName,
-          'profession': template.userData.profession,
-          'bio': template.userData.bio,
-          'profilePic': profilePicPath,
-          'email': template.userData.email,
-          'address': template.userData.address,
-          'phoneNumber': template.userData.phoneNumber,
-          'linkedIn': template.userData.linkedIn ?? '',
-          'github': template.userData.github ?? '',
-          'website': template.userData.website ?? '',
+          'templateName': template.templateName,
+          'templateIndex': template.templateIndex,
+          'userData': jsonEncode({
+            'fullName': template.userData.fullName,
+            'profession': template.userData.profession,
+            'bio': template.userData.bio,
+            'profilePic': profilePicPath,
+            'email': template.userData.email,
+            'address': template.userData.address,
+            'phoneNumber': template.userData.phoneNumber,
+            'linkedIn': template.userData.linkedIn,
+            'github': template.userData.github,
+            'website': template.userData.website,
+          }),
           'educationBackground': jsonEncode(template.educationBackground
               .map((e) => {
                     'fieldOfStudy': e.fieldOfStudy,
@@ -127,15 +129,28 @@ class DatabaseHelper {
                     'achievements': e.achievements,
                   })
               .toList()),
-          'skills': jsonEncode(template.skills),
-          'personalProjects': jsonEncode(template.personalProjects),
           'languages': jsonEncode(template.languages
               .map((e) => {
                     'language': e.language,
                     'proficiency': e.proficiency,
                   })
               .toList()),
+          'certificates': jsonEncode(template.certificates
+              .map((e) => {
+                    'certificateName': e.certificateName,
+                    'issuedDate': e.issuedDate,
+                  })
+              .toList()),
+          'awards': jsonEncode(template.awards
+              .map((e) => {
+                    'awardName': e.awardName,
+                    'issuedDate': e.issuedDate,
+                  })
+              .toList()),
+          'skills': jsonEncode(template.skills),
+          'personalProjects': jsonEncode(template.personalProjects),
           'interests': jsonEncode(template.interests),
+          'reference': jsonEncode(template.references),
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
@@ -149,7 +164,7 @@ class DatabaseHelper {
   }
 
   // READ
-  Future<List<UserData>?> fetchTemplates() async {
+  Future<List<TemplateModel>?> fetchTemplates() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('Templates');
 
@@ -157,22 +172,22 @@ class DatabaseHelper {
       try {
         return maps.map((map) {
           // Decode education background
-          final educationBackground = (jsonDecode(map['educationBackground'])
-                  as List)
-              .map((e) => e is Map<String, dynamic> // Ensure the correct type
-                  ? EducationBackground(
-                      fieldOfStudy: e['fieldOfStudy'] ?? '',
-                      institutionName: e['institutionName'] ?? '',
-                      startDate: e['startDate'] ?? '',
-                      endDate: e['endDate'] ?? '',
-                      institutionAddress: e['institutionAddress'] ?? '',
-                      courses: e['courses'] != null
-                          ? List<String>.from(e['courses'])
-                          : [],
-                    )
-                  : null)
-              .whereType<EducationBackground>()
-              .toList();
+          final educationBackground =
+              (jsonDecode(map['educationBackground']) as List)
+                  .map((e) => e is Map<String, dynamic>
+                      ? EducationBackground(
+                          fieldOfStudy: e['fieldOfStudy'] ?? '',
+                          institutionName: e['institutionName'] ?? '',
+                          startDate: e['startDate'] ?? '',
+                          endDate: e['endDate'] ?? '',
+                          institutionAddress: e['institutionAddress'] ?? '',
+                          courses: e['courses'] != null
+                              ? List<String>.from(e['courses'])
+                              : [],
+                        )
+                      : null)
+                  .whereType<EducationBackground>()
+                  .toList();
 
           // Decode work experience
           final workExperience = (jsonDecode(map['workExperience']) as List)
@@ -197,29 +212,63 @@ class DatabaseHelper {
                       proficiency: e['proficiency'] ?? '',
                     )
                   : null)
-                  .whereType<LanguageModel>()
+              .whereType<LanguageModel>()
               .toList();
-          return UserData(
+
+          // Decode certificates
+          final certificates = (jsonDecode(map['certificates']) as List)
+              .map((e) => e is Map<String, dynamic>
+                  ? CertificateModel(
+                      certificateName: e['certificateName'] ?? '',
+                      issuedDate: e['issuedDate'] ?? '',
+                    )
+                  : null)
+              .whereType<CertificateModel>()
+              .toList();
+
+          // Decode awards
+          final awards = (jsonDecode(map['awards']) as List)
+              .map((e) => e is Map<String, dynamic>
+                  ? AwardModel(
+                      awardName: e['awardName'] ?? '',
+                      issuedDate: e['issuedDate'] ?? '',
+                    )
+                  : null)
+              .whereType<AwardModel>()
+              .toList();
+
+          // Decode MyUser
+          final userDataJson = jsonDecode(map['userData']);
+          final MyUser userData = MyUser(
+            fullName: userDataJson['fullName'] ?? '',
+            profession: userDataJson['profession'] ?? '',
+            bio: userDataJson['bio'] ?? '',
+            profilePic: File(userDataJson['profilePic']),
+            email: userDataJson['email'] ?? '',
+            address: userDataJson['address'] ?? '',
+            phoneNumber: userDataJson['phoneNumber'] ?? '',
+            linkedIn: userDataJson['linkedIn'] ?? '',
+            github: userDataJson['github'] ?? '',
+            website: userDataJson['website'] ?? '',
+          );
+
+          debugPrint('---------------MAP FULL NAME---------------');
+          debugPrint(map['fullName']);
+          debugPrint('---------------MAP FULL NAME---------------');
+          return TemplateModel(
+            templateName: map['templateName'],
             templateIndex: map['templateIndex'],
-            userData: MyUser(
-              fullName: map['fullName'] ?? '',
-              profession: map['profession'] ?? '',
-              bio: map['bio'] ?? '',
-              profilePic: File(map['profilePic']),
-              email: map['email'] ?? '',
-              address: map['address'] ?? '',
-              phoneNumber: map['phoneNumber'] ?? '',
-              linkedIn: map['linkedIn'],
-              github: map['github'],
-              website: map['website'],
-            ),
+            userData: userData,
             educationBackground: educationBackground,
             workExperience: workExperience,
+            certificates: certificates,
+            awards: awards,
             skills: List<String>.from(jsonDecode(map['skills'])),
             personalProjects:
                 List<String>.from(jsonDecode(map['personalProjects'])),
             languages: languages,
             interests: List<String>.from(jsonDecode(map['interests'])),
+            references: List<String>.from(jsonDecode(map['reference'])),
           );
         }).toList();
       } catch (e) {
@@ -233,24 +282,26 @@ class DatabaseHelper {
 
   // UPDATE
   Future<void> updateTemplate(
-      {required int id, required UserData template}) async {
+      {required int id, required TemplateModel template}) async {
     final db = await database;
 
     await db.update(
       'Templates',
       {
+        'templateName': template.templateName,
         'templateIndex': template.templateIndex,
-        // 'name': template.userData.fullName, // Assuming this is a template name
-        'fullName': template.userData.fullName,
-        'profession': template.userData.profession,
-        'bio': template.userData.bio,
-        'profilePic': template.userData.profilePic.path,
-        'email': template.userData.email,
-        'address': template.userData.address,
-        'phoneNumber': template.userData.phoneNumber,
-        'linkedIn': template.userData.linkedIn ?? '',
-        'github': template.userData.github ?? '',
-        'website': template.userData.website ?? '',
+        'userData': jsonEncode({
+          'fullName': template.userData.fullName,
+          'profession': template.userData.profession,
+          'bio': template.userData.bio,
+          'profilePic': template.userData.profilePic.path,
+          'email': template.userData.email,
+          'address': template.userData.address,
+          'phoneNumber': template.userData.phoneNumber,
+          'linkedIn': template.userData.linkedIn,
+          'github': template.userData.github,
+          'website': template.userData.website,
+        }),
         'educationBackground': jsonEncode(template.educationBackground
             .map((e) => {
                   'fieldOfStudy': e.fieldOfStudy,
@@ -271,15 +322,28 @@ class DatabaseHelper {
                   'achievements': e.achievements,
                 })
             .toList()),
-        'skills': jsonEncode(template.skills),
-        'personalProjects': jsonEncode(template.personalProjects),
         'languages': jsonEncode(template.languages
             .map((e) => {
                   'language': e.language,
                   'proficiency': e.proficiency,
                 })
             .toList()),
+        'certificates': jsonEncode(template.certificates
+            .map((e) => {
+                  'certificateName': e.certificateName,
+                  'issuedDate': e.issuedDate,
+                })
+            .toList()),
+        'awards': jsonEncode(template.awards
+            .map((e) => {
+                  'awardName': e.awardName,
+                  'issuedDate': e.issuedDate,
+                })
+            .toList()),
+        'skills': jsonEncode(template.skills),
+        'personalProjects': jsonEncode(template.personalProjects),
         'interests': jsonEncode(template.interests),
+        'reference': jsonEncode(template.references),
       },
       where: 'id = ?',
       whereArgs: [id],
