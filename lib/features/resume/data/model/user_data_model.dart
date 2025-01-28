@@ -3,10 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:my_resume/data/model/education_model.dart';
-import 'package:my_resume/data/model/language_model.dart';
-import 'package:my_resume/data/model/user_model.dart';
-import 'package:my_resume/data/model/work_experience_model.dart';
+import 'package:my_resume/features/resume/data/model/education_model.dart';
+import 'package:my_resume/features/resume/data/model/language_model.dart';
+import 'package:my_resume/features/resume/data/model/user_model.dart';
+import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
 
 class UserData {
   UserData({

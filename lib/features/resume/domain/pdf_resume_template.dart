@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:my_resume/API/pdf_api.dart';
+import 'package:my_resume/features/resume/domain/generate_resume_repo.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 

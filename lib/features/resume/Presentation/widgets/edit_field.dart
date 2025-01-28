@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:my_resume/widgets/container_decoration.dart';
+import 'package:my_resume/features/resume/Presentation/widgets/container_decoration.dart';
 
 class EditField extends StatefulWidget {
   final Function(String) editableField;

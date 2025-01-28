@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_resume/screens/home_screen.dart';
-import 'package:my_resume/screens/my_resume_screen.dart';
-import 'package:my_resume/screens/profile_screen.dart';
+import 'package:my_resume/features/resume/Presentation/screens/home_screen.dart';
+import 'package:my_resume/features/resume/Presentation/screens/my_resume_screen.dart';
+import 'package:my_resume/features/profile/presentation/screens/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

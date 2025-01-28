@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_resume/bloc/user_bloc.dart';
-import 'package:my_resume/bloc/user_event.dart';
-import 'package:my_resume/bloc/user_state.dart';
-import 'package:my_resume/screens/resume_template.dart';
-import 'package:my_resume/widgets/templates_list.dart';
+import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
+import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
+import 'package:my_resume/features/resume/Presentation/bloc/user_state.dart';
+import 'package:my_resume/features/resume/Presentation/screens/resume_template.dart';
+import 'package:my_resume/features/resume/Presentation/widgets/templates_list.dart';
 
 class MyResumeScreen extends StatefulWidget {
   const MyResumeScreen({super.key});

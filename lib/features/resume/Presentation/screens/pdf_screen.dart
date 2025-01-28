@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:my_resume/API/paragraph_pdf_api.dart';
-import 'package:my_resume/API/pdf_api.dart';
+import 'package:my_resume/features/resume/domain/paragraph_pdf_api.dart';
+import 'package:my_resume/features/resume/domain/generate_resume_repo.dart';
 
 class PdfScreen extends StatefulWidget {
   const PdfScreen({super.key});

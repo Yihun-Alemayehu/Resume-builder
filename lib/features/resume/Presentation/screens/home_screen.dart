@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_resume/data/model/user_data_model.dart';
-import 'package:my_resume/screens/resume_template.dart';
-import 'package:my_resume/widgets/templates_list.dart';
+import 'package:my_resume/features/resume/data/model/user_data_model.dart';
+import 'package:my_resume/features/resume/Presentation/screens/resume_template.dart';
+import 'package:my_resume/features/resume/Presentation/widgets/templates_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

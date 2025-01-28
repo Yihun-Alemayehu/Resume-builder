@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_resume/bloc/user_event.dart';
-import 'package:my_resume/bloc/user_state.dart';
-import 'package:my_resume/data/model/user_data_model.dart';
-import 'package:my_resume/db/db_helper.dart';
+import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
+import 'package:my_resume/features/resume/Presentation/bloc/user_state.dart';
+import 'package:my_resume/features/resume/data/model/user_data_model.dart';
+import 'package:my_resume/features/resume/data/db/db_helper.dart';
 
 class UserDataBloc extends Bloc<TemplateDataEvent, TemplateDataState> {
   final DatabaseHelper dbHelper;

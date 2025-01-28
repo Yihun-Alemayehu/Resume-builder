@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:my_resume/data/model/user_data_model.dart';
+import 'package:my_resume/features/resume/data/model/user_data_model.dart';
 
 abstract class TemplateDataState extends Equatable {
   const TemplateDataState();

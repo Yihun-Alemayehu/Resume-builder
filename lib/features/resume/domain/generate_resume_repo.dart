@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:my_resume/data/model/user_data_model.dart';
-import 'package:my_resume/utils/height_function.dart';
+import 'package:my_resume/features/resume/data/model/user_data_model.dart';
+import 'package:my_resume/core/utils/height_function.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';

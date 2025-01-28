@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_resume/API/pdf_api.dart';
-import 'package:my_resume/bloc/user_bloc.dart';
-import 'package:my_resume/bloc/user_event.dart';
-import 'package:my_resume/data/model/education_model.dart';
-import 'package:my_resume/data/model/language_model.dart';
-import 'package:my_resume/data/model/user_data_model.dart';
-import 'package:my_resume/data/model/user_model.dart';
-import 'package:my_resume/data/model/work_experience_model.dart';
-import 'package:my_resume/utils/height_function.dart';
+import 'package:my_resume/features/resume/domain/generate_resume_repo.dart';
+import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
+import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
+import 'package:my_resume/features/resume/data/model/education_model.dart';
+import 'package:my_resume/features/resume/data/model/language_model.dart';
+import 'package:my_resume/features/resume/data/model/user_data_model.dart';
+import 'package:my_resume/features/resume/data/model/user_model.dart';
+import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
+import 'package:my_resume/core/utils/height_function.dart';
 
 class ResumeTemplate extends StatefulWidget {
   final UserData userData;

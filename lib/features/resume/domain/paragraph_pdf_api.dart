@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:my_resume/API/pdf_api.dart';
+import 'package:my_resume/features/resume/domain/generate_resume_repo.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
