@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_resume/features/profile/data/db/user_profile_database_helper.dart';
+import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
 import 'package:my_resume/features/resume/data/db/db_helper.dart';
 import 'package:my_resume/features/resume/Presentation/screens/authentication_screen.dart';
@@ -20,6 +22,9 @@ class ResumeApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => UserDataBloc(dbHelper: const DatabaseHelper()),
+        ),
+        BlocProvider(
+          create: (context) => UserProfileBloc(dbHelper: const UserProfileDatabaseHelper()),
         ),
       ],
       child: const MaterialApp(

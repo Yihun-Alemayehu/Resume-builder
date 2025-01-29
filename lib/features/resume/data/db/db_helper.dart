@@ -62,6 +62,23 @@ class DatabaseHelper {
         reference TEXT NOT NULL
       )
     ''');
+
+    await db.execute('''
+    CREATE TABLE UserProfile(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      userData TEXT NOT NULL,
+      education TEXT NOT NULL,
+      workExperience TEXT NOT NULL,
+      certificate TEXT NOT NULL,
+      awards TEXT NOT NULL,
+      interests TEXT NOT NULL,
+      skills TEXT NOT NULL,
+      languages TEXT NOT NULL,
+      projects TEXT NOT NULL,
+      reference TEXT NOT NULL
+      )
+    '''
+    );
   }
 
   Future<String> saveImageToLocalStorage(File imageFile) async {
