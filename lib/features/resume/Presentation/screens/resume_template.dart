@@ -2290,7 +2290,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 ),
                                               );
                                             },
-                                          )),
+                                          )
+                                          ),
                                     )
                                   : GestureDetector(
                                       onTap: () {

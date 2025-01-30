@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume/features/profile/presentation/widgets/award_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/certificate_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/education_background_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/interest_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/languages_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/project_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/reference_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/skill_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/user_data_tab.dart';
+import 'package:my_resume/features/profile/presentation/widgets/work_exp_tab.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -48,16 +58,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    Text('Personal'),
-                    Text('Education'),
-                    Text('Work'),
-                    Text('Language'),
-                    Text('Certificate'),
-                    Text('Award'),
-                    Text('Skill'),
-                    Text('Projects'),
-                    Text('Interest'),
-                    Text('Reference'),
+                    UserDataTab(),
+                    EducationBackgroundTab(),
+                    WorkExpTab(),
+                    LanguagesTab(),
+                    CertificateTab(),
+                    AwardTab(),
+                    SkillTab(),
+                    ProjectTab(),
+                    InterestTab(),
+                    ReferenceTab(),
                   ],
                 ),
               ),
