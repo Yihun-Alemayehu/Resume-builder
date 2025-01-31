@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 class MyTextField extends StatelessWidget {
   final String hintText;
   final Function(String val) function;
+  final TextEditingController? controller;
   const MyTextField({
     super.key,
     required this.hintText,
     required this.function,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade400),

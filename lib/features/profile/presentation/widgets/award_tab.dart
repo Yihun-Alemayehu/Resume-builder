@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
+import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class AwardTab extends StatefulWidget {
@@ -10,13 +12,7 @@ class AwardTab extends StatefulWidget {
 }
 
 class _AwardTabState extends State<AwardTab> {
-  List<AwardModel> _awards = [
-    AwardModel(
-      awardName: 'Award Name',
-      issuedDate: 'Issued Date',
-    )
-  ];
-
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
 
   Future<void> _selectDate() async {
@@ -31,7 +27,9 @@ class _AwardTabState extends State<AwardTab> {
     }
   }
 
-  void _editAward(int index) {
+  void _editAward({required int index, required AwardModel award}) {
+    nameController.text = award.awardName;
+    dateController.text = award.issuedDate;
     showDialog(
       context: context,
       builder: (context) {
@@ -44,12 +42,11 @@ class _AwardTabState extends State<AwardTab> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 MyTextField(
+                  controller: nameController,
                   hintText: 'Award Name',
                   function: (val) {
                     setState(() {
-                      _awards[index] = _awards[index].copyWith(
-                        awardName: val,
-                      );
+                      nameController.text = val;
                     });
                   },
                 ),
@@ -57,11 +54,6 @@ class _AwardTabState extends State<AwardTab> {
                   height: 10,
                 ),
                 TextFormField(
-                  onChanged: (value) {
-                    _awards[index] = _awards[index].copyWith(
-                      awardName: value,
-                    );
-                  },
                   controller: dateController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
@@ -92,6 +84,15 @@ class _AwardTabState extends State<AwardTab> {
           actions: [
             TextButton(
               onPressed: () {
+                setState(() {
+                  context.read<UserProfileDataCubit>().updateAward(
+                        index: index,
+                        awardModel: AwardModel(
+                          awardName: nameController.text,
+                          issuedDate: dateController.text,
+                        ),
+                      );
+                });
                 Navigator.pop(context);
               },
               child: const Text('Save', style: TextStyle(color: Colors.green)),
@@ -111,101 +112,115 @@ class _AwardTabState extends State<AwardTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        primary: true,
-        physics: const AlwaysScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Column(
-            children: List.generate(_awards.length, (index) {
-              return SizedBox(
-                width: double.infinity,
-                child: Card(
-                  color: Colors.white,
-                  elevation: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+      body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
+        builder: (context, state) {
+          if (state is UserProfileDataLoaded) {
+            final userProfile = state.userProfile;
+            return SingleChildScrollView(
+              primary: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  children: List.generate(userProfile.awards.length, (index) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              _awards[index].awardName,
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    userProfile.awards[index].awardName,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey,
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    userProfile.awards[index].issuedDate
+                                        .toString(),
+                                    style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              _awards[index].issuedDate.toString(),
-                              style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12),
-                            ),
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(12),
+                                  bottomRight: Radius.circular(12),
+                                ),
+                                color: Colors.grey.shade300,
+                              ),
+                              child: Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () => _editAward(
+                                        index: index,
+                                        award: userProfile.awards[index]),
+                                    child: const Text(
+                                      'Edit',
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // Delete Language at index
+                                      setState(() {
+                                        context
+                                            .read<UserProfileDataCubit>()
+                                            .removeAward(index: index);
+                                      });
+                                    },
+                                    child: Text(
+                                      'Delete',
+                                      style: TextStyle(
+                                        color: Colors.red.shade300,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12),
-                          ),
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Row(
-                          children: [
-                            TextButton(
-                              onPressed: () => _editAward(index),
-                              child: const Text(
-                                'Edit',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                // Delete Language at index
-                                setState(() {
-                                  _awards.removeAt(index);
-                                });
-                              },
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.red.shade300,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    );
+                  }),
                 ),
-              );
-            }),
-          ),
-        ),
+              ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add Language
+          // Add Award
           setState(() {
-            _awards.add(
-              AwardModel(
-                awardName: 'Award Name',
-                issuedDate: 'Issued Date',
-              ),
-            );
+            context.read<UserProfileDataCubit>().addAward(
+                  award: const AwardModel(
+                    awardName: 'Award Name',
+                    issuedDate: 'Issued Date',
+                  ),
+                );
           });
         },
         child: const Icon(Icons.add),

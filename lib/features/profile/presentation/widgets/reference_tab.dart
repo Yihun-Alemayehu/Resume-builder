@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class ReferenceTab extends StatefulWidget {
@@ -9,10 +11,6 @@ class ReferenceTab extends StatefulWidget {
 }
 
 class _ReferenceTabState extends State<ReferenceTab> {
-  List<String> _references = [
-    'John Doe - "A highly skilled and dedicated professional."'
-  ];
-
   final TextEditingController _controller = TextEditingController();
   final String referenceSample =
       'John Doe - "A highly skilled and dedicated professional."';
@@ -47,7 +45,8 @@ class _ReferenceTabState extends State<ReferenceTab> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _references.add(_controller.text);
+                  context.read<UserProfileDataCubit>().updateReference(
+                      index: index, reference: _controller.text);
                 });
                 Navigator.pop(context);
               },
@@ -68,88 +67,104 @@ class _ReferenceTabState extends State<ReferenceTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        primary: true,
-        physics: const AlwaysScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Column(
-            children: List.generate(_references.length, (index) {
-              return SizedBox(
-                width: double.infinity,
-                child: Card(
-                  color: Colors.white,
-                  elevation: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+      body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
+        builder: (context, state) {
+          if (state is UserProfileDataLoaded) {
+            final userProfile = state.userProfile;
+            return SingleChildScrollView(
+              primary: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  children:
+                      List.generate(userProfile.references.length, (index) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              _references[index],
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    userProfile.references[index],
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey,
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
                             ),
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(12),
+                                  bottomRight: Radius.circular(12),
+                                ),
+                                color: Colors.grey.shade300,
+                              ),
+                              child: Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () => _editReference(index),
+                                    child: const Text(
+                                      'Edit',
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // Delete Reference at index
+                                      setState(() {
+                                        context
+                                            .read<UserProfileDataCubit>()
+                                            .removeReference(index: index);
+                                      });
+                                    },
+                                    child: Text(
+                                      'Delete',
+                                      style: TextStyle(
+                                        color: Colors.red.shade300,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12),
-                          ),
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Row(
-                          children: [
-                            TextButton(
-                              onPressed: () => _editReference(index),
-                              child: const Text(
-                                'Edit',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                // Delete Language at index
-                                setState(() {
-                                  _references.removeAt(index);
-                                });
-                              },
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.red.shade300,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    );
+                  }),
                 ),
-              );
-            }),
-          ),
-        ),
+              ),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add Language
+          // Add Reference
           setState(() {
-            _references.add(referenceSample);
+            context
+                .read<UserProfileDataCubit>()
+                .addReference(reference: referenceSample);
           });
         },
         child: const Icon(Icons.add),

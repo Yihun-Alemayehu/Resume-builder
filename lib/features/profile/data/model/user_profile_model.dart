@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
@@ -73,6 +74,74 @@ class UserProfile extends Equatable {
       personalProjects: const [],
       interests: const [],
       references: const [],
+    );
+  }
+
+  factory UserProfile.dummyData() {
+    return UserProfile(
+      userdata: MyUser(
+        fullName: 'fullName',
+        profession: 'profession',
+        bio: 'bio',
+        profilePic: File('profilePic'),
+        email: 'email',
+        address: 'address',
+        phoneNumber: 'phoneNumber',
+        linkedIn: 'linkedIn',
+        github: 'github',
+        website: 'website',
+      ),
+      education: [
+        EducationBackground(
+          institutionName: 'institution',
+          fieldOfStudy: 'degree',
+          startDate: 'startDate',
+          endDate: 'endDate',
+          courses: ['description'],
+          institutionAddress: 'address',
+        ),
+      ],
+      workExperience: [
+        WorkExperience(
+          companyName: 'company',
+          jobTitle: 'position',
+          startDate: 'startDate',
+          endDate: 'endDate',
+          jobType: 'description',
+          achievements: 'address',
+        ),
+      ],
+      languages: [
+        LanguageModel(language: 'language', proficiency: 'Advanced'),
+      ],
+      certificates: [
+        CertificateModel(
+          certificateName: 'certificate',
+          issuedDate: 'date',
+        ),
+      ],
+      awards: [
+        AwardModel(
+          awardName: 'award',
+          issuedDate: 'date',
+        ),
+      ],
+      skills: [
+        'Skill 1',
+        'Skill 2',
+      ],
+      personalProjects: [
+        'Project 1',
+        'Project 2',
+      ],
+      interests: [
+        'Interest 1',
+        'Interest 2',
+      ],
+      references: [
+        'Reference 1',
+        'Reference 2',
+      ],
     );
   }
 

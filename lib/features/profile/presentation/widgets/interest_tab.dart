@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class InterestTab extends StatefulWidget {
@@ -9,15 +11,6 @@ class InterestTab extends StatefulWidget {
 }
 
 class _InterestTabState extends State<InterestTab> {
-  List<String> _interests = [
-    'Football',
-    'Piano',
-    'Reading',
-    'Hiking',
-    'Movie',
-    'Chess'
-  ];
-
   final TextEditingController _controller = TextEditingController();
 
   void _addInterest() {
@@ -50,7 +43,9 @@ class _InterestTabState extends State<InterestTab> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _interests.add(_controller.text);
+                  context
+                      .read<UserProfileDataCubit>()
+                      .addInterest(interest: _controller.text);
                 });
                 Navigator.pop(context);
               },
@@ -71,54 +66,65 @@ class _InterestTabState extends State<InterestTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Wrap(
-        spacing: 4,
-        children: List.generate(
-          _interests.length,
-          (index) {
-            return IntrinsicWidth(
-              child: Container(
-                height: 30,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                margin: const EdgeInsets.only(right: 4, bottom: 4),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 73, 150, 159),
-                  ),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _interests[index],
-                      style: const TextStyle(
-                          // fontSize: 16,
-                          ),
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _interests.removeAt(index);
-                        });
-                      },
-                      child: const Icon(
-                        Icons.close,
-                        size: 14,
+      body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
+        builder: (context, state) {
+          if (state is UserProfileDataLoaded) {
+            final userProfile = state.userProfile;
+            return Wrap(
+              spacing: 4,
+              children: List.generate(
+                userProfile.interests.length,
+                (index) {
+                  return IntrinsicWidth(
+                    child: Container(
+                      height: 30,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
                       ),
-                    )
-                  ],
-                ),
+                      margin: const EdgeInsets.only(right: 4, bottom: 4),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 73, 150, 159),
+                        ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            userProfile.interests[index],
+                            style: const TextStyle(
+                                // fontSize: 16,
+                                ),
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                context
+                                    .read<UserProfileDataCubit>()
+                                    .removeInterest(index: index);
+                              });
+                            },
+                            child: const Icon(
+                              Icons.close,
+                              size: 14,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             );
-          },
-        ),
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addInterest,

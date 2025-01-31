@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 
@@ -10,15 +12,11 @@ class LanguagesTab extends StatefulWidget {
 }
 
 class _LanguagesTabState extends State<LanguagesTab> {
-  List<LanguageModel> _languages = [
-    LanguageModel(
-      language: 'language',
-      proficiency: 'proficiency',
-    )
-  ];
+  final TextEditingController languageController = TextEditingController();
 
-  void _editLanguage(int index) {
-    String selectedProficiency = 'Advanced';
+  void _editLanguage({required int index, required LanguageModel language}) {
+    languageController.text = language.language;
+    String selectedProficiency = language.proficiency;
 
     showDialog(
       context: context,
@@ -32,12 +30,11 @@ class _LanguagesTabState extends State<LanguagesTab> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 MyTextField(
+                  controller: languageController,
                   hintText: 'Language',
                   function: (val) {
                     setState(() {
-                      _languages[index] = _languages[index].copyWith(
-                        language: val,
-                      );
+                      languageController.text = val;
                     });
                   },
                 ),
@@ -60,9 +57,6 @@ class _LanguagesTabState extends State<LanguagesTab> {
                   onChanged: (String? newValue) {
                     setState(() {
                       selectedProficiency = newValue!;
-                      _languages[index] = _languages[index].copyWith(
-                        proficiency: selectedProficiency,
-                      );
                     });
                   },
                 ),
@@ -73,6 +67,15 @@ class _LanguagesTabState extends State<LanguagesTab> {
           actions: [
             TextButton(
               onPressed: () {
+                setState(() {
+                  context.read<UserProfileDataCubit>().updateLanguage(
+                        index: index,
+                        languageModel: LanguageModel(
+                          language: languageController.text,
+                          proficiency: selectedProficiency,
+                        ),
+                      );
+                });
                 Navigator.pop(context);
               },
               child: const Text('Save', style: TextStyle(color: Colors.green)),
@@ -92,98 +95,115 @@ class _LanguagesTabState extends State<LanguagesTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        primary: true,
-        physics: const AlwaysScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Column(
-            children: List.generate(_languages.length, (index) {
-              return SizedBox(
-                width: double.infinity,
-                child: Card(
-                  color: Colors.white,
-                  elevation: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+      body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
+        builder: (context, state) {
+          if (state is UserProfileDataLoaded) {
+            final userProfile = state.userProfile;
+            return SingleChildScrollView(
+              primary: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  children:
+                      List.generate(userProfile.languages.length, (index) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              _languages[index].language,
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    userProfile.languages[index].language,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey,
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    userProfile.languages[index].proficiency,
+                                    style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              _languages[index].proficiency,
-                              style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12),
-                            ),
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(12),
+                                  bottomRight: Radius.circular(12),
+                                ),
+                                color: Colors.grey.shade300,
+                              ),
+                              child: Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () => _editLanguage(
+                                        index: index,
+                                        language: userProfile.languages[index]),
+                                    child: const Text(
+                                      'Edit',
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // Delete Language at index
+                                      setState(() {
+                                        context
+                                            .read<UserProfileDataCubit>()
+                                            .removeLanguage(index: index);
+                                      });
+                                    },
+                                    child: Text(
+                                      'Delete',
+                                      style: TextStyle(
+                                        color: Colors.red.shade300,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12),
-                          ),
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Row(
-                          children: [
-                            TextButton(
-                              onPressed: () => _editLanguage(index),
-                              child: const Text(
-                                'Edit',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                // Delete Language at index
-                                setState(() {
-                                  _languages.removeAt(index);
-                                });
-                              },
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.red.shade300,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    );
+                  }),
                 ),
-              );
-            }),
-          ),
-        ),
+              ),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add Language
           setState(() {
-            _languages.add(
-              LanguageModel(language: 'language', proficiency: 'proficiency'),
-            );
+            context.read<UserProfileDataCubit>().addLanguage(
+                  language: LanguageModel(
+                      language: 'language', proficiency: 'Advanced'),
+                );
           });
         },
         child: const Icon(Icons.add),

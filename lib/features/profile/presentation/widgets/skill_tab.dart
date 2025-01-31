@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class SkillTab extends StatefulWidget {
@@ -9,15 +11,6 @@ class SkillTab extends StatefulWidget {
 }
 
 class _SkillTabState extends State<SkillTab> {
-  List<String> _skills = [
-    'Java',
-    'Python',
-    'JavaScript',
-    'Dart',
-    'Kotlin',
-    'Swift'
-  ];
-
   final TextEditingController _controller = TextEditingController();
 
   void _addSkill() {
@@ -50,7 +43,9 @@ class _SkillTabState extends State<SkillTab> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _skills.add(_controller.text);
+                  context
+                      .read<UserProfileDataCubit>()
+                      .addSkill(skill: _controller.text);
                 });
                 Navigator.pop(context);
               },
@@ -71,54 +66,65 @@ class _SkillTabState extends State<SkillTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Wrap(
-        spacing: 4,
-        children: List.generate(
-          _skills.length,
-          (index) {
-            return IntrinsicWidth(
-              child: Container(
-                height: 30,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                margin: const EdgeInsets.only(right: 4, bottom: 4),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 73, 150, 159),
-                  ),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _skills[index],
-                      style: const TextStyle(
-                          // fontSize: 16,
-                          ),
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _skills.removeAt(index);
-                        });
-                      },
-                      child: const Icon(
-                        Icons.close,
-                        size: 14,
+      body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
+        builder: (context, state) {
+          if (state is UserProfileDataLoaded) {
+            final userProfile = state.userProfile;
+            return Wrap(
+              spacing: 4,
+              children: List.generate(
+                userProfile.skills.length,
+                (index) {
+                  return IntrinsicWidth(
+                    child: Container(
+                      height: 30,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
                       ),
-                    )
-                  ],
-                ),
+                      margin: const EdgeInsets.only(right: 4, bottom: 4),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 73, 150, 159),
+                        ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            userProfile.skills[index],
+                            style: const TextStyle(
+                                // fontSize: 16,
+                                ),
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                context
+                                    .read<UserProfileDataCubit>()
+                                    .removeSkill(index: index);
+                              });
+                            },
+                            child: const Icon(
+                              Icons.close,
+                              size: 14,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             );
-          },
-        ),
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addSkill,
