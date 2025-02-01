@@ -17,3 +17,11 @@ class UserProfileDataLoaded extends UserProfileDataState {
   @override
   List<Object> get props => [userProfile];
 }
+
+class UserProfileDataError extends UserProfileDataState {
+  final String errorMessage;
+  const UserProfileDataError({required this.errorMessage});
+
+  @override
+  List<Object> get props => [errorMessage];
+}

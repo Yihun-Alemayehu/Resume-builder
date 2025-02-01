@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:my_resume/features/profile/data/db/user_profile_database_helper.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
@@ -11,7 +14,9 @@ import 'package:my_resume/features/resume/data/model/work_experience_model.dart'
 part 'user_profile_data_state.dart';
 
 class UserProfileDataCubit extends Cubit<UserProfileDataState> {
-  UserProfileDataCubit() : super(UserProfileDataInitial());
+  final UserProfileDatabaseHelper dbHelper;
+  UserProfileDataCubit({required this.dbHelper})
+      : super(UserProfileDataInitial());
 
   void loadUserProfile({required UserProfile userProfile}) {
     print('Loading user profile...');
@@ -217,16 +222,15 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
   void removeAward({required int index}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList =
-          List<AwardModel>.from(currentState.userProfile.awards)
-            ..removeAt(index);
+      final updatedList = List<AwardModel>.from(currentState.userProfile.awards)
+        ..removeAt(index);
       final updatedUserProfile =
           currentState.userProfile.copyWith(awards: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
 
-  void addSkill({required String skill}){
+  void addSkill({required String skill}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList = List<String>.from(currentState.userProfile.skills)
@@ -237,7 +241,7 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void updateSkill({required int index, required String skill}){
+  void updateSkill({required int index, required String skill}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList = List<String>.from(currentState.userProfile.skills)
@@ -248,41 +252,42 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void removeSkill({required int index}){
+  void removeSkill({required int index}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList =
-          List<String>.from(currentState.userProfile.skills)
-            ..removeAt(index);
+      final updatedList = List<String>.from(currentState.userProfile.skills)
+        ..removeAt(index);
       final updatedUserProfile =
           currentState.userProfile.copyWith(skills: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
 
-  void addPersonalProject({required String project}){
+  void addPersonalProject({required String project}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList = List<String>.from(currentState.userProfile.personalProjects)
-        ..add(project);
+      final updatedList =
+          List<String>.from(currentState.userProfile.personalProjects)
+            ..add(project);
       final updatedUserProfile =
           currentState.userProfile.copyWith(personalProjects: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
 
-  void updatePersonalProject({required int index, required String project}){
+  void updatePersonalProject({required int index, required String project}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList = List<String>.from(currentState.userProfile.personalProjects)
-        ..[index] = project;
+      final updatedList =
+          List<String>.from(currentState.userProfile.personalProjects)
+            ..[index] = project;
       final updatedUserProfile =
           currentState.userProfile.copyWith(personalProjects: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
 
-  void removePersonalProject({required int index}){
+  void removePersonalProject({required int index}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList =
@@ -294,7 +299,7 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void addInterest({required String interest}){
+  void addInterest({required String interest}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList = List<String>.from(currentState.userProfile.interests)
@@ -305,7 +310,7 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void updateInterest({required int index, required String interest}){
+  void updateInterest({required int index, required String interest}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList = List<String>.from(currentState.userProfile.interests)
@@ -316,19 +321,18 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void removeInterest({required int index}){
+  void removeInterest({required int index}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList =
-          List<String>.from(currentState.userProfile.interests)
-            ..removeAt(index);
+      final updatedList = List<String>.from(currentState.userProfile.interests)
+        ..removeAt(index);
       final updatedUserProfile =
           currentState.userProfile.copyWith(interests: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
 
-  void addReference({required String reference}){
+  void addReference({required String reference}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList = List<String>.from(currentState.userProfile.references)
@@ -339,7 +343,7 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void updateReference({required int index, required String reference}){
+  void updateReference({required int index, required String reference}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList = List<String>.from(currentState.userProfile.references)
@@ -350,15 +354,24 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void removeReference({required int index}){
+  void removeReference({required int index}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList =
-          List<String>.from(currentState.userProfile.references)
-            ..removeAt(index);
+      final updatedList = List<String>.from(currentState.userProfile.references)
+        ..removeAt(index);
       final updatedUserProfile =
           currentState.userProfile.copyWith(references: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
+  }
+
+  Future<void> saveUserProfileData({required UserProfile userProfile}) async {
+    await dbHelper.insertUserProfile(userProfile: userProfile).then((value) {
+      emit(UserProfileDataLoaded(userProfile: userProfile));
+    }).catchError((e) {
+      emit(UserProfileDataError(
+          errorMessage: 'Failed to save user profile: $e'));
+      log('Failed to save user profile: $e');
+    });
   }
 }

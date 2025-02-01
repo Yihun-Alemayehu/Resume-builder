@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
+import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/award_tab.dart';
 import 'package:my_resume/features/profile/presentation/widgets/certificate_tab.dart';
@@ -52,6 +53,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     log(state.userProfile.toString());
                     print(
                         '-------------USER PROFILE FROM EDIT SCREEN --------------------------------');
+                    context.read<UserProfileDataCubit>().saveUserProfileData(userProfile: state.userProfile);
                   },
                   icon: const Icon(Icons.save),
                 ),

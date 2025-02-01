@@ -1,5 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:my_resume/features/profile/data/model/award_model.dart';
+import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
+import 'package:my_resume/features/resume/data/model/education_model.dart';
+import 'package:my_resume/features/resume/data/model/language_model.dart';
+import 'package:my_resume/features/resume/data/model/user_model.dart';
+import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -66,11 +74,67 @@ class UserProfileDatabaseHelper {
 
   Future<void> insertUserProfile({required UserProfile userProfile}) async {
     final db = await database;
-    await db.insert(
+    final id = await db.insert(
       'UserProfile',
-      userProfile.toMap(),
+      {
+        'userData': jsonEncode({
+          'fullName': userProfile.userdata.fullName,
+          'profession': userProfile.userdata.profession,
+          'bio': userProfile.userdata.bio,
+          'profilePic': userProfile.userdata.profilePic.path,
+          'email': userProfile.userdata.email,
+          'address': userProfile.userdata.address,
+          'phoneNumber': userProfile.userdata.phoneNumber,
+          'linkedIn': userProfile.userdata.linkedIn,
+          'github': userProfile.userdata.github,
+          'website': userProfile.userdata.website,
+        }),
+        'education': jsonEncode(userProfile.education
+            .map((e) => {
+                  'fieldOfStudy': e.fieldOfStudy,
+                  'institutionName': e.institutionName,
+                  'startDate': e.startDate,
+                  'endDate': e.endDate,
+                  'institutionAddress': e.institutionAddress,
+                  'courses': e.courses,
+                })
+            .toList()),
+        'workExperience': jsonEncode(userProfile.workExperience
+            .map((e) => {
+                  'jobTitle': e.jobTitle,
+                  'companyName': e.companyName,
+                  'startDate': e.startDate,
+                  'endDate': e.endDate,
+                  'jobType': e.jobType,
+                  'achievements': e.achievements,
+                })
+            .toList()),
+        'languages': jsonEncode(userProfile.languages
+            .map((e) => {
+                  'language': e.language,
+                  'proficiency': e.proficiency,
+                })
+            .toList()),
+        'certificate': jsonEncode(userProfile.certificates
+            .map((e) => {
+                  'certificateName': e.certificateName,
+                  'issuedDate': e.issuedDate,
+                })
+            .toList()),
+        'awards': jsonEncode(userProfile.awards
+            .map((e) => {
+                  'awardName': e.awardName,
+                  'issuedDate': e.issuedDate,
+                })
+            .toList()),
+        'skills': jsonEncode(userProfile.skills),
+        'projects': jsonEncode(userProfile.personalProjects),
+        'interests': jsonEncode(userProfile.interests),
+        'reference': jsonEncode(userProfile.references),
+      },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    print('Inserted row id: $id');
   }
 
   Future<UserProfile?> fetchUserProfile() async {
@@ -79,7 +143,108 @@ class UserProfileDatabaseHelper {
         await db.query('UserProfile', limit: 1);
 
     if (maps.isNotEmpty) {
-      return UserProfile.fromMap(maps.first);
+      try {
+        final map = maps.first;
+        // Decode education background
+        final educationBackground = (jsonDecode(map['education']) as List)
+            .map((e) => e is Map<String, dynamic>
+                ? EducationBackground(
+                    fieldOfStudy: e['fieldOfStudy'] ?? '',
+                    institutionName: e['institutionName'] ?? '',
+                    startDate: e['startDate'] ?? '',
+                    endDate: e['endDate'] ?? '',
+                    institutionAddress: e['institutionAddress'] ?? '',
+                    courses: e['courses'] != null
+                        ? List<String>.from(e['courses'])
+                        : [],
+                  )
+                : null)
+            .whereType<EducationBackground>()
+            .toList();
+
+        // Decode work experience
+        final workExperience = (jsonDecode(map['workExperience']) as List)
+            .map((e) => e is Map<String, dynamic> // Ensure the correct type
+                ? WorkExperience(
+                    jobTitle: e['jobTitle'] ?? '',
+                    companyName: e['companyName'] ?? '',
+                    startDate: e['startDate'] ?? '',
+                    endDate: e['endDate'] ?? '',
+                    jobType: e['jobType'] ?? '',
+                    achievements: e['achievements'] ?? '',
+                  )
+                : null)
+            .whereType<WorkExperience>()
+            .toList();
+
+        // Decode languages
+        final languages = (jsonDecode(map['languages']) as List)
+            .map((e) => e is Map<String, dynamic>
+                ? LanguageModel(
+                    language: e['language'] ?? '',
+                    proficiency: e['proficiency'] ?? '',
+                  )
+                : null)
+            .whereType<LanguageModel>()
+            .toList();
+
+        // Decode certificates
+        final certificates = (jsonDecode(map['certificate']) as List)
+            .map((e) => e is Map<String, dynamic>
+                ? CertificateModel(
+                    certificateName: e['certificateName'] ?? '',
+                    issuedDate: e['issuedDate'] ?? '',
+                  )
+                : null)
+            .whereType<CertificateModel>()
+            .toList();
+
+        // Decode awards
+        final awards = (jsonDecode(map['awards']) as List)
+            .map((e) => e is Map<String, dynamic>
+                ? AwardModel(
+                    awardName: e['awardName'] ?? '',
+                    issuedDate: e['issuedDate'] ?? '',
+                  )
+                : null)
+            .whereType<AwardModel>()
+            .toList();
+
+        // Decode MyUser
+        final userDataJson = jsonDecode(map['userData']);
+        final MyUser userData = MyUser(
+          fullName: userDataJson['fullName'] ?? '',
+          profession: userDataJson['profession'] ?? '',
+          bio: userDataJson['bio'] ?? '',
+          profilePic: File(userDataJson['profilePic']),
+          email: userDataJson['email'] ?? '',
+          address: userDataJson['address'] ?? '',
+          phoneNumber: userDataJson['phoneNumber'] ?? '',
+          linkedIn: userDataJson['linkedIn'] ?? '',
+          github: userDataJson['github'] ?? '',
+          website: userDataJson['website'] ?? '',
+        );
+
+        debugPrint('---------------MAP FULL NAME---------------');
+        debugPrint(userData.fullName);
+        debugPrint('---------------MAP FULL NAME---------------');
+        return UserProfile(
+          userdata: userData,
+          education: educationBackground,
+          workExperience: workExperience,
+          certificates: certificates,
+          awards: awards,
+          skills: List<String>.from(jsonDecode(map['skills'])),
+          personalProjects: List<String>.from(jsonDecode(map['projects'])),
+          languages: languages,
+          interests: List<String>.from(jsonDecode(map['interests'])),
+          references: List<String>.from(jsonDecode(map['reference'])),
+        );
+      } catch (e) {
+        // Log or handle the error
+        print('Error decoding user profile data: $e');
+        return null;
+      }
     }
     return null;
   }

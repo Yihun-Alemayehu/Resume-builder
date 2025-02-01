@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/screens/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -38,6 +41,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             } else if (state is UserProfileLoaded ||
                 state is UserProfileUpdated ||
                 state is UserProfileSaved) {
+              final userProfile = (state as UserProfileLoaded).user;
+              print(
+                  '-------------USER PROFILE FROM PROFILE SCREEN --------------------------------');
+              log(userProfile.toString());
+              print(
+                  '-------------USER PROFILE FROM PROFILE SCREEN --------------------------------');
               return Column(
                 children: [
                   Card(

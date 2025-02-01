@@ -28,7 +28,7 @@ class ResumeApp extends StatelessWidget {
           create: (context) => UserProfileBloc(dbHelper: const UserProfileDatabaseHelper()),
         ),
         BlocProvider(
-          create: (context) => UserProfileDataCubit(),
+          create: (context) => UserProfileDataCubit(dbHelper: const UserProfileDatabaseHelper()),
         ),
       ],
       child: const MaterialApp(
