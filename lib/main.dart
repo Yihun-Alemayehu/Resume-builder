@@ -33,7 +33,7 @@ class ResumeApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MainScreen(),
+        home: MainScreen(0),
       ),
     );
   }

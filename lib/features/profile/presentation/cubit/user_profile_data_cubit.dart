@@ -5,7 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:my_resume/features/profile/data/db/user_profile_database_helper.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
+import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
+import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/user_model.dart';
@@ -18,10 +20,15 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
   UserProfileDataCubit({required this.dbHelper})
       : super(UserProfileDataInitial());
 
-  void loadUserProfile({required UserProfile userProfile}) {
-    print('Loading user profile...');
-    emit(UserProfileDataLoaded(userProfile: userProfile));
-    print('User profile loaded: $userProfile');
+  Future<void> loadUserProfile() async {
+    await dbHelper.fetchUserProfile().then((value) {
+      emit(
+          UserProfileDataLoaded(userProfile: value ?? UserProfile.dummyData()));
+    }).catchError((e) {
+      emit(UserProfileDataError(
+          errorMessage: 'Failed to load user profile: $e'));
+      log('Failed to load user profile: $e');
+    });
   }
 
   void updateUserProfile({required MyUser user}) {
@@ -263,11 +270,11 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void addPersonalProject({required String project}) {
+  void addPersonalProject({required ProjectModel project}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList =
-          List<String>.from(currentState.userProfile.personalProjects)
+          List<ProjectModel>.from(currentState.userProfile.personalProjects)
             ..add(project);
       final updatedUserProfile =
           currentState.userProfile.copyWith(personalProjects: updatedList);
@@ -275,14 +282,20 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void updatePersonalProject({required int index, required String project}) {
+  void updatePersonalProject(
+      {required int index, required ProjectModel project}) {
+    print('project: ' + project.toString());
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList =
-          List<String>.from(currentState.userProfile.personalProjects)
-            ..[index] = project;
+      final updatedList = List<ProjectModel>.from(currentState.userProfile
+          .copyWith(
+            personalProjects: currentState.userProfile.personalProjects
+              ..[index] = project,
+          )
+          .personalProjects);
       final updatedUserProfile =
           currentState.userProfile.copyWith(personalProjects: updatedList);
+      print('updatedList: ' + updatedList.toString());
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
@@ -291,7 +304,7 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList =
-          List<String>.from(currentState.userProfile.personalProjects)
+          List<ProjectModel>.from(currentState.userProfile.personalProjects)
             ..removeAt(index);
       final updatedUserProfile =
           currentState.userProfile.copyWith(personalProjects: updatedList);
@@ -367,7 +380,8 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
 
   Future<void> saveUserProfileData({required UserProfile userProfile}) async {
     await dbHelper.insertUserProfile(userProfile: userProfile).then((value) {
-      emit(UserProfileDataLoaded(userProfile: userProfile));
+      emit(UserProfileDataLoading());
+      emit(UserProfileDataSaved());
     }).catchError((e) {
       emit(UserProfileDataError(
           errorMessage: 'Failed to save user profile: $e'));

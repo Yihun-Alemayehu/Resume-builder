@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
-import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/award_tab.dart';
 import 'package:my_resume/features/profile/presentation/widgets/certificate_tab.dart';
@@ -15,6 +13,7 @@ import 'package:my_resume/features/profile/presentation/widgets/reference_tab.da
 import 'package:my_resume/features/profile/presentation/widgets/skill_tab.dart';
 import 'package:my_resume/features/profile/presentation/widgets/user_data_tab.dart';
 import 'package:my_resume/features/profile/presentation/widgets/work_exp_tab.dart';
+import 'package:my_resume/features/resume/Presentation/screens/main_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -27,21 +26,52 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    // Load user profile data from the cubit
-    final userProfile = UserProfile.dummyData();
-    context
-        .read<UserProfileDataCubit>()
-        .loadUserProfile(userProfile: userProfile);
+    context.read<UserProfileDataCubit>().loadUserProfile();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
+    return BlocConsumer<UserProfileDataCubit, UserProfileDataState>(
+      listener: (context, state) {
+        if (state is UserProfileDataSaved) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Profile Saved'),
+            ),
+          );
+          // Navigate back to Profile Screen after saving the profile
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MainScreen(2),
+              ));
+        } else if (state is UserProfileDataError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
+        if (state is UserProfileDataLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
         if (state is UserProfileDataLoaded) {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Edit Profile'),
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MainScreen(2),
+                      ));
+                },
+                icon: const Icon(Icons.arrow_back_ios),
+              ),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -50,10 +80,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         as UserProfileDataLoaded;
                     print(
                         '-------------USER PROFILE FROM EDIT SCREEN --------------------------------');
-                    log(state.userProfile.toString());
+                    log(state.userProfile.personalProjects.toString());
                     print(
                         '-------------USER PROFILE FROM EDIT SCREEN --------------------------------');
-                    context.read<UserProfileDataCubit>().saveUserProfileData(userProfile: state.userProfile);
+                    context
+                        .read<UserProfileDataCubit>()
+                        .saveUserProfileData(userProfile: state.userProfile);
                   },
                   icon: const Icon(Icons.save),
                 ),

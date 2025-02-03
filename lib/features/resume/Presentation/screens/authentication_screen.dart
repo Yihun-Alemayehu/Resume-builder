@@ -63,7 +63,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   void _navigateToHomeScreen() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const MainScreen()),
+      MaterialPageRoute(builder: (context) => const MainScreen(0)),
     );
   }
 

@@ -4,7 +4,8 @@ import 'package:my_resume/features/resume/Presentation/screens/my_resume_screen.
 import 'package:my_resume/features/profile/presentation/screens/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final int currentIndex;
+  const MainScreen(this.currentIndex,{super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -12,6 +13,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currentTab = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    currentTab = widget.currentIndex;
+  }
 
   List<Widget> screens = [
     const HomeScreen(),

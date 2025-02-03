@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
+import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
@@ -73,10 +74,14 @@ class UserProfileDatabaseHelper {
   }
 
   Future<void> insertUserProfile({required UserProfile userProfile}) async {
+    print('----------PERSONAL PROJECTS INSIDE DB----------');
+    print(userProfile.personalProjects);
+    print('----------PERSONAL PROJECTS INSIDE DB----------');
     final db = await database;
     final id = await db.insert(
       'UserProfile',
       {
+        'id': 1,
         'userData': jsonEncode({
           'fullName': userProfile.userdata.fullName,
           'profession': userProfile.userdata.profession,
@@ -128,7 +133,12 @@ class UserProfileDatabaseHelper {
                 })
             .toList()),
         'skills': jsonEncode(userProfile.skills),
-        'projects': jsonEncode(userProfile.personalProjects),
+        'projects': jsonEncode(userProfile.personalProjects
+            .map((e) => {
+                  'name': e.name,
+                  'description': e.description,
+                })
+            .toList()),
         'interests': jsonEncode(userProfile.interests),
         'reference': jsonEncode(userProfile.references),
       },
@@ -210,6 +220,17 @@ class UserProfileDatabaseHelper {
             .whereType<AwardModel>()
             .toList();
 
+        // Decode PersonalProjects
+        final personalProjects = (jsonDecode(map['projects']) as List)
+            .map((e) => e is Map<String, dynamic>
+                ? ProjectModel(
+                    name: e['name'] ?? '',
+                    description: e['description'] ?? '',
+                  )
+                : null)
+            .whereType<ProjectModel>()
+            .toList();
+
         // Decode MyUser
         final userDataJson = jsonDecode(map['userData']);
         final MyUser userData = MyUser(
@@ -235,7 +256,7 @@ class UserProfileDatabaseHelper {
           certificates: certificates,
           awards: awards,
           skills: List<String>.from(jsonDecode(map['skills'])),
-          personalProjects: List<String>.from(jsonDecode(map['projects'])),
+          personalProjects: personalProjects,
           languages: languages,
           interests: List<String>.from(jsonDecode(map['interests'])),
           references: List<String>.from(jsonDecode(map['reference'])),

@@ -9,6 +9,8 @@ abstract class UserProfileDataState extends Equatable {
 
 class UserProfileDataInitial extends UserProfileDataState {}
 
+class UserProfileDataLoading extends UserProfileDataState {}
+
 class UserProfileDataLoaded extends UserProfileDataState {
   final UserProfile userProfile;
 
@@ -25,3 +27,5 @@ class UserProfileDataError extends UserProfileDataState {
   @override
   List<Object> get props => [errorMessage];
 }
+
+class UserProfileDataSaved extends UserProfileDataState {}

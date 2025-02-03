@@ -77,8 +77,7 @@ class DatabaseHelper {
       projects TEXT NOT NULL,
       reference TEXT NOT NULL
       )
-    '''
-    );
+    ''');
   }
 
   Future<String> saveImageToLocalStorage(File imageFile) async {
