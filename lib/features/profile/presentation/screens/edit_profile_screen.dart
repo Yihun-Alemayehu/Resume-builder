@@ -58,7 +58,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         if (state is UserProfileDataLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (state is UserProfileDataLoaded) {
+        else if (state is UserProfileDataLoaded) {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Edit Profile'),

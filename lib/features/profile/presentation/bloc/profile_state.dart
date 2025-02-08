@@ -14,7 +14,7 @@ class UserProfileLoading extends UserProfileState {}
 class UserProfileSaved extends UserProfileState {}
 
 class UserProfileLoaded extends UserProfileState {
-  final UserProfile user;
+  final List<UserProfile> user;
 
   const UserProfileLoaded({required this.user});
 

@@ -34,9 +34,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     try {
       final UserProfile? userProfile = await dbHelper.fetchUserProfile();
       if (userProfile != null) {
-        emit(UserProfileLoaded(user: userProfile));
+        emit(UserProfileLoaded(user: [userProfile]));
       } else {
-        emit(const UserProfileError(errorMessage: 'Empty Data'));
+        emit(const UserProfileLoaded(user: []));
       }
     } catch (e) {
       emit(UserProfileError(errorMessage: 'Failed to load user profile: $e'));

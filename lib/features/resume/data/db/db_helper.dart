@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
+import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
@@ -164,7 +165,12 @@ class DatabaseHelper {
                   })
               .toList()),
           'skills': jsonEncode(template.skills),
-          'personalProjects': jsonEncode(template.personalProjects),
+          'personalProjects': jsonEncode(template.personalProjects
+              .map((e) => {
+                    'name': e.name,
+                    'description': e.description,
+                  })
+              .toList()),
           'interests': jsonEncode(template.interests),
           'reference': jsonEncode(template.references),
         },
@@ -253,6 +259,17 @@ class DatabaseHelper {
               .whereType<AwardModel>()
               .toList();
 
+          // Decode PersonalProjects
+          final personalProjects = (jsonDecode(map['personalProjects']) as List)
+              .map((e) => e is Map<String, dynamic>
+                  ? ProjectModel(
+                      name: e['name'] ?? '',
+                      description: e['description'] ?? '',
+                    )
+                  : null)
+              .whereType<ProjectModel>()
+              .toList();
+
           // Decode MyUser
           final userDataJson = jsonDecode(map['userData']);
           final MyUser userData = MyUser(
@@ -280,8 +297,7 @@ class DatabaseHelper {
             certificates: certificates,
             awards: awards,
             skills: List<String>.from(jsonDecode(map['skills'])),
-            personalProjects:
-                List<String>.from(jsonDecode(map['personalProjects'])),
+            personalProjects: personalProjects,
             languages: languages,
             interests: List<String>.from(jsonDecode(map['interests'])),
             references: List<String>.from(jsonDecode(map['reference'])),
@@ -357,7 +373,12 @@ class DatabaseHelper {
                 })
             .toList()),
         'skills': jsonEncode(template.skills),
-        'personalProjects': jsonEncode(template.personalProjects),
+        'personalProjects': jsonEncode(template.personalProjects
+            .map((e) => {
+                  'name': e.name,
+                  'description': e.description,
+                })
+            .toList()),
         'interests': jsonEncode(template.interests),
         'reference': jsonEncode(template.references),
       },

@@ -5,6 +5,8 @@ import 'package:equatable/equatable.dart';
 
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
+import 'package:my_resume/features/profile/data/model/project_model.dart';
+import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/user_model.dart';
@@ -35,7 +37,7 @@ class TemplateModel extends Equatable {
   final List<CertificateModel> certificates;
   final List<AwardModel> awards;
   final List<String> skills;
-  final List<String> personalProjects;
+  final List<ProjectModel> personalProjects;
   final List<String> interests;
   final List<String> references;
 
@@ -49,7 +51,7 @@ class TemplateModel extends Equatable {
     List<CertificateModel>? certificates,
     List<AwardModel>? awards,
     List<String>? skills,
-    List<String>? personalProjects,
+    List<ProjectModel>? personalProjects,
     List<String>? interests,
     List<String>? references,
   }) {
@@ -97,7 +99,7 @@ class TemplateModel extends Equatable {
       'certificates': certificates.map((x) => x.toMap()).toList(),
       'awards': awards.map((x) => x.toMap()).toList(),
       'skills': skills,
-      'personalProjects': personalProjects,
+      'personalProjects': personalProjects.map((x) => x.toMap()).toList(),
       'interests': interests,
       'references': references,
     };
@@ -134,12 +136,32 @@ class TemplateModel extends Equatable {
           ),
         ),
         skills: List<String>.from((map['skills'] as List<String>)),
-        personalProjects:
-            List<String>.from((map['personalProjects'] as List<String>)),
+        personalProjects: List<ProjectModel>.from(
+          (map['personalProjects'] as List<int>).map<ProjectModel>(
+            (x) => ProjectModel.fromMap(x as Map<String, dynamic>),
+          ),
+        ),
         interests: List<String>.from((map['interests'] as List<String>)),
         references: List<String>.from(
           (map['references'] as List<String>),
         ));
+  }
+
+  factory TemplateModel.fromUserProfile({required UserProfile userProfile, required String templateName, required int index}) {
+    return TemplateModel(
+      templateName: templateName,
+      templateIndex: index,
+      userData: userProfile.userdata,
+      educationBackground: userProfile.education,
+      workExperience: userProfile.workExperience,
+      languages: userProfile.languages,
+      certificates: userProfile.certificates,
+      awards: userProfile.awards,
+      skills: userProfile.skills,
+      personalProjects: userProfile.personalProjects,
+      interests: userProfile.interests,
+      references: userProfile.references,
+    );
   }
 
   String toJson() => json.encode(toMap());

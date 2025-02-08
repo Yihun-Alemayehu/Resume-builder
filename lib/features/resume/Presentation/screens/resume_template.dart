@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,14 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
+import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
 import 'package:my_resume/features/resume/domain/generate_resume_repo.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
-import 'package:my_resume/features/resume/data/model/user_data_model.dart';
-import 'package:my_resume/features/resume/data/model/user_model.dart';
 import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
 import 'package:my_resume/core/utils/height_function.dart';
 
@@ -37,25 +37,6 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
   final GlobalKey<_TemporaryColumnState> _childKey =
       GlobalKey<_TemporaryColumnState>();
 
-  void _zoomToField(GlobalKey fieldKey) {
-    // Get the field's position
-    final RenderBox? renderBox =
-        fieldKey.currentContext?.findRenderObject() as RenderBox?;
-    if (renderBox != null) {
-      final position =
-          renderBox.localToGlobal(Offset.zero); // Position on screen
-      final size = renderBox.size; // Size of the field
-      print('Field position: $position, Size: $size');
-
-      // Adjust zoom to focus on the field
-      setState(() {
-        _transformationController.value = Matrix4.identity()
-          ..scale(2.0) // Zoom scale
-          ..translate(-position.dx + size.width / 2, -size.height);
-      });
-    }
-  }
-
   @override
   void dispose() {
     _transformationController.dispose();
@@ -76,51 +57,17 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
             icon: const Icon(Icons.save),
             onPressed: () async {
               final icons = _childKey.currentState?.icons;
-              final templateIndex = _childKey.currentState?.templateIndex;
-              final myUser = _childKey.currentState?.myUser;
-              final education = _childKey.currentState?.edu;
-              final workExperience = _childKey.currentState?.workExp;
-              final skills = _childKey.currentState?.skills;
-              final personalProjects = _childKey.currentState?.personalProjects;
-              final languages = _childKey.currentState?.languages;
-              final interests = _childKey.currentState?.interests;
-              final templateName = _childKey.currentState?.templateName;
-              final certificates = _childKey.currentState?.certificates;
-              final awards = _childKey.currentState?.awards;
-              final references = _childKey.currentState?.references;
-
-              debugPrint('-------------USER DATA-------------');
-              debugPrint('User Data: $myUser');
-              debugPrint('-------------USER DATA-------------');
+              final templateData = _childKey.currentState?.templateData;
 
               // Save the resume
-              final templateData = TemplateModel(
-                templateName: templateName!,
-                templateIndex: templateIndex!,
-                userData: myUser!,
-                educationBackground: education!,
-                workExperience: workExperience!,
-                certificates: certificates!,
-                awards: awards!,
-                skills: skills!,
-                personalProjects: personalProjects!,
-                languages: languages!,
-                interests: interests!,
-                references: references!,
-              );
-              debugPrint('-------------SAVED USER DATA-------------');
-              debugPrint('Saved User Data: ${templateData.educationBackground}');
-              debugPrint('-------------SAVED USER DATA-------------');
               final pdfFile = await PdfApi.generateResume(
-                userData: templateData,
-                icons: icons!
-              );
+                  userData: templateData!, icons: icons!);
               widget.isNewTemplate
                   ? context
                       .read<UserDataBloc>()
                       .add(SaveTemplateData(templateData: templateData))
-                  : context.read<UserDataBloc>().add(
-                      UpdateTemplateData(id: widget.index, templateData: templateData));
+                  : context.read<UserDataBloc>().add(UpdateTemplateData(
+                      id: widget.index, templateData: templateData));
               PdfApi.openFile(pdfFile);
             },
           )
@@ -137,7 +84,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
             primary: true,
             child: TemporaryColumn(
               key: _childKey,
-              userData: widget.templateData,
+              templateData: widget.templateData,
             ),
           ),
         ),
@@ -147,19 +94,16 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
 }
 
 class TemporaryColumn extends StatefulWidget {
-  final TemplateModel userData;
-  const TemporaryColumn({super.key, required this.userData});
+  TemplateModel templateData;
+  TemporaryColumn({super.key, required this.templateData});
 
   @override
   State<TemporaryColumn> createState() => _TemporaryColumnState();
 }
 
 class _TemporaryColumnState extends State<TemporaryColumn> {
-  final String templateName = 'Neat';
-  final List<CertificateModel> certificates = [];
-  final List<AwardModel> awards = [];
-  final List<String> references = [];
-  
+  late TemplateModel templateData;
+
   List<File> icons = [
     File('assets/Icons/mail.png'),
     File('assets/Icons/pin.png'),
@@ -167,119 +111,6 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     File('assets/Icons/telephone.png'),
     File('assets/Icons/github.png'),
     File('assets/Icons/internet.png'),
-  ];
-
-  int templateIndex = 0;
-  
-  MyUser myUser = MyUser(
-    fullName: 'Yihun Alemayehu',
-    profession: 'Flutter Developer',
-    bio:
-        'Enthusiastic and innovative Flutter Developer and Graphics Designer ready to bring a unique blend '
-        'of creativity and technical prowess to the Universe. Proficient in Flutter, Dart, and graphic designtools, '
-        'I specialize in crafting visually stunning and seamlessly functional mobile applications. With a passion for '
-        'user-centric design and a commitment to staying at the forefront of emerging technologies,I am eager to contribute '
-        'my skills and learn from experienced professionals in a collaborative environment.',
-    profilePic: File('assets/copy.jpg'),
-    email: 'yankure01@gmail.com',
-    address: 'Addis Ababa, Ethiopia',
-    phoneNumber: '+251 982 39 40 38',
-    linkedIn: 'linkedin.com/in/yihun-alemayehu',
-    github: 'github.com/Yihun-Alemayehu',
-    website: 'yihun-alemayehu.netlify.com/app',
-  );
-
-  List<EducationBackground> edu = [
-    EducationBackground(
-      fieldOfStudy: 'Software Engineering',
-      institutionName: 'Addis Ababa Science and Technology University',
-      startDate: '05/2022 - Present',
-      endDate: 'Present',
-      institutionAddress: 'Addis Ababa',
-      courses: [
-        'Internet Programming',
-        'Object-oriented Programming',
-        'Data Structures and Algorithms',
-        'Mobile app development',
-      ],
-    ),
-    EducationBackground(
-      fieldOfStudy: 'Mobile app development',
-      institutionName: 'GDG AASTU',
-      startDate: '10/2023 - 03/2024',
-      endDate: '03/2024',
-      institutionAddress: 'Addis Ababa',
-      courses: ['Flutter', 'Dart', 'Firebase', 'Bloc State Management'],
-    ),
-  ];
-
-  List<WorkExperience> workExp = [
-    WorkExperience(
-      jobTitle: 'FLutter Developer',
-      companyName: 'Hex-labs',
-      startDate: '10/2023 - 01/2024',
-      endDate: '01/2024',
-      jobType: 'Remote',
-      achievements:
-          'Implemented Payment Gateway Transition: Successfully facilitated the transition from Telebirr to Chapa as the payment gateway, streamlining transaction processes and enhancing payment reliability.',
-    ),
-    WorkExperience(
-      jobTitle: 'FLutter Developer',
-      companyName: 'Horan-Software',
-      startDate: '08/2024 - 11/2024',
-      endDate: '11/2024',
-      jobType: 'Contract',
-      achievements:
-          'Implemented Firebase Integration: Successfully integrated Firebase into the application, enhancing real-time database management, user authentication, and analytics capabilities, leading to improved app performance and user engagement.',
-    ),
-    WorkExperience(
-      jobTitle: 'FLutter Developer',
-      companyName: 'Yize-Tech Ethiopia',
-      startDate: '02/2023 - 09/2023',
-      endDate: '09/2023',
-      jobType: 'Remote',
-      achievements:
-          'Implemented Complex UI Designs: Successfully developed and integrated intricate, user-centric UI components, ensuring seamless functionality, responsiveness, and an engaging user experience across diverse devices and screen sizes.',
-    ),
-  ];
-
-  List<LanguageModel> languages = [
-    LanguageModel(
-        language: 'English', proficiency: 'Full Professional Proficient'),
-    LanguageModel(
-        language: 'Amharic', proficiency: 'Full Professional Proficient'),
-  ];
-
-  List<String> skills = [
-    'Programming',
-    'Flutter',
-    'Dart',
-    'Firebase',
-    'Software development',
-    'Figma',
-    'State Management',
-    'Graphics design',
-    'Leadership',
-    'Communication',
-    'Photography',
-  ];
-  List<String> personalProjects = [
-    'Guadaye Mobile App',
-    'AddisCart Mobile App',
-    'GraceLink Mobile App',
-    'Yize-chat Mobile App',
-    'Nedemy Mobile App',
-  ];
-  List<String> interests = [
-    'Technology',
-    'Design',
-    'Photography',
-    'Cooking',
-    'Reading',
-    'Gaming',
-    'Artificial Intelligence',
-    'Space science',
-    'programming',
   ];
 
   final TextEditingController _nameController = TextEditingController();
@@ -291,180 +122,29 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _githubController = TextEditingController();
   final TextEditingController _websiteController = TextEditingController();
-  final TextEditingController _fieldOfStudyController = TextEditingController();
-  final TextEditingController _institutionNameController =
-      TextEditingController();
-  final TextEditingController _startDateController = TextEditingController();
-  final TextEditingController _endDateController = TextEditingController();
-  final TextEditingController _institutionAddressController =
-      TextEditingController();
-  final TextEditingController _fieldOfStudyController2 =
-      TextEditingController();
-  final TextEditingController _institutionNameController2 =
-      TextEditingController();
-  final TextEditingController _startDateController2 = TextEditingController();
-  final TextEditingController _endDateController2 = TextEditingController();
-  final TextEditingController _institutionAddressController2 =
-      TextEditingController();
-  final TextEditingController _fieldOfStudyController3 =
-      TextEditingController();
-  final TextEditingController _institutionNameController3 =
-      TextEditingController();
-  final TextEditingController _startDateController3 = TextEditingController();
-  final TextEditingController _endDateController3 = TextEditingController();
-  final TextEditingController _institutionAddressController3 =
-      TextEditingController();
-  final TextEditingController _fieldOfStudyController4 =
-      TextEditingController();
-  final TextEditingController _institutionNameController4 =
-      TextEditingController();
-  final TextEditingController _startDateController4 = TextEditingController();
-  final TextEditingController _endDateController4 = TextEditingController();
-  final TextEditingController _institutionAddressController4 =
-      TextEditingController();
-  final TextEditingController _fieldOfStudyController5 =
-      TextEditingController();
-  final TextEditingController _institutionNameController5 =
-      TextEditingController();
-  final TextEditingController _startDateController5 = TextEditingController();
-  final TextEditingController _endDateController5 = TextEditingController();
-  final TextEditingController _institutionAddressController5 =
-      TextEditingController();
-  final TextEditingController _fieldOfStudyController6 =
-      TextEditingController();
-  final TextEditingController _institutionNameController6 =
-      TextEditingController();
-  final TextEditingController _startDateController6 = TextEditingController();
-  final TextEditingController _endDateController6 = TextEditingController();
-  final TextEditingController _institutionAddressController6 =
-      TextEditingController();
-  final TextEditingController _coursesController = TextEditingController();
-  final TextEditingController _coursesController4eduOne1 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduOne2 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduOne3 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduOne4 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduTwo1 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduTwo2 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduTwo3 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduTwo4 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduThree1 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduThree2 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduThree3 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduThree4 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFour1 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFour2 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFour3 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFour4 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFive1 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFive2 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFive3 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduFive4 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduSix1 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduSix2 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduSix3 =
-      TextEditingController();
-  final TextEditingController _coursesController4eduSix4 =
-      TextEditingController();
 
-  final TextEditingController _workExpJobTitleController1 =
-      TextEditingController();
-  final TextEditingController _workExpCompanyNameController1 =
-      TextEditingController();
-  final TextEditingController _workExpStartDateController1 =
-      TextEditingController();
-  final TextEditingController _workExpEndDateController1 =
-      TextEditingController();
-  final TextEditingController _workExpJobTypeController1 =
-      TextEditingController();
-  final TextEditingController _workExpAchievementController1 =
-      TextEditingController();
+  List<TextEditingController> fieldOfStudyControllers = [];
+  List<TextEditingController> institutionNameControllers = [];
+  List<TextEditingController> startDateControllers = [];
+  List<TextEditingController> endDateControllers = [];
+  List<TextEditingController> institutionAddressControllers = [];
+  List<List<TextEditingController>> coursesControllers = [];
 
-  final TextEditingController _workExpJobTitleController2 =
-      TextEditingController();
-  final TextEditingController _workExpCompanyNameController2 =
-      TextEditingController();
-  final TextEditingController _workExpStartDateController2 =
-      TextEditingController();
-  final TextEditingController _workExpEndDateController2 =
-      TextEditingController();
-  final TextEditingController _workExpJobTypeController2 =
-      TextEditingController();
-  final TextEditingController _workExpAchievementController2 =
-      TextEditingController();
+  List<TextEditingController> jobTitleControllers = [];
+  List<TextEditingController> companyNameControllers = [];
+  List<TextEditingController> workStartDateControllers = [];
+  List<TextEditingController> workEndDateControllers = [];
+  List<TextEditingController> jobTypeControllers = [];
+  List<TextEditingController> achievementsControllers = [];
 
-  final TextEditingController _workExpJobTitleController3 =
+  final TextEditingController _addSkillController = TextEditingController();
+  final TextEditingController _addPersonalProjectController =
       TextEditingController();
-  final TextEditingController _workExpCompanyNameController3 =
+  final TextEditingController _addLanguageControllerForLanguageName =
       TextEditingController();
-  final TextEditingController _workExpStartDateController3 =
+  final TextEditingController _addLanguageControllerForProficiency =
       TextEditingController();
-  final TextEditingController _workExpEndDateController3 =
-      TextEditingController();
-  final TextEditingController _workExpJobTypeController3 =
-      TextEditingController();
-  final TextEditingController _workExpAchievementController3 =
-      TextEditingController();
-
-  final TextEditingController _workExpJobTitleController4 =
-      TextEditingController();
-  final TextEditingController _workExpCompanyNameController4 =
-      TextEditingController();
-  final TextEditingController _workExpStartDateController4 =
-      TextEditingController();
-  final TextEditingController _workExpEndDateController4 =
-      TextEditingController();
-  final TextEditingController _workExpJobTypeController4 =
-      TextEditingController();
-  final TextEditingController _workExpAchievementController4 =
-      TextEditingController();
-
-  final TextEditingController _workExpJobTitleController5 =
-      TextEditingController();
-  final TextEditingController _workExpCompanyNameController5 =
-      TextEditingController();
-  final TextEditingController _workExpStartDateController5 =
-      TextEditingController();
-  final TextEditingController _workExpEndDateController5 =
-      TextEditingController();
-  final TextEditingController _workExpJobTypeController5 =
-      TextEditingController();
-  final TextEditingController _workExpAchievementController5 =
-      TextEditingController();
-
-  final TextEditingController _workExpJobTitleController6 =
-      TextEditingController();
-  final TextEditingController _workExpCompanyNameController6 =
-      TextEditingController();
-  final TextEditingController _workExpStartDateController6 =
-      TextEditingController();
-  final TextEditingController _workExpEndDateController6 =
-      TextEditingController();
-  final TextEditingController _workExpJobTypeController6 =
-      TextEditingController();
-  final TextEditingController _workExpAchievementController6 =
-      TextEditingController();
+  final TextEditingController _addInterestsController = TextEditingController();
 
   List<bool> _borderColorForEdu = [false, false, false, false, false, false];
   List<bool> _borderColorForWorkExp = [
@@ -502,7 +182,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   Future<void> pickImage() async {
     var image = await _picker.pickImage(source: ImageSource.gallery);
     _image = File(image!.path);
-    myUser = myUser.copyWith(profilePic: _image!);
+    templateData = templateData.copyWith(
+      userData: templateData.userData.copyWith(profilePic: _image),
+    );
     setState(() {});
   }
 
@@ -510,99 +192,18 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
   List _controllersList1 = [];
   List _controllersList2 = [];
 
-  // Education Background count controllers
-  List _controllersList3 = [];
-  List _controllersList4 = [];
-  List _controllersList5 = [];
-  List _controllersList6 = [];
-  List _controllersList7 = [];
-  List _controllersList8 = [];
-
-  // Work experience count controllers
-  List _workExperienceControllersList1 = [];
-  List _workExperienceControllersList2 = [];
-  List _workExperienceControllersList3 = [];
-  List _workExperienceControllersList4 = [];
-  List _workExperienceControllersList5 = [];
-  List _workExperienceControllersList6 = [];
-
-  // Education background course controllers list
-  List _coursesControllersList1 = [];
-  List _coursesControllersList2 = [];
-  List _coursesControllersList3 = [];
-  List _coursesControllersList4 = [];
-  List _coursesControllersList5 = [];
-  List _coursesControllersList6 = [];
-
   // Item count for personal info
   int _itemCount() {
-    if (myUser.github != null && myUser.website != null) {
+    if (templateData.userData.github != null &&
+        templateData.userData.website != null) {
       return 3;
-    } else if (myUser.github != null || myUser.website != null) {
+    } else if (templateData.userData.github != null ||
+        templateData.userData.website != null) {
       return 2;
     } else {
       return 1;
     }
   }
-
-  // controllers fuction for education, courses and work experience
-  TextEditingController _controllerFunction(
-      {required String controllerType,
-      required int index,
-      required int count}) {
-    if (controllerType == 'edu') {
-      if (index == 0) {
-        return _controllersList3[count];
-      } else if (index == 1) {
-        return _controllersList4[count];
-      } else if (index == 2) {
-        return _controllersList5[count];
-      } else if (index == 3) {
-        return _controllersList6[count];
-      } else if (index == 4) {
-        return _controllersList7[count];
-      } else {
-        return _controllersList8[count];
-      }
-    } else if (controllerType == 'courses') {
-      if (index == 0) {
-        return _coursesControllersList1[count];
-      } else if (index == 1) {
-        return _coursesControllersList2[count];
-      } else if (index == 2) {
-        return _coursesControllersList3[count];
-      } else if (index == 3) {
-        return _coursesControllersList4[count];
-      } else if (index == 4) {
-        return _coursesControllersList5[count];
-      } else {
-        return _coursesControllersList6[count];
-      }
-    } else {
-      if (index == 0) {
-        return _workExperienceControllersList1[count];
-      } else if (index == 1) {
-        return _workExperienceControllersList2[count];
-      } else if (index == 2) {
-        return _workExperienceControllersList3[count];
-      } else if (index == 3) {
-        return _workExperienceControllersList4[count];
-      } else if (index == 4) {
-        return _workExperienceControllersList5[count];
-      } else {
-        return _workExperienceControllersList6[count];
-      }
-    }
-  }
-
-  final TextEditingController _addSkillController = TextEditingController();
-  final TextEditingController _addPersonalProjectController =
-      TextEditingController();
-  final TextEditingController _addLanguageControllerForLanguageName =
-      TextEditingController();
-  final TextEditingController _addLanguageControllerForProficiency =
-      TextEditingController();
-  final TextEditingController _addInterestsController = TextEditingController();
 
   Future<void> _showMyDialog({
     required String title,
@@ -705,16 +306,21 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
               onPressed: () {
                 setState(() {
                   if (title == 'Add Skill') {
-                    skills.add(_addSkillController.text);
+                    templateData.skills.add(_addSkillController.text);
                     _addSkillController.clear();
                   } else if (title == 'Add Personal Project') {
-                    personalProjects.add(_addPersonalProjectController.text);
+                    templateData.personalProjects.add(
+                      ProjectModel(
+                        name: _addPersonalProjectController.text,
+                        description: 'description',
+                      ),
+                    );
                     _addPersonalProjectController.clear();
                   } else if (title == 'Add Interest') {
-                    interests.add(_addInterestsController.text);
+                    templateData.interests.add(_addInterestsController.text);
                     _addInterestsController.clear();
                   } else {
-                    languages.add(
+                    templateData.languages.add(
                       LanguageModel(
                         language: _addLanguageControllerForLanguageName.text,
                         proficiency: dropDownValue,
@@ -731,180 +337,86 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
     );
   }
 
+  // Function to add a new Education Entry
+  void _addEducationEntry({required EducationBackground edu}) {
+    setState(() {
+      fieldOfStudyControllers
+          .add(TextEditingController(text: edu.fieldOfStudy));
+      institutionNameControllers
+          .add(TextEditingController(text: edu.institutionName));
+      startDateControllers.add(TextEditingController(text: edu.startDate));
+      endDateControllers.add(TextEditingController(text: edu.endDate));
+      institutionAddressControllers
+          .add(TextEditingController(text: edu.institutionAddress));
+
+      List<TextEditingController> courseControllers = [
+        TextEditingController(text: edu.courses[0]),
+        TextEditingController(text: edu.courses[1]),
+        TextEditingController(text: edu.courses[2]),
+        TextEditingController(text: edu.courses[3]),
+      ];
+      coursesControllers.add(courseControllers);
+    });
+  }
+
+  void _addWorkExperienceEntry({required WorkExperience work}) {
+    setState(() {
+      jobTitleControllers.add(TextEditingController(text: work.jobTitle));
+      companyNameControllers.add(TextEditingController(text: work.companyName));
+      workStartDateControllers.add(TextEditingController(text: work.startDate));
+      workEndDateControllers.add(TextEditingController(text: work.endDate));
+      jobTypeControllers.add(TextEditingController(text: work.jobType));
+      achievementsControllers
+          .add(TextEditingController(text: work.achievements));
+    });
+  }
+
+  void _initializeControllers({required TemplateModel templateData}) {
+    // User controllers
+    _nameController.text = templateData.userData.fullName;
+    _professionController.text = templateData.userData.profession;
+    _bioController.text = templateData.userData.bio;
+    _emailController.text = templateData.userData.email;
+    _addressController.text = templateData.userData.address;
+    _linkedInController.text = templateData.userData.linkedIn!;
+    _phoneController.text = templateData.userData.phoneNumber;
+    _githubController.text = templateData.userData.github!;
+    _websiteController.text = templateData.userData.website!;
+
+    // Populate controllers dynamically
+    for (var edu in templateData.educationBackground) {
+      fieldOfStudyControllers
+          .add(TextEditingController(text: edu.fieldOfStudy));
+      institutionNameControllers
+          .add(TextEditingController(text: edu.institutionName));
+      startDateControllers.add(TextEditingController(text: edu.startDate));
+      endDateControllers.add(TextEditingController(text: edu.endDate));
+      institutionAddressControllers
+          .add(TextEditingController(text: edu.institutionAddress));
+
+      // Populate education courses controllers dynamically
+      List<TextEditingController> courseControllers = [];
+      for (var course in edu.courses) {
+        courseControllers.add(TextEditingController(text: course));
+      }
+      coursesControllers.add(courseControllers);
+    }
+
+    for (var work in templateData.workExperience) {
+      jobTitleControllers.add(TextEditingController(text: work.jobTitle));
+      companyNameControllers.add(TextEditingController(text: work.companyName));
+      workStartDateControllers.add(TextEditingController(text: work.startDate));
+      workEndDateControllers.add(TextEditingController(text: work.endDate));
+      jobTypeControllers.add(TextEditingController(text: work.jobType));
+      achievementsControllers
+          .add(TextEditingController(text: work.achievements));
+    }
+  }
+
   @override
   void initState() {
-    super.initState();
-
-    debugPrint('-----USER FROM ARGUMENTS----------');
-    debugPrint(widget.userData.userData.toString());
-    debugPrint('-----USER FROM ARGUMENTS----------');
-
-    if (widget.userData.userData.fullName != '') {
-      myUser = myUser.copyWith(
-        fullName: widget.userData.userData.fullName,
-        profilePic: widget.userData.userData.profilePic,
-        profession: widget.userData.userData.profession,
-        bio: widget.userData.userData.bio,
-        email: widget.userData.userData.email,
-        address: widget.userData.userData.address,
-        linkedIn: widget.userData.userData.linkedIn,
-        phoneNumber: widget.userData.userData.phoneNumber,
-        github: widget.userData.userData.github,
-        website: widget.userData.userData.website,
-      );
-      edu = widget.userData.educationBackground;
-      workExp = widget.userData.workExperience;
-      skills = widget.userData.skills;
-      personalProjects = widget.userData.personalProjects;
-      languages = widget.userData.languages;
-      interests = widget.userData.interests;
-    } else {
-      myUser;
-    }
-    // ? myUser.copyWith(
-    //     fullName: widget.userData.userData.fullName,
-    //     profession: widget.userData.userData.profession,
-    //     bio: widget.userData.userData.bio,
-    //     email: widget.userData.userData.email,
-    //     address: widget.userData.userData.address,
-    //     linkedIn: widget.userData.userData.linkedIn,
-    //     phoneNumber: widget.userData.userData.phoneNumber,
-    //     github: widget.userData.userData.github,
-    //     website: widget.userData.userData.website,
-    //   );
-    //   edu = widget.userData.educationBackground;
-    //   workExperience = widget.userData.workExperience;
-    //   skills = widget.userData.skills;
-    //   personalProjects = widget.userData.personalProjects;
-    //   languages = widget.userData.languages;
-    //   interests = widget.userData.interests;
-    // : myUser;
-
-    debugPrint('-----MY UPDATED LOCAL USER');
-    debugPrint(myUser.toString());
-    debugPrint('-----MY UPDATED LOCAL USER');
-
-    // User controllers
-    _nameController.text = myUser.fullName;
-    _professionController.text = myUser.profession;
-    _bioController.text = myUser.bio;
-    _emailController.text = myUser.email;
-    _addressController.text = myUser.address;
-    _linkedInController.text = myUser.linkedIn!;
-    _phoneController.text = myUser.phoneNumber;
-    _githubController.text = myUser.github!;
-    _websiteController.text = myUser.website!;
-
-    // Education Background controllers
-    _fieldOfStudyController.text = edu[0].fieldOfStudy;
-    _institutionNameController.text = edu[0].institutionName;
-    _startDateController.text = edu[0].startDate;
-    _endDateController.text = edu[0].endDate;
-    _institutionAddressController.text = edu[0].institutionAddress;
-
-    _fieldOfStudyController2.text = edu[1].fieldOfStudy;
-    _institutionNameController2.text = edu[1].institutionName;
-    _startDateController2.text = edu[1].startDate;
-    _endDateController2.text = edu[1].endDate;
-    _institutionAddressController2.text = edu[1].institutionAddress;
-
-    _fieldOfStudyController3.text = edu[0].fieldOfStudy;
-    _institutionNameController3.text = edu[0].institutionName;
-    _startDateController3.text = edu[0].startDate;
-    _endDateController3.text = edu[0].endDate;
-    _institutionAddressController3.text = edu[0].institutionAddress;
-
-    _fieldOfStudyController4.text = edu[1].fieldOfStudy;
-    _institutionNameController4.text = edu[1].institutionName;
-    _startDateController4.text = edu[1].startDate;
-    _endDateController4.text = edu[1].endDate;
-    _institutionAddressController4.text = edu[1].institutionAddress;
-
-    _fieldOfStudyController5.text = edu[0].fieldOfStudy;
-    _institutionNameController5.text = edu[0].institutionName;
-    _startDateController5.text = edu[0].startDate;
-    _endDateController5.text = edu[0].endDate;
-    _institutionAddressController5.text = edu[0].institutionAddress;
-
-    _fieldOfStudyController4.text = edu[1].fieldOfStudy;
-    _institutionNameController4.text = edu[1].institutionName;
-    _startDateController4.text = edu[1].startDate;
-    _endDateController4.text = edu[1].endDate;
-    _institutionAddressController4.text = edu[1].institutionAddress;
-
-    // Course controllers
-    _coursesController4eduOne1.text = edu[0].courses[0];
-    _coursesController4eduOne2.text = edu[0].courses[1];
-    _coursesController4eduOne3.text = edu[0].courses[2];
-    _coursesController4eduOne4.text = edu[0].courses[3];
-
-    _coursesController4eduTwo1.text = edu[1].courses[0];
-    _coursesController4eduTwo2.text = edu[1].courses[1];
-    _coursesController4eduTwo3.text = edu[1].courses[2];
-    _coursesController4eduTwo4.text = edu[1].courses[3];
-
-    _coursesController4eduThree1.text = edu[0].courses[0];
-    _coursesController4eduThree2.text = edu[0].courses[1];
-    _coursesController4eduThree3.text = edu[0].courses[2];
-    _coursesController4eduThree4.text = edu[0].courses[3];
-
-    _coursesController4eduFour1.text = edu[1].courses[0];
-    _coursesController4eduFour2.text = edu[1].courses[1];
-    _coursesController4eduFour3.text = edu[1].courses[2];
-    _coursesController4eduFour4.text = edu[1].courses[3];
-
-    _coursesController4eduFive1.text = edu[0].courses[0];
-    _coursesController4eduFive2.text = edu[0].courses[1];
-    _coursesController4eduFive3.text = edu[0].courses[2];
-    _coursesController4eduFive4.text = edu[0].courses[3];
-
-    _coursesController4eduSix1.text = edu[1].courses[0];
-    _coursesController4eduSix2.text = edu[1].courses[1];
-    _coursesController4eduSix3.text = edu[1].courses[2];
-    _coursesController4eduSix4.text = edu[1].courses[3];
-
-    // Work Experience controllers
-    _workExpJobTitleController1.text = workExp[0].jobTitle;
-    _workExpCompanyNameController1.text = workExp[0].companyName;
-    _workExpStartDateController1.text = workExp[0].startDate;
-    _workExpEndDateController1.text = workExp[0].endDate;
-    _workExpJobTypeController1.text = workExp[0].jobType;
-    _workExpAchievementController1.text = workExp[0].achievements;
-
-    _workExpJobTitleController2.text = workExp[1].jobTitle;
-    _workExpCompanyNameController2.text = workExp[1].companyName;
-    _workExpStartDateController2.text = workExp[1].startDate;
-    _workExpEndDateController2.text = workExp[1].endDate;
-    _workExpJobTypeController2.text = workExp[1].jobType;
-    _workExpAchievementController2.text = workExp[1].achievements;
-
-    _workExpJobTitleController3.text = workExp[2].jobTitle;
-    _workExpCompanyNameController3.text = workExp[2].companyName;
-    _workExpStartDateController3.text = workExp[2].startDate;
-    _workExpEndDateController3.text = workExp[2].endDate;
-    _workExpJobTypeController3.text = workExp[2].jobType;
-    _workExpAchievementController3.text = workExp[2].achievements;
-
-    _workExpJobTitleController4.text = workExp[0].jobTitle;
-    _workExpCompanyNameController4.text = workExp[0].companyName;
-    _workExpStartDateController4.text = workExp[0].startDate;
-    _workExpEndDateController4.text = workExp[0].endDate;
-    _workExpJobTypeController4.text = workExp[0].jobType;
-    _workExpAchievementController4.text = workExp[0].achievements;
-
-    _workExpJobTitleController5.text = workExp[1].jobTitle;
-    _workExpCompanyNameController5.text = workExp[1].companyName;
-    _workExpStartDateController5.text = workExp[1].startDate;
-    _workExpEndDateController5.text = workExp[1].endDate;
-    _workExpJobTypeController5.text = workExp[1].jobType;
-    _workExpAchievementController5.text = workExp[1].achievements;
-
-    _workExpJobTitleController6.text = workExp[2].jobTitle;
-    _workExpCompanyNameController6.text = workExp[2].companyName;
-    _workExpStartDateController6.text = workExp[2].startDate;
-    _workExpEndDateController6.text = workExp[2].endDate;
-    _workExpJobTypeController6.text = workExp[2].jobType;
-    _workExpAchievementController6.text = workExp[2].achievements;
+    templateData = widget.templateData;
+    _initializeControllers(templateData: templateData);
 
     // Personal info Controllers
     _controllersList1
@@ -915,158 +427,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
       _githubController,
       _websiteController,
     ]);
-
-    // Education Background controllers
-    _controllersList3.addAll([
-      _fieldOfStudyController,
-      _institutionNameController,
-      _startDateController,
-      _endDateController,
-      _institutionAddressController,
-      _coursesController,
-    ]);
-
-    _controllersList4.addAll([
-      _fieldOfStudyController2,
-      _institutionNameController2,
-      _startDateController2,
-      _endDateController2,
-      _institutionAddressController2,
-    ]);
-
-    _controllersList5.addAll([
-      _fieldOfStudyController3,
-      _institutionNameController3,
-      _startDateController3,
-      _endDateController3,
-      _institutionAddressController3,
-      // _coursesController3,
-    ]);
-
-    _controllersList6.addAll([
-      _fieldOfStudyController4,
-      _institutionNameController4,
-      _startDateController4,
-      _endDateController4,
-      _institutionAddressController4,
-    ]);
-
-    _controllersList7.addAll([
-      _fieldOfStudyController5,
-      _institutionNameController5,
-      _startDateController5,
-      _endDateController5,
-      _institutionAddressController5,
-      // _coursesController5,
-    ]);
-
-    _controllersList8.addAll([
-      _fieldOfStudyController6,
-      _institutionNameController6,
-      _startDateController6,
-      _endDateController6,
-      _institutionAddressController6,
-    ]);
-
-    _coursesControllersList1.addAll([
-      _coursesController4eduOne1,
-      _coursesController4eduOne2,
-      _coursesController4eduOne3,
-      _coursesController4eduOne4,
-    ]);
-
-    _coursesControllersList2.addAll([
-      _coursesController4eduTwo1,
-      _coursesController4eduTwo2,
-      _coursesController4eduTwo3,
-      _coursesController4eduTwo4,
-    ]);
-
-    _coursesControllersList3.addAll([
-      _coursesController4eduThree1,
-      _coursesController4eduThree2,
-      _coursesController4eduThree3,
-      _coursesController4eduThree4,
-    ]);
-
-    _coursesControllersList4.addAll([
-      _coursesController4eduFour1,
-      _coursesController4eduFour2,
-      _coursesController4eduFour3,
-      _coursesController4eduFour4,
-    ]);
-    _coursesControllersList5.addAll([
-      _coursesController4eduFive1,
-      _coursesController4eduFive2,
-      _coursesController4eduFive3,
-      _coursesController4eduFive4,
-    ]);
-
-    _coursesControllersList6.addAll([
-      _coursesController4eduSix1,
-      _coursesController4eduSix2,
-      _coursesController4eduSix3,
-      _coursesController4eduSix4,
-    ]);
-
-    // Work Experience controllers
-    _workExperienceControllersList1.addAll([
-      _workExpJobTitleController1,
-      _workExpCompanyNameController1,
-      _workExpStartDateController1,
-      _workExpEndDateController1,
-      _workExpJobTypeController1,
-      _workExpAchievementController1,
-    ]);
-
-    _workExperienceControllersList2.addAll([
-      _workExpJobTitleController2,
-      _workExpCompanyNameController2,
-      _workExpStartDateController2,
-      _workExpEndDateController2,
-      _workExpJobTypeController2,
-      _workExpAchievementController2,
-    ]);
-
-    _workExperienceControllersList3.addAll([
-      _workExpJobTitleController3,
-      _workExpCompanyNameController3,
-      _workExpStartDateController3,
-      _workExpEndDateController3,
-      _workExpJobTypeController3,
-      _workExpAchievementController3,
-    ]);
-
-    _workExperienceControllersList4.addAll([
-      _workExpJobTitleController4,
-      _workExpCompanyNameController4,
-      _workExpStartDateController4,
-      _workExpEndDateController4,
-      _workExpJobTypeController4,
-      _workExpAchievementController4,
-    ]);
-
-    _workExperienceControllersList5.addAll([
-      _workExpJobTitleController5,
-      _workExpCompanyNameController5,
-      _workExpStartDateController5,
-      _workExpEndDateController5,
-      _workExpJobTypeController5,
-      _workExpAchievementController5,
-    ]);
-
-    _workExperienceControllersList6.addAll([
-      _workExpJobTitleController6,
-      _workExpCompanyNameController6,
-      _workExpStartDateController6,
-      _workExpEndDateController6,
-      _workExpJobTypeController6,
-      _workExpAchievementController6,
-    ]);
-
-    // Language controller
-    _addLanguageControllerForLanguageName.text = languages[0].language;
-    _addLanguageControllerForProficiency.text = languages[0].proficiency;
+    super.initState();
   }
 
   @override
@@ -1091,9 +452,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         onChanged: (value) {
                           setState(() {
-                            myUser = myUser.copyWith(fullName: value);
+                            templateData = templateData.copyWith(
+                              userData: templateData.userData.copyWith(
+                                fullName: value,
+                              ),
+                            );
                           });
-                          print(myUser.fullName);
+                          print(templateData.userData.fullName);
                         },
                         controller: _nameController,
                         style: const TextStyle(
@@ -1119,9 +484,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         onChanged: (value) {
                           setState(() {
-                            myUser = myUser.copyWith(profession: value);
+                            templateData = templateData.copyWith(
+                              userData: templateData.userData.copyWith(
+                                profession: value,
+                              ),
+                            );
                           });
-                          print(myUser.profession);
+                          print(templateData.userData.profession);
                         },
                         controller: _professionController,
                         style: const TextStyle(
@@ -1148,9 +517,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         },
                         onChanged: (value) {
                           setState(() {
-                            myUser = myUser.copyWith(bio: value);
+                            templateData = templateData.copyWith(
+                              userData: templateData.userData.copyWith(
+                                bio: value,
+                              ),
+                            );
                           });
-                          print(myUser.bio);
+                          print(templateData.userData.bio);
                         },
                         controller: _bioController,
                         style: const TextStyle(
@@ -1178,11 +551,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: Colors.white,
-                          backgroundImage:
-                              File(myUser.profilePic.path).existsSync()
-                                  ? FileImage(File(myUser.profilePic.path))
-                                  : const AssetImage('assets/copy.jpg')
-                                      as ImageProvider,
+                          backgroundImage: File(
+                                      templateData.userData.profilePic.path)
+                                  .existsSync()
+                              ? FileImage(File(
+                                  widget.templateData.userData.profilePic.path))
+                              : const AssetImage('assets/copy.jpg')
+                                  as ImageProvider,
                         ),
                       )
                     : CircleAvatar(
@@ -1206,7 +581,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                   child: SizedBox(
                     height: 30,
                     child: ListView.builder(
-                      itemCount: myUser.linkedIn != null ? 3 : 2,
+                      itemCount: templateData.userData.linkedIn != null ? 3 : 2,
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
@@ -1224,19 +599,30 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 onChanged: (value) {
                                   setState(() {
                                     if (index == 0) {
-                                      myUser = myUser.copyWith(
-                                          email: _controllersList1[index].text);
-                                      print(myUser.email);
+                                      templateData = templateData.copyWith(
+                                        userData:
+                                            templateData.userData.copyWith(
+                                          email: value,
+                                        ),
+                                      );
+                                      print(templateData.userData.email);
                                     } else if (index == 1) {
-                                      myUser = myUser.copyWith(
-                                          address:
-                                              _controllersList1[index].text);
-                                      print(myUser.address);
+                                      templateData = templateData.copyWith(
+                                        userData:
+                                            templateData.userData.copyWith(
+                                          address: value,
+                                        ),
+                                      );
+                                      print(templateData.userData.address);
                                     } else if (index == 2) {
-                                      myUser = myUser.copyWith(
-                                          linkedIn:
-                                              _controllersList1[index].text);
-                                      print(myUser.linkedIn);
+                                      templateData = templateData.copyWith(
+                                        userData:
+                                            templateData.userData.copyWith(
+                                          linkedIn: value,
+                                        ),
+                                      );
+                                      print(widget
+                                          .templateData.userData.linkedIn);
                                     }
                                   });
                                 },
@@ -1293,20 +679,30 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 onChanged: (value) {
                                   setState(() {
                                     if (index == 0) {
-                                      myUser = myUser.copyWith(
-                                          phoneNumber:
-                                              _controllersList2[index].text);
-                                      print(myUser.phoneNumber);
+                                      templateData = templateData.copyWith(
+                                        userData:
+                                            templateData.userData.copyWith(
+                                          phoneNumber: value,
+                                        ),
+                                      );
+                                      print(widget
+                                          .templateData.userData.phoneNumber);
                                     } else if (index == 1) {
-                                      myUser = myUser.copyWith(
-                                          github:
-                                              _controllersList2[index].text);
-                                      print(myUser.github);
+                                      templateData = templateData.copyWith(
+                                        userData:
+                                            templateData.userData.copyWith(
+                                          github: value,
+                                        ),
+                                      );
+                                      print(templateData.userData.github);
                                     } else if (index == 2) {
-                                      myUser = myUser.copyWith(
-                                          website:
-                                              _controllersList2[index].text);
-                                      print(myUser.website);
+                                      templateData = templateData.copyWith(
+                                        userData:
+                                            templateData.userData.copyWith(
+                                          website: value,
+                                        ),
+                                      );
+                                      print(templateData.userData.website);
                                     }
                                   });
                                 },
@@ -1352,12 +748,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                         SizedBox(
                           height: heightFunction(
                                   sectionType: 'edu',
-                                  length: edu.length,
+                                  length:
+                                      templateData.educationBackground.length,
                                   screen: 'resume-template')
                               .toDouble(),
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: edu.length,
+                            itemCount: templateData.educationBackground.length,
                             itemBuilder: (context, index) {
                               return Container(
                                 decoration: BoxDecoration(
@@ -1409,16 +806,22 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           },
                                           onChanged: (value) {
                                             setState(() {
-                                              edu[index] = edu[index].copyWith(
-                                                fieldOfStudy: value,
+                                              templateData =
+                                                  templateData.copyWith(
+                                                educationBackground:
+                                                    templateData
+                                                        .educationBackground
+                                                        .map((e) => e.copyWith(
+                                                            fieldOfStudy:
+                                                                value))
+                                                        .toList(),
                                               );
                                             });
+                                            log(templateData.educationBackground
+                                                .toString());
                                           },
-                                          controller: _controllerFunction(
-                                            controllerType: 'edu',
-                                            index: index,
-                                            count: 0,
-                                          ),
+                                          controller:
+                                              fieldOfStudyControllers[index],
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 10,
@@ -1451,16 +854,21 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           },
                                           onChanged: (value) {
                                             setState(() {
-                                              edu[index] = edu[index].copyWith(
-                                                institutionName: value,
+                                              templateData =
+                                                  templateData.copyWith(
+                                                educationBackground:
+                                                    templateData
+                                                        .educationBackground
+                                                        .map((e) => e.copyWith(
+                                                            institutionName:
+                                                                value))
+                                                        .toList(),
                                               );
                                             });
                                           },
-                                          controller: _controllerFunction(
-                                            controllerType: 'edu',
-                                            index: index,
-                                            count: 1,
-                                          ),
+                                          controller:
+                                              institutionAddressControllers[
+                                                  index],
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 8,
@@ -1502,17 +910,21 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    edu[index] =
-                                                        edu[index].copyWith(
-                                                      startDate: value,
+                                                    templateData =
+                                                        templateData.copyWith(
+                                                      educationBackground:
+                                                          templateData
+                                                              .educationBackground
+                                                              .map((e) =>
+                                                                  e.copyWith(
+                                                                      startDate:
+                                                                          value))
+                                                              .toList(),
                                                     );
                                                   });
                                                 },
-                                                controller: _controllerFunction(
-                                                  controllerType: 'edu',
-                                                  index: index,
-                                                  count: 2,
-                                                ),
+                                                controller:
+                                                    startDateControllers[index],
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
                                                   color: Color.fromARGB(
@@ -1555,17 +967,20 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    edu[index] =
-                                                        edu[index].copyWith(
-                                                      institutionAddress: value,
+                                                    templateData =
+                                                        templateData.copyWith(
+                                                      educationBackground: templateData
+                                                          .educationBackground
+                                                          .map((e) => e.copyWith(
+                                                              institutionAddress:
+                                                                  value))
+                                                          .toList(),
                                                     );
                                                   });
                                                 },
-                                                controller: _controllerFunction(
-                                                  controllerType: 'edu',
-                                                  index: index,
-                                                  count: 4,
-                                                ),
+                                                controller:
+                                                    institutionAddressControllers[
+                                                        index],
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
                                                   color: Color.fromARGB(
@@ -1601,7 +1016,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                         ),
                                         Column(
                                           children: List.generate(
-                                            edu[index].courses.length,
+                                            templateData
+                                                .educationBackground[index]
+                                                .courses
+                                                .length,
                                             (innerIndex) {
                                               return SizedBox(
                                                 width: MediaQuery.of(context)
@@ -1624,16 +1042,30 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                   },
                                                   onChanged: (value) {
                                                     setState(() {
-                                                      edu[index].courses[
-                                                          innerIndex] = value;
+                                                      templateData =
+                                                          templateData.copyWith(
+                                                        educationBackground:
+                                                            templateData
+                                                                .educationBackground
+                                                                .map((e) =>
+                                                                    e.copyWith(
+                                                                      courses: e
+                                                                          .courses
+                                                                          .asMap()
+                                                                          .map((i, c) => MapEntry(
+                                                                              i,
+                                                                              i == innerIndex ? value : c))
+                                                                          .values
+                                                                          .toList()
+                                                                          .toList(),
+                                                                    ))
+                                                                .toList(),
+                                                      );
                                                     });
                                                   },
                                                   controller:
-                                                      _controllerFunction(
-                                                    controllerType: 'courses',
-                                                    index: index,
-                                                    count: innerIndex,
-                                                  ),
+                                                      coursesControllers[index]
+                                                          [innerIndex],
                                                   style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 8,
@@ -1687,9 +1119,23 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      edu.insert(index,
-                                                          edu.elementAt(index));
+                                                      _addEducationEntry(
+                                                          edu: templateData
+                                                                  .educationBackground[
+                                                              index]);
+
+                                                      templateData
+                                                          .educationBackground
+                                                          .insert(
+                                                              index,
+                                                              templateData
+                                                                  .educationBackground
+                                                                  .elementAt(
+                                                                      index));
                                                     });
+                                                    log(templateData
+                                                        .educationBackground
+                                                        .toString());
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(
@@ -1713,7 +1159,14 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      edu.removeAt(index);
+                                                      templateData =
+                                                          templateData.copyWith(
+                                                              educationBackground:
+                                                                  List.from(
+                                                                      templateData
+                                                                          .educationBackground)
+                                                                    ..removeAt(
+                                                                        index));
                                                     });
                                                   },
                                                   child: Container(
@@ -1756,12 +1209,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                             SizedBox(
                               height: heightFunction(
                                       sectionType: 'workExp',
-                                      length: workExp.length,
+                                      length:
+                                          templateData.workExperience.length,
                                       screen: 'resume-template')
                                   .toDouble(),
                               child: ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
-                                itemCount: workExp.length,
+                                itemCount: templateData.workExperience.length,
                                 itemBuilder: (context, index) {
                                   return Container(
                                     decoration: BoxDecoration(
@@ -1817,17 +1271,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                               },
                                               onChanged: (value) {
                                                 setState(() {
-                                                  workExp[index] =
-                                                      workExp[index].copyWith(
-                                                    jobTitle: value,
-                                                  );
+                                                  templateData =
+                                                      templateData.copyWith(
+                                                          workExperience: templateData
+                                                              .workExperience
+                                                              .map((e) =>
+                                                                  e.copyWith(
+                                                                      jobTitle:
+                                                                          value))
+                                                              .toList());
                                                 });
                                               },
-                                              controller: _controllerFunction(
-                                                controllerType: 'workExp',
-                                                index: index,
-                                                count: 0,
-                                              ),
+                                              controller:
+                                                  jobTitleControllers[index],
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 10,
@@ -1865,17 +1321,18 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                               },
                                               onChanged: (value) {
                                                 setState(() {
-                                                  workExp[index] =
-                                                      workExp[index].copyWith(
-                                                    companyName: value,
-                                                  );
+                                                  templateData = templateData.copyWith(
+                                                      workExperience: templateData
+                                                          .workExperience
+                                                          .map((e) =>
+                                                              e.copyWith(
+                                                                  companyName:
+                                                                      value))
+                                                          .toList());
                                                 });
                                               },
-                                              controller: _controllerFunction(
-                                                controllerType: 'workExp',
-                                                index: index,
-                                                count: 1,
-                                              ),
+                                              controller:
+                                                  companyNameControllers[index],
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 8,
@@ -1921,19 +1378,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                     },
                                                     onChanged: (value) {
                                                       setState(() {
-                                                        workExp[index] =
-                                                            workExp[index]
-                                                                .copyWith(
-                                                          startDate: value,
-                                                        );
+                                                        templateData = templateData.copyWith(
+                                                            workExperience: templateData
+                                                                .workExperience
+                                                                .map((e) =>
+                                                                    e.copyWith(
+                                                                        startDate:
+                                                                            value))
+                                                                .toList());
                                                       });
                                                     },
                                                     controller:
-                                                        _controllerFunction(
-                                                      controllerType: 'workExp',
-                                                      index: index,
-                                                      count: 2,
-                                                    ),
+                                                        workEndDateControllers[
+                                                            index],
                                                     style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
@@ -1979,19 +1436,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                     },
                                                     onChanged: (value) {
                                                       setState(() {
-                                                        workExp[index] =
-                                                            workExp[index]
-                                                                .copyWith(
-                                                          jobType: value,
-                                                        );
+                                                        templateData = templateData.copyWith(
+                                                            workExperience: templateData
+                                                                .workExperience
+                                                                .map((e) =>
+                                                                    e.copyWith(
+                                                                        jobType:
+                                                                            value))
+                                                                .toList());
                                                       });
                                                     },
                                                     controller:
-                                                        _controllerFunction(
-                                                      controllerType: 'work',
-                                                      index: index,
-                                                      count: 4,
-                                                    ),
+                                                        jobTypeControllers[
+                                                            index],
                                                     style: const TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
@@ -2049,17 +1506,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    workExp[index] =
-                                                        workExp[index].copyWith(
-                                                      achievements: value,
-                                                    );
+                                                    templateData = templateData.copyWith(
+                                                        workExperience: templateData
+                                                            .workExperience
+                                                            .map((e) =>
+                                                                e.copyWith(
+                                                                    achievements:
+                                                                        value))
+                                                            .toList());
                                                   });
                                                 },
-                                                controller: _controllerFunction(
-                                                  controllerType: 'workExp',
-                                                  index: index,
-                                                  count: 5,
-                                                ),
+                                                controller:
+                                                    achievementsControllers[
+                                                        index],
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 8,
@@ -2110,10 +1569,19 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                     GestureDetector(
                                                       onTap: () {
                                                         setState(() {
-                                                          workExp.insert(
-                                                              index,
-                                                              workExp.elementAt(
-                                                                  index));
+                                                          _addWorkExperienceEntry(
+                                                              work: templateData
+                                                                      .workExperience[
+                                                                  index]);
+
+                                                          templateData
+                                                              .workExperience
+                                                              .insert(
+                                                                  index,
+                                                                  templateData
+                                                                      .workExperience
+                                                                      .elementAt(
+                                                                          index));
                                                         });
                                                       },
                                                       child: Container(
@@ -2139,8 +1607,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                     GestureDetector(
                                                       onTap: () {
                                                         setState(() {
-                                                          workExp
-                                                              .removeAt(index);
+                                                          templateData = templateData.copyWith(
+                                                              workExperience:
+                                                                  List.from(
+                                                                      templateData
+                                                                          .workExperience)
+                                                                    ..removeAt(
+                                                                        index));
                                                         });
                                                       },
                                                       child: Container(
@@ -2226,7 +1699,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                       child: Wrap(
                                           spacing: 4,
                                           children: List.generate(
-                                            skills.length,
+                                            templateData.skills.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
@@ -2254,7 +1727,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                         MainAxisSize.min,
                                                     children: [
                                                       Text(
-                                                        skills[index],
+                                                        templateData
+                                                            .skills[index],
                                                         style: const TextStyle(
                                                           fontSize: 10,
                                                         ),
@@ -2265,8 +1739,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       GestureDetector(
                                                         onTap: () {
                                                           setState(() {
-                                                            skills.removeAt(
-                                                                index);
+                                                            templateData = templateData.copyWith(
+                                                                skills: List.from(
+                                                                    templateData
+                                                                        .skills)
+                                                                  ..removeAt(
+                                                                      index));
                                                           });
                                                         },
                                                         child: Container(
@@ -2290,8 +1768,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                 ),
                                               );
                                             },
-                                          )
-                                          ),
+                                          )),
                                     )
                                   : GestureDetector(
                                       onTap: () {
@@ -2303,7 +1780,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                       child: Wrap(
                                         spacing: 4,
                                         children: List.generate(
-                                          skills.length,
+                                          templateData.skills.length,
                                           (index) {
                                             return Container(
                                               padding: const EdgeInsets.all(2),
@@ -2319,7 +1796,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                     BorderRadius.circular(4),
                                               ),
                                               child: Text(
-                                                skills[index],
+                                                templateData.skills[index],
                                                 style: const TextStyle(
                                                   fontSize: 8,
                                                 ),
@@ -2405,7 +1882,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                       child: Wrap(
                                           spacing: 4,
                                           children: List.generate(
-                                            personalProjects.length,
+                                            templateData
+                                                .personalProjects.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
@@ -2433,7 +1911,10 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                         MainAxisSize.min,
                                                     children: [
                                                       Text(
-                                                        personalProjects[index],
+                                                        templateData
+                                                            .personalProjects[
+                                                                index]
+                                                            .name,
                                                         style: const TextStyle(
                                                           fontSize: 10,
                                                         ),
@@ -2444,9 +1925,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       GestureDetector(
                                                         onTap: () {
                                                           setState(() {
-                                                            personalProjects
-                                                                .removeAt(
-                                                                    index);
+                                                            templateData = templateData.copyWith(
+                                                                personalProjects: List.from(
+                                                                    templateData
+                                                                        .personalProjects)
+                                                                  ..removeAt(
+                                                                      index));
                                                           });
                                                         },
                                                         child: Container(
@@ -2534,12 +2018,13 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
-                                    personalProjects.length,
+                                    templateData.personalProjects.length,
                                     (index) {
                                       return Column(
                                         children: [
                                           Text(
-                                            personalProjects[index],
+                                            templateData
+                                                .personalProjects[index].name,
                                             style: const TextStyle(
                                               fontSize: 12,
                                             ),
@@ -2598,7 +2083,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                       child: Wrap(
                                           spacing: 4,
                                           children: List.generate(
-                                            languages.length,
+                                            templateData.languages.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
@@ -2631,7 +2116,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            languages[index]
+                                                            templateData
+                                                                .languages[
+                                                                    index]
                                                                 .language,
                                                             style:
                                                                 const TextStyle(
@@ -2642,7 +2129,9 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                             height: 4,
                                                           ),
                                                           Text(
-                                                            languages[index]
+                                                            templateData
+                                                                .languages[
+                                                                    index]
                                                                 .proficiency,
                                                             style:
                                                                 const TextStyle(
@@ -2654,8 +2143,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                       GestureDetector(
                                                         onTap: () {
                                                           setState(() {
-                                                            languages.removeAt(
-                                                                index);
+                                                            templateData = templateData.copyWith(
+                                                                languages: List.from(
+                                                                    templateData
+                                                                        .languages)
+                                                                  ..removeAt(
+                                                                      index));
                                                           });
                                                         },
                                                         child: Container(
@@ -2743,14 +2236,15 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
-                                    languages.length,
+                                    templateData.languages.length,
                                     (index) {
                                       return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            languages[index].language,
+                                            templateData
+                                                .languages[index].language,
                                             style: const TextStyle(
                                               fontSize: 12,
                                             ),
@@ -2759,7 +2253,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                             height: 5,
                                           ),
                                           Text(
-                                            languages[index].proficiency,
+                                            templateData
+                                                .languages[index].proficiency,
                                             style: const TextStyle(
                                               fontSize: 10,
                                             ),
@@ -2817,7 +2312,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           child: Wrap(
                                             spacing: 4,
                                             children: List.generate(
-                                              interests.length,
+                                              templateData.interests.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
@@ -2843,10 +2338,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                           MainAxisSize.min,
                                                       children: [
                                                         Text(
-                                                          interests[index],
+                                                          templateData
+                                                              .interests[index],
                                                           style:
                                                               const TextStyle(
                                                             fontSize: 10,
+                                                            color: Colors.white,
                                                           ),
                                                         ),
                                                         const SizedBox(
@@ -2855,9 +2352,12 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                         GestureDetector(
                                                           onTap: () {
                                                             setState(() {
-                                                              interests
-                                                                  .removeAt(
-                                                                      index);
+                                                              templateData = templateData.copyWith(
+                                                                  interests: List.from(
+                                                                      templateData
+                                                                          .interests)
+                                                                    ..removeAt(
+                                                                        index));
                                                             });
                                                           },
                                                           child: Container(
@@ -2894,7 +2394,7 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                           child: Wrap(
                                             spacing: 4,
                                             children: List.generate(
-                                              interests.length,
+                                              templateData.interests.length,
                                               (index) {
                                                 return Container(
                                                   padding:
@@ -2909,7 +2409,8 @@ class _TemporaryColumnState extends State<TemporaryColumn> {
                                                             4),
                                                   ),
                                                   child: Text(
-                                                    interests[index],
+                                                    templateData
+                                                        .interests[index],
                                                     style: const TextStyle(
                                                       fontSize: 8,
                                                       color: Colors.white,

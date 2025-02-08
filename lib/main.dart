@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/profile/data/db/user_profile_database_helper.dart';
+import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
+import 'package:my_resume/features/resume/Presentation/screens/resume_two.dart';
 import 'package:my_resume/features/resume/data/db/db_helper.dart';
 import 'package:my_resume/features/resume/Presentation/screens/authentication_screen.dart';
 import 'package:my_resume/features/resume/Presentation/screens/main_screen.dart';
@@ -34,6 +36,7 @@ class ResumeApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: MainScreen(0),
+        // home: ResumeTwo(userProfile: UserProfile.dummyData())
       ),
     );
   }

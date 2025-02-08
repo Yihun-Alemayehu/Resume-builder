@@ -560,7 +560,7 @@ class PdfApi {
                               return Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Text(
-                                  project,
+                                  project.name,
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),
