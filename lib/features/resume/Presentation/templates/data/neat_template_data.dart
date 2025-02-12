@@ -122,6 +122,7 @@ List<String> interests = [
 final List<CertificateModel> certificates = [];
 final List<AwardModel> awards = [];
 final List<String> references = [];
+
 TemplateModel neatTemplateData = TemplateModel(
   templateName: 'Neat',
   templateIndex: 0,

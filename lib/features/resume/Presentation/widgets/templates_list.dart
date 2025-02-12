@@ -29,8 +29,8 @@ List<String> templates = [
 
   List<String> templatesName = [
     'neat',
-    'Template 2',
-    'Template 3',
+    'creative',
+    'modern',
     'Template 4',
     'Template 5',
     'Template 6',

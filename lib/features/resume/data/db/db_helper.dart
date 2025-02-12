@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
-import 'package:my_resume/features/resume/data/model/user_data_model.dart';
 import 'package:my_resume/features/resume/data/model/user_model.dart';
 import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
 import 'package:path/path.dart';
@@ -81,6 +81,27 @@ class DatabaseHelper {
     ''');
   }
 
+  Future<String> saveAssetImageToLocalStorage(String assetPath) async {
+    try {
+      // Load the asset image as bytes
+      final ByteData data = await rootBundle.load(assetPath);
+      final List<int> bytes = data.buffer.asUint8List();
+
+      // Get the application's documents directory
+      final directory = await getApplicationDocumentsDirectory();
+      final imagePath =
+          '${directory.path}/${DateTime.now().millisecondsSinceEpoch}_${basename(assetPath)}';
+
+      // Write the asset image bytes to a new file
+      final File file = File(imagePath);
+      await file.writeAsBytes(bytes);
+
+      return file.path; // Return the saved image path
+    } catch (e) {
+      throw Exception('Failed to save asset image: $e');
+    }
+  }
+
   Future<String> saveImageToLocalStorage(File imageFile) async {
     try {
       // Get the application's documents directory
@@ -98,6 +119,15 @@ class DatabaseHelper {
     }
   }
 
+  Future<String> saveImage(String imagePath) async {
+    if (imagePath.startsWith('assets/')) {
+      // The image is an asset
+      return await saveAssetImageToLocalStorage(imagePath);
+    } else {
+      // The image is from the file system
+      return await saveImageToLocalStorage(File(imagePath));
+    }
+  }
   // CRUD OPERATION FOR TEMPLATES
 
   // CREATE
@@ -107,7 +137,7 @@ class DatabaseHelper {
 
       // Save the profile picture locally
       String profilePicPath =
-          await saveImageToLocalStorage(template.userData.profilePic);
+          await saveImage(template.userData.profilePic.path);
 
       final int id = await db.insert(
         'Templates',
@@ -393,69 +423,4 @@ class DatabaseHelper {
     await db.delete('Templates', where: 'id = ?', whereArgs: [id]);
   }
 
-  // CRUD OPERATION FOR USER DATA
-
-  // CREATE
-  Future<void> insertUserProfile({required MyUser userProfile}) async {
-    final db = await database;
-
-    await db.insert(
-      'UserProfile',
-      {
-        'fullName': userProfile.fullName,
-        'email': userProfile.email,
-        'profilePic': userProfile.profilePic.path,
-        'phoneNumber': userProfile.phoneNumber,
-        'address': userProfile.address,
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  // READ
-  Future<MyUser?> fetchUserProfile() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps =
-        await db.query('UserProfile', limit: 1);
-
-    final map = maps.first;
-
-    return MyUser(
-      fullName: map['fullName'] ?? '',
-      email: map['email'] ?? '',
-      profilePic: File(map['profilePic']),
-      phoneNumber: map['phoneNumber'] ?? '',
-      address: map['address'] ?? '',
-      bio: map['bio'] ?? '',
-      profession: map['profession'] ?? '',
-      linkedIn: map['linkedIn'],
-      github: map['github'],
-      website: map['website'],
-    );
-  }
-
-  // UPDATE
-  Future<void> updateUserProfile(
-      {required int id, required MyUser userProfile}) async {
-    final db = await database;
-
-    await db.update(
-      'UserProfile',
-      {
-        'fullName': userProfile.fullName,
-        'email': userProfile.email,
-        'profilePic': userProfile.profilePic.path,
-        'phoneNumber': userProfile.phoneNumber,
-        'address': userProfile.address,
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
-  // DELETE
-  Future<void> deleteUserProfile({required int id}) async {
-    final db = await database;
-    await db.delete('UserProfile', where: 'id = ?', whereArgs: [id]);
-  }
 }

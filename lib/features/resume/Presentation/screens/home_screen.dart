@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:my_resume/features/resume/Presentation/screens/neat_template_data.dart';
+import 'package:my_resume/features/resume/Presentation/templates/data/neat_template_data.dart';
+import 'package:my_resume/features/resume/Presentation/templates/utils/templates_mapping.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
-import 'package:my_resume/features/resume/data/model/user_data_model.dart';
 import 'package:my_resume/features/resume/Presentation/screens/resume_template.dart';
 import 'package:my_resume/features/resume/Presentation/widgets/templates_list.dart';
 
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ResumeTemplate(
-                        templateData: neatTemplateData,
+                        templateData: getTemplateData(templateIndex: index),
                         isNewTemplate: true,
                         index: index + 1,
                       ),

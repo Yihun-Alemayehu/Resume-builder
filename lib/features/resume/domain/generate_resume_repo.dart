@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
-import 'package:my_resume/features/resume/data/model/user_data_model.dart';
 import 'package:my_resume/core/utils/height_function.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -93,6 +92,15 @@ class PdfApi {
       {required TemplateModel userData,
       required Uint8List imageUrl,
       required List<Uint8List> icons}) {
+    final bool linkedInChecker =
+        userData.userData.linkedIn != null && userData.userData.linkedIn != '';
+    final bool githubChecker =
+        userData.userData.github != null && userData.userData.github != '';
+    final bool websiteChecker =
+        userData.userData.website != null && userData.userData.website != '';
+    print('---------LINKEDIN---------');
+    print(userData.userData.linkedIn);
+    print('---------LINKEDIN---------');
     return Column(
       children: [
         Container(
@@ -193,10 +201,13 @@ class PdfApi {
                       ),
                       Row(
                         children: [
-                          Image(MemoryImage(icons[2]), height: 10, width: 10),
+                          linkedInChecker
+                              ? Image(MemoryImage(icons[2]),
+                                  height: 10, width: 10)
+                              : SizedBox(height: 12, width: 10),
                           SizedBox(width: 5),
                           Text(
-                            userData.userData.linkedIn ?? '',
+                            linkedInChecker ? userData.userData.linkedIn! : '',
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -232,10 +243,13 @@ class PdfApi {
                       ),
                       Row(
                         children: [
-                          Image(MemoryImage(icons[4]), height: 10, width: 10),
+                          githubChecker
+                              ? Image(MemoryImage(icons[4]),
+                                  height: 10, width: 10)
+                              : SizedBox(height: 12, width: 10),
                           SizedBox(width: 5),
                           Text(
-                            userData.userData.github ?? '',
+                            githubChecker ? userData.userData.github! : '',
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -245,10 +259,13 @@ class PdfApi {
                       ),
                       Row(
                         children: [
-                          Image(MemoryImage(icons[5]), height: 10, width: 10),
+                          websiteChecker
+                              ? Image(MemoryImage(icons[5]),
+                                  height: 10, width: 10)
+                              : SizedBox(height: 12, width: 10),
                           SizedBox(width: 5),
                           Text(
-                            userData.userData.website ?? '',
+                            websiteChecker ? userData.userData.website! : '',
                             style: TextStyle(
                               color: PdfColor.fromHex('#ffffff'),
                               fontSize: 11,
@@ -595,7 +612,6 @@ class PdfApi {
                         ),
                         Wrap(
                             direction: Axis.vertical,
-                            // spacing: 4,
                             children: List.generate(
                               userData.languages.length,
                               (index) {
