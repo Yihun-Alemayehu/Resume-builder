@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -46,9 +47,9 @@ class PdfApi {
 
     pdf.addPage(
       Page(
-        build: (context) => customColumn(
+        build: (context) => getTemplateColumn(
             userData: userData, imageUrl: imageUrl, icons: iconsList),
-        pageFormat: customPageFormat,
+        pageFormat: PdfPageFormat.roll57,
         margin: const EdgeInsets.all(0),
       ),
     );
@@ -82,13 +83,466 @@ class PdfApi {
     return file;
   }
 
+  static Column creativeTemplateColumn(
+      {required TemplateModel userData,
+      required Uint8List imageUrl,
+      required List<Uint8List> icons}) {
+    return Column(children: [
+            
+          ]
+        );
+  }
+
+  static Column modernTemplateColumn(
+      {required TemplateModel userData,
+      required Uint8List imageUrl,
+      required List<Uint8List> icons}) {
+    log(userData.toString());
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
+          child: Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userData.userData.fullName,
+                  style: TextStyle(
+                      // color: PdfColor.fromHex('#313c4e'),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  userData.userData.profession,
+                  style: TextStyle(
+                      // color: PdfColor.fromHex('#3e6e6f'),
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    userData.userData.bio,
+                    style: TextStyle(
+                      color: PdfColor.fromHex('#313c4e'),
+                      fontSize: 11,
+                    ),
+                    overflow: TextOverflow.visible,
+                    softWrap: true,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        Divider(
+          color: PdfColor.fromHex('#313c4e'),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 30, left: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image(MemoryImage(icons[0]), height: 10, width: 10),
+                  SizedBox(width: 5),
+                  Text(
+                    userData.userData.email,
+                    style: const TextStyle(
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Image(MemoryImage(icons[3]), height: 10, width: 10),
+                  SizedBox(width: 5),
+                  Text(
+                    userData.userData.phoneNumber,
+                    style: const TextStyle(
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Image(MemoryImage(icons[1]), height: 10, width: 10),
+                  SizedBox(width: 5),
+                  Text(
+                    userData.userData.address,
+                    style: const TextStyle(
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Divider(
+          color: PdfColor.fromHex('#313c4e'),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(right: 10, left: 20, top: 20),
+                child: Column(
+                  children: [
+                    // WORK EXPERIENCE SECTION
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'WORK EXPERIENCE',
+                          style: TextStyle(
+                            // decoration: TextDecoration.underline,
+                            // decorationColor: PdfColor.fromHex('#4793a4'),
+                            // decorationThickness: 3,
+                            fontWeight: FontWeight.bold,
+                            // color: PdfColor.fromHex('#4793a4'),
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          // height: heightFunction(
+                          //         sectionType: 'work',
+                          //         length: userData.workExperience.length,
+                          //         screen: 'generate-resume')
+                          //     .toDouble(),
+                          child: ListView.builder(
+                            itemCount: userData.workExperience.length,
+                            itemBuilder: (context, index) {
+                              mt.debugPrint(
+                                  '-------------WORK EXPERIENCE---------------');
+                              mt.debugPrint(
+                                  userData.workExperience.length.toString());
+                              mt.debugPrint(
+                                  '-------------WORK EXPERIENCE---------------');
+                              final workExperience =
+                                  userData.workExperience[index];
+
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    workExperience.jobTitle,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  Text(
+                                    workExperience.companyName,
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        workExperience.startDate,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#808080'),
+                                          fontSize: 8,
+                                        ),
+                                      ),
+                                      Text(
+                                        workExperience.jobType,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#808080'),
+                                          fontSize: 8,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    workExperience.achievements,
+                                    style: const TextStyle(
+                                      fontSize: 9,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    // EDUCATION SECTION
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'EDUCATION',
+                          style: TextStyle(
+                            // decoration: TextDecoration.underline,
+                            // decorationColor: PdfColor.fromHex('#4793a4'),
+                            // decorationThickness: 3,
+                            fontWeight: FontWeight.bold,
+                            // color: PdfColor.fromHex('#4793a4'),
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          // height: heightFunction(
+                          //         sectionType: 'edu',
+                          //         length: userData.educationBackground.length,
+                          //         screen: 'generate-resume')
+                          //     .toDouble(),
+                          child: ListView.builder(
+                            itemCount: userData.educationBackground.length,
+                            itemBuilder: (context, index) {
+                              mt.debugPrint(
+                                  '-------------EDUCATION BACKGROUND---------------');
+                              mt.debugPrint(userData.educationBackground.length
+                                  .toString());
+                              mt.debugPrint(
+                                  '-------------EDUCATION BACKGROUND---------------');
+                              final education =
+                                  userData.educationBackground[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    education.fieldOfStudy,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  Text(
+                                    education.institutionName,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        education.startDate,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#808080'),
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                      Text(
+                                        education.institutionAddress,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: PdfColor.fromHex('#808080'),
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // SKILLS SECTION
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(left: 20, top: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'SKILLS',
+                          style: TextStyle(
+                            // decoration: TextDecoration.underline,
+                            // decorationColor: PdfColor.fromHex('#4793a4'),
+                            // decorationThickness: 3,
+                            fontWeight: FontWeight.bold,
+                            // color: PdfColor.fromHex('#4793a4'),
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Wrap(
+                          spacing: 4,
+                          children: [
+                            for (int i = 0; i < userData.skills.length; i += 2)
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    userData.skills[i],
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
+                                  if (i + 1 < userData.skills.length)
+                                    Text(
+                                      userData.skills[i + 1],
+                                      style: const TextStyle(fontSize: 10),
+                                    )
+                                  else
+                                    SizedBox(),
+                                ],
+                              ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                    // CERTIFICATES SECTION
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'CERTIFICATES',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            userData.certificates.length,
+                            (index) {
+                              final certificate = userData.certificates[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      certificate.certificateName,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.clip,
+                                      softWrap: true,
+                                    ),
+                                    Text(
+                                      certificate.issuedDate,
+                                      style: TextStyle(
+                                        color: PdfColor.fromHex('#808080'),
+                                        fontSize: 11,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    // LANGUAGES SECTION
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'LANGUAGES',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Wrap(
+                          direction: Axis.vertical,
+                          children: List.generate(
+                            userData.languages.length,
+                            (index) {
+                              final language = userData.languages[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    language.language,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    language.proficiency,
+                                    style: TextStyle(
+                                      color: PdfColor.fromHex('#808080'),
+                                      fontSize: 10,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
   static Future openFile(File file) async {
     final url = file.path;
 
     await OpenFile.open(url);
   }
 
-  static Column customColumn(
+  static Column neatTemplateColumn(
       {required TemplateModel userData,
       required Uint8List imageUrl,
       required List<Uint8List> icons}) {
@@ -308,11 +762,11 @@ class PdfApi {
                           ),
                         ),
                         SizedBox(
-                          height: heightFunction(
-                                  sectionType: 'edu',
-                                  length: userData.educationBackground.length,
-                                  screen: 'generate-resume')
-                              .toDouble(),
+                          // height: heightFunction(
+                          //         sectionType: 'edu',
+                          //         length: userData.educationBackground.length,
+                          //         screen: 'generate-resume')
+                          //     .toDouble(),
                           child: ListView.builder(
                             itemCount: userData.educationBackground.length,
                             itemBuilder: (context, index) {
@@ -409,11 +863,11 @@ class PdfApi {
                           ),
                         ),
                         SizedBox(
-                          height: heightFunction(
-                                  sectionType: 'work',
-                                  length: userData.workExperience.length,
-                                  screen: 'generate-resume')
-                              .toDouble(),
+                          // height: heightFunction(
+                          //         sectionType: 'work',
+                          //         length: userData.workExperience.length,
+                          //         screen: 'generate-resume')
+                          //     .toDouble(),
                           child: ListView.builder(
                             itemCount: userData.workExperience.length,
                             itemBuilder: (context, index) {
@@ -487,6 +941,9 @@ class PdfApi {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                   ],
                 ),
@@ -693,6 +1150,9 @@ class PdfApi {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               ),
@@ -701,5 +1161,24 @@ class PdfApi {
         ),
       ],
     );
+  }
+}
+
+Widget getTemplateColumn(
+    {required TemplateModel userData,
+    required Uint8List imageUrl,
+    required List<Uint8List> icons}) {
+  switch (userData.templateIndex) {
+    case 0:
+      return PdfApi.neatTemplateColumn(
+          userData: userData, imageUrl: imageUrl, icons: icons);
+    case 1:
+      return PdfApi.creativeTemplateColumn(
+          userData: userData, imageUrl: imageUrl, icons: icons);
+    case 2:
+      return PdfApi.modernTemplateColumn(
+          userData: userData, imageUrl: imageUrl, icons: icons);
+    default:
+      throw 'Invalid template index';
   }
 }
