@@ -287,15 +287,18 @@ class PdfApi {
                                       fontSize: 9,
                                     ),
                                   ),
-                                  for (var achievement in workExperience.achievements)
-                                    Bullet(
-                                      bulletColor: PdfColor.fromHex('#4793a4'),
-                                      bulletSize: 4,
-                                      text: achievement,
-                                      style: const TextStyle(
-                                        fontSize: 8,
-                                      ),
-                                    ),
+                                  for (var achievement
+                                      in workExperience.achievements)
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('-'),
+                                        Expanded(
+                                          child: Text(achievement),
+                                        )
+                                      ],
+                                    )
                                 ],
                               );
                             },
@@ -310,11 +313,7 @@ class PdfApi {
                         Text(
                           'EDUCATION',
                           style: TextStyle(
-                            // decoration: TextDecoration.underline,
-                            // decorationColor: PdfColor.fromHex('#4793a4'),
-                            // decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            // color: PdfColor.fromHex('#4793a4'),
                             fontSize: 15,
                           ),
                         ),
@@ -938,15 +937,18 @@ class PdfApi {
                                       fontSize: 8,
                                     ),
                                   ),
-                                  for (var achievement in workExperience.achievements)
-                                    Bullet(
-                                      bulletColor: PdfColor.fromHex('#4793a4'),
-                                      bulletSize: 4,
-                                      text: achievement,
-                                      style: const TextStyle(
-                                        fontSize: 8,
-                                      ),
-                                    ),
+                                  for (var achievement
+                                      in workExperience.achievements)
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('-'),
+                                        Expanded(
+                                          child: Text(achievement),
+                                        )
+                                      ],
+                                    )
                                 ],
                               );
                             },

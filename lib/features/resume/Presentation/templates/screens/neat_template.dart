@@ -1707,67 +1707,81 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                 ),
                                                 Column(
                                                   children: List.generate(templateData.workExperience[index].achievements.length, (innerIndex) {
-                                                    return SizedBox(
-                                                      width: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.4,
-                                                      child: TextField(
-                                                        maxLines: null,
-                                                        onTap: () {
-                                                          setState(() {
-                                                            _borderColorForWorkExp[
-                                                                    index] =
-                                                                !_borderColorForWorkExp[
-                                                                    index];
-                                                          });
-                                                        },
-                                                        onTapOutside: (event) {
-                                                          setState(() {});
-                                                          FocusScope.of(context)
-                                                              .unfocus();
-                                                        },
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            templateData = templateData.copyWith(
-                                                                workExperience: templateData
-                                                                    .workExperience
-                                                                    .map((e) =>
-                                                                            e.copyWith(
-                                                                              achievements: e
-                                                                                  .achievements
-                                                                                  .asMap()
-                                                                                  .map((i, c) => MapEntry(i, i == innerIndex ? value : c))
-                                                                                  .values
-                                                                                  .toList()
-                                                                                  .toList(),
-                                                                            ))
-                                                                        .toList(),);
-                                                          });
-                                                        },
-                                                        controller:
-                                                            achievementsControllers[
-                                                                index][innerIndex],
-                                                        style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 8,
-                                                        ),
-                                                        decoration:
-                                                            const InputDecoration(
-                                                          isDense: true,
-                                                          contentPadding:
-                                                              EdgeInsets.zero,
-                                                          border: InputBorder.none,
-                                                          focusedBorder:
-                                                              OutlineInputBorder(
-                                                            borderRadius:
-                                                                BorderRadius.zero,
-                                                            borderSide: BorderSide(
-                                                                color:
-                                                                    Colors.green),
+                                                    return Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        const Text(
+                                                            '-',
+                                                            style: TextStyle(
+                                                              fontSize: 8,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        SizedBox(
+                                                          width: MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.39,
+                                                          child: TextField(
+                                                            maxLines: null,
+                                                            onTap: () {
+                                                              setState(() {
+                                                                _borderColorForWorkExp[
+                                                                        index] =
+                                                                    !_borderColorForWorkExp[
+                                                                        index];
+                                                              });
+                                                            },
+                                                            onTapOutside: (event) {
+                                                              setState(() {});
+                                                              FocusScope.of(context)
+                                                                  .unfocus();
+                                                            },
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                templateData = templateData.copyWith(
+                                                                    workExperience: templateData
+                                                                        .workExperience
+                                                                        .map((e) =>
+                                                                                e.copyWith(
+                                                                                  achievements: e
+                                                                                      .achievements
+                                                                                      .asMap()
+                                                                                      .map((i, c) => MapEntry(i, i == innerIndex ? value : c))
+                                                                                      .values
+                                                                                      .toList()
+                                                                                      .toList(),
+                                                                                ))
+                                                                            .toList(),);
+                                                              });
+                                                            },
+                                                            controller:
+                                                                achievementsControllers[
+                                                                    index][innerIndex],
+                                                            style: const TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: 8,
+                                                            ),
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              isDense: true,
+                                                              contentPadding:
+                                                                  EdgeInsets.zero,
+                                                              border: InputBorder.none,
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius.zero,
+                                                                borderSide: BorderSide(
+                                                                    color:
+                                                                        Colors.green),
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
+                                                      ],
                                                     );
                                                   },),
                                                 ),
