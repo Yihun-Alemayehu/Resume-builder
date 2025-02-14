@@ -250,7 +250,9 @@ class DatabaseHelper {
                       startDate: e['startDate'] ?? '',
                       endDate: e['endDate'] ?? '',
                       jobType: e['jobType'] ?? '',
-                      achievements: e['achievements'] ?? '',
+                      achievements: e['achievements'] != null
+                          ? List<String>.from(e['achievements'])
+                          : [],
                     )
                   : null)
               .whereType<WorkExperience>()
@@ -422,5 +424,4 @@ class DatabaseHelper {
     final db = await database;
     await db.delete('Templates', where: 'id = ?', whereArgs: [id]);
   }
-
 }

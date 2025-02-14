@@ -36,7 +36,7 @@ class _WorkExpTabState extends State<WorkExpTab> {
     jobTitleController.text = workExperience.jobTitle;
     companyNameController.text = workExperience.companyName;
     jobTypeController.text = workExperience.jobType;
-    achievementsController.text = workExperience.achievements;
+    // achievementsController.text = workExperience.achievements;
 
     showDialog(
       context: context,
@@ -130,7 +130,11 @@ class _WorkExpTabState extends State<WorkExpTab> {
                               .toString()
                               .split(' -')[1],
                           jobType: jobTypeController.text,
-                          achievements: achievementsController.text,
+                          achievements: [
+                            'achievement',
+                            'achievement',
+                            'achievement',
+                          ],
                         ),
                       );
                 });
@@ -290,7 +294,9 @@ class _WorkExpTabState extends State<WorkExpTab> {
                     jobType: 'job type',
                     startDate: 'start date',
                     endDate: 'end date',
-                    achievements: 'achievement',
+                    achievements: [
+                      'achievement'
+                      'achievement'],
                   ),
                 );
           });

@@ -181,7 +181,9 @@ class UserProfileDatabaseHelper {
                     startDate: e['startDate'] ?? '',
                     endDate: e['endDate'] ?? '',
                     jobType: e['jobType'] ?? '',
-                    achievements: e['achievements'] ?? '',
+                    achievements: e['achievements'] != null
+                        ? List<String>.from(e['achievements'])
+                        : [],
                   )
                 : null)
             .whereType<WorkExperience>()

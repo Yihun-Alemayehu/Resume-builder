@@ -53,22 +53,22 @@ TemplateModel creativeTemplateData = TemplateModel(
       jobType: 'Full-time',
       startDate: '08/08/2020',
       endDate: '08/08/2026',
-      achievements: 
+      achievements: [
         'Developed a new feature in the software application'
         'Fixed a bug in the existing codebase'
         'Optimized the performance of the application'
-    ),
+  ]),
     WorkExperience(
       companyName: 'XYZ Corp',
       jobTitle: 'Software Engineer',
       jobType: 'contract',
       startDate: '08/08/2020',
       endDate: '08/08/2026',
-      achievements: 
+      achievements: [
         'Improved the user interface of the software application'
         'Fixed a bug in the existing codebase'
         'Optimized the performance of the application'
-    ),
+  ]),
   ],
   languages: [
     LanguageModel(language: 'English', proficiency: 'Native'),

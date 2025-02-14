@@ -16,7 +16,7 @@ class WorkExperience {
   final String startDate;
   final String endDate;
   final String jobType;
-  final String achievements;
+  final List<String> achievements;
 
   WorkExperience copyWith({
     String? jobTitle,
@@ -24,7 +24,7 @@ class WorkExperience {
     String? startDate,
     String? endDate,
     String? jobType,
-    String? achievements,
+    List<String>? achievements,
   }) {
     return WorkExperience(
       jobTitle: jobTitle ?? this.jobTitle,
@@ -54,8 +54,8 @@ class WorkExperience {
       startDate: map['startDate'] as String,
       endDate: map['endDate'] as String,
       jobType: map['jobType'] as String,
-      achievements: map['achievements'] as String,
-    );
+      achievements: List<String>.from((map['achievements'] as List<String>),
+    ));
   }
 
   String toJson() => json.encode(toMap());

@@ -131,7 +131,10 @@ class UserProfile extends Equatable {
           startDate: '03/03/2023',
           endDate: '03/06/2023',
           jobType: 'remote',
-          achievements: 'AA',
+          achievements: [
+            'description',
+            'description',
+          ],
         ),
         WorkExperience(
           companyName: 'horan',
@@ -139,7 +142,10 @@ class UserProfile extends Equatable {
           startDate: '07/07/2024',
           endDate: '07/10/2024',
           jobType: 'contract',
-          achievements: 'Nothing',
+          achievements: [
+            'description',
+            'description',
+          ],
         ),
       ],
       languages: [

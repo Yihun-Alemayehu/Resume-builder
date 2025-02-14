@@ -108,17 +108,11 @@ class PdfApi {
               children: [
                 Text(
                   userData.userData.fullName,
-                  style: TextStyle(
-                      // color: PdfColor.fromHex('#313c4e'),
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   userData.userData.profession,
-                  style: TextStyle(
-                      // color: PdfColor.fromHex('#3e6e6f'),
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
@@ -144,39 +138,61 @@ class PdfApi {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image(MemoryImage(icons[0]), height: 10, width: 10),
-                  SizedBox(width: 5),
-                  Text(
-                    userData.userData.email,
-                    style: const TextStyle(
-                      fontSize: 11,
-                    ),
+                  Row(
+                    children: [
+                      Image(MemoryImage(icons[0]), height: 10, width: 10),
+                      SizedBox(width: 5),
+                      Text(
+                        userData.userData.email,
+                        style: const TextStyle(
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image(MemoryImage(icons[1]), height: 10, width: 10),
+                      SizedBox(width: 5),
+                      Text(
+                        userData.userData.address,
+                        style: const TextStyle(
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image(MemoryImage(icons[3]), height: 10, width: 10),
-                  SizedBox(width: 5),
-                  Text(
-                    userData.userData.phoneNumber,
-                    style: const TextStyle(
-                      fontSize: 11,
-                    ),
+                  Row(
+                    children: [
+                      Image(MemoryImage(icons[2]), height: 10, width: 10),
+                      SizedBox(width: 5),
+                      Text(
+                        userData.userData.phoneNumber,
+                        style: const TextStyle(
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  Image(MemoryImage(icons[1]), height: 10, width: 10),
-                  SizedBox(width: 5),
-                  Text(
-                    userData.userData.address,
-                    style: const TextStyle(
-                      fontSize: 11,
-                    ),
+                  Row(
+                    children: [
+                      Image(MemoryImage(icons[3]), height: 10, width: 10),
+                      SizedBox(width: 5),
+                      Text(
+                        userData.userData.linkedIn ?? '',
+                        style: const TextStyle(
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -202,11 +218,7 @@ class PdfApi {
                         Text(
                           'WORK EXPERIENCE',
                           style: TextStyle(
-                            // decoration: TextDecoration.underline,
-                            // decorationColor: PdfColor.fromHex('#4793a4'),
-                            // decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            // color: PdfColor.fromHex('#4793a4'),
                             fontSize: 15,
                           ),
                         ),
@@ -270,11 +282,20 @@ class PdfApi {
                                     ],
                                   ),
                                   Text(
-                                    workExperience.achievements,
+                                    'Achievements',
                                     style: const TextStyle(
                                       fontSize: 9,
                                     ),
                                   ),
+                                  for (var achievement in workExperience.achievements)
+                                    Bullet(
+                                      bulletColor: PdfColor.fromHex('#4793a4'),
+                                      bulletSize: 4,
+                                      text: achievement,
+                                      style: const TextStyle(
+                                        fontSize: 8,
+                                      ),
+                                    ),
                                 ],
                               );
                             },
@@ -383,39 +404,27 @@ class PdfApi {
                         Text(
                           'SKILLS',
                           style: TextStyle(
-                            // decoration: TextDecoration.underline,
-                            // decorationColor: PdfColor.fromHex('#4793a4'),
-                            // decorationThickness: 3,
                             fontWeight: FontWeight.bold,
-                            // color: PdfColor.fromHex('#4793a4'),
                             fontSize: 15,
                           ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Wrap(
-                          spacing: 4,
-                          children: [
-                            for (int i = 0; i < userData.skills.length; i += 2)
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    userData.skills[i],
-                                    style: const TextStyle(fontSize: 10),
-                                  ),
-                                  if (i + 1 < userData.skills.length)
-                                    Text(
-                                      userData.skills[i + 1],
-                                      style: const TextStyle(fontSize: 10),
-                                    )
-                                  else
-                                    SizedBox(),
-                                ],
-                              ),
-                          ],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            userData.skills.length,
+                            (index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Text(
+                                  userData.skills[index],
+                                  style: const TextStyle(fontSize: 10),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                         SizedBox(
                           height: 20,
@@ -929,12 +938,15 @@ class PdfApi {
                                       fontSize: 8,
                                     ),
                                   ),
-                                  Text(
-                                    workExperience.achievements,
-                                    style: const TextStyle(
-                                      fontSize: 9,
+                                  for (var achievement in workExperience.achievements)
+                                    Bullet(
+                                      bulletColor: PdfColor.fromHex('#4793a4'),
+                                      bulletSize: 4,
+                                      text: achievement,
+                                      style: const TextStyle(
+                                        fontSize: 8,
+                                      ),
                                     ),
-                                  ),
                                 ],
                               );
                             },

@@ -58,27 +58,27 @@ List<WorkExperience> workExp = [
     startDate: '10/2023 - 01/2024',
     endDate: '01/2024',
     jobType: 'Remote',
-    achievements:
+    achievements:[
         'Implemented Payment Gateway Transition: Successfully facilitated the transition from Telebirr to Chapa as the payment gateway, streamlining transaction processes and enhancing payment reliability.',
-  ),
+],),
   WorkExperience(
     jobTitle: 'Flutter Developer',
     companyName: 'Horan-Software Solutions',
     startDate: '08/2024 - 11/2024',
     endDate: '11/2024',
     jobType: 'Contract',
-    achievements:
+    achievements:[
         'Implemented Firebase Integration: Successfully integrated Firebase into the application, enhancing real-time database management, user authentication, and analytics capabilities, leading to improved app performance and user engagement.',
-  ),
+  ],),
   WorkExperience(
     jobTitle: 'Flutter Developer',
     companyName: 'Yize-Tech',
     startDate: '02/2023 - 09/2023',
     endDate: '09/2023',
     jobType: 'Remote',
-    achievements:
+    achievements:[
         'Implemented Complex UI Designs: Successfully developed and integrated intricate, user-centric UI components, ensuring seamless functionality, responsiveness, and an engaging user experience across diverse devices and screen sizes.',
-  ),
+  ],),
 ];
 
 List<LanguageModel> languages = [
