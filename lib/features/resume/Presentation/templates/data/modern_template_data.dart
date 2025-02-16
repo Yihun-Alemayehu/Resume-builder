@@ -18,10 +18,7 @@ TemplateModel modernTemplateData = TemplateModel(
         'Experienced with blockchain technologies, such as Ethereum and Hyperledger Fabric'
         'Strong communication and problem-solving skills'
         'I worked on building a decentralized voting DApp, integrating blockchain authentication using Ethereum smart contracts. '
-        'This ensured tamper-proof voting and secured voter identities, resulting in a trustworthy and transparent election process.'
-        'I built a Minimum Viable Product (MVP) for a Software-as-a-Service (SaaS) platform within a tight 2-month deadline,'
-        ' enabling the startup to pitch to investors and acquire its first 3 paying customers. My work involved REST API integration, '
-        'payment gateway setup, and user authentication implementation.',
+        'This ensured tamper-proof voting and secured voter identities, resulting in a trustworthy and transparent election process.',
     profilePic: File('assets/copy.jpg'),
     email: 'yizetechshow42@gmail.com',
     address: 'Swedeb',
@@ -92,20 +89,6 @@ TemplateModel modernTemplateData = TemplateModel(
               'across various projects. My contributions included bug fixes, performance improvements, '
               'and feature development, which were well-received by the community and helped enhance '
               'the softwares stability and functionality.'
-        ]),
-    WorkExperience(
-        companyName: 'XYZ Corp',
-        jobTitle: 'Software Engineer',
-        jobType: 'contract',
-        startDate: '08/08/2020',
-        endDate: '08/08/2026',
-        achievements: [
-          'Improved the user interface of the software application'
-              'Fixed a bug in the existing codebase Optimized the performance of the application'
-              'I built a Minimum Viable Product (MVP) for a Software-as-a-Service (SaaS) platform '
-              'within a tight 2-month deadline, enabling the startup to pitch to investors and acquire '
-              'its first 3 paying customers. My work involved REST API integration, payment gateway setup, '
-              'and user authentication implementation.'
         ]),
     WorkExperience(
       companyName: 'Google Inc.',
