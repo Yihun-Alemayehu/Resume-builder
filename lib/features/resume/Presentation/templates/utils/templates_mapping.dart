@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/creative_template_data.dart';
+import 'package:my_resume/features/resume/Presentation/templates/data/hybrid_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/minimalist_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/modern_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/neat_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/hybrid_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/minimalist_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/modern_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/neat_template.dart';
@@ -14,6 +16,7 @@ final Map<String, TemplateModel> templatesDataMap = {
   'creative': creativeTemplateData,
  'modern': modernTemplateData,
  'minimalist': minimalistTemplateData,
+ 'hybrid': hybridTemplateData,
 };
 
 // Function to return the widget associated with a given template type
@@ -27,6 +30,8 @@ TemplateModel getTemplateData({required int templateIndex}) {
       return modernTemplateData;
     case 3:
       return minimalistTemplateData;
+    case 4:
+      return hybridTemplateData;
     default:
       throw 'Invalid template index';
   }
@@ -46,6 +51,10 @@ final Map<String, Widget Function(TemplateModel, GlobalKey)> templatesMap = {
     key: key,
   ),
   'minimalist': (TemplateModel templateData, GlobalKey key) => MinimalistTemplate(
+    templateData: templateData, 
+    key: key,
+  ),
+  'hybrid': (TemplateModel templateData, GlobalKey key) => HybridTemplate(
     templateData: templateData, 
     key: key,
   ),

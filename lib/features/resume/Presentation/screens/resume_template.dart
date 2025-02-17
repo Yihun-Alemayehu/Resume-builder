@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/hybrid_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/minimalist_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/modern_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/neat_template.dart';
@@ -28,13 +29,12 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
   final TransformationController _transformationController =
       TransformationController();
 
-  final GlobalKey<NeatTemplateState> _childKey = GlobalKey<NeatTemplateState>();
-
   final Map<String, GlobalKey<State<StatefulWidget>>> _templateKeys = {
     'neat': GlobalKey<NeatTemplateState>(),
     'modern': GlobalKey<ModernTemplateState>(),
     'creative': GlobalKey<CreativeTemplateState>(),
     'minimalist': GlobalKey<MinimalistTemplateState>(),
+    'hybrid': GlobalKey<HybridTemplateState>(),
     // Add more templates as needed
   };
 
@@ -67,8 +67,6 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () async {
-              final icons = _childKey.currentState?.icons;
-              final templateData = _childKey.currentState?.templateData;
               final updatedData =
                   (selectedKey.currentState as dynamic)?.templateData;
               final updatedIcons =
