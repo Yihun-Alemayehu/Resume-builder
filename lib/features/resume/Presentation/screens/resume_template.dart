@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/minimalist_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/modern_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/neat_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/utils/templates_mapping.dart';
@@ -33,6 +34,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
     'neat': GlobalKey<NeatTemplateState>(),
     'modern': GlobalKey<ModernTemplateState>(),
     'creative': GlobalKey<CreativeTemplateState>(),
+    'minimalist': GlobalKey<MinimalistTemplateState>(),
     // Add more templates as needed
   };
 
