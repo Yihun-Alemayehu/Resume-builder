@@ -3165,6 +3165,15 @@ class PdfApi {
       ),
     );
   }
+
+  static Widget professionalTemplateColumn(
+      {required TemplateModel userData,
+      required Uint8List imageUrl,
+      required List<Uint8List> icons}) {
+    return Column(
+      children: [],
+    );
+  }
 }
 
 Widget getTemplateColumn(
@@ -3186,6 +3195,9 @@ Widget getTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     case 4:
       return PdfApi.hybridTemplateColumn(
+          userData: userData, imageUrl: imageUrl, icons: icons);
+    case 5:
+      return PdfApi.professionalTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     default:
       throw 'Invalid template index';
