@@ -3170,9 +3170,846 @@ class PdfApi {
       {required TemplateModel userData,
       required Uint8List imageUrl,
       required List<Uint8List> icons}) {
-    return Column(
-      children: [],
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 1st SECTION
+          SizedBox(
+            width: PdfPageFormat.roll57.width * 0.27,
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(7),
+                      bottomLeft: Radius.circular(7),
+                    ),
+                    color: PdfColor.fromHex('#323a4d'),
+                  ),
+                  child: Column(
+                    children: [
+                      // PROFILE PICTURE
+                      Container(
+                        width: 101,
+                        height: 101,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: PdfColor.fromHex('#449399'),
+                            width: 2,
+                          ),
+                          color: PdfColor.fromHex('#ffffff'),
+                        ),
+                        child: ClipOval(
+                          child: Image(
+                            MemoryImage(imageUrl),
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                      ),
+
+                      // SKILLS SECTION
+                      SizedBox(
+                        width: PdfPageFormat.a4.width * 0.27,
+                        child: Container(
+                          padding: const EdgeInsets.only(top: 20, left: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 20,
+                                        width: 20,
+                                        // decoration: BoxDecoration(
+                                        //   border: Border.all(
+                                        //     color: PdfColor.fromHex('#6c5c9c'),
+                                        //     width: 1,
+                                        //   ),
+                                        //   borderRadius: BorderRadius.circular(2),
+                                        // ),
+                                        child: Center(
+                                            child: Image(MemoryImage(icons[6]),
+                                                height: 20, width: 20)),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        'SKILLS',
+                                        style: TextStyle(
+                                          color: PdfColor.fromHex('#ffffff'),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  GridView(
+                                    crossAxisCount: 1, // 2 items per row
+                                    crossAxisSpacing:
+                                        0.1, // Spacing between columns
+                                    mainAxisSpacing: 4, // Spacing between rows
+                                    childAspectRatio:
+                                        0.1, // Adjust this to control the height of the items
+                                    children: List.generate(
+                                      userData.skills.length,
+                                      (index) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                            color: PdfColor.fromHex('#acb2b7'),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 2),
+                                          child: Text(
+                                            userData.skills[index],
+                                            style: TextStyle(
+                                                // color:
+                                                //     PdfColor.fromHex('#000000'),
+                                                fontSize: 10),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ),
+                              // PROJECTS SECTION
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 20,
+                                        width: 20,
+                                        // decoration: BoxDecoration(
+                                        //   border: Border.all(
+                                        //     color: PdfColor.fromHex('#6c5c9c'),
+                                        //     width: 1,
+                                        //   ),
+                                        //   borderRadius: BorderRadius.circular(2),
+                                        // ),
+                                        child: Center(
+                                            child: Image(MemoryImage(icons[7]),
+                                                height: 20, width: 20)),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        'PROJECTS',
+                                        style: TextStyle(
+                                          color: PdfColor.fromHex('#ffffff'),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: List.generate(
+                                      userData.personalProjects.length,
+                                      (index) {
+                                        final project =
+                                            userData.personalProjects[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 5, right: 20),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                project.name,
+                                                style: TextStyle(
+                                                  color: PdfColor.fromHex(
+                                                      '#ffffff'),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13,
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.clip,
+                                                softWrap: true,
+                                              ),
+                                              Text(
+                                                project.description,
+                                                style: TextStyle(
+                                                  color: PdfColor.fromHex(
+                                                      '#ffffff'),
+                                                  fontSize: 9,
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              // CERTIFICATES SECTION
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 20,
+                                        width: 20,
+                                        // decoration: BoxDecoration(
+                                        //   border: Border.all(
+                                        //     color: PdfColor.fromHex('#6c5c9c'),
+                                        //     width: 1,
+                                        //   ),
+                                        //   borderRadius: BorderRadius.circular(2),
+                                        // ),
+                                        child: Center(
+                                            child: Image(MemoryImage(icons[8]),
+                                                height: 20, width: 20)),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        'CERTIFICATES',
+                                        style: TextStyle(
+                                          color: PdfColor.fromHex('#ffffff'),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: List.generate(
+                                      userData.certificates.length,
+                                      (index) {
+                                        final certificate =
+                                            userData.certificates[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 5, right: 20),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                certificate.certificateName,
+                                                style: TextStyle(
+                                                  color: PdfColor.fromHex(
+                                                      '#ffffff'),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13,
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.clip,
+                                                softWrap: true,
+                                              ),
+                                              Text(
+                                                certificate.issuedDate,
+                                                style: TextStyle(
+                                                  color: PdfColor.fromHex(
+                                                      '#ffffff'),
+                                                  fontSize: 9,
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+
+                              // LANGUAGES SECTION
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 20,
+                                        width: 20,
+                                        child: Center(
+                                            child: Image(MemoryImage(icons[9]),
+                                                height: 20, width: 20)),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        'LANGUAGES',
+                                        style: TextStyle(
+                                          color: PdfColor.fromHex('#ffffff'),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Wrap(
+                                    direction: Axis.vertical,
+                                    children: List.generate(
+                                      userData.languages.length,
+                                      (index) {
+                                        final language =
+                                            userData.languages[index];
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              language.language,
+                                              style: TextStyle(
+                                                color:
+                                                    PdfColor.fromHex('#ffffff'),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                            Text(
+                                              language.proficiency,
+                                              style: TextStyle(
+                                                color:
+                                                    PdfColor.fromHex('#ffffff'),
+                                                fontSize: 9,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 5,
+                  color: PdfColor.fromHex('#449399'),
+                ),
+                Container(
+                  width: 5,
+                  color: PdfColor.fromHex('#a1c7ca'),
+                ),
+              ],
+            ),
+          ),
+
+          // 2ND SECTION
+          SizedBox(
+            width: PdfPageFormat.roll57.width * 0.7,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: PdfPageFormat.roll57.width * 0.7,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          userData.userData.fullName,
+                          style: TextStyle(
+                              // color: PdfColor.fromHex('#ffffff'),
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          userData.userData.profession,
+                          style: TextStyle(
+                              color: PdfColor.fromHex('#449399'),
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            userData.userData.bio,
+                            style: const TextStyle(
+                              // color: PdfColor.fromHex('#ffffff'),
+                              fontSize: 11,
+                            ),
+                            overflow: TextOverflow.visible,
+                            softWrap: true,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Container(
+                          padding: const EdgeInsets.all(8)
+                              .copyWith(bottom: 12, top: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: PdfColor.fromHex('#323a4d'),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                          height: 17,
+                                          width: 17,
+                                          child: Image(MemoryImage(icons[0]),
+                                              height: 17, width: 17)),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        userData.userData.email,
+                                        style: TextStyle(
+                                          color: PdfColor.fromHex('#ffffff'),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Image(MemoryImage(icons[2]),
+                                          height: 13, width: 13),
+                                      SizedBox(width: 5),
+                                      SizedBox(
+                                        width: 200, // Adjust as needed
+                                        child: Text(
+                                          userData.userData.linkedIn ?? '',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: PdfColor.fromHex('#ffffff'),
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image(MemoryImage(icons[3]),
+                                          height: 13, width: 13),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        userData.userData.phoneNumber,
+                                        style: TextStyle(
+                                          color: PdfColor.fromHex('#ffffff'),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image(MemoryImage(icons[1]),
+                                          height: 13, width: 13),
+                                      SizedBox(width: 5),
+                                      SizedBox(
+                                        width: 120, // Adjust as needed
+                                        child: Text(
+                                          userData.userData.address,
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: PdfColor.fromHex('#ffffff'),
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // WORK EXPERIENCE AND EDUCATION SECTION
+                  SizedBox(
+                    width: PdfPageFormat.a4.width * 0.7,
+                    child: Container(
+                      padding: const EdgeInsets.only(right: 10, top: 20),
+                      child: Column(
+                        children: [
+                          // WORK EXPERIENCE SECTION
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    child: Center(
+                                        child: Image(MemoryImage(icons[4]),
+                                            height: 20, width: 20)),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'WORK EXPERIENCE',
+                                    style: TextStyle(
+                                      color: PdfColor.fromHex('#323a4d'),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                child: ListView.builder(
+                                  itemCount: userData.workExperience.length,
+                                  itemBuilder: (context, index) {
+                                    final workExperience =
+                                        userData.workExperience[index];
+
+                                    return Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 20, left: 8),
+                                          child: Column(
+                                            children: [
+                                              // SizedBox(
+                                              //   height: 25,
+                                              // ),
+                                              // Dot
+                                              Container(
+                                                width: 7,
+                                                height: 7,
+                                                decoration: BoxDecoration(
+                                                  color: PdfColor.fromHex(
+                                                      '#449399'),
+                                                  shape: BoxShape.circle,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              // Line (adjust height)
+                                              Container(
+                                                width: 1,
+                                                height:
+                                                    estimateAchievementsHeight(
+                                                        achievements:
+                                                            workExperience
+                                                                .achievements),
+                                                color:
+                                                    PdfColor.fromHex('#323a4d'),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                workExperience.jobTitle,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              Text(
+                                                workExperience.companyName,
+                                                style: const TextStyle(
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    workExperience.startDate,
+                                                    style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      color: PdfColor.fromHex(
+                                                          '#449399'),
+                                                      fontSize: 8,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    workExperience.jobType,
+                                                    style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      color: PdfColor.fromHex(
+                                                          '#449399'),
+                                                      fontSize: 8,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                'Achievements',
+                                                style: TextStyle(
+                                                  color: PdfColor.fromHex(
+                                                      '#449399'),
+                                                  fontSize: 9,
+                                                ),
+                                              ),
+                                              for (var achievement
+                                                  in workExperience
+                                                      .achievements)
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      child: Container(
+                                                        width: 4,
+                                                        height: 4,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              PdfColor.fromHex(
+                                                                  '#449399'),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: PdfPageFormat
+                                                              .a4.width *
+                                                          0.6,
+                                                      child: Text(achievement),
+                                                    )
+                                                  ],
+                                                )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          // EDUCATION SECTION
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    child: Center(
+                                        child: Image(MemoryImage(icons[5]),
+                                            height: 20, width: 20)),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'EDUCATION',
+                                    style: TextStyle(
+                                      color: PdfColor.fromHex('#449399'),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                child: ListView.builder(
+                                  itemCount:
+                                      userData.educationBackground.length,
+                                  itemBuilder: (context, index) {
+                                    final education =
+                                        userData.educationBackground[index];
+                                    return Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 20, left: 8),
+                                          child: Column(
+                                            children: [
+                                              // SizedBox(
+                                              //   height: 25,
+                                              // ),
+                                              // Dot
+                                              Container(
+                                                width: 7,
+                                                height: 7,
+                                                decoration: BoxDecoration(
+                                                  color: PdfColor.fromHex(
+                                                      '#449399'),
+                                                  shape: BoxShape.circle,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              // Line (adjust height)
+                                              Container(
+                                                width: 1,
+                                                height: 25,
+                                                color:
+                                                    PdfColor.fromHex('#323a4d'),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                education.fieldOfStudy,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              Text(
+                                                education.institutionName,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    education.startDate,
+                                                    style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      color: PdfColor.fromHex(
+                                                          '#449399'),
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    education
+                                                        .institutionAddress,
+                                                    style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      color: PdfColor.fromHex(
+                                                          '#449399'),
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  static double estimateAchievementsHeight({
+    required List<String> achievements,
+  }) {
+    double lineHeightMultiplier = 1.3;
+    int avgWordsPerLine = 9;
+    double totalHeight = 0;
+    int fontSize = 12;
+
+    for (String achievement in achievements) {
+      int wordCount = achievement.split(' ').length;
+      int estimatedLines = (wordCount / avgWordsPerLine).ceil();
+
+      totalHeight += estimatedLines * (fontSize * lineHeightMultiplier);
+    }
+
+    return totalHeight + 20;
   }
 }
 

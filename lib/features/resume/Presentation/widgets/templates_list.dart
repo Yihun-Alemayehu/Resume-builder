@@ -33,7 +33,7 @@ List<String> templates = [
     'modern',
     'minimalist',
     'hybrid',
-    'Template 6',
+    'professional',
     'Template 7',
     'Template 8',
     'Template 9',

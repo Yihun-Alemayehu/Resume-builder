@@ -60,8 +60,8 @@ TemplateModel professionalTemplateData = TemplateModel(
         endDate: '08/08/2026',
         achievements: [
           'Developed a new feature in the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application'
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application'
         ]),
     WorkExperience(
         companyName: 'ABC Corp',
@@ -71,11 +71,11 @@ TemplateModel professionalTemplateData = TemplateModel(
         endDate: '08/08/2026',
         achievements: [
           'Developed a new feature in the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
           'Developed a new feature in the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
         ]),
     WorkExperience(
         companyName: 'XYZ Corp',
@@ -85,11 +85,11 @@ TemplateModel professionalTemplateData = TemplateModel(
         endDate: '08/08/2026',
         achievements: [
           'Improved the user interface of the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
           'Improved the user interface of the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
         ]),
   ],
   languages: [
