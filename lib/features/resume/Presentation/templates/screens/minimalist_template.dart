@@ -1911,6 +1911,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                             ),
                           ),
                         ),
+                      
                       ],
                     ),
                   ),

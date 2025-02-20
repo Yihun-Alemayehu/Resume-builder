@@ -17,11 +17,10 @@ TemplateModel atlanticTemplateData = TemplateModel(
     profession: 'Software Engineer',
     bio:
         'A dedicated and inspired software engineer with a variety of professional and soft skills in the development environment'
-        'I am passionate about software development and always eager to learn new technologies and tools to improve my skills'
-        'I have a strong background in computer science and have worked on a variety of projects in different domains',
+        'I am passionate about software development and always eager to learn new technologies and tools to improve my skills',
     profilePic: File('assets/copy.jpg'),
     email: 'apoesas42@gmail.com',
-    address: 'Arba Minch',
+    address: 'Arba Minch, Ethiopia ',
     phoneNumber: '0942397057',
     linkedIn: 'linkedin.com/in/yihun-alemayehu',
   ),
@@ -60,8 +59,8 @@ TemplateModel atlanticTemplateData = TemplateModel(
         endDate: '08/08/2026',
         achievements: [
           'Developed a new feature in the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application'
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application'
         ]),
     WorkExperience(
         companyName: 'ABC Corp',
@@ -71,11 +70,11 @@ TemplateModel atlanticTemplateData = TemplateModel(
         endDate: '08/08/2026',
         achievements: [
           'Developed a new feature in the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
           'Developed a new feature in the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
         ]),
     WorkExperience(
         companyName: 'XYZ Corp',
@@ -85,11 +84,11 @@ TemplateModel atlanticTemplateData = TemplateModel(
         endDate: '08/08/2026',
         achievements: [
           'Improved the user interface of the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
           'Improved the user interface of the software application'
-              'Fixed a bug in the existing codebase'
-              'Optimized the performance of the application',
+              ' Fixed a bug in the existing codebase'
+              ' Optimized the performance of the application',
         ]),
   ],
   languages: [
