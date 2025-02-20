@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume/features/resume/Presentation/templates/data/atlantic_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/creative_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/hybrid_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/minimalist_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/modern_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/neat_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/professional_template_data.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/atlantic_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/hybrid_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/minimalist_template.dart';
@@ -16,10 +18,11 @@ import 'package:my_resume/features/resume/data/model/templates_model.dart';
 final Map<String, TemplateModel> templatesDataMap = {
   'neat': neatTemplateData,
   'creative': creativeTemplateData,
- 'modern': modernTemplateData,
- 'minimalist': minimalistTemplateData,
- 'hybrid': hybridTemplateData,
- 'professional': professionalTemplateData,
+  'modern': modernTemplateData,
+  'minimalist': minimalistTemplateData,
+  'hybrid': hybridTemplateData,
+  'professional': professionalTemplateData,
+  'atlantic': atlanticTemplateData,
 };
 
 // Function to return the widget associated with a given template type
@@ -37,35 +40,44 @@ TemplateModel getTemplateData({required int templateIndex}) {
       return hybridTemplateData;
     case 5:
       return professionalTemplateData;
+    case 6:
+      return atlanticTemplateData;
     default:
       throw 'Invalid template index';
   }
 }
+
 // Map to associate template types with their corresponding widgets
 final Map<String, Widget Function(TemplateModel, GlobalKey)> templatesMap = {
   'neat': (TemplateModel templateData, GlobalKey key) => NeatTemplate(
-    templateData: templateData, 
-    key: key,
-  ),
+        templateData: templateData,
+        key: key,
+      ),
   'creative': (TemplateModel templateData, GlobalKey key) => CreativeTemplate(
-    templateData: templateData, 
-    key: key,
-  ),
+        templateData: templateData,
+        key: key,
+      ),
   'modern': (TemplateModel templateData, GlobalKey key) => ModernTemplate(
-    templateData: templateData, 
-    key: key,
-  ),
-  'minimalist': (TemplateModel templateData, GlobalKey key) => MinimalistTemplate(
-    templateData: templateData, 
-    key: key,
-  ),
+        templateData: templateData,
+        key: key,
+      ),
+  'minimalist': (TemplateModel templateData, GlobalKey key) =>
+      MinimalistTemplate(
+        templateData: templateData,
+        key: key,
+      ),
   'hybrid': (TemplateModel templateData, GlobalKey key) => HybridTemplate(
-    templateData: templateData, 
-    key: key,
-  ),
-  'professional': (TemplateModel templateData, GlobalKey key) => ProfessionalTemplate(
-    templateData: templateData, 
-    key: key,
-  ),
+        templateData: templateData,
+        key: key,
+      ),
+  'professional': (TemplateModel templateData, GlobalKey key) =>
+      ProfessionalTemplate(
+        templateData: templateData,
+        key: key,
+      ),
+  'atlantic': (TemplateModel templateData, GlobalKey key) => AtlanticTemplate(
+        templateData: templateData,
+        key: key,
+      ),
   // Add more templates here
 };

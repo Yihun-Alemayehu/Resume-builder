@@ -3994,6 +3994,16 @@ class PdfApi {
     );
   }
 
+  static Widget altanticTemplateColumn({
+    required TemplateModel userData,
+      required Uint8List imageUrl,
+      required List<Uint8List> icons
+  }){
+    return Row(
+      children: []
+    );
+  }
+
   static double estimateAchievementsHeight({
     required List<String> achievements,
   }) {
@@ -4035,6 +4045,9 @@ Widget getTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     case 5:
       return PdfApi.professionalTemplateColumn(
+          userData: userData, imageUrl: imageUrl, icons: icons);
+    case 6:
+      return PdfApi.altanticTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     default:
       throw 'Invalid template index';
