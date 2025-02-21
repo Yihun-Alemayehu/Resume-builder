@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/atlantic_template_data.dart';
+import 'package:my_resume/features/resume/Presentation/templates/data/blue_steel_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/creative_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/desert_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/hybrid_template_data.dart';
@@ -8,6 +9,7 @@ import 'package:my_resume/features/resume/Presentation/templates/data/modern_tem
 import 'package:my_resume/features/resume/Presentation/templates/data/neat_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/professional_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/atlantic_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/blue_steel_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/desert_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/hybrid_template.dart';
@@ -26,6 +28,7 @@ final Map<String, TemplateModel> templatesDataMap = {
   'professional': professionalTemplateData,
   'atlantic': atlanticTemplateData,
   'desert': desertTemplateData,
+  'blue_steel': blueSteelTemplateData,
 };
 
 // Function to return the widget associated with a given template type
@@ -47,6 +50,8 @@ TemplateModel getTemplateData({required int templateIndex}) {
       return atlanticTemplateData;
     case 7:
       return desertTemplateData;
+    case 8:
+      return blueSteelTemplateData;
     default:
       throw 'Invalid template index';
   }
@@ -85,6 +90,10 @@ final Map<String, Widget Function(TemplateModel, GlobalKey)> templatesMap = {
         key: key,
       ),
   'desert': (TemplateModel templateData, GlobalKey key) => DesertTemplate(
+        templateData: templateData,
+        key: key,
+      ),
+  'blue_steel': (TemplateModel templateData, GlobalKey key) => BlueSteelTemplate(
         templateData: templateData,
         key: key,
       ),

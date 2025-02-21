@@ -5261,6 +5261,157 @@ class PdfApi {
     );
   }
 
+  static Widget blueSteelTemplateColumn({
+    required TemplateModel userData,
+    required Uint8List imageUrl,
+    required List<Uint8List> icons,
+  }) {
+    return Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(children: [
+          Container(
+            color: PdfColor.fromHex('#d9e3e9'),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          userData.userData.fullName,
+                          style: TextStyle(
+                              color: PdfColor.fromHex('#ffffff'),
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          userData.userData.profession,
+                          style: TextStyle(
+                              color: PdfColor.fromHex('#3e6e6f'),
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            userData.userData.bio,
+                            style: TextStyle(
+                              color: PdfColor.fromHex('#ffffff'),
+                              fontSize: 11,
+                            ),
+                            overflow: TextOverflow.visible,
+                            softWrap: true,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: PdfColor.fromHex('#ffffff'),
+                    ),
+                    child: ClipOval(
+                      child: Image(
+                        MemoryImage(imageUrl),
+                        fit: BoxFit.cover,
+                        width: 120,
+                        height: 120,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 30, left: 20),
+            child: Container(
+              padding: const EdgeInsets.only(right: 10, left: 10),
+              decoration: BoxDecoration(
+                color: PdfColor.fromHex('#6c5c9c'),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Image(MemoryImage(icons[0]), height: 10, width: 10),
+                          SizedBox(width: 5),
+                          Text(
+                            userData.userData.email,
+                            style: TextStyle(
+                              color: PdfColor.fromHex('#FFFFFF'),
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Image(MemoryImage(icons[1]), height: 10, width: 10),
+                          SizedBox(width: 5),
+                          Text(
+                            userData.userData.address,
+                            style: TextStyle(
+                              color: PdfColor.fromHex('#FFFFFF'),
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Image(MemoryImage(icons[2]), height: 10, width: 10),
+                          SizedBox(width: 5),
+                          Text(
+                            userData.userData.phoneNumber,
+                            style: TextStyle(
+                              color: PdfColor.fromHex('#FFFFFF'),
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Image(MemoryImage(icons[3]), height: 10, width: 10),
+                          SizedBox(width: 5),
+                          Text(
+                            userData.userData.linkedIn ?? '',
+                            style: TextStyle(
+                              color: PdfColor.fromHex('#FFFFFF'),
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ]));
+  }
+
   static double estimateAchievementsHeight({
     required List<String> achievements,
   }) {
@@ -5308,6 +5459,9 @@ Widget getTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     case 7:
       return PdfApi.desertTemplateColumn(
+          userData: userData, imageUrl: imageUrl, icons: icons);
+    case 8:
+      return PdfApi.blueSteelTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     default:
       throw 'Invalid template index';
