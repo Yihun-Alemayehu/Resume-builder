@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/atlantic_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/creative_template_data.dart';
+import 'package:my_resume/features/resume/Presentation/templates/data/desert_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/hybrid_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/minimalist_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/modern_template_data.dart';
@@ -8,6 +9,7 @@ import 'package:my_resume/features/resume/Presentation/templates/data/neat_templ
 import 'package:my_resume/features/resume/Presentation/templates/data/professional_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/atlantic_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/desert_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/hybrid_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/minimalist_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/modern_template.dart';
@@ -23,6 +25,7 @@ final Map<String, TemplateModel> templatesDataMap = {
   'hybrid': hybridTemplateData,
   'professional': professionalTemplateData,
   'atlantic': atlanticTemplateData,
+  'desert': desertTemplateData,
 };
 
 // Function to return the widget associated with a given template type
@@ -42,6 +45,8 @@ TemplateModel getTemplateData({required int templateIndex}) {
       return professionalTemplateData;
     case 6:
       return atlanticTemplateData;
+    case 7:
+      return desertTemplateData;
     default:
       throw 'Invalid template index';
   }
@@ -79,5 +84,19 @@ final Map<String, Widget Function(TemplateModel, GlobalKey)> templatesMap = {
         templateData: templateData,
         key: key,
       ),
+  'desert': (TemplateModel templateData, GlobalKey key) => DesertTemplate(
+        templateData: templateData,
+        key: key,
+      ),
   // Add more templates here
 };
+
+// Blue Steel Minimalist Resume for Professionals
+// Classic One-Column Resume for Professionals
+// Classic and Simple Resume with Blue Accents
+// Professional Multi-Column Resume Template
+// Sunset Multi-Column Resume for Professionals
+// Minimalistic Grey Simple Resume for Professionals
+// Free Classic Multi-Column Serif Resume Template
+// Minimalist Classic Resume for Professionals
+// Desert Rock Two-Column Resume for Professionals

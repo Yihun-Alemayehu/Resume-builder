@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/atlantic_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/desert_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/hybrid_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/minimalist_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/modern_template.dart';
@@ -39,6 +40,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
     'hybrid': GlobalKey<HybridTemplateState>(),
     'professional': GlobalKey<ProfessionalTemplateState>(),
     'atlantic': GlobalKey<AtlanticTemplateState>(),
+    'desert': GlobalKey<DesertTemplateState>(),
     // Add more templates as needed
   };
 
