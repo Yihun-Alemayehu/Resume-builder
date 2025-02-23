@@ -8,6 +8,7 @@ import 'package:my_resume/features/resume/Presentation/templates/data/minimalist
 import 'package:my_resume/features/resume/Presentation/templates/data/modern_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/neat_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/data/professional_template_data.dart';
+import 'package:my_resume/features/resume/Presentation/templates/data/sleek_template_data.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/atlantic_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/blue_steel_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
@@ -17,6 +18,7 @@ import 'package:my_resume/features/resume/Presentation/templates/screens/minimal
 import 'package:my_resume/features/resume/Presentation/templates/screens/modern_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/neat_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/professional_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/sleek_template.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
 
 final Map<String, TemplateModel> templatesDataMap = {
@@ -29,6 +31,7 @@ final Map<String, TemplateModel> templatesDataMap = {
   'atlantic': atlanticTemplateData,
   'desert': desertTemplateData,
   'blue_steel': blueSteelTemplateData,
+  'sleek': sleekTemplateData,
 };
 
 // Function to return the widget associated with a given template type
@@ -52,6 +55,8 @@ TemplateModel getTemplateData({required int templateIndex}) {
       return desertTemplateData;
     case 8:
       return blueSteelTemplateData;
+    case 9:
+      return sleekTemplateData;
     default:
       throw 'Invalid template index';
   }
@@ -94,6 +99,10 @@ final Map<String, Widget Function(TemplateModel, GlobalKey)> templatesMap = {
         key: key,
       ),
   'blue_steel': (TemplateModel templateData, GlobalKey key) => BlueSteelTemplate(
+        templateData: templateData,
+        key: key,
+      ),
+  'sleek': (TemplateModel templateData, GlobalKey key) => SleekTemplate(
         templateData: templateData,
         key: key,
       ),

@@ -5739,6 +5739,14 @@ class PdfApi {
     );
   }
 
+  static Widget sleekTemplateColumn({required TemplateModel userData,
+    required Uint8List imageUrl,
+    required List<Uint8List> icons,}){
+      return Column(
+        children: []
+      );
+    }
+
   static double estimateAchievementsHeight({
     required List<String> achievements,
   }) {
@@ -5789,6 +5797,9 @@ Widget getTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     case 8:
       return PdfApi.blueSteelTemplateColumn(
+          userData: userData, imageUrl: imageUrl, icons: icons);
+    case 9:
+      return PdfApi.sleekTemplateColumn(
           userData: userData, imageUrl: imageUrl, icons: icons);
     default:
       throw 'Invalid template index';
