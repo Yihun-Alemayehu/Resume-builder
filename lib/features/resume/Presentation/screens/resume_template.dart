@@ -9,6 +9,7 @@ import 'package:my_resume/features/resume/Presentation/templates/screens/minimal
 import 'package:my_resume/features/resume/Presentation/templates/screens/modern_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/neat_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/professional_template.dart';
+import 'package:my_resume/features/resume/Presentation/templates/screens/simple_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/sleek_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/utils/templates_mapping.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
@@ -45,6 +46,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
     'desert': GlobalKey<DesertTemplateState>(),
     'blue_steel': GlobalKey<BlueSteelTemplateState>(),
     'sleek': GlobalKey<SleekTemplateState>(),
+    'simple': GlobalKey<SimpleTemplateState>(),
     // Add more templates as needed
   };
 

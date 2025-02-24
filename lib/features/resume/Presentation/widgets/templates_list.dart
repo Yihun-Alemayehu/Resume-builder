@@ -38,7 +38,7 @@ List<String> templatesName = [
   'desert',
   'blue_steel',
   'sleek',
-  'Template 11',
+  'simple',
   'Template 12',
   'Template 1',
   'Template 2',
