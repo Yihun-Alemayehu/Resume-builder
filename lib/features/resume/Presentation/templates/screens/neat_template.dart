@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
@@ -257,18 +258,20 @@ class NeatTemplateState extends State<NeatTemplate> {
     });
   }
 
-  void _addAchievement({required int index}){
+  void _addAchievement({required int index}) {
     setState(() {
       List<WorkExperience> updatedWorkExperience =
           List.from(templateData.workExperience);
       updatedWorkExperience[index] = updatedWorkExperience[index].copyWith(
-        achievements: List.from(updatedWorkExperience[index].achievements)..add('achievement'),
+        achievements: List.from(updatedWorkExperience[index].achievements)
+          ..add('achievement'),
       );
 
       templateData =
           templateData.copyWith(workExperience: updatedWorkExperience);
 
-      achievementsControllers[index].add(TextEditingController(text: 'achievement'));
+      achievementsControllers[index]
+          .add(TextEditingController(text: 'achievement'));
     });
   }
 
@@ -385,7 +388,7 @@ class NeatTemplateState extends State<NeatTemplate> {
         Container(
           color: const Color.fromARGB(255, 49, 60, 75),
           child: Padding(
-            padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
+            padding: EdgeInsets.only(right: 30.w, left: 20.w, top: 20.h),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -406,12 +409,11 @@ class NeatTemplateState extends State<NeatTemplate> {
                               ),
                             );
                           });
-                          print(templateData.userData.fullName);
                         },
                         controller: _nameController,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 20.sp.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         decoration: const InputDecoration(
@@ -441,9 +443,9 @@ class NeatTemplateState extends State<NeatTemplate> {
                           print(templateData.userData.profession);
                         },
                         controller: _professionController,
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 73, 150, 159),
-                          fontSize: 11,
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 73, 150, 159),
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.normal,
                         ),
                         decoration: const InputDecoration(
@@ -474,9 +476,9 @@ class NeatTemplateState extends State<NeatTemplate> {
                           print(templateData.userData.bio);
                         },
                         controller: _bioController,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 8,
+                          fontSize: 8.sp,
                         ),
                         decoration: const InputDecoration(
                           isDense: true,
@@ -497,7 +499,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                           pickImage();
                         },
                         child: CircleAvatar(
-                          radius: 50,
+                          radius: 50.r,
                           backgroundColor: Colors.white,
                           backgroundImage: File(
                                       templateData.userData.profilePic.path)
@@ -509,7 +511,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                         ),
                       )
                     : CircleAvatar(
-                        radius: 50,
+                        radius: 50.r,
                         backgroundColor: Colors.white,
                         backgroundImage: FileImage(_image!),
                       ),
@@ -524,10 +526,10 @@ class NeatTemplateState extends State<NeatTemplate> {
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      right: 30, left: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(
+                      right: 30.w, left: 20.w, top: 10.h, bottom: 10.h),
                   child: SizedBox(
-                    height: 30,
+                    height: 30.h,
                     child: ListView.builder(
                       itemCount: templateData.userData.linkedIn != null ? 3 : 2,
                       itemBuilder: (context, index) {
@@ -535,10 +537,10 @@ class NeatTemplateState extends State<NeatTemplate> {
                           children: [
                             Image.asset(
                               _iconsList1[index],
-                              height: 10,
-                              width: 10,
+                              height: 10.h,
+                              width: 10.w,
                             ),
-                            const SizedBox(width: 5),
+                            SizedBox(width: 5.w),
                             Expanded(
                               child: TextField(
                                 onTapOutside: (event) {
@@ -553,7 +555,6 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           email: value,
                                         ),
                                       );
-                                      print(templateData.userData.email);
                                     } else if (index == 1) {
                                       templateData = templateData.copyWith(
                                         userData:
@@ -561,7 +562,6 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           address: value,
                                         ),
                                       );
-                                      print(templateData.userData.address);
                                     } else if (index == 2) {
                                       templateData = templateData.copyWith(
                                         userData:
@@ -569,15 +569,13 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           linkedIn: value,
                                         ),
                                       );
-                                      print(widget
-                                          .templateData.userData.linkedIn);
                                     }
                                   });
                                 },
                                 controller: _controllersList1[index],
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 8,
+                                  fontSize: 8.sp,
                                 ),
                                 decoration: const InputDecoration(
                                   isDense: true,
@@ -604,10 +602,10 @@ class NeatTemplateState extends State<NeatTemplate> {
               child: Container(
                 color: const Color.fromARGB(255, 34, 42, 51),
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      right: 30, left: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(
+                      right: 30.w, left: 20.w, top: 10.h, bottom: 10.h),
                   child: SizedBox(
-                    height: 30,
+                    height: 30.h,
                     child: ListView.builder(
                       itemCount: _itemCount(),
                       itemBuilder: (context, index) {
@@ -615,8 +613,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                           children: [
                             Image.asset(
                               _iconsList2[index],
-                              height: 10,
-                              width: 10,
+                              height: 10.h,
+                              width: 10.w,
                             ),
                             const SizedBox(width: 5),
                             Expanded(
@@ -633,8 +631,6 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           phoneNumber: value,
                                         ),
                                       );
-                                      print(widget
-                                          .templateData.userData.phoneNumber);
                                     } else if (index == 1) {
                                       templateData = templateData.copyWith(
                                         userData:
@@ -642,7 +638,6 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           github: value,
                                         ),
                                       );
-                                      print(templateData.userData.github);
                                     } else if (index == 2) {
                                       templateData = templateData.copyWith(
                                         userData:
@@ -650,14 +645,13 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           website: value,
                                         ),
                                       );
-                                      print(templateData.userData.website);
                                     }
                                   });
                                 },
                                 controller: _controllersList2[index],
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 8,
+                                  fontSize: 8.sp,
                                 ),
                                 decoration: const InputDecoration(
                                   isDense: true,
@@ -686,17 +680,29 @@ class NeatTemplateState extends State<NeatTemplate> {
           children: [
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(right: 10, left: 20, top: 10),
+                padding: EdgeInsets.only(right: 10.w, left: 20.w, top: 10.h),
                 child: Column(
                   children: [
                     // EDUCATIONAL BACKGROUND
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Text(
+                          'EDUCATION',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            decorationColor:
+                                const Color.fromARGB(255, 73, 150, 159),
+                            decorationThickness: 3.r,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 73, 150, 159),
+                            fontSize: 15.sp,
+                          ),
+                        ),
                         templateData.educationBackground.isEmpty
                             ? Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
-                                height: 100,
+                                height: 100.h,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -706,8 +712,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     const Text(
                                       'No education background provided',
@@ -716,8 +722,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                         fontSize: 8,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -754,12 +760,12 @@ class NeatTemplateState extends State<NeatTemplate> {
                                               color: const Color.fromARGB(
                                                   255, 73, 150, 159)),
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(2.0),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(2.0.r),
                                           child: Text(
                                             'Add Education',
                                             style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -789,28 +795,6 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            index == 0
-                                                ? const Text(
-                                                    'EDUCATION',
-                                                    style: TextStyle(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                      decorationColor:
-                                                          Color.fromARGB(255,
-                                                              73, 150, 159),
-                                                      decorationThickness: 3,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color.fromARGB(
-                                                          255, 73, 150, 159),
-                                                      fontSize: 15,
-                                                    ),
-                                                  )
-                                                : const SizedBox(),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-
                                             // FIELD OF STUDY
                                             TextField(
                                               onTap: () {
@@ -846,9 +830,9 @@ class NeatTemplateState extends State<NeatTemplate> {
                                               controller:
                                                   fieldOfStudyControllers[
                                                       index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 10,
+                                                fontSize: 10.sp,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               decoration: const InputDecoration(
@@ -897,9 +881,9 @@ class NeatTemplateState extends State<NeatTemplate> {
                                               controller:
                                                   institutionAddressControllers[
                                                       index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                               ),
                                               decoration: const InputDecoration(
                                                 isDense: true,
@@ -958,12 +942,16 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     controller:
                                                         startDateControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
-                                                      color: Color.fromARGB(
-                                                          255, 73, 150, 159),
-                                                      fontSize: 8,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              73,
+                                                              150,
+                                                              159),
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1018,12 +1006,16 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     controller:
                                                         institutionAddressControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
-                                                      color: Color.fromARGB(
-                                                          255, 73, 150, 159),
-                                                      fontSize: 8,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              73,
+                                                              150,
+                                                              159),
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1044,13 +1036,13 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                 ),
                                               ],
                                             ),
-                                            const Text(
+                                            Text(
                                               'Courses',
                                               style: TextStyle(
                                                 fontStyle: FontStyle.italic,
-                                                color: Color.fromARGB(
+                                                color: const Color.fromARGB(
                                                     255, 73, 150, 159),
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                               ),
                                             ),
                                             Column(
@@ -1106,9 +1098,9 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                           coursesControllers[
                                                                   index]
                                                               [innerIndex],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -1151,19 +1143,19 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .arrow_downward_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1194,20 +1186,20 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.copy,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1227,21 +1219,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .delete_forever_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1260,21 +1252,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.more_vert,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 3),
+                                                    SizedBox(height: 3.h),
                                                     _showAddCourseOnly[index]
                                                         ? GestureDetector(
                                                             onTap: () =>
@@ -1289,23 +1281,22 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
                                                               width: MediaQuery.of(
                                                                           context)
                                                                       .size
                                                                       .width *
                                                                   0.2,
-                                                              height: 17,
-                                                              child:
-                                                                  const Center(
+                                                              height: 17.h,
+                                                              child: Center(
                                                                 child: Text(
                                                                   'Add Course',
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white,
                                                                       fontSize:
-                                                                          10),
+                                                                          10.sp),
                                                                 ),
                                                               ),
                                                             ),
@@ -1322,7 +1313,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                               ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     // WORK EXPERIENCE SECTION
                     Column(
@@ -1331,11 +1322,23 @@ class NeatTemplateState extends State<NeatTemplate> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              'WORK EXPERIENCE',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                decorationColor:
+                                    const Color.fromARGB(255, 73, 150, 159),
+                                decorationThickness: 3.r,
+                                fontWeight: FontWeight.bold,
+                                color: const Color.fromARGB(255, 73, 150, 159),
+                                fontSize: 15.sp,
+                              ),
+                            ),
                             templateData.workExperience.isEmpty
                                 ? Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
-                                    height: 100,
+                                    height: 100.h,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: const Color.fromARGB(
@@ -1347,18 +1350,18 @@ class NeatTemplateState extends State<NeatTemplate> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
-                                        const Text(
+                                        Text(
                                           'No Work Experience provided',
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 8,
+                                            fontSize: 8.sp,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -1387,17 +1390,17 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                                  BorderRadius.circular(5.r),
                                               border: Border.all(
                                                   color: const Color.fromARGB(
                                                       255, 73, 150, 159)),
                                             ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(2.0),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(2.0.r),
                                               child: Text(
                                                 'Add Work Experience',
                                                 style: TextStyle(
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                     color: Colors.black),
                                               ),
                                             ),
@@ -1428,36 +1431,6 @@ class NeatTemplateState extends State<NeatTemplate> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                index == 0
-                                                    ? const Text(
-                                                        'WORK EXPERIENCE',
-                                                        style: TextStyle(
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                          decorationColor:
-                                                              Color.fromARGB(
-                                                                  255,
-                                                                  73,
-                                                                  150,
-                                                                  159),
-                                                          decorationThickness:
-                                                              3,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              73,
-                                                              150,
-                                                              159),
-                                                          fontSize: 15,
-                                                        ),
-                                                      )
-                                                    : const SizedBox(),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-
                                                 // Work experience Job title
                                                 TextField(
                                                   onTap: () {
@@ -1488,9 +1461,9 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                   controller:
                                                       jobTitleControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 10,
+                                                    fontSize: 10.sp,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration:
@@ -1540,9 +1513,9 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                   controller:
                                                       companyNameControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -1600,15 +1573,13 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                         controller:
                                                             workEndDateControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontStyle:
                                                               FontStyle.italic,
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              73,
-                                                              150,
-                                                              159),
-                                                          fontSize: 8,
+                                                          color: const Color
+                                                              .fromARGB(255, 73,
+                                                              150, 159),
+                                                          fontSize: 8.sp,
                                                         ),
                                                         decoration:
                                                             const InputDecoration(
@@ -1664,15 +1635,13 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                         controller:
                                                             jobTypeControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontStyle:
                                                               FontStyle.italic,
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              73,
-                                                              150,
-                                                              159),
-                                                          fontSize: 8,
+                                                          color: const Color
+                                                              .fromARGB(255, 73,
+                                                              150, 159),
+                                                          fontSize: 8.sp,
                                                         ),
                                                         decoration:
                                                             const InputDecoration(
@@ -1696,94 +1665,111 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     ),
                                                   ],
                                                 ),
-                                                const Text(
+                                                Text(
                                                   'Achievements',
                                                   style: TextStyle(
                                                     fontStyle: FontStyle.italic,
-                                                    color: Color.fromARGB(
+                                                    color: const Color.fromARGB(
                                                         255, 73, 150, 159),
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                 ),
                                                 Column(
-                                                  children: List.generate(templateData.workExperience[index].achievements.length, (innerIndex) {
-                                                    return Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        const Text(
+                                                  children: List.generate(
+                                                    templateData
+                                                        .workExperience[index]
+                                                        .achievements
+                                                        .length,
+                                                    (innerIndex) {
+                                                      return Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
                                                             '-',
                                                             style: TextStyle(
-                                                              fontSize: 8,
+                                                              fontSize: 8.sp,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
                                                             ),
                                                           ),
-                                                        SizedBox(
-                                                          width: MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.39,
-                                                          child: TextField(
-                                                            maxLines: null,
-                                                            onTap: () {
-                                                              setState(() {
-                                                                _borderColorForWorkExp[
-                                                                        index] =
-                                                                    !_borderColorForWorkExp[
-                                                                        index];
-                                                              });
-                                                            },
-                                                            onTapOutside: (event) {
-                                                              setState(() {});
-                                                              FocusScope.of(context)
-                                                                  .unfocus();
-                                                            },
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                templateData = templateData.copyWith(
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.39,
+                                                            child: TextField(
+                                                              maxLines: null,
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  _borderColorForWorkExp[
+                                                                          index] =
+                                                                      !_borderColorForWorkExp[
+                                                                          index];
+                                                                });
+                                                              },
+                                                              onTapOutside:
+                                                                  (event) {
+                                                                setState(() {});
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .unfocus();
+                                                              },
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  templateData =
+                                                                      templateData
+                                                                          .copyWith(
                                                                     workExperience: templateData
                                                                         .workExperience
                                                                         .map((e) =>
-                                                                                e.copyWith(
-                                                                                  achievements: e
-                                                                                      .achievements
-                                                                                      .asMap()
-                                                                                      .map((i, c) => MapEntry(i, i == innerIndex ? value : c))
-                                                                                      .values
-                                                                                      .toList()
-                                                                                      .toList(),
-                                                                                ))
-                                                                            .toList(),);
-                                                              });
-                                                            },
-                                                            controller:
-                                                                achievementsControllers[
-                                                                    index][innerIndex],
-                                                            style: const TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 8,
-                                                            ),
-                                                            decoration:
-                                                                const InputDecoration(
-                                                              isDense: true,
-                                                              contentPadding:
-                                                                  EdgeInsets.zero,
-                                                              border: InputBorder.none,
-                                                              focusedBorder:
-                                                                  OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius.zero,
-                                                                borderSide: BorderSide(
-                                                                    color:
-                                                                        Colors.green),
+                                                                            e.copyWith(
+                                                                              achievements: e.achievements.asMap().map((i, c) => MapEntry(i, i == innerIndex ? value : c)).values.toList().toList(),
+                                                                            ))
+                                                                        .toList(),
+                                                                  );
+                                                                });
+                                                              },
+                                                              controller:
+                                                                  achievementsControllers[
+                                                                          index]
+                                                                      [
+                                                                      innerIndex],
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 8.sp,
+                                                              ),
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                isDense: true,
+                                                                contentPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                border:
+                                                                    InputBorder
+                                                                        .none,
+                                                                focusedBorder:
+                                                                    OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .zero,
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.green),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -1792,30 +1778,34 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     top: 0,
                                                     right: 0,
                                                     child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Row(
                                                           children: [
                                                             Container(
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: Colors.green,
+                                                                color: Colors
+                                                                    .green,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .arrow_downward_rounded,
-                                                                color: Colors.white,
-                                                                size: 15,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 15.r,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 3,
+                                                            SizedBox(
+                                                              width: 3.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1824,39 +1814,38 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                                       work: templateData
                                                                               .workExperience[
                                                                           index]);
-                                                        
+
                                                                   templateData
                                                                       .workExperience
                                                                       .insert(
                                                                           index,
                                                                           templateData
                                                                               .workExperience
-                                                                              .elementAt(
-                                                                                  index));
+                                                                              .elementAt(index));
                                                                 });
                                                               },
                                                               child: Container(
                                                                 decoration:
                                                                     BoxDecoration(
-                                                                  color:
-                                                                      Colors.grey,
+                                                                  color: Colors
+                                                                      .grey,
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child: const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons.copy,
-                                                                  color:
-                                                                      Colors.white,
-                                                                  size: 15,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 3,
+                                                            SizedBox(
+                                                              width: 3.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1872,25 +1861,26 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               child: Container(
                                                                 decoration:
                                                                     BoxDecoration(
-                                                                  color: Colors.red,
+                                                                  color: Colors
+                                                                      .red,
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child: const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .delete_forever_rounded,
-                                                                  color:
-                                                                      Colors.white,
-                                                                  size: 15,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1904,63 +1894,64 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               child: Container(
                                                                 decoration:
                                                                     BoxDecoration(
-                                                                  color:
-                                                                      Colors.grey,
+                                                                  color: Colors
+                                                                      .grey,
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child: const Icon(
-                                                                  Icons.more_vert,
-                                                                  color:
-                                                                      Colors.white,
-                                                                  size: 15,
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .more_vert,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
                                                           ],
                                                         ),
-                                                    const SizedBox(height: 3),
-                                                    _showAddCourseOnly[index]
-                                                        ? GestureDetector(
-                                                            onTap: () =>
-                                                                _addAchievement(
-                                                                    index:
-                                                                        index),
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color:
-                                                                    Colors.grey,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            2),
-                                                              ),
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.2,
-                                                              height: 17,
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  'Add Achievement',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          10),
+                                                        SizedBox(height: 3.h),
+                                                        _showAddCourseOnly[
+                                                                index]
+                                                            ? GestureDetector(
+                                                                onTap: () =>
+                                                                    _addAchievement(
+                                                                        index:
+                                                                            index),
+                                                                child:
+                                                                    Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            2.r),
+                                                                  ),
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.2,
+                                                                  height: 17.h,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Add Achievement',
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              10.sp),
+                                                                    ),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ),
-                                                          )
-                                                        : const SizedBox(),
-                                                        ],
+                                                              )
+                                                            : const SizedBox(),
+                                                      ],
                                                     ),
                                                   )
                                                 : const SizedBox(),
@@ -1981,7 +1972,7 @@ class NeatTemplateState extends State<NeatTemplate> {
             // SKILLS Section
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 20, top: 20),
+                padding: EdgeInsets.only(left: 20.w, top: 20.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1998,20 +1989,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'SKILLS',
                                 style: TextStyle(
                                   decoration: TextDecoration.underline,
                                   decorationColor:
-                                      Color.fromARGB(255, 73, 150, 159),
-                                  decorationThickness: 3,
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  decorationThickness: 3.r,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 73, 150, 159),
-                                  fontSize: 15,
+                                  color:
+                                      const Color.fromARGB(255, 73, 150, 159),
+                                  fontSize: 15.sp,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: 10.h,
                               ),
                               _borderColorForSkills
                                   ? GestureDetector(
@@ -2022,17 +2014,16 @@ class NeatTemplateState extends State<NeatTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                          spacing: 4,
+                                          spacing: 4.r,
                                           children: List.generate(
                                             templateData.skills.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
-                                                  height: 25,
-                                                  padding:
-                                                      const EdgeInsets.all(2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  height: 25.h,
+                                                  padding: EdgeInsets.all(2.r),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                       color:
@@ -2045,7 +2036,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4),
+                                                            4.r),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -2054,12 +2045,12 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                       Text(
                                                         templateData
                                                             .skills[index],
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
+                                                        style: TextStyle(
+                                                          fontSize: 10.sp,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 4,
+                                                      SizedBox(
+                                                        width: 4.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -2080,11 +2071,11 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                           ),
-                                                          child: const Icon(
+                                                          child: Icon(
                                                             Icons.close,
-                                                            size: 10,
+                                                            size: 10.r,
                                                           ),
                                                         ),
                                                       )
@@ -2103,14 +2094,14 @@ class NeatTemplateState extends State<NeatTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                        spacing: 4,
+                                        spacing: 4.r,
                                         children: List.generate(
                                           templateData.skills.length,
                                           (index) {
                                             return Container(
-                                              padding: const EdgeInsets.all(2),
-                                              margin: const EdgeInsets.only(
-                                                  right: 4, bottom: 4),
+                                              padding: EdgeInsets.all(2.r),
+                                              margin: EdgeInsets.only(
+                                                  right: 4.w, bottom: 4.h),
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                   color: const Color.fromARGB(
@@ -2118,12 +2109,12 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                 ),
                                                 color: Colors.white,
                                                 borderRadius:
-                                                    BorderRadius.circular(4),
+                                                    BorderRadius.circular(4.r),
                                               ),
                                               child: Text(
                                                 templateData.skills[index],
-                                                style: const TextStyle(
-                                                  fontSize: 8,
+                                                style: TextStyle(
+                                                  fontSize: 8.sp,
                                                 ),
                                               ),
                                             );
@@ -2135,8 +2126,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                           ),
                           _borderColorForSkills
                               ? Positioned(
-                                  top: 2,
-                                  right: 2,
+                                  top: 2.h,
+                                  right: 2.w,
                                   child: Row(
                                     children: [
                                       GestureDetector(
@@ -2146,14 +2137,14 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           decoration: BoxDecoration(
                                             color: Colors.green,
                                             borderRadius:
-                                                BorderRadius.circular(2),
+                                                BorderRadius.circular(2.r),
                                           ),
-                                          height: 20,
-                                          width: 20,
-                                          child: const Icon(
+                                          height: 20.h,
+                                          width: 20.w,
+                                          child: Icon(
                                             Icons.add,
                                             color: Colors.white,
-                                            size: 15,
+                                            size: 15.r,
                                           ),
                                         ),
                                       ),
@@ -2164,8 +2155,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     _borderColorForPersonalProjects
                         ? Container(
@@ -2181,21 +2172,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'PERSONAL PROJECTS',
                                       style: TextStyle(
                                         decoration: TextDecoration.underline,
-                                        decorationColor:
-                                            Color.fromARGB(255, 73, 150, 159),
-                                        decorationThickness: 3,
+                                        decorationColor: const Color.fromARGB(
+                                            255, 73, 150, 159),
+                                        decorationThickness: 3.r,
                                         fontWeight: FontWeight.bold,
-                                        color:
-                                            Color.fromARGB(255, 73, 150, 159),
-                                        fontSize: 15,
+                                        color: const Color.fromARGB(
+                                            255, 73, 150, 159),
+                                        fontSize: 15.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -2205,18 +2196,17 @@ class NeatTemplateState extends State<NeatTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                          spacing: 4,
+                                          spacing: 4.r,
                                           children: List.generate(
                                             templateData
                                                 .personalProjects.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
-                                                  height: 25,
-                                                  padding:
-                                                      const EdgeInsets.all(2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  height: 25.h,
+                                                  padding: EdgeInsets.all(2.r),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                       color:
@@ -2229,7 +2219,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4),
+                                                            4.r),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -2240,12 +2230,12 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             .personalProjects[
                                                                 index]
                                                             .name,
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
+                                                        style: TextStyle(
+                                                          fontSize: 10.sp,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 4,
+                                                      SizedBox(
+                                                        width: 4.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -2266,11 +2256,11 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                           ),
-                                                          child: const Icon(
+                                                          child: Icon(
                                                             Icons.close,
-                                                            size: 10,
+                                                            size: 10.r,
                                                           ),
                                                         ),
                                                       )
@@ -2285,8 +2275,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                 ),
                                 _borderColorForPersonalProjects
                                     ? Positioned(
-                                        top: 2,
-                                        right: 2,
+                                        top: 2.h,
+                                        right: 2.w,
                                         child: Row(
                                           children: [
                                             GestureDetector(
@@ -2297,14 +2287,15 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
                                                   borderRadius:
-                                                      BorderRadius.circular(2),
+                                                      BorderRadius.circular(
+                                                          2.r),
                                                 ),
-                                                height: 20,
-                                                width: 20,
-                                                child: const Icon(
+                                                height: 20.h,
+                                                width: 20.w,
+                                                child: Icon(
                                                   Icons.add,
                                                   color: Colors.white,
-                                                  size: 15,
+                                                  size: 15.r,
                                                 ),
                                               ),
                                             ),
@@ -2325,20 +2316,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'PERSONAL PROJECTS',
                                   style: TextStyle(
                                     decoration: TextDecoration.underline,
                                     decorationColor:
-                                        Color.fromARGB(255, 73, 150, 159),
-                                    decorationThickness: 3,
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                    decorationThickness: 3.r,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 15,
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 15.sp,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -2350,12 +2342,12 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           Text(
                                             templateData
                                                 .personalProjects[index].name,
-                                            style: const TextStyle(
-                                              fontSize: 12,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 5,
+                                          SizedBox(
+                                            height: 5.h,
                                           ),
                                         ],
                                       );
@@ -2365,8 +2357,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                               ],
                             ),
                           ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     _borderColorForLanguage
                         ? Container(
@@ -2382,21 +2374,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'LANGUAGES',
                                       style: TextStyle(
                                         decoration: TextDecoration.underline,
-                                        decorationColor:
-                                            Color.fromARGB(255, 73, 150, 159),
-                                        decorationThickness: 3,
+                                        decorationColor: const Color.fromARGB(
+                                            255, 73, 150, 159),
+                                        decorationThickness: 3.r,
                                         fontWeight: FontWeight.bold,
-                                        color:
-                                            Color.fromARGB(255, 73, 150, 159),
-                                        fontSize: 15,
+                                        color: const Color.fromARGB(
+                                            255, 73, 150, 159),
+                                        fontSize: 15.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -2406,17 +2398,16 @@ class NeatTemplateState extends State<NeatTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                          spacing: 4,
+                                          spacing: 4.r,
                                           children: List.generate(
                                             templateData.languages.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
-                                                  height: 35,
-                                                  padding:
-                                                      const EdgeInsets.all(2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  height: 35.h,
+                                                  padding: EdgeInsets.all(2.r),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                       color:
@@ -2429,7 +2420,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4),
+                                                            4.r),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -2445,22 +2436,20 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                                 .languages[
                                                                     index]
                                                                 .language,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
+                                                            style: TextStyle(
+                                                              fontSize: 10.sp,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            height: 4,
+                                                          SizedBox(
+                                                            height: 4.h,
                                                           ),
                                                           Text(
                                                             templateData
                                                                 .languages[
                                                                     index]
                                                                 .proficiency,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
+                                                            style: TextStyle(
+                                                              fontSize: 10.sp,
                                                             ),
                                                           ),
                                                         ],
@@ -2484,11 +2473,11 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                           ),
-                                                          child: const Icon(
+                                                          child: Icon(
                                                             Icons.close,
-                                                            size: 10,
+                                                            size: 10.r,
                                                           ),
                                                         ),
                                                       )
@@ -2503,8 +2492,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                 ),
                                 _borderColorForLanguage
                                     ? Positioned(
-                                        top: 2,
-                                        right: 2,
+                                        top: 2.h,
+                                        right: 2.w,
                                         child: Row(
                                           children: [
                                             GestureDetector(
@@ -2515,14 +2504,15 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
                                                   borderRadius:
-                                                      BorderRadius.circular(2),
+                                                      BorderRadius.circular(
+                                                          2.r),
                                                 ),
-                                                height: 20,
-                                                width: 20,
-                                                child: const Icon(
+                                                height: 20.h,
+                                                width: 20.w,
+                                                child: Icon(
                                                   Icons.add,
                                                   color: Colors.white,
-                                                  size: 15,
+                                                  size: 15.r,
                                                 ),
                                               ),
                                             ),
@@ -2543,20 +2533,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'Languages',
                                   style: TextStyle(
                                     decoration: TextDecoration.underline,
                                     decorationColor:
-                                        Color.fromARGB(255, 73, 150, 159),
-                                    decorationThickness: 3,
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                    decorationThickness: 3.r,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 73, 150, 159),
-                                    fontSize: 15,
+                                    color:
+                                        const Color.fromARGB(255, 73, 150, 159),
+                                    fontSize: 15.sp,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -2570,8 +2561,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           Text(
                                             templateData
                                                 .languages[index].language,
-                                            style: const TextStyle(
-                                              fontSize: 12,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
                                             ),
                                           ),
                                           const SizedBox(
@@ -2580,8 +2571,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           Text(
                                             templateData
                                                 .languages[index].proficiency,
-                                            style: const TextStyle(
-                                              fontSize: 10,
+                                            style: TextStyle(
+                                              fontSize: 10.sp,
                                             ),
                                           ),
                                         ],
@@ -2592,8 +2583,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                               ],
                             ),
                           ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2611,20 +2602,21 @@ class NeatTemplateState extends State<NeatTemplate> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
+                                  Text(
                                     'INTERESTS',
                                     style: TextStyle(
                                       decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          Color.fromARGB(255, 73, 150, 159),
-                                      decorationThickness: 3,
+                                      decorationColor: const Color.fromARGB(
+                                          255, 73, 150, 159),
+                                      decorationThickness: 3.r,
                                       fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 73, 150, 159),
-                                      fontSize: 15,
+                                      color: const Color.fromARGB(
+                                          255, 73, 150, 159),
+                                      fontSize: 15.sp,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   _borderColorForInterests
                                       ? GestureDetector(
@@ -2635,18 +2627,17 @@ class NeatTemplateState extends State<NeatTemplate> {
                                             });
                                           },
                                           child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.interests.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
                                                     padding:
-                                                        const EdgeInsets.all(2),
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        EdgeInsets.all(2.r),
+                                                    margin: EdgeInsets.only(
+                                                        right: 4.w,
+                                                        bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                       color:
                                                           const Color.fromARGB(
@@ -2656,7 +2647,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               159),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4),
+                                                              4.r),
                                                     ),
                                                     child: Row(
                                                       mainAxisSize:
@@ -2665,14 +2656,13 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                         Text(
                                                           templateData
                                                               .interests[index],
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                          style: TextStyle(
+                                                            fontSize: 10.sp,
                                                             color: Colors.white,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 4,
+                                                        SizedBox(
+                                                          width: 4.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2693,11 +2683,11 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.r,
                                                             ),
                                                           ),
                                                         )
@@ -2717,27 +2707,26 @@ class NeatTemplateState extends State<NeatTemplate> {
                                             });
                                           },
                                           child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.interests.length,
                                               (index) {
                                                 return Container(
-                                                  padding:
-                                                      const EdgeInsets.all(2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  padding: EdgeInsets.all(2.r),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                     color: const Color.fromARGB(
                                                         255, 73, 150, 159),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4),
+                                                            4.r),
                                                   ),
                                                   child: Text(
                                                     templateData
                                                         .interests[index],
-                                                    style: const TextStyle(
-                                                      fontSize: 8,
+                                                    style: TextStyle(
+                                                      fontSize: 8.sp,
                                                       color: Colors.white,
                                                     ),
                                                   ),
@@ -2750,8 +2739,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                               ),
                               _borderColorForInterests
                                   ? Positioned(
-                                      top: 2,
-                                      right: 2,
+                                      top: 2.h,
+                                      right: 2.w,
                                       child: Row(
                                         children: [
                                           GestureDetector(
@@ -2762,14 +2751,14 @@ class NeatTemplateState extends State<NeatTemplate> {
                                               decoration: BoxDecoration(
                                                 color: Colors.green,
                                                 borderRadius:
-                                                    BorderRadius.circular(2),
+                                                    BorderRadius.circular(2.r),
                                               ),
-                                              height: 20,
-                                              width: 20,
-                                              child: const Icon(
+                                              height: 20.h,
+                                              width: 20.w,
+                                              child: Icon(
                                                 Icons.add,
                                                 color: Colors.white,
-                                                size: 15,
+                                                size: 15.r,
                                               ),
                                             ),
                                           ),
@@ -2788,13 +2777,13 @@ class NeatTemplateState extends State<NeatTemplate> {
             ),
           ],
         ),
-        const Align(
+        Align(
           alignment: Alignment.topCenter,
           child: Card(
             color: Colors.amber,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
+              padding: EdgeInsets.all(8.0.r),
+              child: const Text(
                 'Tap on any section to edit',
                 style: TextStyle(color: Colors.black),
               ),

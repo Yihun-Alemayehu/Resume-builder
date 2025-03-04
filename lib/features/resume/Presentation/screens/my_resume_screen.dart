@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_state.dart';
@@ -34,11 +35,11 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
             return GridView.builder(
               primary: true,
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              padding: EdgeInsets.all(8.0.r),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 8.0.h,
+                mainAxisSpacing: 8.0.w,
                 childAspectRatio: 0.7,
               ),
               itemCount: userData.length,
@@ -61,14 +62,14 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                     );
                   },
                   child: Card(
-                    elevation: 5,
+                    elevation: 5.r,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8.0.r),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(1.0),
+                      padding: EdgeInsets.all(1.0.r),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(8.0.r),
                         child: Image.asset(
                           templates[userData[index].templateIndex],
                           fit: BoxFit.cover,
@@ -85,12 +86,6 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
           return const SizedBox.shrink();
         },
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     context.read<UserDataBloc>().add(FetchUserData());
-      //   },
-      //   child: const Icon(Icons.refresh),
-      // ),
     );
   }
 }

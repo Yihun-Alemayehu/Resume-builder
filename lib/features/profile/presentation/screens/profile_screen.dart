@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/screens/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -37,12 +37,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text('Profile'),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 10.w),
             child: TextButton(
               style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(5.r),
                   ),
                   side: const BorderSide(
                     color: Colors.red,
@@ -54,12 +54,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 10.w),
             child: TextButton(
               style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(5.r),
                   ),
                   side: const BorderSide(
                     color: Colors.green,
@@ -115,14 +115,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(left: 10.w),
                         child: Card(
                           child: Column(
                             children: [
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -176,7 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -216,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -257,7 +257,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -296,7 +296,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -334,7 +334,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -353,23 +353,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 children: [
                                   Wrap(
-                                    spacing: 4,
+                                    spacing: 4.r,
                                     alignment: WrapAlignment.start,
                                     children: List.generate(
                                       userProfile.skills.length,
                                       (index) {
                                         return Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 5),
-                                          margin: const EdgeInsets.only(
-                                              right: 4, bottom: 4),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10.w, vertical: 5.h),
+                                          margin: EdgeInsets.only(
+                                              right: 4.w, bottom: 4.h),
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: Colors.black,
                                             ),
                                             color: Colors.white,
                                             borderRadius:
-                                                BorderRadius.circular(4),
+                                                BorderRadius.circular(4.r),
                                           ),
                                           child: Text(
                                             userProfile.skills[index],
@@ -387,7 +387,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -427,7 +427,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -446,23 +446,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 children: [
                                   Wrap(
-                                    spacing: 4,
+                                    spacing: 4.r,
                                     alignment: WrapAlignment.start,
                                     children: List.generate(
                                       userProfile.interests.length,
                                       (index) {
                                         return Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 5),
-                                          margin: const EdgeInsets.only(
-                                              right: 4, bottom: 4),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10.w, vertical: 5.h),
+                                          margin: EdgeInsets.only(
+                                              right: 4.w, bottom: 4.h),
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: Colors.black,
                                             ),
                                             color: Colors.white,
                                             borderRadius:
-                                                BorderRadius.circular(4),
+                                                BorderRadius.circular(4.r),
                                           ),
                                           child: Text(
                                             userProfile.interests[index],
@@ -480,7 +480,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ExpansionTile(
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 onExpansionChanged: (value) {
                                   setState(() {
@@ -529,11 +529,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         fixedSize:
-                            Size(MediaQuery.of(context).size.width * .9, 50),
+                            Size(MediaQuery.of(context).size.width * .9, 50.h),
                         backgroundColor: Colors.blue,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
                       onPressed: () {
@@ -560,11 +560,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       fixedSize:
-                          Size(MediaQuery.of(context).size.width * .9, 50),
+                          Size(MediaQuery.of(context).size.width * .9, 50.h),
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                     onPressed: () {

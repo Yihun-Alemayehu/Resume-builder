@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
@@ -21,7 +22,7 @@ class _ReferenceTabState extends State<ReferenceTab> {
       builder: (context) {
         return AlertDialog(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
           title: const Text('Edit Reference'),
           content: SingleChildScrollView(
             child: Column(
@@ -35,8 +36,8 @@ class _ReferenceTabState extends State<ReferenceTab> {
                     });
                   },
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
               ],
             ),
@@ -76,7 +77,7 @@ class _ReferenceTabState extends State<ReferenceTab> {
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5.0.r),
                 child: Column(
                   children:
                       List.generate(userProfile.references.length, (index) {
@@ -84,19 +85,19 @@ class _ReferenceTabState extends State<ReferenceTab> {
                       width: double.infinity,
                       child: Card(
                         color: Colors.white,
-                        elevation: 5,
+                        elevation: 5.r,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0.r),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     userProfile.references[index],
-                                    style: const TextStyle(
-                                        fontSize: 16,
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.grey,
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.bold),
@@ -105,11 +106,11 @@ class _ReferenceTabState extends State<ReferenceTab> {
                               ),
                             ),
                             Container(
-                              height: 40,
+                              height: 40.h,
                               decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(12),
-                                  bottomRight: Radius.circular(12),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(12.r),
+                                  bottomRight: Radius.circular(12.r),
                                 ),
                                 color: Colors.grey.shade300,
                               ),

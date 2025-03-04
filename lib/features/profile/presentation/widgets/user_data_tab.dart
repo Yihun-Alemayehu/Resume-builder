@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
@@ -63,7 +64,7 @@ class _UserDataTabState extends State<UserDataTab> {
             physics: const AlwaysScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(15.0.r),
               child: Column(
                 children: [
                   _image == null
@@ -71,9 +72,9 @@ class _UserDataTabState extends State<UserDataTab> {
                           onTap: () {
                             pickImage(userProfile: userProfile);
                           },
-                          child: const CircleAvatar(
-                            radius: 50,
-                            backgroundImage: AssetImage('assets/copy.jpg'),
+                          child: CircleAvatar(
+                            radius: 50.r,
+                            backgroundImage: const AssetImage('assets/copy.jpg'),
                           ),
                         )
                       : GestureDetector(
@@ -81,11 +82,11 @@ class _UserDataTabState extends State<UserDataTab> {
                             pickImage(userProfile: userProfile);
                           },
                           child: CircleAvatar(
-                            radius: 50,
+                            radius: 50.r,
                             backgroundImage: FileImage(_image!),
                           ),
                         ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30.h),
                   MyTextField(
                     controller: professionController,
                     hintText: 'Profession title',
@@ -98,7 +99,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: fullNameController,
                     hintText: 'Full name',
@@ -111,7 +112,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: emailController,
                     hintText: 'Email address',
@@ -123,7 +124,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: websiteController,
                     hintText: 'Website URL',
@@ -135,7 +136,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: githubController,
                     hintText: 'Github',
@@ -147,7 +148,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: linkedInController,
                     hintText: 'LinkedIn',
@@ -160,7 +161,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: phoneNumberController,
                     hintText: 'Phone number',
@@ -173,7 +174,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: addressController,
                     hintText: 'Address',
@@ -185,7 +186,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   MyTextField(
                     controller: bioController,
                     hintText: 'Brief Description about yourself',
@@ -197,7 +198,7 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                 ],
               ),
             ),

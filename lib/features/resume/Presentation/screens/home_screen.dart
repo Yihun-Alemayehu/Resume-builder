@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/templates/utils/templates_mapping.dart';
@@ -23,17 +24,17 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+              EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 10.0.h),
           insetPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+              EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 24.0.h),
           backgroundColor: Colors.white.withValues(alpha: 0.9),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(8.0.r),
           ),
-          title: const Text(
+          title: Text(
             'Select the content to start creating your resume',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 14.sp,
             ),
           ),
           content: Column(
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                child: const Card(
+                child: Card(
                   color: Colors.white,
                   child: Center(
                     child: Column(
@@ -69,9 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Icon(
                           Icons.person_3,
-                          size: 100,
+                          size: 100.r,
                         ),
-                        Text('Use Profile Data')
+                        const Text('Use Profile Data')
                       ],
                     ),
                   ),
@@ -91,13 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                child: const Card(
+                child: Card(
                   color: Colors.white,
                   child: Center(
                     child: Column(
                       children: [
-                        Icon(Icons.draw, size: 100),
-                        Text('Create from scratch'),
+                        Icon(Icons.draw, size: 100.r),
+                        const Text('Create from scratch'),
                       ],
                     ),
                   ),
@@ -148,10 +149,10 @@ class _HomeScreenState extends State<HomeScreen> {
             return GridView.builder(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.all(8.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 8.0.h,
+                mainAxisSpacing: 8.0.w,
                 childAspectRatio: 0.7,
               ),
               itemCount: templates.length,
@@ -169,14 +170,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       index: index,
                       userData: userProfileList.isEmpty ? null : userData),
                   child: Card(
-                    elevation: 5,
+                    elevation: 5.r,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8.0.r),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(1.0),
+                      padding: EdgeInsets.all(1.0.r),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(8.0.r),
                         child: Image.asset(
                           templates[index],
                           fit: BoxFit.cover,

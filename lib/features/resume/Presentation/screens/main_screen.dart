@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/resume/Presentation/screens/home_screen.dart';
 import 'package:my_resume/features/resume/Presentation/screens/my_resume_screen.dart';
 import 'package:my_resume/features/profile/presentation/screens/profile_screen.dart';
@@ -41,31 +42,31 @@ class _MainScreenState extends State<MainScreen> {
             icon: currentTab == 0
                 ? Image.asset(
                     'assets/Icons/home-1.png',
-                    width: 25,
-                    height: 25,
+                    width: 25.w,
+                    height: 25.h,
                   )
-                : Image.asset('assets/Icons/home-0.png', width: 25, height: 25),
+                : Image.asset('assets/Icons/home-0.png', width: 25.w, height: 25.h),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: currentTab == 1
                 ? Image.asset(
                     'assets/Icons/resume-1.png',
-                    width: 25,
-                    height: 25,
+                    width: 25.w,
+                    height: 25.h,
                   )
                 : Image.asset('assets/Icons/resume-0.png',
-                    width: 25, height: 25),
+                    width: 25.w, height: 25.h),
             label: 'My Resume',
           ),
           BottomNavigationBarItem(
             icon: currentTab == 2
                 ? Image.asset(
                     'assets/Icons/user-1.png',
-                    width: 25,
-                    height: 25,
+                    width: 25.w,
+                    height: 25.h,
                   )
-                : Image.asset('assets/Icons/user-0.png', width: 25, height: 25),
+                : Image.asset('assets/Icons/user-0.png', width: 25.w, height: 25.h),
             label: 'Profile',
           ),
         ],

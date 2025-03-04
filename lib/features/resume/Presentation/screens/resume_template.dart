@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/atlantic_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/blue_steel_template.dart';
 import 'package:my_resume/features/resume/Presentation/templates/screens/creative_template.dart';
@@ -101,7 +102,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
       body: SafeArea(
         child: InteractiveViewer(
           constrained: true,
-          boundaryMargin: const EdgeInsets.all(20.0),
+          boundaryMargin: EdgeInsets.all(20.0.r),
           minScale: 0.5,
           maxScale: 3.0,
           child: SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
@@ -22,7 +23,7 @@ class _WorkExpTabState extends State<WorkExpTab> {
     DateTimeRange? picked = await showDateRangePicker(
       context: context,
       firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
+      lastDate: DateTime(2120),
     );
 
     if (picked != null) {
@@ -58,8 +59,8 @@ class _WorkExpTabState extends State<WorkExpTab> {
                     });
                   },
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
                 MyTextField(
                   controller: companyNameController,
@@ -70,8 +71,8 @@ class _WorkExpTabState extends State<WorkExpTab> {
                     });
                   },
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
                 MyTextField(
                   controller: jobTypeController,
@@ -82,8 +83,8 @@ class _WorkExpTabState extends State<WorkExpTab> {
                     });
                   },
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
                 TextFormField(
                   controller: dateRangeController,
@@ -105,11 +106,11 @@ class _WorkExpTabState extends State<WorkExpTab> {
                     ),
                     border: const OutlineInputBorder(),
                     contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10.h),
                   ),
-                  style: const TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14.sp),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
               ],
             ),
           ),
@@ -166,7 +167,7 @@ class _WorkExpTabState extends State<WorkExpTab> {
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5.0.r),
                 child: Column(
                   children:
                       List.generate(userProfile.workExperience.length, (index) {
@@ -174,18 +175,18 @@ class _WorkExpTabState extends State<WorkExpTab> {
                       width: double.infinity,
                       child: Card(
                         color: Colors.white,
-                        elevation: 5,
+                        elevation: 5.r,
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0.r),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     userProfile.workExperience[index].jobTitle,
-                                    style: const TextStyle(
-                                        fontSize: 16,
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.grey,
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.bold),
@@ -199,24 +200,24 @@ class _WorkExpTabState extends State<WorkExpTab> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.only(right: 5.w),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           '${userProfile.workExperience[index].startDate} - ${userProfile.workExperience[index].endDate}',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.grey,
-                                              fontSize: 12,
+                                              fontSize: 12.sp,
                                               fontStyle: FontStyle.italic),
                                         ),
                                         Text(
                                           userProfile
                                               .workExperience[index].jobType,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 12,
+                                            fontSize: 12.sp,
                                             fontStyle: FontStyle.italic,
                                           ),
                                         ),
@@ -227,11 +228,11 @@ class _WorkExpTabState extends State<WorkExpTab> {
                               ),
                             ),
                             Container(
-                              height: 40,
+                              height: 40.h,
                               decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(12),
-                                  bottomRight: Radius.circular(12),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(12.r),
+                                  bottomRight: Radius.circular(12.r),
                                 ),
                                 color: Colors.grey.shade300,
                               ),

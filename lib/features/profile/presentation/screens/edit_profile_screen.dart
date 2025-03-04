@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/award_tab.dart';
 import 'package:my_resume/features/profile/presentation/widgets/certificate_tab.dart';
@@ -91,18 +92,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ],
             ),
-            body: const DefaultTabController(
+            body: DefaultTabController(
               length: 10,
               child: SafeArea(
                 child: Column(
                   children: [
                     TabBar(
                       isScrollable: true,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      indicatorWeight: 6,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      indicatorWeight: 6.r,
                       indicatorColor: Colors.blue,
                       unselectedLabelColor: Colors.grey,
-                      tabs: [
+                      tabs: const[
                         Tab(text: 'Personal'),
                         Tab(text: 'Education'),
                         Tab(text: 'Work'),
@@ -115,8 +116,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         Tab(text: 'Reference'),
                       ],
                     ),
-                    SizedBox(height: 8),
-                    Expanded(
+                    SizedBox(height: 8.h),
+                    const Expanded(
                       child: TabBarView(
                         children: [
                           UserDataTab(),

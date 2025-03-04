@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
@@ -19,7 +20,7 @@ class _AwardTabState extends State<AwardTab> {
     DateTime? picked = await showDatePicker(
       context: context,
       firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
+      lastDate: DateTime(2120),
     );
 
     if (picked != null) {
@@ -50,8 +51,8 @@ class _AwardTabState extends State<AwardTab> {
                     });
                   },
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
                 TextFormField(
                   controller: dateController,
@@ -73,11 +74,11 @@ class _AwardTabState extends State<AwardTab> {
                     ),
                     border: const OutlineInputBorder(),
                     contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10.h),
                   ),
-                  style: const TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14.sp),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
               ],
             ),
           ),
@@ -121,26 +122,26 @@ class _AwardTabState extends State<AwardTab> {
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5.0.r),
                 child: Column(
                   children: List.generate(userProfile.awards.length, (index) {
                     return SizedBox(
                       width: double.infinity,
                       child: Card(
                         color: Colors.white,
-                        elevation: 5,
+                        elevation: 5.r,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0.r),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     userProfile.awards[index].awardName,
-                                    style: const TextStyle(
-                                        fontSize: 16,
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
                                         color: Colors.grey,
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.bold),
@@ -148,21 +149,21 @@ class _AwardTabState extends State<AwardTab> {
                                   Text(
                                     userProfile.awards[index].issuedDate
                                         .toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.grey,
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 12),
+                                        fontSize: 12.sp),
                                   ),
                                 ],
                               ),
                             ),
                             Container(
-                              height: 40,
+                              height: 40.h,
                               decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(12),
-                                  bottomRight: Radius.circular(12),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(12.r),
+                                  bottomRight: Radius.circular(12.r),
                                 ),
                                 color: Colors.grey.shade300,
                               ),

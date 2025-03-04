@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
@@ -19,7 +20,7 @@ class _InterestTabState extends State<InterestTab> {
       builder: (context) {
         return AlertDialog(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
           title: const Text('Add Interest'),
           content: SingleChildScrollView(
             child: Column(
@@ -33,8 +34,8 @@ class _InterestTabState extends State<InterestTab> {
                     });
                   },
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
               ],
             ),
@@ -71,23 +72,23 @@ class _InterestTabState extends State<InterestTab> {
           if (state is UserProfileDataLoaded) {
             final userProfile = state.userProfile;
             return Wrap(
-              spacing: 4,
+              spacing: 4.r,
               children: List.generate(
                 userProfile.interests.length,
                 (index) {
                   return IntrinsicWidth(
                     child: Container(
-                      height: 30,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
+                      height: 30.h,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.h,
                       ),
-                      margin: const EdgeInsets.only(right: 4, bottom: 4),
+                      margin: EdgeInsets.only(right: 4.w, bottom: 4.h),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: const Color.fromARGB(255, 73, 150, 159),
                         ),
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -98,8 +99,8 @@ class _InterestTabState extends State<InterestTab> {
                                 // fontSize: 16,
                                 ),
                           ),
-                          const SizedBox(
-                            width: 4,
+                          SizedBox(
+                            width: 4.w,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -109,9 +110,9 @@ class _InterestTabState extends State<InterestTab> {
                                     .removeInterest(index: index);
                               });
                             },
-                            child: const Icon(
+                            child: Icon(
                               Icons.close,
-                              size: 14,
+                              size: 14.r,
                             ),
                           )
                         ],
