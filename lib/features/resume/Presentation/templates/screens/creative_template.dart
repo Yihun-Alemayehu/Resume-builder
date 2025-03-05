@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
@@ -123,25 +124,24 @@ class CreativeTemplateState extends State<CreativeTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -162,7 +162,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -173,7 +173,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -182,7 +182,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -195,7 +195,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -363,32 +363,32 @@ class CreativeTemplateState extends State<CreativeTemplate> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
+          padding: EdgeInsets.only(right: 30.w, left: 20.w, top: 20.h),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(5.r),
               border: Border.all(
                 color: const Color.fromARGB(255, 108, 92, 156),
-                width: 1,
+                width: 1.w,
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                right: 10,
-                left: 10,
+              padding: EdgeInsets.only(
+                right: 10.w,
+                left: 10.w,
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _image == null
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0.r),
                           child: GestureDetector(
                             onTap: () {
                               pickImage();
                             },
                             child: CircleAvatar(
-                              radius: 40,
+                              radius: 40.r,
                               backgroundColor: Colors.white,
                               backgroundImage:
                                   File(templateData.userData.profilePic.path)
@@ -401,7 +401,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                           ),
                         )
                       : CircleAvatar(
-                          radius: 40,
+                          radius: 40.r,
                           backgroundColor: Colors.white,
                           backgroundImage: FileImage(_image!),
                         ),
@@ -424,9 +424,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                             });
                           },
                           controller: _nameController,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color.fromARGB(255, 108, 92, 156),
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -455,9 +455,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                             });
                           },
                           controller: _professionController,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color.fromARGB(255, 196, 148, 3),
-                            fontSize: 11,
+                            fontSize: 11.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -487,8 +487,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                             });
                           },
                           controller: _bioController,
-                          style: const TextStyle(
-                            fontSize: 8,
+                          style: TextStyle(
+                            fontSize: 8.sp,
                           ),
                           decoration: const InputDecoration(
                             isDense: true,
@@ -509,12 +509,12 @@ class CreativeTemplateState extends State<CreativeTemplate> {
           ),
         ),
         // EMAIL, ADDRESS, PHONE NUMBER AND LINKEDIN SECTION
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
         Padding(
-          padding: const EdgeInsets.only(right: 30, left: 20),
+          padding: EdgeInsets.only(right: 30.w, left: 20.w),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(5.r),
               color: const Color.fromARGB(255, 108, 92, 156),
             ),
             child: Row(
@@ -522,9 +522,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                 // EMAIL, ADDRESS,
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 20),
+                    padding: EdgeInsets.only(right: 30.w, left: 20.w),
                     child: SizedBox(
-                      height: 25,
+                      height: 25.h,
                       child: ListView.builder(
                         itemCount: 2,
                         itemBuilder: (context, index) {
@@ -532,10 +532,10 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                             children: [
                               Image.asset(
                                 _iconsList1[index],
-                                height: 10,
-                                width: 10,
+                                height: 10.h,
+                                width: 10.w,
                               ),
-                              const SizedBox(width: 5),
+                              SizedBox(width: 5.w),
                               Expanded(
                                 child: TextField(
                                   onTapOutside: (event) {
@@ -561,9 +561,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                     });
                                   },
                                   controller: _controllersList1[index],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 9,
+                                    fontSize: 9.sp,
                                   ),
                                   decoration: const InputDecoration(
                                     isDense: true,
@@ -587,9 +587,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                 // PHONE NUMBER AND LINKEDIN
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 20),
+                    padding: EdgeInsets.only(right: 30.w, left: 20.w),
                     child: SizedBox(
-                      height: 25,
+                      height: 25.h,
                       child: ListView.builder(
                         itemCount: 2,
                         itemBuilder: (context, index) {
@@ -597,10 +597,10 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                             children: [
                               Image.asset(
                                 _iconsList1[index + 2],
-                                height: 10,
-                                width: 10,
+                                height: 10.h,
+                                width: 10.w,
                               ),
-                              const SizedBox(width: 5),
+                              SizedBox(width: 5.w),
                               Expanded(
                                 child: TextField(
                                   onTapOutside: (event) {
@@ -626,9 +626,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                     });
                                   },
                                   controller: _controllersList1[index + 2],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 9,
+                                    fontSize: 9.sp,
                                   ),
                                   decoration: const InputDecoration(
                                     isDense: true,
@@ -660,7 +660,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
             // LEFT SIDE ROW CHILD WHICH WRAPS WORK EXPERIENCE AND EDUCATION BACKGROUND
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+                padding: EdgeInsets.only(left: 20.w, right: 10.w, top: 10.h),
                 child: Column(
                   children: [
                     // WORK EXPERIENCE SECTION
@@ -670,11 +670,42 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Row(
+                              children: [
+                                Container(
+                                  height: 20.h,
+                                  width: 20.w,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 108, 92, 156),
+                                      width: 1.w,
+                                    ),
+                                    borderRadius: BorderRadius.circular(2.r),
+                                  ),
+                                  child: Center(
+                                      child: Image.asset(
+                                          'assets/Icons/briefcase.png',
+                                          height: 12.h,
+                                          width: 12.w)),
+                                ),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'WORK EXPERIENCE',
+                                  style: TextStyle(
+                                    color:
+                                        const Color.fromARGB(255, 108, 92, 156),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                             templateData.workExperience.isEmpty
                                 ? Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
-                                    height: 100,
+                                    height: 100.h,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: const Color.fromARGB(
@@ -686,18 +717,18 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
-                                        const Text(
+                                        Text(
                                           'No Work Experience provided',
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 8,
+                                            fontSize: 8.sp,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -726,17 +757,17 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                                  BorderRadius.circular(5.r),
                                               border: Border.all(
                                                   color: const Color.fromARGB(
                                                       255, 73, 150, 159)),
                                             ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(2.0),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(2.0.r),
                                               child: Text(
                                                 'Add Work Experience',
                                                 style: TextStyle(
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                     color: Colors.black),
                                               ),
                                             ),
@@ -767,57 +798,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                index == 0
-                                                    ? Row(
-                                                        children: [
-                                                          Container(
-                                                            height: 20,
-                                                            width: 20,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border:
-                                                                  Border.all(
-                                                                color: const Color
-                                                                    .fromARGB(
-                                                                    255,
-                                                                    108,
-                                                                    92,
-                                                                    156),
-                                                                width: 1,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          2),
-                                                            ),
-                                                            child: Center(
-                                                                child: Image.asset(
-                                                                    'assets/Icons/briefcase.png',
-                                                                    height: 12,
-                                                                    width: 12)),
-                                                          ),
-                                                          const SizedBox(
-                                                              width: 5),
-                                                          const Text(
-                                                            'WORK EXPERIENCE',
-                                                            style: TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      108,
-                                                                      92,
-                                                                      156),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 15,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    : const SizedBox(),
-                                                const SizedBox(
-                                                  height: 5,
+                                                SizedBox(
+                                                  height: 5.h,
                                                 ),
 
                                                 // Work experience Job title
@@ -850,9 +832,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                   controller:
                                                       jobTitleControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 10,
+                                                    fontSize: 10.sp,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration:
@@ -902,9 +884,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                   controller:
                                                       companyNameControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -962,14 +944,15 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                         controller:
                                                             workEndDateControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontStyle:
                                                               FontStyle.italic,
-                                                          color: Color.fromARGB(
+                                                          color: const Color
+                                                              .fromARGB(
                                                               255, 196, 148, 3),
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                         ),
                                                         decoration:
                                                             const InputDecoration(
@@ -1025,14 +1008,14 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                         controller:
                                                             jobTypeControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontStyle:
                                                               FontStyle.italic,
                                                           color: Color.fromARGB(
                                                               255, 196, 148, 3),
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                         ),
                                                         decoration:
                                                             const InputDecoration(
@@ -1056,13 +1039,13 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                     ),
                                                   ],
                                                 ),
-                                                const Text(
+                                                Text(
                                                   'Achievements',
                                                   style: TextStyle(
                                                     color: Color.fromARGB(
                                                         255, 196, 148, 3),
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                 ),
                                                 Column(
@@ -1077,16 +1060,13 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          const Text(
+                                                          Text(
                                                             '-',
                                                             style: TextStyle(
-                                                              fontSize: 8,
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      196,
-                                                                      148,
-                                                                      3),
+                                                              fontSize: 8.sp,
+                                                              color: const Color
+                                                                  .fromARGB(255,
+                                                                  196, 148, 3),
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -1136,11 +1116,10 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                                           index]
                                                                       [
                                                                       innerIndex],
-                                                              style:
-                                                                  const TextStyle(
+                                                              style: TextStyle(
                                                                 color: Colors
                                                                     .black,
-                                                                fontSize: 8,
+                                                                fontSize: 8.sp,
                                                               ),
                                                               decoration:
                                                                   const InputDecoration(
@@ -1190,20 +1169,20 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .arrow_downward_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 3,
+                                                            SizedBox(
+                                                              width: 3.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1230,21 +1209,20 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons.copy,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 3,
+                                                            SizedBox(
+                                                              width: 3.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1265,22 +1243,21 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .delete_forever_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1299,24 +1276,22 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .more_vert,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
                                                           ],
                                                         ),
-                                                        const SizedBox(
-                                                            height: 3),
+                                                        SizedBox(height: 3.h),
                                                         _showAddAchievementOnly[
                                                                 index]
                                                             ? GestureDetector(
@@ -1331,24 +1306,23 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
                                                                   width: MediaQuery.of(
                                                                               context)
                                                                           .size
                                                                           .width *
                                                                       0.2,
-                                                                  height: 17,
-                                                                  child:
-                                                                      const Center(
+                                                                  height: 17.h,
+                                                                  child: Center(
                                                                     child: Text(
                                                                       'Add Achievement',
                                                                       style: TextStyle(
                                                                           color: Colors
                                                                               .white,
                                                                           fontSize:
-                                                                              10),
+                                                                              10.sp),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1367,15 +1341,45 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     // EDUCATION SECTION
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 20.h,
+                              width: 20.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 108, 92, 156),
+                                  width: 1.w,
+                                ),
+                                borderRadius: BorderRadius.circular(2.r),
+                              ),
+                              child: Center(
+                                  child: Image.asset(
+                                      'assets/Icons/education.png',
+                                      height: 12.h,
+                                      width: 12.w)),
+                            ),
+                            SizedBox(width: 5.w),
+                            Text(
+                              'EDUCATION',
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 108, 92, 156),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp,
+                              ),
+                            ),
+                          ],
+                        ),
                         templateData.educationBackground.isEmpty
                             ? Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
-                                height: 100,
+                                height: 100.h,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -1385,18 +1389,18 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
-                                    const Text(
+                                    Text(
                                       'No education background provided',
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 8,
+                                        fontSize: 8.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.sp,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -1428,17 +1432,17 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(5),
+                                              BorderRadius.circular(5.r),
                                           border: Border.all(
                                               color: const Color.fromARGB(
                                                   255, 73, 150, 159)),
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(2.0),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(2.0.r),
                                           child: Text(
                                             'Add Education',
                                             style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -1468,49 +1472,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            index == 0
-                                                ? Row(
-                                                    children: [
-                                                      Container(
-                                                        height: 20,
-                                                        width: 20,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border.all(
-                                                            color: const Color
-                                                                .fromARGB(255,
-                                                                108, 92, 156),
-                                                            width: 1,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(2),
-                                                        ),
-                                                        child: Center(
-                                                            child: Image.asset(
-                                                                'assets/Icons/education.png',
-                                                                height: 12,
-                                                                width: 12)),
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      const Text(
-                                                        'EDUCATION',
-                                                        style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              108,
-                                                              92,
-                                                              156),
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                : const SizedBox(),
-                                            const SizedBox(
-                                              height: 5,
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
 
                                             // FIELD OF STUDY
@@ -1546,9 +1509,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                               controller:
                                                   fieldOfStudyControllers[
                                                       index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 10,
+                                                fontSize: 10.sp,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               decoration: const InputDecoration(
@@ -1597,9 +1560,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                               controller:
                                                   institutionAddressControllers[
                                                       index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                               ),
                                               decoration: const InputDecoration(
                                                 isDense: true,
@@ -1658,14 +1621,14 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                     controller:
                                                         startDateControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color: Color.fromARGB(
                                                           255, 196, 148, 3),
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1720,14 +1683,15 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                     controller:
                                                         institutionAddressControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
-                                                      color: Color.fromARGB(
-                                                          255, 196, 148, 3),
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 196, 148, 3),
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1767,19 +1731,19 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .arrow_downward_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.sp,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1807,20 +1771,20 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.copy,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1840,25 +1804,25 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .delete_forever_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 3),
+                                                    SizedBox(height: 3.h),
                                                   ],
                                                 ),
                                               )
@@ -1870,7 +1834,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                               ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                   ],
                 ),
               ),
@@ -1878,7 +1842,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
             // RIGHT SIDE ROW CHILD WHICH WRAPS SKILLS, CERTIFICATES AND LANGUAGES
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+                padding: EdgeInsets.only(left: 20.w, right: 10.w, top: 10.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1899,35 +1863,36 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                               Row(
                                 children: [
                                   Container(
-                                    height: 20,
-                                    width: 20,
+                                    height: 20.h,
+                                    width: 20.w,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: const Color.fromARGB(
                                             255, 108, 92, 156),
-                                        width: 1,
+                                        width: 1.w,
                                       ),
-                                      borderRadius: BorderRadius.circular(2),
+                                      borderRadius: BorderRadius.circular(2.r),
                                     ),
                                     child: Center(
                                         child: Image.asset(
                                             'assets/Icons/skill.png',
-                                            height: 12,
-                                            width: 12)),
+                                            height: 12.h,
+                                            width: 12.w)),
                                   ),
-                                  const SizedBox(width: 5),
-                                  const Text(
+                                  SizedBox(width: 5.w),
+                                  Text(
                                     'SKILLS',
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 108, 92, 156),
+                                      color: const Color.fromARGB(
+                                          255, 108, 92, 156),
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15,
+                                      fontSize: 15.sp,
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: 10.h,
                               ),
                               _borderColorForSkills
                                   ? GestureDetector(
@@ -1938,17 +1903,16 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                          spacing: 4,
+                                          spacing: 4.r,
                                           children: List.generate(
                                             templateData.skills.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
-                                                  height: 25,
-                                                  padding:
-                                                      const EdgeInsets.all(2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  height: 25.h,
+                                                  padding: EdgeInsets.all(2.r),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                       color: Colors.grey,
@@ -1956,7 +1920,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                     color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4),
+                                                            4.r),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -1965,12 +1929,12 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                       Text(
                                                         templateData
                                                             .skills[index],
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
+                                                        style: TextStyle(
+                                                          fontSize: 10.sp,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 4,
+                                                      SizedBox(
+                                                        width: 4.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -1991,11 +1955,11 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                           ),
-                                                          child: const Icon(
+                                                          child: Icon(
                                                             Icons.close,
-                                                            size: 10,
+                                                            size: 10.r,
                                                           ),
                                                         ),
                                                       )
@@ -2018,24 +1982,23 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                            SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2, // 2 items per row
                                           crossAxisSpacing:
-                                              4, // Spacing between columns
+                                              4.h, // Spacing between columns
                                           mainAxisSpacing:
-                                              4, // Spacing between rows
+                                              4.w, // Spacing between rows
                                           childAspectRatio:
                                               4, // Adjust this to control the height of the items
                                         ),
                                         itemCount: templateData.skills.length,
                                         itemBuilder: (context, index) {
                                           return Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5, vertical: 2),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 5.w, vertical: 2.h),
                                             child: Text(
                                               templateData.skills[index],
-                                              style:
-                                                  const TextStyle(fontSize: 10),
+                                              style: TextStyle(fontSize: 10.sp),
                                             ),
                                           );
                                         },
@@ -2045,8 +2008,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                           ),
                           _borderColorForSkills
                               ? Positioned(
-                                  top: 2,
-                                  right: 2,
+                                  top: 2.h,
+                                  right: 2.w,
                                   child: Row(
                                     children: [
                                       GestureDetector(
@@ -2056,14 +2019,14 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                           decoration: BoxDecoration(
                                             color: Colors.green,
                                             borderRadius:
-                                                BorderRadius.circular(2),
+                                                BorderRadius.circular(2.r),
                                           ),
-                                          height: 20,
-                                          width: 20,
-                                          child: const Icon(
+                                          height: 20.h,
+                                          width: 20.w,
+                                          child: Icon(
                                             Icons.add,
                                             color: Colors.white,
-                                            size: 15,
+                                            size: 15.r,
                                           ),
                                         ),
                                       ),
@@ -2074,17 +2037,45 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     // PERSONAL PROJECTS SECTION
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 20.h,
+                              width: 20.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 108, 92, 156),
+                                  width: 1.w,
+                                ),
+                                borderRadius: BorderRadius.circular(2.r),
+                              ),
+                              child: Center(
+                                  child: Image.asset('assets/Icons/project.png',
+                                      height: 12.h, width: 12.w)),
+                            ),
+                            SizedBox(width: 5.w),
+                            Text(
+                              'PROJECTS',
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 108, 92, 156),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp,
+                              ),
+                            ),
+                          ],
+                        ),
                         templateData.personalProjects.isEmpty
                             ? Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
-                                height: 100,
+                                height: 100.h,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -2094,18 +2085,18 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
-                                    const Text(
+                                    Text(
                                       'No Project provided',
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 8,
+                                        fontSize: 8.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -2126,17 +2117,17 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(5),
+                                              BorderRadius.circular(5.r),
                                           border: Border.all(
                                               color: const Color.fromARGB(
                                                   255, 73, 150, 159)),
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(2.0),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(2.0.r),
                                           child: Text(
                                             'Add Project',
                                             style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -2165,49 +2156,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            index == 0
-                                                ? Row(
-                                                    children: [
-                                                      Container(
-                                                        height: 20,
-                                                        width: 20,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border.all(
-                                                            color: const Color
-                                                                .fromARGB(255,
-                                                                108, 92, 156),
-                                                            width: 1,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(2),
-                                                        ),
-                                                        child: Center(
-                                                            child: Image.asset(
-                                                                'assets/Icons/project.png',
-                                                                height: 12,
-                                                                width: 12)),
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      const Text(
-                                                        'PROJECTS',
-                                                        style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              108,
-                                                              92,
-                                                              156),
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                : const SizedBox(),
-                                            const SizedBox(
-                                              height: 5,
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
 
                                             // PROJECT NAME
@@ -2243,9 +2193,9 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                               },
                                               controller:
                                                   projectNameControllers[index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 10,
+                                                fontSize: 10.sp,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               decoration: const InputDecoration(
@@ -2297,10 +2247,10 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                 controller:
                                                     projectDescriptionControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontStyle: FontStyle.italic,
                                                   color: Colors.grey,
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                 ),
                                                 decoration:
                                                     const InputDecoration(
@@ -2337,19 +2287,19 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .arrow_downward_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2377,20 +2327,20 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.copy,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2410,25 +2360,25 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .delete_forever_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 3),
+                                                    SizedBox(height: 3.h),
                                                   ],
                                                 ),
                                               )
@@ -2440,7 +2390,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                               ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     // LANGUAGE SECTION
                     _borderColorForLanguage
@@ -2460,37 +2410,37 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                     Row(
                                       children: [
                                         Container(
-                                          height: 20,
-                                          width: 20,
+                                          height: 20.h,
+                                          width: 20.w,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: const Color.fromARGB(
                                                   255, 108, 92, 156),
-                                              width: 1,
+                                              width: 1.w,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(2),
+                                                BorderRadius.circular(2.r),
                                           ),
                                           child: Center(
                                               child: Image.asset(
                                                   'assets/Icons/language.png',
-                                                  height: 12,
-                                                  width: 12)),
+                                                  height: 12.h,
+                                                  width: 12.w)),
                                         ),
-                                        const SizedBox(width: 5),
-                                        const Text(
+                                        SizedBox(width: 5.w),
+                                        Text(
                                           'LANGUAGES',
                                           style: TextStyle(
-                                            color: Color.fromARGB(
+                                            color: const Color.fromARGB(
                                                 255, 108, 92, 156),
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15,
+                                            fontSize: 15.sp,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -2500,26 +2450,25 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                          spacing: 4,
+                                          spacing: 4.r,
                                           children: List.generate(
                                             templateData.languages.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
-                                                  height: 20,
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 5,
-                                                      vertical: 2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  height: 20.h,
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5.w,
+                                                      vertical: 2.h),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: Colors.grey),
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4)),
+                                                              4.r)),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -2528,11 +2477,11 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                         templateData
                                                             .languages[index]
                                                             .language,
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
+                                                        style: TextStyle(
+                                                          fontSize: 10.sp,
                                                         ),
                                                       ),
-                                                      const SizedBox(width: 5),
+                                                      SizedBox(width: 5.sp),
                                                       GestureDetector(
                                                         onTap: () {
                                                           setState(() {
@@ -2552,11 +2501,11 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                           ),
-                                                          child: const Icon(
+                                                          child: Icon(
                                                             Icons.close,
-                                                            size: 10,
+                                                            size: 10.r,
                                                           ),
                                                         ),
                                                       )
@@ -2571,8 +2520,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                 ),
                                 _borderColorForLanguage
                                     ? Positioned(
-                                        top: 2,
-                                        right: 2,
+                                        top: 2.h,
+                                        right: 2.w,
                                         child: Row(
                                           children: [
                                             GestureDetector(
@@ -2583,14 +2532,15 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
                                                   borderRadius:
-                                                      BorderRadius.circular(2),
+                                                      BorderRadius.circular(
+                                                          2.r),
                                                 ),
-                                                height: 20,
-                                                width: 20,
-                                                child: const Icon(
+                                                height: 20.h,
+                                                width: 20.w,
+                                                child: Icon(
                                                   Icons.add,
                                                   color: Colors.white,
-                                                  size: 15,
+                                                  size: 15.r,
                                                 ),
                                               ),
                                             ),
@@ -2614,36 +2564,37 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                 Row(
                                   children: [
                                     Container(
-                                      height: 20,
-                                      width: 20,
+                                      height: 20.h,
+                                      width: 20.w,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           color: const Color.fromARGB(
                                               255, 108, 92, 156),
-                                          width: 1,
+                                          width: 1.w,
                                         ),
-                                        borderRadius: BorderRadius.circular(2),
+                                        borderRadius:
+                                            BorderRadius.circular(2.r),
                                       ),
                                       child: Center(
                                           child: Image.asset(
                                               'assets/Icons/language.png',
-                                              height: 12,
-                                              width: 12)),
+                                              height: 12.h,
+                                              width: 12.w)),
                                     ),
-                                    const SizedBox(width: 5),
-                                    const Text(
+                                    SizedBox(width: 5.w),
+                                    Text(
                                       'LANGUAGES',
                                       style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 108, 92, 156),
+                                        color: const Color.fromARGB(
+                                            255, 108, 92, 156),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 3,
+                                SizedBox(
+                                  height: 3.h,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -2657,20 +2608,20 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                           Text(
                                             templateData
                                                 .languages[index].language,
-                                            style: const TextStyle(
-                                              fontSize: 12,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
                                             ),
                                           ),
                                           Text(
                                             templateData
                                                 .languages[index].proficiency,
-                                            style: const TextStyle(
-                                                fontSize: 10,
+                                            style: TextStyle(
+                                                fontSize: 10.sp,
                                                 fontStyle: FontStyle.italic,
                                                 color: Colors.grey),
                                           ),
-                                          const SizedBox(
-                                            height: 5,
+                                          SizedBox(
+                                            height: 5.h,
                                           ),
                                         ],
                                       );
@@ -2680,8 +2631,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                               ],
                             ),
                           ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
 
                     // INTERESTS SECTION
@@ -2704,37 +2655,37 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                   Row(
                                     children: [
                                       Container(
-                                        height: 20,
-                                        width: 20,
+                                        height: 20.h,
+                                        width: 20.w,
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             color: const Color.fromARGB(
                                                 255, 108, 92, 156),
-                                            width: 1,
+                                            width: 1.w,
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(2),
+                                              BorderRadius.circular(2.r),
                                         ),
                                         child: Center(
                                             child: Image.asset(
                                                 'assets/Icons/hobby.png',
-                                                height: 12,
-                                                width: 12)),
+                                                height: 12.h,
+                                                width: 12.w)),
                                       ),
-                                      const SizedBox(width: 5),
-                                      const Text(
+                                      SizedBox(width: 5.w),
+                                      Text(
                                         'INTERESTS',
                                         style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 108, 92, 156),
+                                          color: const Color.fromARGB(
+                                              255, 108, 92, 156),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15,
+                                          fontSize: 15.sp,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   _borderColorForInterests
                                       ? GestureDetector(
@@ -2745,19 +2696,18 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                             });
                                           },
                                           child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.interests.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
-                                                    height: 25,
+                                                    height: 25.h,
                                                     padding:
-                                                        const EdgeInsets.all(2),
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        EdgeInsets.all(2.r),
+                                                    margin: EdgeInsets.only(
+                                                        right: 4.w,
+                                                        bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
                                                         color: Colors.grey,
@@ -2765,7 +2715,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4),
+                                                              4.r),
                                                     ),
                                                     child: Row(
                                                       mainAxisSize:
@@ -2774,13 +2724,12 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                         Text(
                                                           templateData
                                                               .interests[index],
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                          style: TextStyle(
+                                                            fontSize: 10.sp,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 4,
+                                                        SizedBox(
+                                                          width: 4.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2801,11 +2750,11 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.r,
                                                             ),
                                                           ),
                                                         )
@@ -2829,13 +2778,13 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
                                             gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount:
                                                   2, // 2 items per row
-                                              crossAxisSpacing:
-                                                  4, // Spacing between columns
+                                              crossAxisSpacing: 4
+                                                  .h, // Spacing between columns
                                               mainAxisSpacing:
-                                                  4, // Spacing between rows
+                                                  4.w, // Spacing between rows
                                               childAspectRatio:
                                                   4, // Adjust this to control the height of the items
                                             ),
@@ -2843,14 +2792,13 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                 templateData.interests.length,
                                             itemBuilder: (context, index) {
                                               return Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5,
-                                                        vertical: 2),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 5.w,
+                                                    vertical: 2.h),
                                                 child: Text(
                                                   templateData.interests[index],
-                                                  style: const TextStyle(
-                                                      fontSize: 10),
+                                                  style: TextStyle(
+                                                      fontSize: 10.sp),
                                                 ),
                                               );
                                             },
@@ -2860,8 +2808,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                               ),
                               _borderColorForInterests
                                   ? Positioned(
-                                      top: 2,
-                                      right: 2,
+                                      top: 2.h,
+                                      right: 2.w,
                                       child: Row(
                                         children: [
                                           GestureDetector(
@@ -2872,14 +2820,14 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                               decoration: BoxDecoration(
                                                 color: Colors.green,
                                                 borderRadius:
-                                                    BorderRadius.circular(2),
+                                                    BorderRadius.circular(2.r),
                                               ),
-                                              height: 20,
-                                              width: 20,
-                                              child: const Icon(
+                                              height: 20.h,
+                                              width: 20.w,
+                                              child: Icon(
                                                 Icons.add,
                                                 color: Colors.white,
-                                                size: 15,
+                                                size: 15.r,
                                               ),
                                             ),
                                           ),
@@ -2898,13 +2846,13 @@ class CreativeTemplateState extends State<CreativeTemplate> {
             )
           ],
         ),
-        const Align(
+        Align(
           alignment: Alignment.topCenter,
           child: Card(
             color: Colors.amber,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
+              padding: EdgeInsets.all(8.0.r),
+              child: const Text(
                 'Tap on any section to edit',
                 style: TextStyle(color: Colors.black),
               ),

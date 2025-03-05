@@ -131,25 +131,24 @@ class NeatTemplateState extends State<NeatTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -170,7 +169,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -181,7 +180,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -190,7 +189,7 @@ class NeatTemplateState extends State<NeatTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -203,7 +202,7 @@ class NeatTemplateState extends State<NeatTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,

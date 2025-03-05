@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
@@ -86,7 +87,6 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
 
   bool _borderColorForSkills = false;
   bool _borderColorForLanguage = false;
-  bool _borderColorForInterests = false;
 
   List<bool> _showAddAchievementOnly = [];
   List _controllersList1 = [];
@@ -123,25 +123,24 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -162,7 +161,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -171,7 +170,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -180,7 +179,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -193,7 +192,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -371,18 +370,18 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10).copyWith(right: 4),
+      padding: EdgeInsets.all(10.r).copyWith(right: 4.w),
       child: Row(
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width * .4,
             child: Container(
-              padding: const EdgeInsets.all(15).copyWith(left: 7),
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 27, 49, 66),
+              padding: EdgeInsets.all(15.r).copyWith(left: 7.w),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 27, 49, 66),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
+                  topLeft: Radius.circular(15.r),
+                  bottomLeft: Radius.circular(15.r),
                 ),
               ),
               child: Column(
@@ -390,23 +389,23 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                 children: [
                   _image == null
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0.r),
                           child: GestureDetector(
                             onTap: () {
                               pickImage();
                             },
                             child: Container(
-                              height: 83,
-                              width: 83,
+                              height: 83.h,
+                              width: 83.w,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
+                                borderRadius: BorderRadius.circular(40.r),
                                 border: Border.all(
                                   color: Colors.white,
-                                  width: 2,
+                                  width: 2.w,
                                 ),
                               ),
                               child: CircleAvatar(
-                                radius: 40,
+                                radius: 40.r,
                                 backgroundColor: Colors.white,
                                 backgroundImage:
                                     File(templateData.userData.profilePic.path)
@@ -420,17 +419,17 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                           ),
                         )
                       : Container(
-                          height: 83,
-                          width: 83,
+                          height: 83.h,
+                          width: 83.w,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(40.r),
                             border: Border.all(
                               color: Colors.white,
-                              width: 2,
+                              width: 2.w,
                             ),
                           ),
                           child: CircleAvatar(
-                            radius: 40,
+                            radius: 40.r,
                             backgroundColor: Colors.white,
                             backgroundImage: FileImage(_image!),
                           ),
@@ -450,9 +449,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                       });
                     },
                     controller: _nameController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                     decoration: const InputDecoration(
@@ -481,9 +480,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                       });
                     },
                     controller: _professionController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 11,
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.bold,
                     ),
                     decoration: const InputDecoration(
@@ -497,7 +496,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                     ),
                   ),
 
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5.h),
 
                   // BIO
                   TextField(
@@ -515,9 +514,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                       });
                     },
                     controller: _bioController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 8,
+                      fontSize: 8.sp,
                     ),
                     decoration: const InputDecoration(
                       isDense: true,
@@ -530,25 +529,25 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                     ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   // EMAIL, ADDRESS, PHONE NUMBER AND LINKEDIN SECTION
                   Padding(
-                    padding: const EdgeInsets.only(right: 3, left: 2),
+                    padding: EdgeInsets.only(right: 3.w, left: 2.w),
                     child: SizedBox(
-                      height: 70,
+                      height: 70.h,
                       child: ListView.builder(
                         itemCount: 4,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: 5.0),
+                            padding: EdgeInsets.only(bottom: 5.0.h),
                             child: Row(
                               children: [
                                 Image.asset(
                                   _iconsList1[index],
-                                  height: 10,
-                                  width: 10,
+                                  height: 10.h,
+                                  width: 10.w,
                                 ),
-                                const SizedBox(width: 5),
+                                SizedBox(width: 5.w),
                                 Expanded(
                                   child: TextField(
                                     onTapOutside: (event) {
@@ -597,9 +596,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                       });
                                     },
                                     controller: _controllersList1[index],
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 9,
+                                      fontSize: 9.sp,
                                     ),
                                     decoration: const InputDecoration(
                                       isDense: true,
@@ -620,15 +619,42 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // CERTIFICATES SECTION
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      Container(
+                        height: 25.h,
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 82, 103, 119),
+                          borderRadius: BorderRadius.circular(2.r),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 5.w),
+                            Image.asset(
+                              'assets/Icons/certificate1.png',
+                              width: 17.w,
+                              height: 17.h,
+                            ),
+                            SizedBox(width: 5.w),
+                            Text(
+                              'CERTIFICATES',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       templateData.certificates.isEmpty
                           ? Container(
                               width: MediaQuery.of(context).size.width * 0.3,
-                              height: 100,
+                              height: 100.h,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: const Color.fromARGB(
@@ -638,18 +664,18 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
-                                  const Text(
+                                  Text(
                                     'No Certificates provided',
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 8,
+                                      fontSize: 8.sp,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -669,17 +695,19 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
+                                        borderRadius:
+                                            BorderRadius.circular(5.r),
                                         border: Border.all(
                                             color: const Color.fromARGB(
                                                 255, 73, 150, 159)),
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(2.0),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(2.0.r),
                                         child: Text(
                                           'Add Certificate',
                                           style: TextStyle(
-                                              fontSize: 8, color: Colors.black),
+                                              fontSize: 8.sp,
+                                              color: Colors.black),
                                         ),
                                       ),
                                     ),
@@ -708,46 +736,6 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          index == 0
-                                              ? Container(
-                                                  height: 25,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.35,
-                                                  decoration: BoxDecoration(
-                                                    color: const Color.fromARGB(
-                                                        255, 82, 103, 119),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      const SizedBox(width: 5),
-                                                      Image.asset(
-                                                        'assets/Icons/certificate1.png',
-                                                        width: 17,
-                                                        height: 17,
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      const Text(
-                                                        'CERTIFICATES',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              : const SizedBox(),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-
                                           // PROJECT NAME
                                           TextField(
                                             maxLines: null,
@@ -779,9 +767,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                             controller:
                                                 certificateNameController[
                                                     index],
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 10,
+                                              fontSize: 10.sp,
                                               fontWeight: FontWeight.bold,
                                             ),
                                             decoration: const InputDecoration(
@@ -830,7 +818,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                               style: TextStyle(
                                                 fontStyle: FontStyle.italic,
                                                 color: Colors.grey.shade100,
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                               ),
                                               decoration: const InputDecoration(
                                                 isDense: true,
@@ -864,19 +852,20 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                           color: Colors.green,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(
+                                                                      2.r),
                                                         ),
-                                                        height: 17,
-                                                        width: 17,
-                                                        child: const Icon(
+                                                        height: 17.h,
+                                                        width: 17.w,
+                                                        child: Icon(
                                                           Icons
                                                               .arrow_downward_rounded,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -904,19 +893,19 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons.copy,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -936,24 +925,24 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .delete_forever_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                     ],
                                                   ),
-                                                  const SizedBox(height: 3),
+                                                  SizedBox(height: 3.h),
                                                 ],
                                               ),
                                             )
@@ -964,7 +953,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                               },
                             ),
 
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30.h),
 
                       // LANGUAGE SECTION
                       _borderColorForLanguage
@@ -983,7 +972,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        height: 25,
+                                        height: 25.h,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.35,
@@ -991,30 +980,30 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                           color: const Color.fromARGB(
                                               255, 82, 103, 119),
                                           borderRadius:
-                                              BorderRadius.circular(2),
+                                              BorderRadius.circular(2.r),
                                         ),
                                         child: Row(
                                           children: [
-                                            const SizedBox(width: 5),
+                                            SizedBox(width: 5.w),
                                             Image.asset(
                                               'assets/Icons/language2.png',
-                                              width: 17,
-                                              height: 17,
+                                              height: 17.h,
+                                              width: 17.w,
                                             ),
-                                            const SizedBox(width: 5),
-                                            const Text(
+                                            SizedBox(width: 5.w),
+                                            Text(
                                               'LANGUAGES',
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15,
+                                                fontSize: 15.sp,
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.sp,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -1024,28 +1013,27 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                           });
                                         },
                                         child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.languages.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
-                                                    height: 20,
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 5,
-                                                        vertical: 2),
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                    height: 20.h,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 5.h,
+                                                            vertical: 2.w),
+                                                    margin: EdgeInsets.only(
+                                                        right: 4.w,
+                                                        bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                         border: Border.all(
                                                             color: Colors.grey),
                                                         color: Colors.white,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(4)),
+                                                                .circular(4.r)),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -1054,13 +1042,11 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                           templateData
                                                               .languages[index]
                                                               .language,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                          style: TextStyle(
+                                                            fontSize: 10.sp,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                            width: 5),
+                                                        SizedBox(width: 5.w),
                                                         GestureDetector(
                                                           onTap: () {
                                                             setState(() {
@@ -1080,11 +1066,11 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.r,
                                                             ),
                                                           ),
                                                         )
@@ -1099,8 +1085,8 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                   ),
                                   _borderColorForLanguage
                                       ? Positioned(
-                                          top: 2,
-                                          right: 2,
+                                          top: 2.h,
+                                          right: 2.w,
                                           child: Row(
                                             children: [
                                               GestureDetector(
@@ -1112,14 +1098,14 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                     color: Colors.green,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            2),
+                                                            2.r),
                                                   ),
-                                                  height: 20,
-                                                  width: 20,
-                                                  child: const Icon(
+                                                  height: 20.h,
+                                                  width: 20.w,
+                                                  child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
-                                                    size: 15,
+                                                    size: 15.r,
                                                   ),
                                                 ),
                                               ),
@@ -1141,36 +1127,36 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 25,
+                                    height: 25.h,
                                     width: MediaQuery.of(context).size.width *
                                         0.35,
                                     decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 82, 103, 119),
-                                      borderRadius: BorderRadius.circular(2),
+                                      borderRadius: BorderRadius.circular(2.r),
                                     ),
                                     child: Row(
                                       children: [
-                                        const SizedBox(width: 5),
+                                        SizedBox(width: 5.w),
                                         Image.asset(
                                           'assets/Icons/language2.png',
-                                          width: 17,
-                                          height: 17,
+                                          width: 17.w,
+                                          height: 17.h,
                                         ),
-                                        const SizedBox(width: 5),
-                                        const Text(
+                                        SizedBox(width: 5.w),
+                                        Text(
                                           'LANGUAGES',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15,
+                                            fontSize: 15.sp,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 3,
+                                  SizedBox(
+                                    height: 3.h,
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -1185,21 +1171,21 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                             Text(
                                               templateData
                                                   .languages[index].language,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: 12.sp,
                                               ),
                                             ),
                                             Text(
                                               templateData
                                                   .languages[index].proficiency,
                                               style: TextStyle(
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontStyle: FontStyle.italic,
                                                   color: Colors.grey.shade100),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
                                           ],
                                         );
@@ -1209,12 +1195,12 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                 ],
                               ),
                             ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
+                  SizedBox(height: 50.h),
                 ],
               ),
             ),
@@ -1222,7 +1208,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
           SizedBox(
               width: MediaQuery.of(context).size.width * .56,
               child: Padding(
-                  padding: const EdgeInsets.all(3).copyWith(left: 20),
+                  padding: EdgeInsets.all(3.r).copyWith(left: 20.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -1234,11 +1220,35 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 239, 239, 239),
+                                  borderRadius: BorderRadius.circular(2.r),
+                                ),
+                                height: 30.h,
+                                width: MediaQuery.of(context).size.width * 0.58,
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: 10.w),
+                                    Image.asset('assets/Icons/briefcase.png',
+                                        height: 17.h, width: 17.w),
+                                    SizedBox(width: 5.w),
+                                    Text(
+                                      'WORK EXPERIENCE',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               templateData.workExperience.isEmpty
                                   ? Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
-                                      height: 100,
+                                      height: 100.h,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color: const Color.fromARGB(
@@ -1250,18 +1260,18 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
-                                          const Text(
+                                          Text(
                                             'No Work Experience provided',
                                             style: TextStyle(
                                               color: Colors.grey,
-                                              fontSize: 8,
+                                              fontSize: 8.sp,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
                                           GestureDetector(
                                             onTap: () {
@@ -1290,17 +1300,17 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                    BorderRadius.circular(5.r),
                                                 border: Border.all(
                                                     color: const Color.fromARGB(
                                                         255, 73, 150, 159)),
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(2.0),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(2.0.r),
                                                 child: Text(
                                                   'Add Work Experience',
                                                   style: TextStyle(
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                       color: Colors.black),
                                                 ),
                                               ),
@@ -1332,52 +1342,6 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  index == 0
-                                                      ? Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: const Color
-                                                                .fromARGB(255,
-                                                                239, 239, 239),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        2),
-                                                          ),
-                                                          height: 30,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.58,
-                                                          child: Row(
-                                                            children: [
-                                                              const SizedBox(
-                                                                  width: 10),
-                                                              Image.asset(
-                                                                  'assets/Icons/briefcase.png',
-                                                                  height: 17,
-                                                                  width: 17),
-                                                              const SizedBox(
-                                                                  width: 5),
-                                                              const Text(
-                                                                'WORK EXPERIENCE',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        )
-                                                      : const SizedBox(),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-
                                                   // work experience company name
                                                   TextField(
                                                     maxLines: null,
@@ -1408,9 +1372,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                     controller:
                                                         companyNameControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 10,
+                                                      fontSize: 10.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -1460,9 +1424,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                     controller:
                                                         jobTitleControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1525,11 +1489,10 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                           controller:
                                                               workEndDateControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,
-                                                            fontSize: 8,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           decoration:
                                                               const InputDecoration(
@@ -1586,11 +1549,10 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                           controller:
                                                               jobTypeControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,
-                                                            fontSize: 8,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           decoration:
                                                               const InputDecoration(
@@ -1626,16 +1588,13 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                   .start,
                                                           children: [
                                                             Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .all(
-                                                                          3)
-                                                                      .copyWith(
-                                                                          left:
-                                                                              0),
+                                                              padding: EdgeInsets
+                                                                      .all(3.r)
+                                                                  .copyWith(
+                                                                      left: 0),
                                                               child: Container(
-                                                                height: 3,
-                                                                width: 3,
+                                                                height: 3.h,
+                                                                width: 3.w,
                                                                 decoration:
                                                                     const BoxDecoration(
                                                                   shape: BoxShape
@@ -1691,10 +1650,11 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                         [
                                                                         innerIndex],
                                                                 style:
-                                                                    const TextStyle(
+                                                                    TextStyle(
                                                                   color: Colors
                                                                       .black,
-                                                                  fontSize: 8,
+                                                                  fontSize:
+                                                                      8.sp,
                                                                 ),
                                                                 decoration:
                                                                     const InputDecoration(
@@ -1744,21 +1704,20 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .arrow_downward_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 3,
+                                                              SizedBox(
+                                                                width: 3.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1781,22 +1740,21 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons.copy,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 3,
+                                                              SizedBox(
+                                                                width: 3.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1815,23 +1773,22 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                     color: Colors
                                                                         .red,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .delete_forever_rounded,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1849,25 +1806,23 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .more_vert,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(
-                                                              height: 3),
+                                                          SizedBox(height: 3.h),
                                                           _showAddAchievementOnly[
                                                                   index]
                                                               ? GestureDetector(
@@ -1883,22 +1838,23 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                           .grey,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              2),
+                                                                              2.r),
                                                                     ),
                                                                     width: MediaQuery.of(context)
                                                                             .size
                                                                             .width *
                                                                         0.2,
-                                                                    height: 17,
+                                                                    height:
+                                                                        17.h,
                                                                     child:
-                                                                        const Center(
+                                                                        Center(
                                                                       child:
                                                                           Text(
                                                                         'Add Achievement',
                                                                         style: TextStyle(
                                                                             color:
                                                                                 Colors.white,
-                                                                            fontSize: 10),
+                                                                            fontSize: 10.sp),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1917,16 +1873,39 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       // EDUCATION SECTION
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 239, 239, 239),
+                              borderRadius: BorderRadius.circular(2.r),
+                            ),
+                            height: 30.h,
+                            width: MediaQuery.of(context).size.width * 0.58,
+                            child: Row(
+                              children: [
+                                SizedBox(width: 10.w),
+                                Image.asset('assets/Icons/education.png',
+                                    height: 17.h, width: 17.w),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'EDUCATION',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           templateData.educationBackground.isEmpty
                               ? Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
-                                  height: 100,
+                                  height: 100.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: const Color.fromARGB(
@@ -1937,18 +1916,18 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
-                                      const Text(
+                                      Text(
                                         'No education background provided',
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize: 8,
+                                          fontSize: 8.sp,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -1981,17 +1960,17 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(5),
+                                                BorderRadius.circular(5.r),
                                             border: Border.all(
                                                 color: const Color.fromARGB(
                                                     255, 73, 150, 159)),
                                           ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(2.0),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(2.0.r),
                                             child: Text(
                                               'Add Education',
                                               style: TextStyle(
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -2021,49 +2000,6 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              index == 0
-                                                  ? Container(
-                                                      decoration: BoxDecoration(
-                                                        color: const Color
-                                                            .fromARGB(
-                                                            255, 239, 239, 239),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                      ),
-                                                      height: 30,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.58,
-                                                      child: Row(
-                                                        children: [
-                                                          const SizedBox(
-                                                              width: 10),
-                                                          Image.asset(
-                                                              'assets/Icons/education.png',
-                                                              height: 17,
-                                                              width: 17),
-                                                          const SizedBox(
-                                                              width: 5),
-                                                          const Text(
-                                                            'EDUCATION',
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 14,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : const SizedBox(),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-
                                               // FIELD OF STUDY
                                               TextField(
                                                 maxLines: null,
@@ -2097,9 +2033,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                 controller:
                                                     fieldOfStudyControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                                 decoration:
@@ -2149,9 +2085,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                 controller:
                                                     institutionAddressControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                 ),
                                                 decoration:
                                                     const InputDecoration(
@@ -2213,10 +2149,10 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                       controller:
                                                           startDateControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -2274,10 +2210,10 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                       controller:
                                                           institutionAddressControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -2320,20 +2256,20 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .arrow_downward_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -2360,20 +2296,20 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons.copy,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -2394,25 +2330,25 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .delete_forever_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(height: 3),
+                                                      SizedBox(height: 3.h),
                                                     ],
                                                   ),
                                                 )
@@ -2424,7 +2360,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                 ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       // SKILLS SECTION
                       Container(
                         decoration: BoxDecoration(
@@ -2443,29 +2379,29 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                   decoration: BoxDecoration(
                                     color: const Color.fromARGB(
                                         255, 239, 239, 239),
-                                    borderRadius: BorderRadius.circular(2),
+                                    borderRadius: BorderRadius.circular(2.r),
                                   ),
-                                  height: 30,
+                                  height: 30.h,
                                   width:
                                       MediaQuery.of(context).size.width * 0.58,
                                   child: Row(
                                     children: [
-                                      const SizedBox(width: 10),
+                                      SizedBox(width: 10.w),
                                       Image.asset('assets/Icons/skill.png',
-                                          height: 17, width: 17),
-                                      const SizedBox(width: 5),
-                                      const Text(
+                                          height: 17.h, width: 17.w),
+                                      SizedBox(width: 5.w),
+                                      Text(
                                         'SKILLS',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 14,
+                                          fontSize: 14.sp,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.sp,
                                 ),
                                 _borderColorForSkills
                                     ? GestureDetector(
@@ -2476,19 +2412,18 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                           });
                                         },
                                         child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.skills.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
-                                                    height: 25,
+                                                    height: 25.h,
                                                     padding:
-                                                        const EdgeInsets.all(2),
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        EdgeInsets.all(2.r),
+                                                    margin: EdgeInsets.only(
+                                                        right: 4.w,
+                                                        bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
                                                         color: Colors.grey,
@@ -2496,7 +2431,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4),
+                                                              4.r),
                                                     ),
                                                     child: Row(
                                                       mainAxisSize:
@@ -2505,13 +2440,12 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                         Text(
                                                           templateData
                                                               .skills[index],
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                          style: TextStyle(
+                                                            fontSize: 10.sp,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 4,
+                                                        SizedBox(
+                                                          width: 4.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2532,11 +2466,11 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.r,
                                                             ),
                                                           ),
                                                         )
@@ -2559,32 +2493,32 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                           physics:
                                               const NeverScrollableScrollPhysics(),
                                           gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                              SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount:
                                                 1, // 2 items per row
                                             crossAxisSpacing:
-                                                1, // Spacing between columns
+                                                1.h, // Spacing between columns
                                             mainAxisSpacing:
-                                                1, // Spacing between rows
-                                            childAspectRatio:
-                                                12, // Adjust this to control the height of the items
+                                                1.w, // Spacing between rows
+                                            childAspectRatio: 12
+                                                .h, // Adjust this to control the height of the items
                                           ),
                                           itemCount: templateData.skills.length,
                                           itemBuilder: (context, index) {
                                             return Container(
                                               padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5,
-                                                      vertical: 2),
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 5.w,
+                                                      vertical: 2.h),
                                               child: Row(
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(3)
+                                                        EdgeInsets.all(3.r)
                                                             .copyWith(left: 0),
                                                     child: Container(
-                                                      height: 3,
-                                                      width: 3,
+                                                      height: 3.h,
+                                                      width: 3.w,
                                                       decoration:
                                                           const BoxDecoration(
                                                         shape: BoxShape.circle,
@@ -2594,8 +2528,8 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                   ),
                                                   Text(
                                                     templateData.skills[index],
-                                                    style: const TextStyle(
-                                                        fontSize: 10),
+                                                    style: TextStyle(
+                                                        fontSize: 10.sp),
                                                   ),
                                                 ],
                                               ),
@@ -2607,8 +2541,8 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                             ),
                             _borderColorForSkills
                                 ? Positioned(
-                                    top: 2,
-                                    right: 2,
+                                    top: 2.h,
+                                    right: 2.w,
                                     child: Row(
                                       children: [
                                         GestureDetector(
@@ -2619,14 +2553,14 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                             decoration: BoxDecoration(
                                               color: Colors.green,
                                               borderRadius:
-                                                  BorderRadius.circular(2),
+                                                  BorderRadius.circular(2.r),
                                             ),
-                                            height: 20,
-                                            width: 20,
-                                            child: const Icon(
+                                            height: 20.h,
+                                            width: 20.w,
+                                            child: Icon(
                                               Icons.add,
                                               color: Colors.white,
-                                              size: 15,
+                                              size: 15.r,
                                             ),
                                           ),
                                         ),
@@ -2637,8 +2571,8 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                     ],
                   )))

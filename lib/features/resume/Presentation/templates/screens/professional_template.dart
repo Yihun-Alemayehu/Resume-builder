@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
@@ -122,25 +123,24 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -161,7 +161,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -170,7 +170,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -179,7 +179,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -192,7 +192,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -396,17 +396,17 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(6).copyWith(right: 2),
+      padding: EdgeInsets.all(6.r).copyWith(right: 2.w),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(7),
-                bottomLeft: Radius.circular(7),
+                topLeft: Radius.circular(7.r),
+                bottomLeft: Radius.circular(7.r),
               ),
-              color: Color.fromARGB(255, 50, 58, 77),
+              color: const Color.fromARGB(255, 50, 58, 77),
             ),
             child: SizedBox(
               width: MediaQuery.of(context).size.width * .35,
@@ -414,25 +414,25 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                 children: [
                   _image == null
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0.r),
                           child: GestureDetector(
                             onTap: () {
                               pickImage();
                             },
                             child: Container(
-                              height: 82,
-                              width: 82,
+                              height: 82.h,
+                              width: 82.w,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color:
                                       const Color.fromARGB(255, 68, 147, 153),
-                                  width: 2,
+                                  width: 2.w,
                                 ),
                                 color: Colors.white,
                               ),
                               child: CircleAvatar(
-                                radius: 40,
+                                radius: 40.r,
                                 backgroundColor: Colors.white,
                                 backgroundImage:
                                     File(templateData.userData.profilePic.path)
@@ -446,18 +446,18 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                           ),
                         )
                       : Container(
-                          height: 82,
-                          width: 82,
+                          height: 82.h,
+                          width: 82.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: const Color.fromARGB(255, 68, 147, 153),
-                              width: 2,
+                              width: 2.w,
                             ),
                             color: Colors.white,
                           ),
                           child: CircleAvatar(
-                            radius: 40,
+                            radius: 40.r,
                             backgroundColor: Colors.white,
                             backgroundImage: FileImage(_image!),
                           ),
@@ -467,7 +467,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                   SizedBox(
                     child: Container(
                       padding:
-                          const EdgeInsets.only(top: 10, left: 10, bottom: 30),
+                          EdgeInsets.only(top: 10.h, left: 10.w, bottom: 30.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -490,21 +490,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                         Center(
                                             child: Image.asset(
                                                 'assets/Icons/skill2.png',
-                                                height: 17,
-                                                width: 17)),
-                                        const SizedBox(width: 5),
-                                        const Text(
+                                                height: 17.h,
+                                                width: 17.w)),
+                                        SizedBox(width: 5.w),
+                                        Text(
                                           'SKILLS',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 14,
+                                            fontSize: 14.sp,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     _borderColorForSkills
                                         ? GestureDetector(
@@ -515,20 +515,18 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                               });
                                             },
                                             child: Wrap(
-                                                spacing: 4,
+                                                spacing: 4.r,
                                                 children: List.generate(
                                                   templateData.skills.length,
                                                   (index) {
                                                     return IntrinsicWidth(
                                                       child: Container(
-                                                        height: 17,
+                                                        height: 17.h,
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(2),
-                                                        margin: const EdgeInsets
-                                                            .only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                            EdgeInsets.all(2.r),
+                                                        margin: EdgeInsets.only(
+                                                            right: 4.w,
+                                                            bottom: 4.h),
                                                         decoration:
                                                             BoxDecoration(
                                                           border: Border.all(
@@ -537,7 +535,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                           color: Colors.white,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(4),
+                                                                  .circular(
+                                                                      4.r),
                                                         ),
                                                         child: Row(
                                                           mainAxisSize:
@@ -547,13 +546,12 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                               templateData
                                                                       .skills[
                                                                   index],
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 9,
+                                                              style: TextStyle(
+                                                                fontSize: 9.sp,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 4,
+                                                            SizedBox(
+                                                              width: 4.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -575,12 +573,11 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              4),
+                                                                              4.r),
                                                                 ),
-                                                                child:
-                                                                    const Icon(
+                                                                child: Icon(
                                                                   Icons.close,
-                                                                  size: 10,
+                                                                  size: 10.r,
                                                                 ),
                                                               ),
                                                             )
@@ -603,13 +600,13 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                               physics:
                                                   const NeverScrollableScrollPhysics(),
                                               gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  SliverGridDelegateWithFixedCrossAxisCount(
                                                 crossAxisCount:
                                                     1, // 2 items per row
-                                                crossAxisSpacing:
-                                                    1, // Spacing between columns
+                                                crossAxisSpacing: 1
+                                                    .h, // Spacing between columns
                                                 mainAxisSpacing:
-                                                    1, // Spacing between rows
+                                                    1.w, // Spacing between rows
                                                 childAspectRatio:
                                                     8, // Adjust this to control the height of the items
                                               ),
@@ -620,18 +617,17 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            3),
+                                                            3.r),
                                                     color: const Color.fromARGB(
                                                         255, 172, 178, 183),
                                                   ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 5,
-                                                      vertical: 2),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5.w,
+                                                      vertical: 2.h),
                                                   child: Text(
                                                     templateData.skills[index],
-                                                    style: const TextStyle(
-                                                        fontSize: 10),
+                                                    style: TextStyle(
+                                                        fontSize: 10.sp),
                                                   ),
                                                 );
                                               },
@@ -641,8 +637,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                 ),
                                 _borderColorForSkills
                                     ? Positioned(
-                                        top: 2,
-                                        right: 2,
+                                        top: 2.h,
+                                        right: 2.w,
                                         child: Row(
                                           children: [
                                             GestureDetector(
@@ -653,14 +649,15 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
                                                   borderRadius:
-                                                      BorderRadius.circular(2),
+                                                      BorderRadius.circular(
+                                                          2.r),
                                                 ),
-                                                height: 20,
-                                                width: 20,
-                                                child: const Icon(
+                                                height: 20.h,
+                                                width: 20.w,
+                                                child: Icon(
                                                   Icons.add,
                                                   color: Colors.white,
-                                                  size: 15,
+                                                  size: 15.r,
                                                 ),
                                               ),
                                             ),
@@ -671,8 +668,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                               ],
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
                           // PROJECTS SECTION
                           Column(
@@ -682,7 +679,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                   ? Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.3,
-                                      height: 100,
+                                      height: 100.h,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color: const Color.fromARGB(
@@ -694,18 +691,18 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
-                                          const Text(
+                                          Text(
                                             'No Project provided',
                                             style: TextStyle(
                                               color: Colors.grey,
-                                              fontSize: 8,
+                                              fontSize: 8.sp,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
                                           GestureDetector(
                                             onTap: () {
@@ -727,17 +724,17 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                    BorderRadius.circular(5.r),
                                                 border: Border.all(
                                                     color: const Color.fromARGB(
                                                         255, 73, 150, 159)),
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(2.0),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(2.0.r),
                                                 child: Text(
                                                   'Add Project',
                                                   style: TextStyle(
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                       color: Colors.black),
                                                 ),
                                               ),
@@ -776,11 +773,13 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                             Center(
                                                                 child: Image.asset(
                                                                     'assets/Icons/project1.png',
-                                                                    height: 17,
-                                                                    width: 17)),
-                                                            const SizedBox(
-                                                                width: 5),
-                                                            const Text(
+                                                                    height:
+                                                                        17.h,
+                                                                    width:
+                                                                        17.w)),
+                                                            SizedBox(
+                                                                width: 5.w),
+                                                            Text(
                                                               'PROJECTS',
                                                               style: TextStyle(
                                                                 color: Colors
@@ -788,14 +787,14 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 14,
+                                                                fontSize: 14.sp,
                                                               ),
                                                             ),
                                                           ],
                                                         )
                                                       : const SizedBox(),
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  SizedBox(
+                                                    height: 5.h,
                                                   ),
 
                                                   // PROJECT NAME
@@ -833,9 +832,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                     controller:
                                                         projectNameController[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 10,
+                                                      fontSize: 10.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -890,11 +889,11 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                       controller:
                                                           projectDescriptionController[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
                                                         color: Colors.white,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -936,21 +935,20 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .arrow_downward_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -973,22 +971,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons.copy,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1007,28 +1004,26 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     color: Colors
                                                                         .red,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .delete_forever_rounded,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(
-                                                              height: 3),
+                                                          SizedBox(height: 3.h),
                                                         ],
                                                       ),
                                                     )
@@ -1040,7 +1035,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                     ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           // CERTIFICATES SECTION
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -1049,7 +1044,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                   ? Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.3,
-                                      height: 100,
+                                      height: 100.h,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color: const Color.fromARGB(
@@ -1061,18 +1056,18 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
-                                          const Text(
+                                          Text(
                                             'No Certificates provided',
                                             style: TextStyle(
                                               color: Colors.grey,
-                                              fontSize: 8,
+                                              fontSize: 8.sp,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
                                           GestureDetector(
                                             onTap: () {
@@ -1095,17 +1090,17 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                    BorderRadius.circular(5.r),
                                                 border: Border.all(
                                                     color: const Color.fromARGB(
                                                         255, 73, 150, 159)),
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(2.0),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(2.0.r),
                                                 child: Text(
                                                   'Add Certificate',
                                                   style: TextStyle(
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                       color: Colors.black),
                                                 ),
                                               ),
@@ -1144,11 +1139,13 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                             Center(
                                                                 child: Image.asset(
                                                                     'assets/Icons/certificate1.png',
-                                                                    height: 17,
-                                                                    width: 17)),
-                                                            const SizedBox(
-                                                                width: 5),
-                                                            const Text(
+                                                                    height:
+                                                                        17.h,
+                                                                    width:
+                                                                        17.w)),
+                                                            SizedBox(
+                                                                width: 5.w),
+                                                            Text(
                                                               'CERTIFICATES',
                                                               style: TextStyle(
                                                                 color: Colors
@@ -1156,14 +1153,14 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 14,
+                                                                fontSize: 14.sp,
                                                               ),
                                                             ),
                                                           ],
                                                         )
                                                       : const SizedBox(),
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  SizedBox(
+                                                    height: 5.h,
                                                   ),
 
                                                   // CERTIFICATE NAME
@@ -1199,9 +1196,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                     controller:
                                                         certificateNameController[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 10,
+                                                      fontSize: 10.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -1257,11 +1254,11 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                       controller:
                                                           issuedDateController[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
                                                         color: Colors.white,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -1303,21 +1300,20 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .arrow_downward_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1340,22 +1336,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons.copy,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.r,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1374,28 +1369,26 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     color: Colors
                                                                         .red,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .delete_forever_rounded,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.h,
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(
-                                                              height: 3),
+                                                          SizedBox(height: 3.h),
                                                         ],
                                                       ),
                                                     )
@@ -1407,7 +1400,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                     ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
 
                           // LANGUAGE SECTION
                           _borderColorForLanguage
@@ -1432,21 +1425,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                               Center(
                                                   child: Image.asset(
                                                       'assets/Icons/language2.png',
-                                                      height: 17,
-                                                      width: 17)),
-                                              const SizedBox(width: 5),
-                                              const Text(
+                                                      height: 17..h,
+                                                      width: 17.w)),
+                                              SizedBox(width: 5.w),
+                                              Text(
                                                 'LANGUAGES',
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 14,
+                                                  fontSize: 14.sp,
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
                                           GestureDetector(
                                             onTap: () {
@@ -1456,22 +1449,20 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                               });
                                             },
                                             child: Wrap(
-                                                spacing: 4,
+                                                spacing: 4.r,
                                                 children: List.generate(
                                                   templateData.languages.length,
                                                   (index) {
                                                     return IntrinsicWidth(
                                                       child: Container(
-                                                        height: 20,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal: 5,
-                                                                vertical: 2),
-                                                        margin: const EdgeInsets
-                                                            .only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        height: 20.h,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 5.w,
+                                                                vertical: 2.h),
+                                                        margin: EdgeInsets.only(
+                                                            right: 4.w,
+                                                            bottom: 4.h),
                                                         decoration: BoxDecoration(
                                                             border: Border.all(
                                                                 color: Colors
@@ -1480,7 +1471,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4)),
+                                                                        4.r)),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
@@ -1490,13 +1481,12 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                   .languages[
                                                                       index]
                                                                   .language,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
+                                                              style: TextStyle(
+                                                                fontSize: 10.sp,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                                width: 5),
+                                                            SizedBox(
+                                                                width: 5.w),
                                                             GestureDetector(
                                                               onTap: () {
                                                                 setState(() {
@@ -1517,12 +1507,11 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              4),
+                                                                              4.r),
                                                                 ),
-                                                                child:
-                                                                    const Icon(
+                                                                child: Icon(
                                                                   Icons.close,
-                                                                  size: 10,
+                                                                  size: 10.r,
                                                                 ),
                                                               ),
                                                             )
@@ -1537,8 +1526,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                       ),
                                       _borderColorForLanguage
                                           ? Positioned(
-                                              top: 2,
-                                              right: 2,
+                                              top: 2.h,
+                                              right: 2.w,
                                               child: Row(
                                                 children: [
                                                   GestureDetector(
@@ -1550,14 +1539,14 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                         color: Colors.green,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(2),
+                                                                .circular(2.r),
                                                       ),
-                                                      height: 20,
-                                                      width: 20,
-                                                      child: const Icon(
+                                                      height: 20.h,
+                                                      width: 20.w,
+                                                      child: Icon(
                                                         Icons.add,
                                                         color: Colors.white,
-                                                        size: 15,
+                                                        size: 15.r,
                                                       ),
                                                     ),
                                                   ),
@@ -1584,21 +1573,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                           Center(
                                               child: Image.asset(
                                                   'assets/Icons/language2.png',
-                                                  height: 17,
-                                                  width: 17)),
-                                          const SizedBox(width: 5),
-                                          const Text(
+                                                  height: 17.h,
+                                                  width: 17.w)),
+                                          SizedBox(width: 5.w),
+                                          Text(
                                             'LANGUAGES',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 14,
+                                              fontSize: 14.sp,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 3,
+                                      SizedBox(
+                                        height: 3.h,
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -1613,22 +1602,22 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                 Text(
                                                   templateData.languages[index]
                                                       .language,
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 13,
+                                                    fontSize: 13.sp,
                                                   ),
                                                 ),
                                                 Text(
                                                   templateData.languages[index]
                                                       .proficiency,
-                                                  style: const TextStyle(
-                                                      fontSize: 8,
+                                                  style: TextStyle(
+                                                      fontSize: 8.sp,
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color: Colors.white),
                                                 ),
-                                                const SizedBox(
-                                                  height: 5,
+                                                SizedBox(
+                                                  height: 5.sp,
                                                 ),
                                               ],
                                             );
@@ -1638,8 +1627,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                     ],
                                   ),
                                 ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
                         ],
                       ),
@@ -1652,7 +1641,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
 
           // RIGHT SIDE OF THE SCREEN
           Padding(
-            padding: const EdgeInsets.only(left: 8, top: 10),
+            padding: EdgeInsets.only(left: 8.w, top: 10.h),
             child: SizedBox(
               width: MediaQuery.of(context).size.width * .6,
               child: Column(
@@ -1676,8 +1665,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                             });
                           },
                           controller: _nameController,
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style: TextStyle(
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -1706,9 +1695,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                             });
                           },
                           controller: _professionController,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 68, 147, 153),
-                            fontSize: 11,
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 68, 147, 153),
+                            fontSize: 11.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -1738,8 +1727,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                             });
                           },
                           controller: _bioController,
-                          style: const TextStyle(
-                            fontSize: 8,
+                          style: TextStyle(
+                            fontSize: 8.sp,
                           ),
                           decoration: const InputDecoration(
                             isDense: true,
@@ -1755,11 +1744,11 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                     ),
                   ),
                   // EMAIL, ADDRESS, PHONE NUMBER AND LINKEDIN SECTION
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Container(
-                    height: 40,
+                    height: 40.h,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3),
+                      borderRadius: BorderRadius.circular(3.r),
                       color: const Color.fromARGB(255, 50, 58, 77),
                     ),
                     child: Row(
@@ -1767,9 +1756,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                         // EMAIL, ADDRESS,
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 3, left: 2),
+                            padding: EdgeInsets.only(right: 3.w, left: 2.w),
                             child: SizedBox(
-                              height: 25,
+                              height: 25.h,
                               child: ListView.builder(
                                 itemCount: 2,
                                 itemBuilder: (context, index) {
@@ -1777,10 +1766,10 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                     children: [
                                       Image.asset(
                                         _iconsList1[index],
-                                        height: 10,
-                                        width: 10,
+                                        height: 10.h,
+                                        width: 10.w,
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Expanded(
                                         child: TextField(
                                           onTapOutside: (event) {
@@ -1810,9 +1799,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                             });
                                           },
                                           controller: _controllersList1[index],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 9,
+                                            fontSize: 9.sp,
                                           ),
                                           decoration: const InputDecoration(
                                             isDense: true,
@@ -1836,9 +1825,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                         // PHONE NUMBER AND LINKEDIN
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 3, left: 2),
+                            padding: EdgeInsets.only(right: 3.w, left: 2.w),
                             child: SizedBox(
-                              height: 25,
+                              height: 25.h,
                               child: ListView.builder(
                                 itemCount: 2,
                                 itemBuilder: (context, index) {
@@ -1846,10 +1835,10 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                     children: [
                                       Image.asset(
                                         _iconsList1[index + 2],
-                                        height: 10,
-                                        width: 10,
+                                        height: 10.h,
+                                        width: 10.w,
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Expanded(
                                         child: TextField(
                                           onTapOutside: (event) {
@@ -1880,9 +1869,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                           },
                                           controller:
                                               _controllersList1[index + 2],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 9,
+                                            fontSize: 9.sp,
                                           ),
                                           decoration: const InputDecoration(
                                             isDense: true,
@@ -1908,7 +1897,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                   ),
                   SizedBox(
                     child: Container(
-                      padding: const EdgeInsets.only(right: 10, top: 10),
+                      padding: EdgeInsets.only(right: 10.w, top: 10.h),
                       child: Column(
                         children: [
                           // WORK EXPERIENCE SECTION
@@ -1923,16 +1912,16 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                       Center(
                                           child: Image.asset(
                                               'assets/Icons/briefcase1.png',
-                                              height: 17,
-                                              width: 17)),
-                                      const SizedBox(width: 5),
-                                      const Text(
+                                              height: 17.h,
+                                              width: 17.w)),
+                                      SizedBox(width: 5.w),
+                                      Text(
                                         'WORK EXPERIENCE',
                                         style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 50, 58, 77),
+                                          color: const Color.fromARGB(
+                                              255, 50, 58, 77),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15,
+                                          fontSize: 15.sp,
                                         ),
                                       ),
                                     ],
@@ -1943,7 +1932,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                   .size
                                                   .width *
                                               0.4,
-                                          height: 100,
+                                          height: 100.h,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                                 color: const Color.fromARGB(
@@ -1955,18 +1944,18 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              const SizedBox(
-                                                height: 10,
+                                              SizedBox(
+                                                height: 10.h,
                                               ),
-                                              const Text(
+                                              Text(
                                                 'No Work Experience provided',
                                                 style: TextStyle(
                                                   color: Colors.grey,
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                height: 10,
+                                              SizedBox(
+                                                height: 10.h,
                                               ),
                                               GestureDetector(
                                                 onTap: () {
@@ -1998,19 +1987,19 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5),
+                                                            5.r),
                                                     border: Border.all(
                                                         color: const Color
                                                             .fromARGB(
                                                             255, 73, 150, 159)),
                                                   ),
-                                                  child: const Padding(
+                                                  child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(2.0),
+                                                        EdgeInsets.all(2.0.r),
                                                     child: Text(
                                                       'Add Work Experience',
                                                       style: TextStyle(
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                           color: Colors.black),
                                                     ),
                                                   ),
@@ -2042,14 +2031,14 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .only(left: 8),
+                                                            EdgeInsets.only(
+                                                                left: 8.w),
                                                         child: Column(
                                                           children: [
                                                             // Dot
                                                             Container(
-                                                              width: 5,
-                                                              height: 5,
+                                                              height: 5.h,
+                                                              width: 5.w,
                                                               decoration:
                                                                   const BoxDecoration(
                                                                 color: Color
@@ -2062,10 +2051,10 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     .circle,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                                height: 5),
+                                                            SizedBox(
+                                                                height: 5.h),
                                                             Container(
-                                                              width: 1,
+                                                              width: 1.w,
                                                               height:
                                                                   estimateAchievementsHeight(
                                                                 controllers:
@@ -2079,15 +2068,15 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                           ],
                                                         ),
                                                       ),
-                                                      const SizedBox(width: 10),
+                                                      SizedBox(width: 10.w),
                                                       Expanded(
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            const SizedBox(
-                                                              height: 5,
+                                                            SizedBox(
+                                                              height: 5.h,
                                                             ),
 
                                                             // Work experience Job title
@@ -2121,11 +2110,10 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                               controller:
                                                                   jobTitleControllers[
                                                                       index],
-                                                              style:
-                                                                  const TextStyle(
+                                                              style: TextStyle(
                                                                 color: Colors
                                                                     .black,
-                                                                fontSize: 10,
+                                                                fontSize: 10.sp,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -2184,11 +2172,10 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                               controller:
                                                                   companyNameControllers[
                                                                       index],
-                                                              style:
-                                                                  const TextStyle(
+                                                              style: TextStyle(
                                                                 color: Colors
                                                                     .black,
-                                                                fontSize: 8,
+                                                                fontSize: 8.sp,
                                                               ),
                                                               decoration:
                                                                   const InputDecoration(
@@ -2254,11 +2241,12 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                         workEndDateControllers[
                                                                             index],
                                                                     style:
-                                                                        const TextStyle(
+                                                                        TextStyle(
                                                                       fontStyle:
                                                                           FontStyle
                                                                               .italic,
-                                                                      color: Color.fromARGB(
+                                                                      color: const Color
+                                                                          .fromARGB(
                                                                           255,
                                                                           68,
                                                                           147,
@@ -2267,7 +2255,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                           FontWeight
                                                                               .bold,
                                                                       fontSize:
-                                                                          8,
+                                                                          8.sp,
                                                                     ),
                                                                     decoration:
                                                                         const InputDecoration(
@@ -2323,11 +2311,12 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                         jobTypeControllers[
                                                                             index],
                                                                     style:
-                                                                        const TextStyle(
+                                                                        TextStyle(
                                                                       fontStyle:
                                                                           FontStyle
                                                                               .italic,
-                                                                      color: Color.fromARGB(
+                                                                      color: const Color
+                                                                          .fromARGB(
                                                                           255,
                                                                           68,
                                                                           147,
@@ -2336,7 +2325,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                           FontWeight
                                                                               .bold,
                                                                       fontSize:
-                                                                          8,
+                                                                          8.sp,
                                                                     ),
                                                                     decoration:
                                                                         const InputDecoration(
@@ -2359,19 +2348,19 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                 ),
                                                               ],
                                                             ),
-                                                            const Text(
+                                                            Text(
                                                               'Achievements',
                                                               style: TextStyle(
-                                                                color: Color
+                                                                color: const Color
                                                                     .fromARGB(
-                                                                        255,
-                                                                        68,
-                                                                        147,
-                                                                        153),
+                                                                    255,
+                                                                    68,
+                                                                    147,
+                                                                    153),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 8,
+                                                                fontSize: 8.sp,
                                                               ),
                                                             ),
                                                             Column(
@@ -2389,15 +2378,14 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: const EdgeInsets
-                                                                            .all(
-                                                                            3),
+                                                                        padding:
+                                                                            EdgeInsets.all(3.r),
                                                                         child:
                                                                             Container(
                                                                           width:
-                                                                              4,
+                                                                              4.w,
                                                                           height:
-                                                                              4,
+                                                                              4.h,
                                                                           decoration:
                                                                               const BoxDecoration(
                                                                             color: Color.fromARGB(
@@ -2443,11 +2431,11 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                           controller:
                                                                               achievementsControllers[index][innerIndex],
                                                                           style:
-                                                                              const TextStyle(
+                                                                              TextStyle(
                                                                             color:
                                                                                 Colors.black,
                                                                             fontSize:
-                                                                                8,
+                                                                                8.sp,
                                                                           ),
                                                                           decoration:
                                                                               const InputDecoration(
@@ -2493,21 +2481,22 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                           .green,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              2),
+                                                                              2.r),
                                                                     ),
-                                                                    height: 17,
-                                                                    width: 17,
-                                                                    child:
-                                                                        const Icon(
+                                                                    height:
+                                                                        17.h,
+                                                                    width: 17.w,
+                                                                    child: Icon(
                                                                       Icons
                                                                           .arrow_downward_rounded,
                                                                       color: Colors
                                                                           .white,
-                                                                      size: 15,
+                                                                      size:
+                                                                          15.r,
                                                                     ),
                                                                   ),
-                                                                  const SizedBox(
-                                                                    width: 3,
+                                                                  SizedBox(
+                                                                    width: 3.w,
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
@@ -2529,24 +2518,25 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                         color: Colors
                                                                             .grey,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(2),
+                                                                            BorderRadius.circular(2.r),
                                                                       ),
                                                                       height:
-                                                                          17,
-                                                                      width: 17,
+                                                                          17.h,
+                                                                      width:
+                                                                          17.w,
                                                                       child:
-                                                                          const Icon(
+                                                                          Icon(
                                                                         Icons
                                                                             .copy,
                                                                         color: Colors
                                                                             .white,
-                                                                        size:
-                                                                            15,
+                                                                        size: 15
+                                                                            .r,
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  const SizedBox(
-                                                                    width: 3,
+                                                                  SizedBox(
+                                                                    width: 3.w,
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
@@ -2564,24 +2554,25 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                         color: Colors
                                                                             .red,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(2),
+                                                                            BorderRadius.circular(2.r),
                                                                       ),
                                                                       height:
-                                                                          17,
-                                                                      width: 17,
+                                                                          17.h,
+                                                                      width:
+                                                                          17.w,
                                                                       child:
-                                                                          const Icon(
+                                                                          Icon(
                                                                         Icons
                                                                             .delete_forever_rounded,
                                                                         color: Colors
                                                                             .white,
-                                                                        size:
-                                                                            15,
+                                                                        size: 15
+                                                                            .r,
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  const SizedBox(
-                                                                    width: 2,
+                                                                  SizedBox(
+                                                                    width: 2.w,
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
@@ -2598,26 +2589,27 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                         color: Colors
                                                                             .grey,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(2),
+                                                                            BorderRadius.circular(2.r),
                                                                       ),
                                                                       height:
-                                                                          17,
-                                                                      width: 17,
+                                                                          17.h,
+                                                                      width:
+                                                                          17.w,
                                                                       child:
-                                                                          const Icon(
+                                                                          Icon(
                                                                         Icons
                                                                             .more_vert,
                                                                         color: Colors
                                                                             .white,
-                                                                        size:
-                                                                            15,
+                                                                        size: 15
+                                                                            .r,
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                              const SizedBox(
-                                                                  height: 3),
+                                                              SizedBox(
+                                                                  height: 3.h),
                                                               _showAddAchievementOnly[
                                                                       index]
                                                                   ? GestureDetector(
@@ -2631,19 +2623,19 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                           color:
                                                                               Colors.grey,
                                                                           borderRadius:
-                                                                              BorderRadius.circular(2),
+                                                                              BorderRadius.circular(2.r),
                                                                         ),
                                                                         width: MediaQuery.of(context).size.width *
                                                                             0.2,
                                                                         height:
-                                                                            17,
+                                                                            17.h,
                                                                         child:
-                                                                            const Center(
+                                                                            Center(
                                                                           child:
                                                                               Text(
                                                                             'Add Achievement',
                                                                             style:
-                                                                                TextStyle(color: Colors.white, fontSize: 10),
+                                                                                TextStyle(color: Colors.white, fontSize: 10.sp),
                                                                           ),
                                                                         ),
                                                                       ),
@@ -2662,7 +2654,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           // EDUCATION SECTION
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -2672,15 +2664,16 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                   Center(
                                       child: Image.asset(
                                           'assets/Icons/education1.png',
-                                          height: 17,
-                                          width: 17)),
-                                  const SizedBox(width: 5),
-                                  const Text(
+                                          height: 17.h,
+                                          width: 17.w)),
+                                  SizedBox(width: 5.w),
+                                  Text(
                                     'EDUCATION',
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 50, 58, 77),
+                                      color:
+                                          const Color.fromARGB(255, 50, 58, 77),
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15,
+                                      fontSize: 15.r,
                                     ),
                                   ),
                                 ],
@@ -2785,17 +2778,15 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                               Row(
                                                 children: [
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8),
+                                                    padding: EdgeInsets.only(
+                                                        left: 8.w),
                                                     child: Column(
                                                       children: [
-                                                        const SizedBox(
-                                                            height: 8),
+                                                        SizedBox(height: 8.h),
                                                         // Dot
                                                         Container(
-                                                          width: 5,
-                                                          height: 5,
+                                                          height: 5.h,
+                                                          width: 5.w,
                                                           decoration:
                                                               const BoxDecoration(
                                                             color:
@@ -2808,11 +2799,10 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                 BoxShape.circle,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                            height: 5),
+                                                        SizedBox(height: 5.h),
                                                         Container(
-                                                          width: 1,
-                                                          height: 20,
+                                                          height: 20.h,
+                                                          width: 1.w,
                                                           color: const Color
                                                               .fromARGB(
                                                               255, 50, 58, 77),
@@ -2820,15 +2810,15 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                       ],
                                                     ),
                                                   ),
-                                                  const SizedBox(width: 10),
+                                                  SizedBox(width: 10.w),
                                                   Expanded(
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        const SizedBox(
-                                                          height: 5,
+                                                        SizedBox(
+                                                          height: 5.h,
                                                         ),
 
                                                         // FIELD OF STUDY
@@ -2866,10 +2856,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                           controller:
                                                               fieldOfStudyControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             color: Colors.black,
-                                                            fontSize: 10,
+                                                            fontSize: 10.sp,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),
@@ -2927,10 +2916,9 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                           controller:
                                                               institutionAddressControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             color: Colors.black,
-                                                            fontSize: 8,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           decoration:
                                                               const InputDecoration(
@@ -2999,20 +2987,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     startDateControllers[
                                                                         index],
                                                                 style:
-                                                                    const TextStyle(
+                                                                    TextStyle(
                                                                   fontStyle:
                                                                       FontStyle
                                                                           .italic,
-                                                                  color: Color
+                                                                  color: const Color
                                                                       .fromARGB(
-                                                                          255,
-                                                                          68,
-                                                                          147,
-                                                                          153),
+                                                                      255,
+                                                                      68,
+                                                                      147,
+                                                                      153),
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  fontSize: 8,
+                                                                  fontSize:
+                                                                      8.sp,
                                                                 ),
                                                                 decoration:
                                                                     const InputDecoration(
@@ -3077,20 +3066,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     institutionAddressControllers[
                                                                         index],
                                                                 style:
-                                                                    const TextStyle(
+                                                                    TextStyle(
                                                                   fontStyle:
                                                                       FontStyle
                                                                           .italic,
-                                                                  color: Color
+                                                                  color: const Color
                                                                       .fromARGB(
-                                                                          255,
-                                                                          68,
-                                                                          147,
-                                                                          153),
+                                                                      255,
+                                                                      68,
+                                                                      147,
+                                                                      153),
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  fontSize: 8,
+                                                                  fontSize:
+                                                                      8.sp,
                                                                 ),
                                                                 decoration:
                                                                     const InputDecoration(
@@ -3140,21 +3130,20 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .arrow_downward_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -3177,22 +3166,21 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons.copy,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -3211,28 +3199,26 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                     color: Colors
                                                                         .red,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .delete_forever_rounded,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(
-                                                              height: 3),
+                                                          SizedBox(height: 3.h),
                                                         ],
                                                       ),
                                                     )
@@ -3244,7 +3230,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                     ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                         ],
                       ),
                     ),

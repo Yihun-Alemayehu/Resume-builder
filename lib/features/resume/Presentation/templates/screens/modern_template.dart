@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
@@ -94,25 +95,24 @@ class ModernTemplateState extends State<ModernTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -133,7 +133,7 @@ class ModernTemplateState extends State<ModernTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -142,7 +142,7 @@ class ModernTemplateState extends State<ModernTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -151,7 +151,7 @@ class ModernTemplateState extends State<ModernTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -164,7 +164,7 @@ class ModernTemplateState extends State<ModernTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -331,7 +331,7 @@ class ModernTemplateState extends State<ModernTemplate> {
       children: [
         // FULL NAME, PROFESSION AND BRIEF SUMMARY SECTION
         Padding(
-          padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
+          padding: EdgeInsets.only(right: 30.w, left: 20.w, top: 20.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -350,8 +350,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                   });
                 },
                 controller: _nameController,
-                style: const TextStyle(
-                  fontSize: 20,
+                style: TextStyle(
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 decoration: const InputDecoration(
@@ -380,8 +380,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                   });
                 },
                 controller: _professionController,
-                style: const TextStyle(
-                  fontSize: 11,
+                style: TextStyle(
+                  fontSize: 11.sp,
                   fontWeight: FontWeight.normal,
                 ),
                 decoration: const InputDecoration(
@@ -411,8 +411,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                   });
                 },
                 controller: _bioController,
-                style: const TextStyle(
-                  fontSize: 8,
+                style: TextStyle(
+                  fontSize: 8.sp,
                 ),
                 decoration: const InputDecoration(
                   isDense: true,
@@ -427,16 +427,16 @@ class ModernTemplateState extends State<ModernTemplate> {
             ],
           ),
         ),
-        const Divider(color: Colors.black, indent: 20, endIndent: 20),
+        Divider(color: Colors.black, indent: 20.w, endIndent: 20.w),
         // EMAIL, ADDRESS, PHONE NUMBER AND LINKEDIN SECTION
         Row(
           children: [
             // EMAIL, ADDRESS,
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(right: 30, left: 20),
+                padding: EdgeInsets.only(right: 30.w, left: 20.w),
                 child: SizedBox(
-                  height: 20,
+                  height: 20.h,
                   child: ListView.builder(
                     itemCount: 2,
                     itemBuilder: (context, index) {
@@ -444,10 +444,10 @@ class ModernTemplateState extends State<ModernTemplate> {
                         children: [
                           Image.asset(
                             _iconsList1[index],
-                            height: 10,
-                            width: 10,
+                            height: 10.h,
+                            width: 10.w,
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: 5.w),
                           Expanded(
                             child: TextField(
                               onTapOutside: (event) {
@@ -471,8 +471,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                                 });
                               },
                               controller: _controllersList1[index],
-                              style: const TextStyle(
-                                fontSize: 8,
+                              style: TextStyle(
+                                fontSize: 8.sp,
                               ),
                               decoration: const InputDecoration(
                                 isDense: true,
@@ -495,9 +495,9 @@ class ModernTemplateState extends State<ModernTemplate> {
             // PHONE NUMBER AND LINKEDIN
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(right: 30, left: 20),
+                padding: EdgeInsets.only(right: 30.w, left: 20.w),
                 child: SizedBox(
-                  height: 20,
+                  height: 20.h,
                   child: ListView.builder(
                     itemCount: 2,
                     itemBuilder: (context, index) {
@@ -505,8 +505,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                         children: [
                           Image.asset(
                             _iconsList1[index + 2],
-                            height: 10,
-                            width: 10,
+                            height: 10.h,
+                            width: 10.w,
                           ),
                           const SizedBox(width: 5),
                           Expanded(
@@ -532,9 +532,9 @@ class ModernTemplateState extends State<ModernTemplate> {
                                 });
                               },
                               controller: _controllersList1[index + 2],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 // color: Colors.white,
-                                fontSize: 8,
+                                fontSize: 8.sp,
                               ),
                               decoration: const InputDecoration(
                                 isDense: true,
@@ -556,7 +556,7 @@ class ModernTemplateState extends State<ModernTemplate> {
             ),
           ],
         ),
-        const Divider(color: Colors.black, indent: 20, endIndent: 20),
+        Divider(color: Colors.black, indent: 20.w, endIndent: 20.w),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -564,7 +564,7 @@ class ModernTemplateState extends State<ModernTemplate> {
             // LEFT SIDE ROW CHILD WHICH WRAPS WORK EXPERIENCE AND EDUCATION BACKGROUND
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+                padding: EdgeInsets.only(left: 20.w, right: 10.w, top: 10.h),
                 child: Column(
                   children: [
                     // WORK EXPERIENCE SECTION
@@ -574,11 +574,18 @@ class ModernTemplateState extends State<ModernTemplate> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              'WORK EXPERIENCE',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp,
+                              ),
+                            ),
                             templateData.workExperience.isEmpty
                                 ? Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
-                                    height: 100,
+                                    height: 100.h,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: const Color.fromARGB(
@@ -590,18 +597,18 @@ class ModernTemplateState extends State<ModernTemplate> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
-                                        const Text(
+                                        Text(
                                           'No Work Experience provided',
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 8,
+                                            fontSize: 8.sp,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -630,17 +637,17 @@ class ModernTemplateState extends State<ModernTemplate> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                                  BorderRadius.circular(5.r),
                                               border: Border.all(
                                                   color: const Color.fromARGB(
                                                       255, 73, 150, 159)),
                                             ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(2.0),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(2.0.r),
                                               child: Text(
                                                 'Add Work Experience',
                                                 style: TextStyle(
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                     color: Colors.black),
                                               ),
                                             ),
@@ -671,18 +678,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                index == 0
-                                                    ? const Text(
-                                                        'WORK EXPERIENCE',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15,
-                                                        ),
-                                                      )
-                                                    : const SizedBox(),
-                                                const SizedBox(
-                                                  height: 5,
+                                                SizedBox(
+                                                  height: 5.h,
                                                 ),
 
                                                 // Work experience Job title
@@ -715,9 +712,9 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                   controller:
                                                       jobTitleControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 10,
+                                                    fontSize: 10.sp,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration:
@@ -767,9 +764,9 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                   controller:
                                                       companyNameControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -827,11 +824,11 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                         controller:
                                                             workEndDateControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontStyle:
                                                               FontStyle.italic,
                                                           color: Colors.grey,
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                         ),
                                                         decoration:
                                                             const InputDecoration(
@@ -887,11 +884,11 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                         controller:
                                                             jobTypeControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontStyle:
                                                               FontStyle.italic,
                                                           color: Colors.grey,
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                         ),
                                                         decoration:
                                                             const InputDecoration(
@@ -915,12 +912,12 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                     ),
                                                   ],
                                                 ),
-                                                const Text(
+                                                Text(
                                                   'Achievements',
                                                   style: TextStyle(
                                                     fontStyle: FontStyle.italic,
                                                     color: Colors.grey,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                 ),
                                                 Column(
@@ -935,10 +932,10 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          const Text(
+                                                          Text(
                                                             '-',
                                                             style: TextStyle(
-                                                              fontSize: 8,
+                                                              fontSize: 8.sp,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -988,11 +985,10 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                           index]
                                                                       [
                                                                       innerIndex],
-                                                              style:
-                                                                  const TextStyle(
+                                                              style: TextStyle(
                                                                 color: Colors
                                                                     .black,
-                                                                fontSize: 8,
+                                                                fontSize: 8.sp,
                                                               ),
                                                               decoration:
                                                                   const InputDecoration(
@@ -1042,20 +1038,20 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .arrow_downward_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 3,
+                                                            SizedBox(
+                                                              width: 3.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1082,21 +1078,20 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons.copy,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 3,
+                                                            SizedBox(
+                                                              width: 3.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1117,22 +1112,21 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .delete_forever_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1151,24 +1145,22 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .more_vert,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
                                                           ],
                                                         ),
-                                                        const SizedBox(
-                                                            height: 3),
+                                                        SizedBox(height: 3.h),
                                                         _showAddAchievementOnly[
                                                                 index]
                                                             ? GestureDetector(
@@ -1183,24 +1175,23 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
                                                                   width: MediaQuery.of(
                                                                               context)
                                                                           .size
                                                                           .width *
                                                                       0.2,
-                                                                  height: 17,
-                                                                  child:
-                                                                      const Center(
+                                                                  height: 17.h,
+                                                                  child: Center(
                                                                     child: Text(
                                                                       'Add Achievement',
                                                                       style: TextStyle(
                                                                           color: Colors
                                                                               .white,
                                                                           fontSize:
-                                                                              10),
+                                                                              10.sp),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1219,15 +1210,22 @@ class ModernTemplateState extends State<ModernTemplate> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     // EDUCATION SECTION
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Text(
+                          'EDUCATION',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                          ),
+                        ),
                         templateData.educationBackground.isEmpty
                             ? Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
-                                height: 100,
+                                height: 100.h,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -1237,18 +1235,18 @@ class ModernTemplateState extends State<ModernTemplate> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
-                                    const Text(
+                                    Text(
                                       'No education background provided',
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 8,
+                                        fontSize: 8.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -1280,17 +1278,17 @@ class ModernTemplateState extends State<ModernTemplate> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(5),
+                                              BorderRadius.circular(5.r),
                                           border: Border.all(
                                               color: const Color.fromARGB(
                                                   255, 73, 150, 159)),
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(2.0),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(2.0.r),
                                           child: Text(
                                             'Add Education',
                                             style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -1320,18 +1318,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            index == 0
-                                                ? const Text(
-                                                    'EDUCATION',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15,
-                                                    ),
-                                                  )
-                                                : const SizedBox(),
-                                            const SizedBox(
-                                              height: 5,
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
 
                                             // FIELD OF STUDY
@@ -1366,9 +1354,9 @@ class ModernTemplateState extends State<ModernTemplate> {
                                               controller:
                                                   fieldOfStudyControllers[
                                                       index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 10,
+                                                fontSize: 10.sp,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               decoration: const InputDecoration(
@@ -1417,9 +1405,9 @@ class ModernTemplateState extends State<ModernTemplate> {
                                               controller:
                                                   institutionAddressControllers[
                                                       index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                               ),
                                               decoration: const InputDecoration(
                                                 isDense: true,
@@ -1478,11 +1466,11 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                     controller:
                                                         startDateControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color: Colors.grey,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1537,11 +1525,11 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                     controller:
                                                         institutionAddressControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color: Colors.grey,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1581,19 +1569,19 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .arrow_downward_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1621,20 +1609,20 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.copy,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.r,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1654,25 +1642,25 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .delete_forever_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 3),
+                                                    SizedBox(height: 3.h),
                                                   ],
                                                 ),
                                               )
@@ -1684,7 +1672,7 @@ class ModernTemplateState extends State<ModernTemplate> {
                               ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                   ],
                 ),
               ),
@@ -1692,7 +1680,7 @@ class ModernTemplateState extends State<ModernTemplate> {
             // RIGHT SIDE ROW CHILD WHICH WRAPS SKILLS, CERTIFICATES AND LANGUAGES
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+                padding: EdgeInsets.only(left: 20.w, right: 10.w, top: 10.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1710,15 +1698,15 @@ class ModernTemplateState extends State<ModernTemplate> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'SKILLS',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: 10.h,
                               ),
                               _borderColorForSkills
                                   ? GestureDetector(
@@ -1729,17 +1717,16 @@ class ModernTemplateState extends State<ModernTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                          spacing: 4,
+                                          spacing: 4.r,
                                           children: List.generate(
                                             templateData.skills.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
-                                                  height: 25,
-                                                  padding:
-                                                      const EdgeInsets.all(2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  height: 25.h,
+                                                  padding: EdgeInsets.all(2.r),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                       color: Colors.grey,
@@ -1747,7 +1734,7 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                     color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            4),
+                                                            4.r),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -1756,12 +1743,12 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                       Text(
                                                         templateData
                                                             .skills[index],
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
+                                                        style: TextStyle(
+                                                          fontSize: 10.sp,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 4,
+                                                      SizedBox(
+                                                        width: 4.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -1782,11 +1769,11 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                           ),
-                                                          child: const Icon(
+                                                          child: Icon(
                                                             Icons.close,
-                                                            size: 10,
+                                                            size: 10.r,
                                                           ),
                                                         ),
                                                       )
@@ -1805,26 +1792,26 @@ class ModernTemplateState extends State<ModernTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                        spacing: 4,
+                                        spacing: 4.r,
                                         children: List.generate(
                                           templateData.skills.length,
                                           (index) {
                                             return Container(
-                                              padding: const EdgeInsets.all(2),
-                                              margin: const EdgeInsets.only(
-                                                  right: 4, bottom: 4),
+                                              padding: EdgeInsets.all(2.r),
+                                              margin: EdgeInsets.only(
+                                                  right: 4.w, bottom: 4.h),
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                   color: Colors.grey,
                                                 ),
                                                 color: Colors.white,
                                                 borderRadius:
-                                                    BorderRadius.circular(4),
+                                                    BorderRadius.circular(4.r),
                                               ),
                                               child: Text(
                                                 templateData.skills[index],
-                                                style: const TextStyle(
-                                                  fontSize: 8,
+                                                style: TextStyle(
+                                                  fontSize: 8.sp,
                                                 ),
                                               ),
                                             );
@@ -1836,8 +1823,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                           ),
                           _borderColorForSkills
                               ? Positioned(
-                                  top: 2,
-                                  right: 2,
+                                  top: 2.h,
+                                  right: 2.w,
                                   child: Row(
                                     children: [
                                       GestureDetector(
@@ -1847,14 +1834,14 @@ class ModernTemplateState extends State<ModernTemplate> {
                                           decoration: BoxDecoration(
                                             color: Colors.green,
                                             borderRadius:
-                                                BorderRadius.circular(2),
+                                                BorderRadius.circular(2.r),
                                           ),
-                                          height: 20,
-                                          width: 20,
-                                          child: const Icon(
+                                          height: 20.h,
+                                          width: 20.w,
+                                          child: Icon(
                                             Icons.add,
                                             color: Colors.white,
-                                            size: 15,
+                                            size: 15.r,
                                           ),
                                         ),
                                       ),
@@ -1865,17 +1852,24 @@ class ModernTemplateState extends State<ModernTemplate> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
 
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Text(
+                          'CERTIFICATES',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                          ),
+                        ),
                         templateData.certificates.isEmpty
                             ? Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
-                                height: 100,
+                                height: 100.h,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -1885,18 +1879,18 @@ class ModernTemplateState extends State<ModernTemplate> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
-                                    const Text(
+                                    Text(
                                       'No certificate provided',
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 8,
+                                        fontSize: 8.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -1917,17 +1911,17 @@ class ModernTemplateState extends State<ModernTemplate> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(5),
+                                              BorderRadius.circular(5.r),
                                           border: Border.all(
                                               color: const Color.fromARGB(
                                                   255, 73, 150, 159)),
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(2.0),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(2.0.r),
                                           child: Text(
                                             'Add Certificate',
                                             style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -1956,18 +1950,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            index == 0
-                                                ? const Text(
-                                                    'CERTIFICATES',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15,
-                                                    ),
-                                                  )
-                                                : const SizedBox(),
-                                            const SizedBox(
-                                              height: 5,
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
 
                                             // CERTIFICATE NAME
@@ -2002,9 +1986,9 @@ class ModernTemplateState extends State<ModernTemplate> {
                                               controller:
                                                   certificateNameController[
                                                       index],
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 10,
+                                                fontSize: 10.sp,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               decoration: const InputDecoration(
@@ -2066,11 +2050,11 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                     controller:
                                                         issuedDateController[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color: Colors.grey,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -2110,19 +2094,19 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .arrow_downward_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2151,20 +2135,20 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.copy,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2184,25 +2168,25 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .delete_forever_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 3),
+                                                    SizedBox(height: 3.h),
                                                   ],
                                                 ),
                                               )
@@ -2214,7 +2198,7 @@ class ModernTemplateState extends State<ModernTemplate> {
                               ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     // LANGUAGE SECTION
                     _borderColorForLanguage
@@ -2231,15 +2215,15 @@ class ModernTemplateState extends State<ModernTemplate> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'LANGUAGES',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -2249,24 +2233,23 @@ class ModernTemplateState extends State<ModernTemplate> {
                                         });
                                       },
                                       child: Wrap(
-                                          spacing: 4,
+                                          spacing: 4.r,
                                           children: List.generate(
                                             templateData.languages.length,
                                             (index) {
                                               return IntrinsicWidth(
                                                 child: Container(
-                                                  height: 35,
-                                                  padding:
-                                                      const EdgeInsets.all(2),
-                                                  margin: const EdgeInsets.only(
-                                                      right: 4, bottom: 4),
+                                                  height: 35.h,
+                                                  padding: EdgeInsets.all(2.r),
+                                                  margin: EdgeInsets.only(
+                                                      right: 4.w, bottom: 4.h),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: Colors.grey),
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4)),
+                                                              4.r)),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -2281,22 +2264,20 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                 .languages[
                                                                     index]
                                                                 .language,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
+                                                            style: TextStyle(
+                                                              fontSize: 10.sp,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            height: 4,
+                                                          SizedBox(
+                                                            height: 4.h,
                                                           ),
                                                           Text(
                                                             templateData
                                                                 .languages[
                                                                     index]
                                                                 .proficiency,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
+                                                            style: TextStyle(
+                                                              fontSize: 10.sp,
                                                             ),
                                                           ),
                                                         ],
@@ -2320,11 +2301,11 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        4.r),
                                                           ),
-                                                          child: const Icon(
+                                                          child: Icon(
                                                             Icons.close,
-                                                            size: 10,
+                                                            size: 10.sp,
                                                           ),
                                                         ),
                                                       )
@@ -2339,8 +2320,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                                 ),
                                 _borderColorForLanguage
                                     ? Positioned(
-                                        top: 2,
-                                        right: 2,
+                                        top: 2.h,
+                                        right: 2.w,
                                         child: Row(
                                           children: [
                                             GestureDetector(
@@ -2351,14 +2332,15 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
                                                   borderRadius:
-                                                      BorderRadius.circular(2),
+                                                      BorderRadius.circular(
+                                                          2.r),
                                                 ),
-                                                height: 20,
-                                                width: 20,
-                                                child: const Icon(
+                                                height: 20.h,
+                                                width: 20.w,
+                                                child: Icon(
                                                   Icons.add,
                                                   color: Colors.white,
-                                                  size: 15,
+                                                  size: 15.r,
                                                 ),
                                               ),
                                             ),
@@ -2379,15 +2361,15 @@ class ModernTemplateState extends State<ModernTemplate> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'Languages',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: 15.sp,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -2401,20 +2383,20 @@ class ModernTemplateState extends State<ModernTemplate> {
                                           Text(
                                             templateData
                                                 .languages[index].language,
-                                            style: const TextStyle(
-                                              fontSize: 12,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
                                             ),
                                           ),
                                           Text(
                                             templateData
                                                 .languages[index].proficiency,
-                                            style: const TextStyle(
-                                                fontSize: 10,
+                                            style: TextStyle(
+                                                fontSize: 10.sp,
                                                 fontStyle: FontStyle.italic,
                                                 color: Colors.grey),
                                           ),
-                                          const SizedBox(
-                                            height: 5,
+                                          SizedBox(
+                                            height: 5.h,
                                           ),
                                         ],
                                       );
@@ -2424,8 +2406,8 @@ class ModernTemplateState extends State<ModernTemplate> {
                               ],
                             ),
                           ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                   ],
                 ),
@@ -2433,13 +2415,13 @@ class ModernTemplateState extends State<ModernTemplate> {
             )
           ],
         ),
-        const Align(
+        Align(
           alignment: Alignment.topCenter,
           child: Card(
             color: Colors.amber,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
+              padding: EdgeInsets.all(8.0.r),
+              child: const Text(
                 'Tap on any section to edit',
                 style: TextStyle(color: Colors.black),
               ),

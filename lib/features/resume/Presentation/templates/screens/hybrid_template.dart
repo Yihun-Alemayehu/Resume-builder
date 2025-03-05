@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
@@ -113,12 +114,11 @@ class HybridTemplateState extends State<HybridTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
@@ -129,9 +129,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -152,7 +152,7 @@ class HybridTemplateState extends State<HybridTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -161,7 +161,7 @@ class HybridTemplateState extends State<HybridTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -170,7 +170,7 @@ class HybridTemplateState extends State<HybridTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -183,7 +183,7 @@ class HybridTemplateState extends State<HybridTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -361,7 +361,7 @@ class HybridTemplateState extends State<HybridTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       child: Column(
         children: [
           SizedBox(
@@ -383,8 +383,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                     });
                   },
                   controller: _nameController,
-                  style: const TextStyle(
-                    fontSize: 18,
+                  style: TextStyle(
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   decoration: const InputDecoration(
@@ -413,9 +413,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                     });
                   },
                   controller: _professionController,
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 40, 180, 163),
-                    fontSize: 11,
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 40, 180, 163),
+                    fontSize: 11.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   decoration: const InputDecoration(
@@ -431,13 +431,13 @@ class HybridTemplateState extends State<HybridTemplate> {
 
                 // BIO
                 Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
+                  padding: EdgeInsets.all(10.r),
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4),
-                      topRight: Radius.circular(4),
+                      topLeft: Radius.circular(4.r),
+                      topRight: Radius.circular(4.r),
                     ),
-                    color: Color.fromARGB(255, 48, 59, 68),
+                    color: const Color.fromARGB(255, 48, 59, 68),
                   ),
                   child: TextField(
                     maxLines: null,
@@ -454,9 +454,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                       });
                     },
                     controller: _bioController,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 8,
+                      fontSize: 8.sp,
                     ),
                     decoration: const InputDecoration(
                       isDense: true,
@@ -474,22 +474,22 @@ class HybridTemplateState extends State<HybridTemplate> {
           ),
           // EMAIL, ADDRESS, PHONE NUMBER AND LINKEDIN SECTION
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: const BoxDecoration(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(4),
-                bottomRight: Radius.circular(4),
+                bottomLeft: Radius.circular(4.r),
+                bottomRight: Radius.circular(4.r),
               ),
-              color: Color.fromARGB(255, 40, 180, 163),
+              color: const Color.fromARGB(255, 40, 180, 163),
             ),
             child: Row(
               children: [
                 // EMAIL, ADDRESS,
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 3, left: 2),
+                    padding: EdgeInsets.only(right: 3.w, left: 2.w),
                     child: SizedBox(
-                      height: 25,
+                      height: 25.h,
                       child: ListView.builder(
                         itemCount: 2,
                         itemBuilder: (context, index) {
@@ -497,10 +497,10 @@ class HybridTemplateState extends State<HybridTemplate> {
                             children: [
                               Image.asset(
                                 _iconsList1[index],
-                                height: 10,
-                                width: 10,
+                                height: 10.h,
+                                width: 10.w,
                               ),
-                              const SizedBox(width: 5),
+                              SizedBox(width: 5.w),
                               Expanded(
                                 child: TextField(
                                   onTapOutside: (event) {
@@ -526,9 +526,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                     });
                                   },
                                   controller: _controllersList1[index],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 9,
+                                    fontSize: 9.sp,
                                   ),
                                   decoration: const InputDecoration(
                                     isDense: true,
@@ -552,9 +552,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                 // PHONE NUMBER AND LINKEDIN
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 3, left: 2),
+                    padding: EdgeInsets.only(right: 3.w, left: 2.w),
                     child: SizedBox(
-                      height: 25,
+                      height: 25.h,
                       child: ListView.builder(
                         itemCount: 2,
                         itemBuilder: (context, index) {
@@ -562,10 +562,10 @@ class HybridTemplateState extends State<HybridTemplate> {
                             children: [
                               Image.asset(
                                 _iconsList1[index + 2],
-                                height: 10,
-                                width: 10,
+                                height: 10.h,
+                                width: 10.w,
                               ),
-                              const SizedBox(width: 5),
+                              SizedBox(width: 5.w),
                               Expanded(
                                 child: TextField(
                                   onTapOutside: (event) {
@@ -591,9 +591,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                     });
                                   },
                                   controller: _controllersList1[index + 2],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 9,
+                                    fontSize: 9.sp,
                                   ),
                                   decoration: const InputDecoration(
                                     isDense: true,
@@ -617,8 +617,8 @@ class HybridTemplateState extends State<HybridTemplate> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -626,7 +626,7 @@ class HybridTemplateState extends State<HybridTemplate> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.58,
                 child: Container(
-                  padding: const EdgeInsets.only(right: 10, top: 10),
+                  padding: EdgeInsets.only(right: 10.w, top: 10.h),
                   child: Column(
                     children: [
                       // WORK EXPERIENCE SECTION
@@ -636,11 +636,34 @@ class HybridTemplateState extends State<HybridTemplate> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: 20.h,
+                                    width: 20.w,
+                                    child: Center(
+                                        child: Image.asset(
+                                            'assets/Icons/briefcase1.png',
+                                            height: 20.h,
+                                            width: 20.w)),
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  Text(
+                                    'WORK EXPERIENCE',
+                                    style: TextStyle(
+                                      color:
+                                          const Color.fromARGB(255, 48, 59, 68),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
                               templateData.workExperience.isEmpty
                                   ? Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
-                                      height: 100,
+                                      height: 100.h,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color: const Color.fromARGB(
@@ -652,18 +675,18 @@ class HybridTemplateState extends State<HybridTemplate> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
-                                          const Text(
+                                          Text(
                                             'No Work Experience provided',
                                             style: TextStyle(
                                               color: Colors.grey,
-                                              fontSize: 8,
+                                              fontSize: 8.sp,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
                                           GestureDetector(
                                             onTap: () {
@@ -692,17 +715,17 @@ class HybridTemplateState extends State<HybridTemplate> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                    BorderRadius.circular(5.r),
                                                 border: Border.all(
                                                     color: const Color.fromARGB(
                                                         255, 73, 150, 159)),
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(2.0),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(2.0.r),
                                                 child: Text(
                                                   'Add Work Experience',
                                                   style: TextStyle(
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                       color: Colors.black),
                                                 ),
                                               ),
@@ -734,42 +757,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  index == 0
-                                                      ? Row(
-                                                          children: [
-                                                            Container(
-                                                              height: 20,
-                                                              width: 20,
-                                                              child: Center(
-                                                                  child: Image.asset(
-                                                                      'assets/Icons/briefcase1.png',
-                                                                      height:
-                                                                          20,
-                                                                      width:
-                                                                          20)),
-                                                            ),
-                                                            const SizedBox(
-                                                                width: 5),
-                                                            const Text(
-                                                              'WORK EXPERIENCE',
-                                                              style: TextStyle(
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        48,
-                                                                        59,
-                                                                        68),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 15,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      : const SizedBox(),
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  SizedBox(
+                                                    height: 5.h,
                                                   ),
 
                                                   // Work experience Job title
@@ -802,9 +791,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                     controller:
                                                         jobTitleControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 10,
+                                                      fontSize: 10.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -855,9 +844,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                     controller:
                                                         companyNameControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -919,19 +908,15 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                           controller:
                                                               workEndDateControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    40,
-                                                                    180,
-                                                                    163),
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                40, 180, 163),
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 8,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           decoration:
                                                               const InputDecoration(
@@ -988,19 +973,15 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                           controller:
                                                               jobTypeControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    40,
-                                                                    180,
-                                                                    163),
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                40, 180, 163),
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 8,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           decoration:
                                                               const InputDecoration(
@@ -1023,14 +1004,14 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                       ),
                                                     ],
                                                   ),
-                                                  const Text(
+                                                  Text(
                                                     'Achievements',
                                                     style: TextStyle(
                                                       color: Color.fromARGB(
                                                           255, 40, 180, 163),
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                   ),
                                                   Column(
@@ -1045,16 +1026,16 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            const Text(
+                                                            Text(
                                                               '-',
                                                               style: TextStyle(
-                                                                fontSize: 8,
-                                                                color: Color
+                                                                fontSize: 8.sp,
+                                                                color: const Color
                                                                     .fromARGB(
-                                                                        255,
-                                                                        244,
-                                                                        102,
-                                                                        102),
+                                                                    255,
+                                                                    244,
+                                                                    102,
+                                                                    102),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -1106,10 +1087,11 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                         [
                                                                         innerIndex],
                                                                 style:
-                                                                    const TextStyle(
+                                                                    TextStyle(
                                                                   color: Colors
                                                                       .black,
-                                                                  fontSize: 8,
+                                                                  fontSize:
+                                                                      8.sp,
                                                                 ),
                                                                 decoration:
                                                                     const InputDecoration(
@@ -1159,21 +1141,20 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .arrow_downward_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 3,
+                                                              SizedBox(
+                                                                width: 3.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1196,22 +1177,21 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons.copy,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 3,
+                                                              SizedBox(
+                                                                width: 3.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1230,23 +1210,22 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                     color: Colors
                                                                         .red,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .delete_forever_rounded,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -1264,25 +1243,23 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .more_vert,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(
-                                                              height: 3),
+                                                          SizedBox(height: 3.h),
                                                           _showAddAchievementOnly[
                                                                   index]
                                                               ? GestureDetector(
@@ -1298,22 +1275,23 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                           .grey,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              2),
+                                                                              2.r),
                                                                     ),
                                                                     width: MediaQuery.of(context)
                                                                             .size
                                                                             .width *
                                                                         0.2,
-                                                                    height: 17,
+                                                                    height:
+                                                                        17.h,
                                                                     child:
-                                                                        const Center(
+                                                                        Center(
                                                                       child:
                                                                           Text(
                                                                         'Add Achievement',
                                                                         style: TextStyle(
                                                                             color:
                                                                                 Colors.white,
-                                                                            fontSize: 10),
+                                                                            fontSize: 10.sp),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1332,7 +1310,7 @@ class HybridTemplateState extends State<HybridTemplate> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       // EDUCATION SECTION
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -1341,7 +1319,7 @@ class HybridTemplateState extends State<HybridTemplate> {
                               ? Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
-                                  height: 100,
+                                  height: 100.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: const Color.fromARGB(
@@ -1352,18 +1330,18 @@ class HybridTemplateState extends State<HybridTemplate> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
-                                      const Text(
+                                      Text(
                                         'No education background provided',
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize: 8,
+                                          fontSize: 8.sp,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -1396,17 +1374,17 @@ class HybridTemplateState extends State<HybridTemplate> {
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(5),
+                                                BorderRadius.circular(5.r),
                                             border: Border.all(
                                                 color: const Color.fromARGB(
                                                     255, 73, 150, 159)),
                                           ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(2.0),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(2.0.r),
                                             child: Text(
                                               'Add Education',
                                               style: TextStyle(
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -1440,35 +1418,31 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                   ? Row(
                                                       children: [
                                                         Container(
-                                                          height: 20,
-                                                          width: 20,
+                                                          height: 20.h,
+                                                          width: 20.w,
                                                           child: Center(
                                                               child: Image.asset(
                                                                   'assets/Icons/briefcase1.png',
-                                                                  height: 20,
-                                                                  width: 20)),
+                                                                  height: 20.h,
+                                                                  width: 20.w)),
                                                         ),
-                                                        const SizedBox(
-                                                            width: 5),
-                                                        const Text(
+                                                        SizedBox(width: 5.w),
+                                                        Text(
                                                           'EDUCATION',
                                                           style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    48,
-                                                                    59,
-                                                                    68),
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                48, 59, 68),
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 15,
+                                                            fontSize: 15.sp,
                                                           ),
                                                         ),
                                                       ],
                                                     )
                                                   : const SizedBox(),
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
 
                                               // FIELD OF STUDY
@@ -1504,9 +1478,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                 controller:
                                                     fieldOfStudyControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                                 decoration:
@@ -1556,9 +1530,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                 controller:
                                                     institutionAddressControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                 ),
                                                 decoration:
                                                     const InputDecoration(
@@ -1620,14 +1594,15 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                       controller:
                                                           startDateControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        color: Color.fromARGB(
+                                                        color: const Color
+                                                            .fromARGB(
                                                             255, 40, 180, 163),
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -1685,14 +1660,15 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                       controller:
                                                           institutionAddressControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        color: Color.fromARGB(
+                                                        color: const Color
+                                                            .fromARGB(
                                                             255, 40, 180, 163),
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -1735,20 +1711,20 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .arrow_downward_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -1775,20 +1751,20 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons.copy,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -1809,25 +1785,25 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .delete_forever_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(height: 3),
+                                                      SizedBox(height: 3.h),
                                                     ],
                                                   ),
                                                 )
@@ -1839,23 +1815,23 @@ class HybridTemplateState extends State<HybridTemplate> {
                                 ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                     ],
                   ),
                 ),
               ),
               SizedBox(
-                width: 10,
+                width: 10.w,
               ),
               // SKILLS, CERTIFICATES, AWARDS AND LANGUAGES SECTION
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.39,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(5.r),
                     color: const Color.fromARGB(255, 235, 235, 235),
                   ),
-                  padding: const EdgeInsets.only(top: 10, left: 15),
+                  padding: EdgeInsets.only(top: 10.h, left: 15.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1875,28 +1851,29 @@ class HybridTemplateState extends State<HybridTemplate> {
                               children: [
                                 Row(
                                   children: [
-                                    Container(
-                                      height: 20,
-                                      width: 20,
+                                    SizedBox(
+                                      height: 20.h,
+                                      width: 20.w,
                                       child: Center(
                                           child: Image.asset(
                                               'assets/Icons/skill1.png',
-                                              height: 20,
-                                              width: 20)),
+                                              height: 20.h,
+                                              width: 20.w)),
                                     ),
-                                    const SizedBox(width: 5),
-                                    const Text(
+                                    SizedBox(width: 5.w),
+                                    Text(
                                       'SKILLS',
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 48, 59, 68),
+                                        color: const Color.fromARGB(
+                                            255, 48, 59, 68),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 _borderColorForSkills
                                     ? GestureDetector(
@@ -1907,19 +1884,18 @@ class HybridTemplateState extends State<HybridTemplate> {
                                           });
                                         },
                                         child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.skills.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
-                                                    height: 25,
+                                                    height: 25.h,
                                                     padding:
-                                                        const EdgeInsets.all(2),
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        EdgeInsets.all(2.r),
+                                                    margin: EdgeInsets.only(
+                                                        right: 4.w,
+                                                        bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
                                                         color: Colors.grey,
@@ -1927,7 +1903,7 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4),
+                                                              4.r),
                                                     ),
                                                     child: Row(
                                                       mainAxisSize:
@@ -1936,13 +1912,12 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                         Text(
                                                           templateData
                                                               .skills[index],
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                          style: TextStyle(
+                                                            fontSize: 10.sp,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 4,
+                                                        SizedBox(
+                                                          width: 4.sp,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1963,11 +1938,11 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.sp,
                                                             ),
                                                           ),
                                                         )
@@ -1990,27 +1965,26 @@ class HybridTemplateState extends State<HybridTemplate> {
                                           physics:
                                               const NeverScrollableScrollPhysics(),
                                           gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                              SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount:
                                                 1, // 2 items per row
                                             crossAxisSpacing:
-                                                1, // Spacing between columns
+                                                1.h, // Spacing between columns
                                             mainAxisSpacing:
-                                                1, // Spacing between rows
+                                                1.w, // Spacing between rows
                                             childAspectRatio:
                                                 8, // Adjust this to control the height of the items
                                           ),
                                           itemCount: templateData.skills.length,
                                           itemBuilder: (context, index) {
                                             return Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5,
-                                                      vertical: 2),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5.w,
+                                                  vertical: 2.h),
                                               child: Text(
                                                 templateData.skills[index],
-                                                style: const TextStyle(
-                                                    fontSize: 10),
+                                                style:
+                                                    TextStyle(fontSize: 10.sp),
                                               ),
                                             );
                                           },
@@ -2020,8 +1994,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                             ),
                             _borderColorForSkills
                                 ? Positioned(
-                                    top: 2,
-                                    right: 2,
+                                    top: 2.h,
+                                    right: 2.w,
                                     child: Row(
                                       children: [
                                         GestureDetector(
@@ -2032,14 +2006,14 @@ class HybridTemplateState extends State<HybridTemplate> {
                                             decoration: BoxDecoration(
                                               color: Colors.green,
                                               borderRadius:
-                                                  BorderRadius.circular(2),
+                                                  BorderRadius.circular(2.r),
                                             ),
-                                            height: 20,
-                                            width: 20,
-                                            child: const Icon(
+                                            height: 20.h,
+                                            width: 20.w,
+                                            child: Icon(
                                               Icons.add,
                                               color: Colors.white,
-                                              size: 15,
+                                              size: 15.r,
                                             ),
                                           ),
                                         ),
@@ -2050,18 +2024,40 @@ class HybridTemplateState extends State<HybridTemplate> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                       // CERTIFICATES SECTION
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                height: 20.h,
+                                width: 20.w,
+                                child: Center(
+                                    child: Image.asset(
+                                        'assets/Icons/certificate.png',
+                                        height: 20.h,
+                                        width: 20.w)),
+                              ),
+                              SizedBox(width: 5.w),
+                              Text(
+                                'CERTIFICATES',
+                                style: TextStyle(
+                                  color: const Color.fromARGB(255, 48, 59, 68),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.sp,
+                                ),
+                              ),
+                            ],
+                          ),
                           templateData.certificates.isEmpty
                               ? Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.3,
-                                  height: 100,
+                                  height: 100.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: const Color.fromARGB(
@@ -2072,18 +2068,18 @@ class HybridTemplateState extends State<HybridTemplate> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
-                                      const Text(
+                                      Text(
                                         'No Certificates provided',
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize: 8,
+                                          fontSize: 8.sp,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.sp,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -2105,17 +2101,17 @@ class HybridTemplateState extends State<HybridTemplate> {
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(5),
+                                                BorderRadius.circular(5.r),
                                             border: Border.all(
                                                 color: const Color.fromARGB(
                                                     255, 73, 150, 159)),
                                           ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(2.0),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(2.0.r),
                                             child: Text(
                                               'Add Certificate',
                                               style: TextStyle(
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -2146,39 +2142,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              index == 0
-                                                  ? Row(
-                                                      children: [
-                                                        Container(
-                                                          height: 20,
-                                                          width: 20,
-                                                          child: Center(
-                                                              child: Image.asset(
-                                                                  'assets/Icons/certificate.png',
-                                                                  height: 20,
-                                                                  width: 20)),
-                                                        ),
-                                                        const SizedBox(
-                                                            width: 5),
-                                                        const Text(
-                                                          'CERTIFICATES',
-                                                          style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    48,
-                                                                    59,
-                                                                    68),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 15,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  : const SizedBox(),
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
 
                                               // CERTIFICATE NAME
@@ -2213,9 +2178,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                 controller:
                                                     certificateNameController[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                                 decoration:
@@ -2268,11 +2233,11 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                   controller:
                                                       issuedDateController[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontStyle: FontStyle.italic,
-                                                    color: Color.fromARGB(
+                                                    color: const Color.fromARGB(
                                                         255, 40, 180, 163),
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -2310,20 +2275,20 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .arrow_downward_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -2350,20 +2315,20 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons.copy,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -2384,25 +2349,25 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .delete_forever_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(height: 3),
+                                                      SizedBox(height: 3.h),
                                                     ],
                                                   ),
                                                 )
@@ -2414,17 +2379,37 @@ class HybridTemplateState extends State<HybridTemplate> {
                                 ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
 
                       // AWARDS SECTION
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                height: 20.h,
+                                width: 20.w,
+                                child: Center(
+                                    child: Image.asset('assets/Icons/award.png',
+                                        height: 20.h, width: 20.w)),
+                              ),
+                              SizedBox(width: 5.h),
+                              Text(
+                                'AWARDS',
+                                style: TextStyle(
+                                  color: const Color.fromARGB(255, 48, 59, 68),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.sp,
+                                ),
+                              ),
+                            ],
+                          ),
                           templateData.awards.isEmpty
                               ? Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.3,
-                                  height: 100,
+                                  height: 100.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: const Color.fromARGB(
@@ -2435,18 +2420,18 @@ class HybridTemplateState extends State<HybridTemplate> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
-                                      const Text(
+                                      Text(
                                         'No Awards provided',
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize: 8,
+                                          fontSize: 8.sp,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -2466,17 +2451,17 @@ class HybridTemplateState extends State<HybridTemplate> {
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(5),
+                                                BorderRadius.circular(5.r),
                                             border: Border.all(
                                                 color: const Color.fromARGB(
                                                     255, 73, 150, 159)),
                                           ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(2.0),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(2.0.r),
                                             child: Text(
                                               'Add Award',
                                               style: TextStyle(
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -2506,39 +2491,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              index == 0
-                                                  ? Row(
-                                                      children: [
-                                                        Container(
-                                                          height: 20,
-                                                          width: 20,
-                                                          child: Center(
-                                                              child: Image.asset(
-                                                                  'assets/Icons/award.png',
-                                                                  height: 20,
-                                                                  width: 20)),
-                                                        ),
-                                                        const SizedBox(
-                                                            width: 5),
-                                                        const Text(
-                                                          'AWARDS',
-                                                          style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    48,
-                                                                    59,
-                                                                    68),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 15,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  : const SizedBox(),
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
 
                                               // AWARD NAME
@@ -2573,9 +2527,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                 },
                                                 controller:
                                                     awardNameController[index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                                 decoration:
@@ -2628,11 +2582,11 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                   controller:
                                                       awardIssuedDateController[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontStyle: FontStyle.italic,
-                                                    color: Color.fromARGB(
+                                                    color: const Color.fromARGB(
                                                         255, 40, 180, 163),
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -2670,20 +2624,20 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .arrow_downward_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -2709,20 +2663,20 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons.copy,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -2743,25 +2697,25 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .delete_forever_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(height: 3),
+                                                      SizedBox(height: 3.h),
                                                     ],
                                                   ),
                                                 )
@@ -2773,7 +2727,7 @@ class HybridTemplateState extends State<HybridTemplate> {
                                 ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
 
                       // LANGUAGE SECTION
                       _borderColorForLanguage
@@ -2795,28 +2749,28 @@ class HybridTemplateState extends State<HybridTemplate> {
                                       Row(
                                         children: [
                                           Container(
-                                            height: 20,
-                                            width: 20,
+                                            height: 20.h,
+                                            width: 20.w,
                                             child: Center(
                                                 child: Image.asset(
                                                     'assets/Icons/language1.png',
-                                                    height: 20,
-                                                    width: 20)),
+                                                    height: 20.h,
+                                                    width: 20.w)),
                                           ),
-                                          const SizedBox(width: 5),
-                                          const Text(
+                                          SizedBox(width: 5.w),
+                                          Text(
                                             'LANGUAGES',
                                             style: TextStyle(
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 48, 59, 68),
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 15,
+                                              fontSize: 15.sp,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -2826,28 +2780,28 @@ class HybridTemplateState extends State<HybridTemplate> {
                                           });
                                         },
                                         child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.languages.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
-                                                    height: 20,
-                                                    padding: const EdgeInsets
+                                                    height: 20.h,
+                                                    padding: EdgeInsets
                                                         .symmetric(
-                                                        horizontal: 5,
-                                                        vertical: 2),
+                                                        horizontal: 5.w,
+                                                        vertical: 2.h),
                                                     margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        EdgeInsets.only(
+                                                            right: 4.w,
+                                                            bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                         border: Border.all(
                                                             color: Colors.grey),
                                                         color: Colors.white,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(4)),
+                                                                .circular(4.r)),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -2857,12 +2811,12 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                               .languages[index]
                                                               .language,
                                                           style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                              TextStyle(
+                                                            fontSize: 10.h,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                            width: 5),
+                                                        SizedBox(
+                                                            width: 5.w),
                                                         GestureDetector(
                                                           onTap: () {
                                                             setState(() {
@@ -2882,11 +2836,11 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.r,
                                                             ),
                                                           ),
                                                         )
@@ -2901,8 +2855,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                                   ),
                                   _borderColorForLanguage
                                       ? Positioned(
-                                          top: 2,
-                                          right: 2,
+                                          top: 2.h,
+                                          right: 2.w,
                                           child: Row(
                                             children: [
                                               GestureDetector(
@@ -2914,14 +2868,14 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                     color: Colors.green,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            2),
+                                                            2.r),
                                                   ),
-                                                  height: 20,
-                                                  width: 20,
-                                                  child: const Icon(
+                                                  height: 20.h,
+                                                  width: 20.w,
+                                                  child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
-                                                    size: 15,
+                                                    size: 15.sp,
                                                   ),
                                                 ),
                                               ),
@@ -2944,29 +2898,29 @@ class HybridTemplateState extends State<HybridTemplate> {
                                 children: [
                                   Row(
                                     children: [
-                                      Container(
-                                        height: 20,
-                                        width: 20,
+                                      SizedBox(
+                                        height: 20.h,
+                                        width: 20.w,
                                         child: Center(
                                             child: Image.asset(
                                                 'assets/Icons/language1.png',
-                                                height: 20,
-                                                width: 20)),
+                                                height: 20.h,
+                                                width: 20.w)),
                                       ),
-                                      const SizedBox(width: 5),
-                                      const Text(
+                                      SizedBox(width: 5.w),
+                                      Text(
                                         'LANGUAGES',
                                         style: TextStyle(
                                           color:
-                                              Color.fromARGB(255, 48, 59, 68),
+                                              const Color.fromARGB(255, 48, 59, 68),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15,
+                                          fontSize: 15.sp,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 3,
+                                  SizedBox(
+                                    height: 3.h,
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -2981,22 +2935,22 @@ class HybridTemplateState extends State<HybridTemplate> {
                                             Text(
                                               templateData
                                                   .languages[index].language,
-                                              style: const TextStyle(
-                                                fontSize: 12,
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
                                               ),
                                             ),
                                             Text(
                                               templateData
                                                   .languages[index].proficiency,
-                                              style: const TextStyle(
-                                                fontSize: 10,
+                                              style: TextStyle(
+                                                fontSize: 10.sp,
                                                 fontStyle: FontStyle.italic,
-                                                color: Color.fromARGB(
+                                                color: const Color.fromARGB(
                                                     255, 40, 180, 163),
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
                                           ],
                                         );
@@ -3006,8 +2960,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                                 ],
                               ),
                             ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 20.h,
                       ),
                     ],
                   ),

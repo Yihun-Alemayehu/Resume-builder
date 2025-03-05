@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
@@ -125,25 +126,24 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -164,7 +164,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -173,7 +173,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -182,7 +182,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -195,7 +195,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -373,7 +373,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -383,13 +383,13 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
               children: [
                 _image == null
                     ? Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0.r),
                         child: GestureDetector(
                           onTap: () {
                             pickImage();
                           },
                           child: CircleAvatar(
-                            radius: 40,
+                            radius: 40.r,
                             backgroundColor: Colors.white,
                             backgroundImage:
                                 File(templateData.userData.profilePic.path)
@@ -402,7 +402,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                         ),
                       )
                     : CircleAvatar(
-                        radius: 40,
+                        radius: 40.r,
                         backgroundColor: Colors.white,
                         backgroundImage: FileImage(_image!),
                       ),
@@ -410,7 +410,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                 // THE REST IS HISTORY
                 SizedBox(
                   child: Container(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 10.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -431,28 +431,28 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                   Row(
                                     children: [
                                       Container(
-                                        height: 20,
-                                        width: 20,
+                                        height: 20.h,
+                                        width: 20.w,
                                         child: Center(
                                             child: Image.asset(
                                                 'assets/Icons/priority.png',
-                                                height: 20,
-                                                width: 20)),
+                                                height: 20.h,
+                                                width: 20.w)),
                                       ),
-                                      const SizedBox(width: 5),
-                                      const Text(
+                                      SizedBox(width: 5.w),
+                                      Text(
                                         'SKILLS',
                                         style: TextStyle(
-                                          color: Color.fromARGB(
+                                          color: const Color.fromARGB(
                                               255, 244, 102, 102),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15,
+                                          fontSize: 15.sp,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   _borderColorForSkills
                                       ? GestureDetector(
@@ -463,20 +463,18 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                             });
                                           },
                                           child: Wrap(
-                                              spacing: 4,
+                                              spacing: 4.r,
                                               children: List.generate(
                                                 templateData.skills.length,
                                                 (index) {
                                                   return IntrinsicWidth(
                                                     child: Container(
-                                                      height: 25,
+                                                      height: 25.h,
                                                       padding:
-                                                          const EdgeInsets.all(
-                                                              2),
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 4,
-                                                              bottom: 4),
+                                                          EdgeInsets.all(2.r),
+                                                      margin: EdgeInsets.only(
+                                                          right: 4.w,
+                                                          bottom: 4.h),
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
                                                           color: Colors.grey,
@@ -484,7 +482,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                         color: Colors.white,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(4),
+                                                                .circular(4.r),
                                                       ),
                                                       child: Row(
                                                         mainAxisSize:
@@ -493,13 +491,12 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                           Text(
                                                             templateData
                                                                 .skills[index],
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
+                                                            style: TextStyle(
+                                                              fontSize: 10.sp,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 4,
+                                                          SizedBox(
+                                                            width: 4.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -521,11 +518,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            4),
+                                                                            4.r),
                                                               ),
-                                                              child: const Icon(
+                                                              child: Icon(
                                                                 Icons.close,
-                                                                size: 10,
+                                                                size: 10.r,
                                                               ),
                                                             ),
                                                           )
@@ -548,13 +545,13 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
                                             gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount:
                                                   1, // 2 items per row
-                                              crossAxisSpacing:
-                                                  1, // Spacing between columns
+                                              crossAxisSpacing: 1
+                                                  .h, // Spacing between columns
                                               mainAxisSpacing:
-                                                  1, // Spacing between rows
+                                                  1.w, // Spacing between rows
                                               childAspectRatio:
                                                   8, // Adjust this to control the height of the items
                                             ),
@@ -562,14 +559,13 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                 templateData.skills.length,
                                             itemBuilder: (context, index) {
                                               return Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5,
-                                                        vertical: 2),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 5.w,
+                                                    vertical: 2.h),
                                                 child: Text(
                                                   templateData.skills[index],
-                                                  style: const TextStyle(
-                                                      fontSize: 10),
+                                                  style: TextStyle(
+                                                      fontSize: 10.sp),
                                                 ),
                                               );
                                             },
@@ -579,8 +575,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                               ),
                               _borderColorForSkills
                                   ? Positioned(
-                                      top: 2,
-                                      right: 2,
+                                      top: 2.h,
+                                      right: 2.w,
                                       child: Row(
                                         children: [
                                           GestureDetector(
@@ -593,12 +589,12 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                 borderRadius:
                                                     BorderRadius.circular(2),
                                               ),
-                                              height: 20,
-                                              width: 20,
-                                              child: const Icon(
+                                              height: 20.h,
+                                              width: 20.w,
+                                              child: Icon(
                                                 Icons.add,
                                                 color: Colors.white,
-                                                size: 15,
+                                                size: 15.r,
                                               ),
                                             ),
                                           ),
@@ -609,18 +605,41 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
                         // CERTIFICATES SECTION
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  height: 20.h,
+                                  width: 20.w,
+                                  child: Center(
+                                      child: Image.asset(
+                                          'assets/Icons/priority.png',
+                                          height: 20.h,
+                                          width: 20.w)),
+                                ),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'CERTIFICATES',
+                                  style: TextStyle(
+                                    color: const Color.fromARGB(
+                                        255, 244, 102, 102),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                             templateData.certificates.isEmpty
                                 ? Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.3,
-                                    height: 100,
+                                    height: 100.h,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: const Color.fromARGB(
@@ -632,18 +651,18 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
-                                        const Text(
+                                        Text(
                                           'No Certificates provided',
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 8,
+                                            fontSize: 8.sp,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -666,17 +685,17 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                                  BorderRadius.circular(5.r),
                                               border: Border.all(
                                                   color: const Color.fromARGB(
                                                       255, 73, 150, 159)),
                                             ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(2.0),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(2.0.r),
                                               child: Text(
                                                 'Add Certificate',
                                                 style: TextStyle(
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                     color: Colors.black),
                                               ),
                                             ),
@@ -707,40 +726,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                index == 0
-                                                    ? Row(
-                                                        children: [
-                                                          Container(
-                                                            height: 20,
-                                                            width: 20,
-                                                            child: Center(
-                                                                child: Image.asset(
-                                                                    'assets/Icons/priority.png',
-                                                                    height: 20,
-                                                                    width: 20)),
-                                                          ),
-                                                          const SizedBox(
-                                                              width: 5),
-                                                          const Text(
-                                                            'CERTIFICATES',
-                                                            style: TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      244,
-                                                                      102,
-                                                                      102),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 15,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    : const SizedBox(),
-                                                const SizedBox(
-                                                  height: 5,
+                                                SizedBox(
+                                                  height: 5.h,
                                                 ),
 
                                                 // PROJECT NAME
@@ -775,9 +762,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   controller:
                                                       certificateNameController[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 10,
+                                                    fontSize: 10.sp,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration:
@@ -831,11 +818,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                     controller:
                                                         issuedDateController[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color: Colors.grey,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -875,20 +862,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .arrow_downward_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -915,21 +902,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons.copy,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.r,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -950,27 +936,25 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .delete_forever_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.sp,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                           ],
                                                         ),
-                                                        const SizedBox(
-                                                            height: 3),
+                                                        SizedBox(height: 3.h),
                                                       ],
                                                     ),
                                                   )
@@ -982,17 +966,40 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                   ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
 
                         // AWARDS SECTION
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  height: 20.h,
+                                  width: 20.w,
+                                  child: Center(
+                                      child: Image.asset(
+                                          'assets/Icons/priority.png',
+                                          height: 20.h,
+                                          width: 20.w)),
+                                ),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'AWARDS',
+                                  style: TextStyle(
+                                    color: const Color.fromARGB(
+                                        255, 244, 102, 102),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                             templateData.awards.isEmpty
                                 ? Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.3,
-                                    height: 100,
+                                    height: 100.h,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: const Color.fromARGB(
@@ -1004,18 +1011,18 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
-                                        const Text(
+                                        Text(
                                           'No Awards provided',
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 8,
+                                            fontSize: 8.sp,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -1037,17 +1044,17 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                                  BorderRadius.circular(5.r),
                                               border: Border.all(
                                                   color: const Color.fromARGB(
                                                       255, 73, 150, 159)),
                                             ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(2.0),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(2.0.r),
                                               child: Text(
                                                 'Add Award',
                                                 style: TextStyle(
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                     color: Colors.black),
                                               ),
                                             ),
@@ -1077,40 +1084,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                index == 0
-                                                    ? Row(
-                                                        children: [
-                                                          Container(
-                                                            height: 20,
-                                                            width: 20,
-                                                            child: Center(
-                                                                child: Image.asset(
-                                                                    'assets/Icons/priority.png',
-                                                                    height: 20,
-                                                                    width: 20)),
-                                                          ),
-                                                          const SizedBox(
-                                                              width: 5),
-                                                          const Text(
-                                                            'AWARDS',
-                                                            style: TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      244,
-                                                                      102,
-                                                                      102),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 15,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    : const SizedBox(),
-                                                const SizedBox(
-                                                  height: 5,
+                                                SizedBox(
+                                                  height: 5.h,
                                                 ),
 
                                                 // AWARD NAME
@@ -1146,9 +1121,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   controller:
                                                       awardNameController[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 10,
+                                                    fontSize: 10.sp,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration:
@@ -1202,11 +1177,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                     controller:
                                                         awardIssuedDateController[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color: Colors.grey,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1246,20 +1221,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .arrow_downward_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1285,21 +1260,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons.copy,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1320,27 +1294,25 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .delete_forever_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 2,
+                                                            SizedBox(
+                                                              width: 2.w,
                                                             ),
                                                           ],
                                                         ),
-                                                        const SizedBox(
-                                                            height: 3),
+                                                        SizedBox(height: 3.h),
                                                       ],
                                                     ),
                                                   )
@@ -1352,7 +1324,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                   ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
 
                         // LANGUAGE SECTION
                         _borderColorForLanguage
@@ -1373,29 +1345,29 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                       children: [
                                         Row(
                                           children: [
-                                            Container(
-                                              height: 20,
-                                              width: 20,
+                                            SizedBox(
+                                              height: 20.h,
+                                              width: 20.h,
                                               child: Center(
                                                   child: Image.asset(
                                                       'assets/Icons/priority.png',
-                                                      height: 20,
-                                                      width: 20)),
+                                                      height: 20.h,
+                                                      width: 20.w)),
                                             ),
-                                            const SizedBox(width: 5),
-                                            const Text(
+                                            SizedBox(width: 5.w),
+                                            Text(
                                               'LANGUAGES',
                                               style: TextStyle(
-                                                color: Color.fromARGB(
+                                                color: const Color.fromARGB(
                                                     255, 244, 102, 102),
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15,
+                                                fontSize: 15.sp,
                                               ),
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                        SizedBox(
+                                          height: 10.h,
                                         ),
                                         GestureDetector(
                                           onTap: () {
@@ -1405,21 +1377,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                             });
                                           },
                                           child: Wrap(
-                                              spacing: 4,
+                                              spacing: 4.r,
                                               children: List.generate(
                                                 templateData.languages.length,
                                                 (index) {
                                                   return IntrinsicWidth(
                                                     child: Container(
-                                                      height: 20,
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 5,
-                                                          vertical: 2),
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 4,
-                                                              bottom: 4),
+                                                      height: 20.h,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 5.w,
+                                                              vertical: 2.h),
+                                                      margin: EdgeInsets.only(
+                                                          right: 4.w,
+                                                          bottom: 4.h),
                                                       decoration: BoxDecoration(
                                                           border: Border.all(
                                                               color:
@@ -1427,7 +1398,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                           color: Colors.white,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(4)),
+                                                                  .circular(
+                                                                      4.r)),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.min,
@@ -1437,13 +1409,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                 .languages[
                                                                     index]
                                                                 .language,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
+                                                            style: TextStyle(
+                                                              fontSize: 10.sp,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                              width: 5),
+                                                          SizedBox(width: 5.sp),
                                                           GestureDetector(
                                                             onTap: () {
                                                               setState(() {
@@ -1464,11 +1434,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            4),
+                                                                            4.r),
                                                               ),
-                                                              child: const Icon(
+                                                              child: Icon(
                                                                 Icons.close,
-                                                                size: 10,
+                                                                size: 10.r,
                                                               ),
                                                             ),
                                                           )
@@ -1483,8 +1453,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                     ),
                                     _borderColorForLanguage
                                         ? Positioned(
-                                            top: 2,
-                                            right: 2,
+                                            top: 2.h,
+                                            right: 2.w,
                                             child: Row(
                                               children: [
                                                 GestureDetector(
@@ -1496,14 +1466,14 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                       color: Colors.green,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              2.r),
                                                     ),
-                                                    height: 20,
-                                                    width: 20,
-                                                    child: const Icon(
+                                                    height: 20.h,
+                                                    width: 20.w,
+                                                    child: Icon(
                                                       Icons.add,
                                                       color: Colors.white,
-                                                      size: 15,
+                                                      size: 15.sp,
                                                     ),
                                                   ),
                                                 ),
@@ -1526,29 +1496,29 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                   children: [
                                     Row(
                                       children: [
-                                        Container(
-                                          height: 20,
-                                          width: 20,
+                                        SizedBox(
+                                          height: 20.h,
+                                          width: 20.w,
                                           child: Center(
                                               child: Image.asset(
                                                   'assets/Icons/priority.png',
-                                                  height: 20,
-                                                  width: 20)),
+                                                  height: 20.h,
+                                                  width: 20.w)),
                                         ),
-                                        const SizedBox(width: 5),
-                                        const Text(
+                                        SizedBox(width: 5.w),
+                                        Text(
                                           'LANGUAGES',
                                           style: TextStyle(
-                                            color: Color.fromARGB(
+                                            color: const Color.fromARGB(
                                                 255, 244, 102, 102),
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15,
+                                            fontSize: 15.sp,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 3,
+                                    SizedBox(
+                                      height: 3.h,
                                     ),
                                     Column(
                                       crossAxisAlignment:
@@ -1563,20 +1533,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                               Text(
                                                 templateData
                                                     .languages[index].language,
-                                                style: const TextStyle(
-                                                  fontSize: 12,
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
                                                 ),
                                               ),
                                               Text(
                                                 templateData.languages[index]
                                                     .proficiency,
-                                                style: const TextStyle(
-                                                    fontSize: 10,
+                                                style: TextStyle(
+                                                    fontSize: 10.sp,
                                                     fontStyle: FontStyle.italic,
                                                     color: Colors.grey),
                                               ),
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
                                             ],
                                           );
@@ -1586,8 +1556,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                   ],
                                 ),
                               ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
 
                         // INTERESTS SECTION
@@ -1611,28 +1581,28 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                       Row(
                                         children: [
                                           Container(
-                                            height: 20,
-                                            width: 20,
+                                            height: 20.h,
+                                            width: 20.w,
                                             child: Center(
                                                 child: Image.asset(
                                                     'assets/Icons/priority.png',
-                                                    height: 20,
-                                                    width: 20)),
+                                                    height: 20.h,
+                                                    width: 20.w)),
                                           ),
-                                          const SizedBox(width: 5),
-                                          const Text(
+                                          SizedBox(width: 5.w),
+                                          Text(
                                             'INTERESTS',
                                             style: TextStyle(
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 244, 102, 102),
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 15,
+                                              fontSize: 15.sp,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                       _borderColorForInterests
                                           ? GestureDetector(
@@ -1643,20 +1613,18 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                 });
                                               },
                                               child: Wrap(
-                                                spacing: 4,
+                                                spacing: 4.r,
                                                 children: List.generate(
                                                   templateData.interests.length,
                                                   (index) {
                                                     return IntrinsicWidth(
                                                       child: Container(
-                                                        height: 25,
+                                                        height: 25.h,
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(2),
-                                                        margin: const EdgeInsets
-                                                            .only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                            EdgeInsets.all(2.r),
+                                                        margin: EdgeInsets.only(
+                                                            right: 4.w,
+                                                            bottom: 4.h),
                                                         decoration:
                                                             BoxDecoration(
                                                           border: Border.all(
@@ -1665,7 +1633,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                           color: Colors.white,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(4),
+                                                                  .circular(
+                                                                      4.r),
                                                         ),
                                                         child: Row(
                                                           mainAxisSize:
@@ -1675,13 +1644,12 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                               templateData
                                                                       .interests[
                                                                   index],
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
+                                                              style: TextStyle(
+                                                                fontSize: 10.sp,
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 4,
+                                                            SizedBox(
+                                                              width: 4.w,
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
@@ -1703,12 +1671,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              4),
+                                                                              4.w),
                                                                 ),
-                                                                child:
-                                                                    const Icon(
+                                                                child: Icon(
                                                                   Icons.close,
-                                                                  size: 10,
+                                                                  size: 10.sp,
                                                                 ),
                                                               ),
                                                             )
@@ -1732,13 +1699,13 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                 physics:
                                                     const NeverScrollableScrollPhysics(),
                                                 gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    SliverGridDelegateWithFixedCrossAxisCount(
                                                   crossAxisCount:
                                                       2, // 2 items per row
-                                                  crossAxisSpacing:
-                                                      1, // Spacing between columns
-                                                  mainAxisSpacing:
-                                                      1, // Spacing between rows
+                                                  crossAxisSpacing: 1
+                                                      .h, // Spacing between columns
+                                                  mainAxisSpacing: 1
+                                                      .w, // Spacing between rows
                                                   childAspectRatio:
                                                       4, // Adjust this to control the height of the items
                                                 ),
@@ -1746,15 +1713,15 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                     .interests.length,
                                                 itemBuilder: (context, index) {
                                                   return Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 5,
-                                                        vertical: 2),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 5.w,
+                                                            vertical: 2.h),
                                                     child: Text(
                                                       templateData
                                                           .interests[index],
-                                                      style: const TextStyle(
-                                                          fontSize: 10),
+                                                      style: TextStyle(
+                                                          fontSize: 10.sp),
                                                     ),
                                                   );
                                                 },
@@ -1764,8 +1731,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                   ),
                                   _borderColorForInterests
                                       ? Positioned(
-                                          top: 2,
-                                          right: 2,
+                                          top: 2.h,
+                                          right: 2.w,
                                           child: Row(
                                             children: [
                                               GestureDetector(
@@ -1777,14 +1744,14 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                     color: Colors.green,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            2),
+                                                            2.r),
                                                   ),
-                                                  height: 20,
-                                                  width: 20,
-                                                  child: const Icon(
+                                                  height: 20.h,
+                                                  width: 20.w,
+                                                  child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
-                                                    size: 15,
+                                                    size: 15.r,
                                                   ),
                                                 ),
                                               ),
@@ -1805,14 +1772,14 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
             ),
           ),
           Container(
-            width: 2,
+            width: 2.w,
             height: MediaQuery.of(context).size.height,
             color: Colors.grey,
           ),
 
           // RIGHT SIDE OF THE SCREEN
           Padding(
-            padding: const EdgeInsets.only(left: 10, top: 10),
+            padding: EdgeInsets.only(left: 10.w, top: 10.h),
             child: SizedBox(
               width: MediaQuery.of(context).size.width * .6,
               child: Column(
@@ -1836,8 +1803,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                             });
                           },
                           controller: _nameController,
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style: TextStyle(
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -1866,9 +1833,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                             });
                           },
                           controller: _professionController,
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 244, 102, 102),
-                            fontSize: 11,
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 244, 102, 102),
+                            fontSize: 11.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -1898,8 +1865,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                             });
                           },
                           controller: _bioController,
-                          style: const TextStyle(
-                            fontSize: 8,
+                          style: TextStyle(
+                            fontSize: 8.sp,
                           ),
                           decoration: const InputDecoration(
                             isDense: true,
@@ -1911,15 +1878,14 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                             ),
                           ),
                         ),
-                      
                       ],
                     ),
                   ),
                   // EMAIL, ADDRESS, PHONE NUMBER AND LINKEDIN SECTION
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.r),
                       color: const Color.fromARGB(255, 244, 102, 102),
                     ),
                     child: Row(
@@ -1927,9 +1893,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                         // EMAIL, ADDRESS,
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 3, left: 2),
+                            padding: EdgeInsets.only(right: 3.w, left: 2.w),
                             child: SizedBox(
-                              height: 25,
+                              height: 25.h,
                               child: ListView.builder(
                                 itemCount: 2,
                                 itemBuilder: (context, index) {
@@ -1937,10 +1903,10 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                     children: [
                                       Image.asset(
                                         _iconsList1[index],
-                                        height: 10,
-                                        width: 10,
+                                        height: 10.h,
+                                        width: 10.w,
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Expanded(
                                         child: TextField(
                                           onTapOutside: (event) {
@@ -1970,9 +1936,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                             });
                                           },
                                           controller: _controllersList1[index],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 9,
+                                            fontSize: 9.sp,
                                           ),
                                           decoration: const InputDecoration(
                                             isDense: true,
@@ -1996,9 +1962,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                         // PHONE NUMBER AND LINKEDIN
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 3, left: 2),
+                            padding: EdgeInsets.only(right: 3.w, left: 2.w),
                             child: SizedBox(
-                              height: 25,
+                              height: 25.h,
                               child: ListView.builder(
                                 itemCount: 2,
                                 itemBuilder: (context, index) {
@@ -2006,10 +1972,10 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                     children: [
                                       Image.asset(
                                         _iconsList1[index + 2],
-                                        height: 10,
-                                        width: 10,
+                                        height: 10.h,
+                                        width: 10.w,
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5.w),
                                       Expanded(
                                         child: TextField(
                                           onTapOutside: (event) {
@@ -2040,9 +2006,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                           },
                                           controller:
                                               _controllersList1[index + 2],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 9,
+                                            fontSize: 9.sp,
                                           ),
                                           decoration: const InputDecoration(
                                             isDense: true,
@@ -2068,7 +2034,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                   ),
                   SizedBox(
                     child: Container(
-                      padding: const EdgeInsets.only(right: 10, top: 10),
+                      padding: EdgeInsets.only(right: 10.w, top: 10.h),
                       child: Column(
                         children: [
                           // WORK EXPERIENCE SECTION
@@ -2084,7 +2050,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   .size
                                                   .width *
                                               0.4,
-                                          height: 100,
+                                          height: 100.h,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                                 color: const Color.fromARGB(
@@ -2096,18 +2062,18 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              const SizedBox(
-                                                height: 10,
+                                              SizedBox(
+                                                height: 10.h,
                                               ),
-                                              const Text(
+                                              Text(
                                                 'No Work Experience provided',
                                                 style: TextStyle(
                                                   color: Colors.grey,
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                height: 10,
+                                              SizedBox(
+                                                height: 10.h,
                                               ),
                                               GestureDetector(
                                                 onTap: () {
@@ -2139,19 +2105,19 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5),
+                                                            5.r),
                                                     border: Border.all(
                                                         color: const Color
                                                             .fromARGB(
                                                             255, 73, 150, 159)),
                                                   ),
-                                                  child: const Padding(
+                                                  child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(2.0),
+                                                        EdgeInsets.all(2.0.r),
                                                     child: Text(
                                                       'Add Work Experience',
                                                       style: TextStyle(
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                           color: Colors.black),
                                                     ),
                                                   ),
@@ -2187,41 +2153,41 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                       index == 0
                                                           ? Row(
                                                               children: [
-                                                                Container(
-                                                                  height: 20,
-                                                                  width: 20,
+                                                                SizedBox(
+                                                                  height: 20.h,
+                                                                  width: 20.w,
                                                                   child: Center(
                                                                       child: Image.asset(
                                                                           'assets/Icons/priority.png',
-                                                                          height:
-                                                                              20,
+                                                                          height: 20
+                                                                              .h,
                                                                           width:
-                                                                              20)),
+                                                                              20.w)),
                                                                 ),
-                                                                const SizedBox(
-                                                                    width: 5),
-                                                                const Text(
+                                                                SizedBox(
+                                                                    width: 5.w),
+                                                                Text(
                                                                   'WORK EXPERIENCE',
                                                                   style:
                                                                       TextStyle(
-                                                                    color: Color
+                                                                    color: const Color
                                                                         .fromARGB(
-                                                                            255,
-                                                                            244,
-                                                                            102,
-                                                                            102),
+                                                                        255,
+                                                                        244,
+                                                                        102,
+                                                                        102),
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
                                                                     fontSize:
-                                                                        15,
+                                                                        15.sp,
                                                                   ),
                                                                 ),
                                                               ],
                                                             )
                                                           : const SizedBox(),
-                                                      const SizedBox(
-                                                        height: 5,
+                                                      SizedBox(
+                                                        height: 5.h,
                                                       ),
 
                                                       // Work experience Job title
@@ -2253,9 +2219,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                         controller:
                                                             jobTitleControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize: 10,
+                                                          fontSize: 10.sp,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
@@ -2309,9 +2275,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                         controller:
                                                             companyNameControllers[
                                                                 index],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                         ),
                                                         decoration:
                                                             const InputDecoration(
@@ -2376,21 +2342,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                               controller:
                                                                   workEndDateControllers[
                                                                       index],
-                                                              style:
-                                                                  const TextStyle(
+                                                              style: TextStyle(
                                                                 fontStyle:
                                                                     FontStyle
                                                                         .italic,
-                                                                color: Color
+                                                                color: const Color
                                                                     .fromARGB(
-                                                                        255,
-                                                                        244,
-                                                                        102,
-                                                                        102),
+                                                                    255,
+                                                                    244,
+                                                                    102,
+                                                                    102),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 8,
+                                                                fontSize: 8.sp,
                                                               ),
                                                               decoration:
                                                                   const InputDecoration(
@@ -2450,21 +2415,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                               controller:
                                                                   jobTypeControllers[
                                                                       index],
-                                                              style:
-                                                                  const TextStyle(
+                                                              style: TextStyle(
                                                                 fontStyle:
                                                                     FontStyle
                                                                         .italic,
-                                                                color: Color
+                                                                color: const Color
                                                                     .fromARGB(
-                                                                        255,
-                                                                        244,
-                                                                        102,
-                                                                        102),
+                                                                    255,
+                                                                    244,
+                                                                    102,
+                                                                    102),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 8,
+                                                                fontSize: 8.sp,
                                                               ),
                                                               decoration:
                                                                   const InputDecoration(
@@ -2490,17 +2454,15 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                           ),
                                                         ],
                                                       ),
-                                                      const Text(
+                                                      Text(
                                                         'Achievements',
                                                         style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              244,
-                                                              102,
-                                                              102),
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              244, 102, 102),
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 8,
+                                                          fontSize: 8.sp,
                                                         ),
                                                       ),
                                                       Column(
@@ -2516,17 +2478,18 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                   CrossAxisAlignment
                                                                       .start,
                                                               children: [
-                                                                const Text(
+                                                                Text(
                                                                   '-',
                                                                   style:
                                                                       TextStyle(
-                                                                    fontSize: 8,
-                                                                    color: Color
+                                                                    fontSize:
+                                                                        8.sp,
+                                                                    color: const Color
                                                                         .fromARGB(
-                                                                            255,
-                                                                            244,
-                                                                            102,
-                                                                            102),
+                                                                        255,
+                                                                        244,
+                                                                        102,
+                                                                        102),
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -2577,11 +2540,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                             [
                                                                             innerIndex],
                                                                     style:
-                                                                        const TextStyle(
+                                                                        TextStyle(
                                                                       color: Colors
                                                                           .black,
                                                                       fontSize:
-                                                                          8,
+                                                                          8.sp,
                                                                     ),
                                                                     decoration:
                                                                         const InputDecoration(
@@ -2627,21 +2590,22 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                           .green,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              2),
+                                                                              2.r),
                                                                     ),
-                                                                    height: 17,
-                                                                    width: 17,
-                                                                    child:
-                                                                        const Icon(
+                                                                    height:
+                                                                        17.h,
+                                                                    width: 17.w,
+                                                                    child: Icon(
                                                                       Icons
                                                                           .arrow_downward_rounded,
                                                                       color: Colors
                                                                           .white,
-                                                                      size: 15,
+                                                                      size:
+                                                                          15.r,
                                                                     ),
                                                                   ),
-                                                                  const SizedBox(
-                                                                    width: 3,
+                                                                  SizedBox(
+                                                                    width: 3.w,
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
@@ -2663,24 +2627,25 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                         color: Colors
                                                                             .grey,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(2),
+                                                                            BorderRadius.circular(2.r),
                                                                       ),
                                                                       height:
-                                                                          17,
-                                                                      width: 17,
+                                                                          17.h,
+                                                                      width:
+                                                                          17.w,
                                                                       child:
-                                                                          const Icon(
+                                                                          Icon(
                                                                         Icons
                                                                             .copy,
                                                                         color: Colors
                                                                             .white,
-                                                                        size:
-                                                                            15,
+                                                                        size: 15
+                                                                            .r,
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  const SizedBox(
-                                                                    width: 3,
+                                                                  SizedBox(
+                                                                    width: 3.w,
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
@@ -2698,24 +2663,25 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                         color: Colors
                                                                             .red,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(2),
+                                                                            BorderRadius.circular(2.r),
                                                                       ),
                                                                       height:
-                                                                          17,
-                                                                      width: 17,
+                                                                          17.h,
+                                                                      width:
+                                                                          17.w,
                                                                       child:
-                                                                          const Icon(
+                                                                          Icon(
                                                                         Icons
                                                                             .delete_forever_rounded,
                                                                         color: Colors
                                                                             .white,
-                                                                        size:
-                                                                            15,
+                                                                        size: 15
+                                                                            .r,
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  const SizedBox(
-                                                                    width: 2,
+                                                                  SizedBox(
+                                                                    width: 2.w,
                                                                   ),
                                                                   GestureDetector(
                                                                     onTap: () {
@@ -2732,26 +2698,27 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                         color: Colors
                                                                             .grey,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(2),
+                                                                            BorderRadius.circular(2.r),
                                                                       ),
                                                                       height:
-                                                                          17,
-                                                                      width: 17,
+                                                                          17.h,
+                                                                      width:
+                                                                          17.w,
                                                                       child:
-                                                                          const Icon(
+                                                                          Icon(
                                                                         Icons
                                                                             .more_vert,
                                                                         color: Colors
                                                                             .white,
-                                                                        size:
-                                                                            15,
+                                                                        size: 15
+                                                                            .r,
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                              const SizedBox(
-                                                                  height: 3),
+                                                              SizedBox(
+                                                                  height: 3.h),
                                                               _showAddAchievementOnly[
                                                                       index]
                                                                   ? GestureDetector(
@@ -2765,19 +2732,19 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                           color:
                                                                               Colors.grey,
                                                                           borderRadius:
-                                                                              BorderRadius.circular(2),
+                                                                              BorderRadius.circular(2.r),
                                                                         ),
                                                                         width: MediaQuery.of(context).size.width *
                                                                             0.2,
                                                                         height:
-                                                                            17,
+                                                                            17.h,
                                                                         child:
-                                                                            const Center(
+                                                                            Center(
                                                                           child:
                                                                               Text(
                                                                             'Add Achievement',
                                                                             style:
-                                                                                TextStyle(color: Colors.white, fontSize: 10),
+                                                                                TextStyle(color: Colors.white, fontSize: 10.sp),
                                                                           ),
                                                                         ),
                                                                       ),
@@ -2796,7 +2763,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           // EDUCATION SECTION
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -2805,7 +2772,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                   ? Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
-                                      height: 100,
+                                      height: 100.h,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             color: const Color.fromARGB(
@@ -2817,18 +2784,18 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.h,
                                           ),
-                                          const Text(
+                                          Text(
                                             'No education background provided',
                                             style: TextStyle(
                                               color: Colors.grey,
-                                              fontSize: 8,
+                                              fontSize: 8.sp,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 10,
+                                          SizedBox(
+                                            height: 10.sp,
                                           ),
                                           GestureDetector(
                                             onTap: () {
@@ -2861,17 +2828,17 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                    BorderRadius.circular(5.r),
                                                 border: Border.all(
                                                     color: const Color.fromARGB(
                                                         255, 73, 150, 159)),
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(2.0),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(2.0.r),
                                                 child: Text(
                                                   'Add Education',
                                                   style: TextStyle(
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                       color: Colors.black),
                                                 ),
                                               ),
@@ -2905,39 +2872,39 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   index == 0
                                                       ? Row(
                                                           children: [
-                                                            Container(
-                                                              height: 20,
-                                                              width: 20,
+                                                            SizedBox(
+                                                              height: 20.h,
+                                                              width: 20.w,
                                                               child: Center(
                                                                   child: Image.asset(
                                                                       'assets/Icons/priority.png',
                                                                       height:
-                                                                          20,
-                                                                      width:
-                                                                          20)),
+                                                                          20.h,
+                                                                      width: 20
+                                                                          .w)),
                                                             ),
-                                                            const SizedBox(
-                                                                width: 5),
-                                                            const Text(
+                                                            SizedBox(
+                                                                width: 5.w),
+                                                            Text(
                                                               'EDUCATION',
                                                               style: TextStyle(
-                                                                color: Color
+                                                                color: const Color
                                                                     .fromARGB(
-                                                                        255,
-                                                                        244,
-                                                                        102,
-                                                                        102),
+                                                                    255,
+                                                                    244,
+                                                                    102,
+                                                                    102),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 15,
+                                                                fontSize: 15.sp,
                                                               ),
                                                             ),
                                                           ],
                                                         )
                                                       : const SizedBox(),
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  SizedBox(
+                                                    height: 5.h,
                                                   ),
 
                                                   // FIELD OF STUDY
@@ -2974,9 +2941,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                     controller:
                                                         fieldOfStudyControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 10,
+                                                      fontSize: 10.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -3030,9 +2997,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                     controller:
                                                         institutionAddressControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -3097,19 +3064,15 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                           controller:
                                                               startDateControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    244,
-                                                                    102,
-                                                                    102),
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                244, 102, 102),
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 8,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           decoration:
                                                               const InputDecoration(
@@ -3169,19 +3132,15 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                           controller:
                                                               institutionAddressControllers[
                                                                   index],
-                                                          style:
-                                                              const TextStyle(
+                                                          style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    244,
-                                                                    102,
-                                                                    102),
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                244, 102, 102),
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 8,
+                                                            fontSize: 8.sp,
                                                           ),
                                                           decoration:
                                                               const InputDecoration(
@@ -3225,21 +3184,20 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
-                                                                height: 17,
-                                                                width: 17,
-                                                                child:
-                                                                    const Icon(
+                                                                height: 17.h,
+                                                                width: 17.w,
+                                                                child: Icon(
                                                                   Icons
                                                                       .arrow_downward_rounded,
                                                                   color: Colors
                                                                       .white,
-                                                                  size: 15,
+                                                                  size: 15.r,
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -3262,22 +3220,21 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                     color: Colors
                                                                         .grey,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons.copy,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
@@ -3296,28 +3253,26 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                                     color: Colors
                                                                         .red,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(2),
+                                                                        BorderRadius.circular(
+                                                                            2.r),
                                                                   ),
-                                                                  height: 17,
-                                                                  width: 17,
-                                                                  child:
-                                                                      const Icon(
+                                                                  height: 17.h,
+                                                                  width: 17.w,
+                                                                  child: Icon(
                                                                     Icons
                                                                         .delete_forever_rounded,
                                                                     color: Colors
                                                                         .white,
-                                                                    size: 15,
+                                                                    size: 15.r,
                                                                   ),
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                width: 2,
+                                                              SizedBox(
+                                                                width: 2.w,
                                                               ),
                                                             ],
                                                           ),
-                                                          const SizedBox(
-                                                              height: 3),
+                                                          SizedBox(height: 3.h),
                                                         ],
                                                       ),
                                                     )
@@ -3329,7 +3284,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                     ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                         ],
                       ),
                     ),

@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
@@ -126,25 +127,24 @@ class DesertTemplateState extends State<DesertTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -174,7 +174,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -183,7 +183,7 @@ class DesertTemplateState extends State<DesertTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -196,7 +196,7 @@ class DesertTemplateState extends State<DesertTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -374,13 +374,13 @@ class DesertTemplateState extends State<DesertTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10).copyWith(right: 4),
+      padding: EdgeInsets.all(10.r).copyWith(right: 4.w),
       child: Row(
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width * .56,
             child: Padding(
-              padding: const EdgeInsets.all(3).copyWith(right: 20),
+              padding: EdgeInsets.all(3.r).copyWith(right: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -392,11 +392,34 @@ class DesertTemplateState extends State<DesertTemplate> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 239, 239, 239),
+                              borderRadius: BorderRadius.circular(2.r),
+                            ),
+                            height: 30.h,
+                            width: MediaQuery.of(context).size.width * 0.58,
+                            child: Row(
+                              children: [
+                                SizedBox(width: 10.w),
+                                Image.asset('assets/Icons/briefcase.png',
+                                    height: 17.h, width: 17.w),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'WORK EXPERIENCE',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           templateData.workExperience.isEmpty
                               ? Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
-                                  height: 100,
+                                  height: 100.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: const Color.fromARGB(
@@ -407,18 +430,18 @@ class DesertTemplateState extends State<DesertTemplate> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
-                                      const Text(
+                                      Text(
                                         'No Work Experience provided',
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize: 8,
+                                          fontSize: 8.sp,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -451,12 +474,12 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                 color: const Color.fromARGB(
                                                     255, 73, 150, 159)),
                                           ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(2.0),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(2.0.r),
                                             child: Text(
                                               'Add Work Experience',
                                               style: TextStyle(
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -485,47 +508,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              index == 0
-                                                  ? Container(
-                                                      decoration: BoxDecoration(
-                                                        color: const Color
-                                                            .fromARGB(
-                                                            255, 239, 239, 239),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                      ),
-                                                      height: 30,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.58,
-                                                      child: Row(
-                                                        children: [
-                                                          const SizedBox(
-                                                              width: 10),
-                                                          Image.asset(
-                                                              'assets/Icons/briefcase.png',
-                                                              height: 17,
-                                                              width: 17),
-                                                          const SizedBox(
-                                                              width: 5),
-                                                          const Text(
-                                                            'WORK EXPERIENCE',
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 14,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : const SizedBox(),
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
 
                                               // work experience company name
@@ -559,9 +543,9 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                 controller:
                                                     companyNameControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                                 decoration:
@@ -609,9 +593,9 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                 },
                                                 controller:
                                                     jobTitleControllers[index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                 ),
                                                 decoration:
                                                     const InputDecoration(
@@ -671,10 +655,10 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                       controller:
                                                           workEndDateControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -730,10 +714,10 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                       controller:
                                                           jobTypeControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -770,13 +754,13 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsets
-                                                                      .all(3)
+                                                              EdgeInsets
+                                                                      .all(3.r)
                                                                   .copyWith(
                                                                       left: 0),
                                                           child: Container(
-                                                            height: 3,
-                                                            width: 3,
+                                                            height: 3.h,
+                                                            width: 3.w,
                                                             decoration:
                                                                 const BoxDecoration(
                                                               shape: BoxShape
@@ -830,10 +814,10 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                                         index][
                                                                     innerIndex],
                                                             style:
-                                                                const TextStyle(
+                                                                TextStyle(
                                                               color:
                                                                   Colors.black,
-                                                              fontSize: 8,
+                                                              fontSize: 8.sp,
                                                             ),
                                                             decoration:
                                                                 const InputDecoration(
@@ -881,20 +865,20 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .arrow_downward_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 3,
+                                                          SizedBox(
+                                                            width: 3.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -921,20 +905,20 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons.copy,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 3,
+                                                          SizedBox(
+                                                            width: 3.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -955,21 +939,21 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons
                                                                     .delete_forever_rounded,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
-                                                          const SizedBox(
-                                                            width: 2,
+                                                          SizedBox(
+                                                            width: 2.w,
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
@@ -988,21 +972,21 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
-                                                              height: 17,
-                                                              width: 17,
-                                                              child: const Icon(
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
                                                                 Icons.more_vert,
                                                                 color: Colors
                                                                     .white,
-                                                                size: 15,
+                                                                size: 15.r,
                                                               ),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(height: 3),
+                                                      SizedBox(height: 3.h),
                                                       _showAddAchievementOnly[
                                                               index]
                                                           ? GestureDetector(
@@ -1018,23 +1002,23 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              2),
+                                                                              2.r),
                                                                 ),
                                                                 width: MediaQuery.of(
                                                                             context)
                                                                         .size
                                                                         .width *
                                                                     0.2,
-                                                                height: 17,
+                                                                height: 17.h,
                                                                 child:
-                                                                    const Center(
+                                                                    Center(
                                                                   child: Text(
                                                                     'Add Achievement',
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
-                                                                            10),
+                                                                            10.sp),
                                                                   ),
                                                                 ),
                                                               ),
@@ -1053,7 +1037,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // EDUCATION SECTION
                   Column(
                     mainAxisSize: MainAxisSize.min,
@@ -1061,7 +1045,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                       templateData.educationBackground.isEmpty
                           ? Container(
                               width: MediaQuery.of(context).size.width * 0.4,
-                              height: 100,
+                              height: 100.h,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: const Color.fromARGB(
@@ -1071,18 +1055,18 @@ class DesertTemplateState extends State<DesertTemplate> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
-                                  const Text(
+                                  Text(
                                     'No education background provided',
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 8,
+                                      fontSize: 8.sp,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -1112,17 +1096,17 @@ class DesertTemplateState extends State<DesertTemplate> {
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
+                                        borderRadius: BorderRadius.circular(5.r),
                                         border: Border.all(
                                             color: const Color.fromARGB(
                                                 255, 73, 150, 159)),
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(2.0),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(2.0.r),
                                         child: Text(
                                           'Add Education',
                                           style: TextStyle(
-                                              fontSize: 8, color: Colors.black),
+                                              fontSize: 8.sp, color: Colors.black),
                                         ),
                                       ),
                                     ),
@@ -1158,35 +1142,35 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                         255, 239, 239, 239),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            2),
+                                                            2.r),
                                                   ),
-                                                  height: 30,
+                                                  height: 30.h,
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
                                                       0.58,
                                                   child: Row(
                                                     children: [
-                                                      const SizedBox(width: 10),
+                                                      SizedBox(width: 10.w),
                                                       Image.asset(
                                                           'assets/Icons/education.png',
-                                                          height: 17,
-                                                          width: 17),
-                                                      const SizedBox(width: 5),
-                                                      const Text(
+                                                          height: 17.h,
+                                                          width: 17.w),
+                                                      SizedBox(width: 5.w),
+                                                      Text(
                                                         'EDUCATION',
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 14,
+                                                          fontSize: 14.sp,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                 )
                                               : const SizedBox(),
-                                          const SizedBox(
-                                            height: 5,
+                                          SizedBox(
+                                            height: 5.h,
                                           ),
 
                                           // FIELD OF STUDY
@@ -1219,9 +1203,9 @@ class DesertTemplateState extends State<DesertTemplate> {
                                             },
                                             controller:
                                                 fieldOfStudyControllers[index],
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 10,
+                                              fontSize: 10.sp,
                                               fontWeight: FontWeight.bold,
                                             ),
                                             decoration: const InputDecoration(
@@ -1266,9 +1250,9 @@ class DesertTemplateState extends State<DesertTemplate> {
                                             controller:
                                                 institutionAddressControllers[
                                                     index],
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 8,
+                                              fontSize: 8.sp,
                                             ),
                                             decoration: const InputDecoration(
                                               isDense: true,
@@ -1323,9 +1307,9 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                   controller:
                                                       startDateControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontStyle: FontStyle.italic,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -1378,9 +1362,9 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                   controller:
                                                       institutionAddressControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontStyle: FontStyle.italic,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -1418,19 +1402,19 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                           color: Colors.green,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(2.r),
                                                         ),
-                                                        height: 17,
-                                                        width: 17,
-                                                        child: const Icon(
+                                                        height: 17.h,
+                                                        width: 17.w,
+                                                        child: Icon(
                                                           Icons
                                                               .arrow_downward_rounded,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -1457,19 +1441,19 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons.copy,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -1489,24 +1473,24 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .delete_forever_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                     ],
                                                   ),
-                                                  const SizedBox(height: 3),
+                                                  SizedBox(height: 3.h),
                                                 ],
                                               ),
                                             )
@@ -1518,7 +1502,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                             ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // SKILLS SECTION
                   Container(
                     decoration: BoxDecoration(
@@ -1536,28 +1520,28 @@ class DesertTemplateState extends State<DesertTemplate> {
                             Container(
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 239, 239, 239),
-                                borderRadius: BorderRadius.circular(2),
+                                borderRadius: BorderRadius.circular(2.r),
                               ),
-                              height: 30,
+                              height: 30.h,
                               width: MediaQuery.of(context).size.width * 0.58,
                               child: Row(
                                 children: [
-                                  const SizedBox(width: 10),
+                                  SizedBox(width: 10.w),
                                   Image.asset('assets/Icons/skill.png',
-                                      height: 17, width: 17),
-                                  const SizedBox(width: 5),
-                                  const Text(
+                                      height: 17.h, width: 17.w),
+                                  SizedBox(width: 5.w),
+                                  Text(
                                     'SKILLS',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
+                            SizedBox(
+                              height: 10.h,
                             ),
                             _borderColorForSkills
                                 ? GestureDetector(
@@ -1568,24 +1552,24 @@ class DesertTemplateState extends State<DesertTemplate> {
                                       });
                                     },
                                     child: Wrap(
-                                        spacing: 4,
+                                        spacing: 4.r,
                                         children: List.generate(
                                           templateData.skills.length,
                                           (index) {
                                             return IntrinsicWidth(
                                               child: Container(
-                                                height: 25,
+                                                height: 25.h,
                                                 padding:
-                                                    const EdgeInsets.all(2),
-                                                margin: const EdgeInsets.only(
-                                                    right: 4, bottom: 4),
+                                                    EdgeInsets.all(2.r),
+                                                margin: EdgeInsets.only(
+                                                    right: 4.w, bottom: 4.h),
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
                                                     color: Colors.grey,
                                                   ),
                                                   color: Colors.white,
                                                   borderRadius:
-                                                      BorderRadius.circular(4),
+                                                      BorderRadius.circular(4.r),
                                                 ),
                                                 child: Row(
                                                   mainAxisSize:
@@ -1594,12 +1578,12 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                     Text(
                                                       templateData
                                                           .skills[index],
-                                                      style: const TextStyle(
-                                                        fontSize: 10,
+                                                      style: TextStyle(
+                                                        fontSize: 10.sp,
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 4,
+                                                    SizedBox(
+                                                      width: 4.w,
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
@@ -1620,11 +1604,11 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                               .grey.shade400,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(4),
+                                                                  .circular(4.r),
                                                         ),
-                                                        child: const Icon(
+                                                        child: Icon(
                                                           Icons.close,
-                                                          size: 10,
+                                                          size: 10.r,
                                                         ),
                                                       ),
                                                     )
@@ -1647,28 +1631,28 @@ class DesertTemplateState extends State<DesertTemplate> {
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                          SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 1, // 2 items per row
                                         crossAxisSpacing:
-                                            1, // Spacing between columns
+                                            1.h, // Spacing between columns
                                         mainAxisSpacing:
-                                            1, // Spacing between rows
+                                            1.w, // Spacing between rows
                                         childAspectRatio:
                                             12, // Adjust this to control the height of the items
                                       ),
                                       itemCount: templateData.skills.length,
                                       itemBuilder: (context, index) {
                                         return Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 2),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5.w, vertical: 2.h),
                                           child: Row(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.all(3)
+                                                padding: EdgeInsets.all(3.r)
                                                     .copyWith(left: 0),
                                                 child: Container(
-                                                  height: 3,
-                                                  width: 3,
+                                                  height: 3.h,
+                                                  width: 3.w,
                                                   decoration:
                                                       const BoxDecoration(
                                                     shape: BoxShape.circle,
@@ -1678,8 +1662,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                                               ),
                                               Text(
                                                 templateData.skills[index],
-                                                style: const TextStyle(
-                                                    fontSize: 10),
+                                                style: TextStyle(
+                                                    fontSize: 10.sp),
                                               ),
                                             ],
                                           ),
@@ -1691,8 +1675,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                         ),
                         _borderColorForSkills
                             ? Positioned(
-                                top: 2,
-                                right: 2,
+                                top: 2.h,
+                                right: 2.w,
                                 child: Row(
                                   children: [
                                     GestureDetector(
@@ -1702,14 +1686,14 @@ class DesertTemplateState extends State<DesertTemplate> {
                                         decoration: BoxDecoration(
                                           color: Colors.green,
                                           borderRadius:
-                                              BorderRadius.circular(2),
+                                              BorderRadius.circular(2.r),
                                         ),
-                                        height: 20,
-                                        width: 20,
-                                        child: const Icon(
+                                        height: 20.h,
+                                        width: 20.w,
+                                        child: Icon(
                                           Icons.add,
                                           color: Colors.white,
-                                          size: 15,
+                                          size: 15.r,
                                         ),
                                       ),
                                     ),
@@ -1720,8 +1704,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 10.h,
                   ),
                 ],
               ),
@@ -1730,12 +1714,12 @@ class DesertTemplateState extends State<DesertTemplate> {
           SizedBox(
             width: MediaQuery.of(context).size.width * .4,
             child: Container(
-              padding: const EdgeInsets.all(15).copyWith(left: 7),
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 214, 200, 188),
+              padding: EdgeInsets.all(15.r).copyWith(left: 7.w),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 214, 200, 188),
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
+                  topRight: Radius.circular(15.r),
+                  bottomRight: Radius.circular(15.r),
                 ),
               ),
               child: Column(
@@ -1743,23 +1727,23 @@ class DesertTemplateState extends State<DesertTemplate> {
                 children: [
                   _image == null
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0.r),
                           child: GestureDetector(
                             onTap: () {
                               pickImage();
                             },
                             child: Container(
-                              height: 83,
-                              width: 83,
+                              height: 83.h,
+                              width: 83.w,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
+                                borderRadius: BorderRadius.circular(40.r),
                                 border: Border.all(
                                   color: Colors.white,
-                                  width: 2,
+                                  width: 2.w,
                                 ),
                               ),
                               child: CircleAvatar(
-                                radius: 40,
+                                radius: 40.r,
                                 backgroundColor: Colors.white,
                                 backgroundImage:
                                     File(templateData.userData.profilePic.path)
@@ -1773,17 +1757,17 @@ class DesertTemplateState extends State<DesertTemplate> {
                           ),
                         )
                       : Container(
-                          height: 83,
-                          width: 83,
+                          height: 83.h,
+                          width: 83.w,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(40.r),
                             border: Border.all(
                               color: Colors.white,
-                              width: 2,
+                              width: 2.w,
                             ),
                           ),
                           child: CircleAvatar(
-                            radius: 40,
+                            radius: 40.r,
                             backgroundColor: Colors.white,
                             backgroundImage: FileImage(_image!),
                           ),
@@ -1803,8 +1787,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                       });
                     },
                     controller: _nameController,
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: TextStyle(
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                     decoration: const InputDecoration(
@@ -1833,8 +1817,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                       });
                     },
                     controller: _professionController,
-                    style: const TextStyle(
-                      fontSize: 11,
+                    style: TextStyle(
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.bold,
                     ),
                     decoration: const InputDecoration(
@@ -1848,7 +1832,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                     ),
                   ),
 
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5.h),
 
                   // BIO
                   TextField(
@@ -1866,8 +1850,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                       });
                     },
                     controller: _bioController,
-                    style: const TextStyle(
-                      fontSize: 8,
+                    style: TextStyle(
+                      fontSize: 8.sp,
                     ),
                     decoration: const InputDecoration(
                       isDense: true,
@@ -1880,25 +1864,25 @@ class DesertTemplateState extends State<DesertTemplate> {
                     ),
                   ),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   // EMAIL, ADDRESS, PHONE NUMBER AND LINKEDIN SECTION
                   Padding(
-                    padding: const EdgeInsets.only(right: 3, left: 2),
+                    padding: EdgeInsets.only(right: 3.w, left: 2.w),
                     child: SizedBox(
-                      height: 70,
+                      height: 70.h,
                       child: ListView.builder(
                         itemCount: 4,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: 5.0),
+                            padding: EdgeInsets.only(bottom: 5.0.r),
                             child: Row(
                               children: [
                                 Image.asset(
                                   _iconsList1[index],
-                                  height: 10,
-                                  width: 10,
+                                  height: 10.h,
+                                  width: 10.w,
                                 ),
-                                const SizedBox(width: 5),
+                                SizedBox(width: 5.w),
                                 Expanded(
                                   child: TextField(
                                     onTapOutside: (event) {
@@ -1947,8 +1931,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                                       });
                                     },
                                     controller: _controllersList1[index],
-                                    style: const TextStyle(
-                                      fontSize: 9,
+                                    style: TextStyle(
+                                      fontSize: 9.sp,
                                     ),
                                     decoration: const InputDecoration(
                                       isDense: true,
@@ -1969,7 +1953,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // CERTIFICATES SECTION
                   Column(
                     mainAxisSize: MainAxisSize.min,
@@ -1977,7 +1961,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                       templateData.certificates.isEmpty
                           ? Container(
                               width: MediaQuery.of(context).size.width * 0.3,
-                              height: 100,
+                              height: 100.h,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: const Color.fromARGB(
@@ -1987,18 +1971,18 @@ class DesertTemplateState extends State<DesertTemplate> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
-                                  const Text(
+                                  Text(
                                     'No Certificates provided',
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 8,
+                                      fontSize: 8.sp,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -2018,17 +2002,17 @@ class DesertTemplateState extends State<DesertTemplate> {
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
+                                        borderRadius: BorderRadius.circular(5.r),
                                         border: Border.all(
                                             color: const Color.fromARGB(
                                                 255, 73, 150, 159)),
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(2.0),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(2.0.r),
                                         child: Text(
                                           'Add Certificate',
                                           style: TextStyle(
-                                              fontSize: 8, color: Colors.black),
+                                              fontSize: 8.sp, color: Colors.black),
                                         ),
                                       ),
                                     ),
@@ -2059,7 +2043,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                                         children: [
                                           index == 0
                                               ? Container(
-                                                  height: 25,
+                                                  height: 25.h,
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
@@ -2069,30 +2053,30 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                         255, 214, 200, 188),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            2),
+                                                            2.r),
                                                   ),
                                                   child: Row(
                                                     children: [
                                                       Image.asset(
                                                         'assets/Icons/certificate1.png',
-                                                        width: 17,
-                                                        height: 17,
+                                                        width: 17.w,
+                                                        height: 17.h,
                                                       ),
-                                                      const SizedBox(width: 5),
-                                                      const Text(
+                                                      SizedBox(width: 5.h),
+                                                      Text(
                                                         'CERTIFICATES',
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15,
+                                                          fontSize: 15.sp,
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                 )
                                               : const SizedBox(),
-                                          const SizedBox(
-                                            height: 5,
+                                          SizedBox(
+                                            height: 5.h,
                                           ),
 
                                           // PROJECT NAME
@@ -2126,8 +2110,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                                             controller:
                                                 certificateNameController[
                                                     index],
-                                            style: const TextStyle(
-                                              fontSize: 10,
+                                            style: TextStyle(
+                                              fontSize: 10.sp,
                                               fontWeight: FontWeight.bold,
                                             ),
                                             decoration: const InputDecoration(
@@ -2176,7 +2160,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                                               style: TextStyle(
                                                 fontStyle: FontStyle.italic,
                                                 color: Colors.grey.shade900,
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                               ),
                                               decoration: const InputDecoration(
                                                 isDense: true,
@@ -2210,19 +2194,19 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                           color: Colors.green,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(2.r),
                                                         ),
-                                                        height: 17,
-                                                        width: 17,
-                                                        child: const Icon(
+                                                        height: 17.h,
+                                                        width: 17.w,
+                                                        child: Icon(
                                                           Icons
                                                               .arrow_downward_rounded,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -2250,19 +2234,19 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons.copy,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
@@ -2282,24 +2266,24 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .delete_forever_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 2,
+                                                      SizedBox(
+                                                        width: 2.w,
                                                       ),
                                                     ],
                                                   ),
-                                                  const SizedBox(height: 3),
+                                                  SizedBox(height: 3.h),
                                                 ],
                                               ),
                                             )
@@ -2310,7 +2294,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                               },
                             ),
 
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30.h),
 
                       // LANGUAGE SECTION
                       _borderColorForLanguage
@@ -2330,7 +2314,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        height: 25,
+                                        height: 25.h,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.35,
@@ -2338,28 +2322,28 @@ class DesertTemplateState extends State<DesertTemplate> {
                                           color: const Color.fromARGB(
                                               255, 214, 200, 188),
                                           borderRadius:
-                                              BorderRadius.circular(2),
+                                              BorderRadius.circular(2.r),
                                         ),
                                         child: Row(
                                           children: [
                                             Image.asset(
                                               'assets/Icons/language2.png',
-                                              width: 17,
-                                              height: 17,
+                                              width: 17.w,
+                                              height: 17.h,
                                             ),
-                                            const SizedBox(width: 5),
-                                            const Text(
+                                            SizedBox(width: 5.w),
+                                            Text(
                                               'LANGUAGES',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15,
+                                                fontSize: 15.sp,
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
+                                      SizedBox(
+                                        height: 10.h,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -2369,28 +2353,28 @@ class DesertTemplateState extends State<DesertTemplate> {
                                           });
                                         },
                                         child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.languages.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
-                                                    height: 20,
-                                                    padding: const EdgeInsets
+                                                    height: 20.h,
+                                                    padding: EdgeInsets
                                                         .symmetric(
-                                                        horizontal: 5,
-                                                        vertical: 2),
+                                                        horizontal: 5.w,
+                                                        vertical: 2.h),
                                                     margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        EdgeInsets.only(
+                                                            right: 4.w,
+                                                            bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                         border: Border.all(
                                                             color: Colors.grey),
                                                         color: Colors.white,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(4)),
+                                                                .circular(4.r)),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -2400,12 +2384,12 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                               .languages[index]
                                                               .language,
                                                           style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                              TextStyle(
+                                                            fontSize: 10.sp,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                            width: 5),
+                                                        SizedBox(
+                                                            width: 5.w),
                                                         GestureDetector(
                                                           onTap: () {
                                                             setState(() {
@@ -2425,11 +2409,11 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.sp,
                                                             ),
                                                           ),
                                                         )
@@ -2444,8 +2428,8 @@ class DesertTemplateState extends State<DesertTemplate> {
                                   ),
                                   _borderColorForLanguage
                                       ? Positioned(
-                                          top: 2,
-                                          right: 2,
+                                          top: 2.h,
+                                          right: 2.w,
                                           child: Row(
                                             children: [
                                               GestureDetector(
@@ -2457,14 +2441,14 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                     color: Colors.green,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            2),
+                                                            2.r),
                                                   ),
-                                                  height: 20,
-                                                  width: 20,
-                                                  child: const Icon(
+                                                  height: 20.h,
+                                                  width: 20.w,
+                                                  child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
-                                                    size: 15,
+                                                    size: 15.r,
                                                   ),
                                                 ),
                                               ),
@@ -2486,35 +2470,35 @@ class DesertTemplateState extends State<DesertTemplate> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 25,
+                                    height: 25.h,
                                     width: MediaQuery.of(context).size.width *
                                         0.35,
                                     decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 214, 200, 188),
-                                      borderRadius: BorderRadius.circular(2),
+                                      borderRadius: BorderRadius.circular(2.r),
                                     ),
                                     child: Row(
                                       children: [
-                                        const SizedBox(width: 5),
+                                        SizedBox(width: 5.w),
                                         Image.asset(
                                           'assets/Icons/language2.png',
-                                          width: 17,
-                                          height: 17,
+                                          width: 17.w,
+                                          height: 17.h,
                                         ),
-                                        const SizedBox(width: 5),
-                                        const Text(
+                                        SizedBox(width: 5.w),
+                                        Text(
                                           'LANGUAGES',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15,
+                                            fontSize: 15.sp,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 3,
+                                  SizedBox(
+                                    height: 3.h,
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -2529,20 +2513,20 @@ class DesertTemplateState extends State<DesertTemplate> {
                                             Text(
                                               templateData
                                                   .languages[index].language,
-                                              style: const TextStyle(
-                                                fontSize: 12,
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
                                               ),
                                             ),
                                             Text(
                                               templateData
                                                   .languages[index].proficiency,
                                               style: TextStyle(
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontStyle: FontStyle.italic,
                                                   color: Colors.grey.shade900),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
                                           ],
                                         );
@@ -2552,12 +2536,12 @@ class DesertTemplateState extends State<DesertTemplate> {
                                 ],
                               ),
                             ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
+                  SizedBox(height: 50.h),
                 ],
               ),
             ),

@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
@@ -126,25 +127,24 @@ class SleekTemplateState extends State<SleekTemplate> {
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 90),
-                  // height: 60,
+                  constraints: BoxConstraints(maxHeight: 90.h),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: TextField(
                           controller: _addLanguageControllerForLanguageName,
                           decoration: InputDecoration(
                             hintText: 'Add Language',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       SizedBox(
-                        height: 40,
+                        height: 40.h,
                         child: DropdownButton(
                           items: proficiencyList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -165,7 +165,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                   ),
                 )
               : SizedBox(
-                  height: 40,
+                  height: 40.h,
                   width: MediaQuery.of(context).size.width * .9,
                   child: TextField(
                     controller: title == 'Add Skill'
@@ -174,7 +174,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                     decoration: InputDecoration(
                       hintText: title,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                     ),
                   ),
@@ -183,7 +183,7 @@ class SleekTemplateState extends State<SleekTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
@@ -196,7 +196,7 @@ class SleekTemplateState extends State<SleekTemplate> {
             TextButton(
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue.shade900,
@@ -374,13 +374,13 @@ class SleekTemplateState extends State<SleekTemplate> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(10.0.r),
       child: Column(
         children: [
           Container(
             color: const Color.fromARGB(255, 229, 230, 247),
             child: Padding(
-              padding: const EdgeInsets.only(right: 30, left: 20, top: 20),
+              padding: EdgeInsets.only(right: 30.w, left: 20.w, top: 20.h),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -390,7 +390,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                             pickImage();
                           },
                           child: CircleAvatar(
-                            radius: 40,
+                            radius: 40.r,
                             backgroundColor: Colors.white,
                             backgroundImage:
                                 File(templateData.userData.profilePic.path)
@@ -402,11 +402,11 @@ class SleekTemplateState extends State<SleekTemplate> {
                           ),
                         )
                       : CircleAvatar(
-                          radius: 40,
+                          radius: 40.r,
                           backgroundColor: Colors.white,
                           backgroundImage: FileImage(_image!),
                         ),
-                  const SizedBox(width: 20),
+                  SizedBox(width: 20.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -427,8 +427,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                             print(templateData.userData.fullName);
                           },
                           controller: _nameController,
-                          style: const TextStyle(
-                            fontSize: 20,
+                          style: TextStyle(
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -458,8 +458,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                             print(templateData.userData.profession);
                           },
                           controller: _professionController,
-                          style: const TextStyle(
-                            fontSize: 11,
+                          style: TextStyle(
+                            fontSize: 11.sp,
                             fontWeight: FontWeight.normal,
                           ),
                           decoration: const InputDecoration(
@@ -490,8 +490,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                             print(templateData.userData.bio);
                           },
                           controller: _bioController,
-                          style: const TextStyle(
-                            fontSize: 8,
+                          style: TextStyle(
+                            fontSize: 8.sp,
                           ),
                           decoration: const InputDecoration(
                             isDense: true,
@@ -503,7 +503,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                       ],
                     ),
                   ),
@@ -511,17 +511,17 @@ class SleekTemplateState extends State<SleekTemplate> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Padding(
-            padding: const EdgeInsets.only(right: 30),
+            padding: EdgeInsets.only(right: 30.w),
             child: Row(
               children: [
                 // EMAIL, ADDRESS,
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 20),
+                    padding: EdgeInsets.only(right: 30.w, left: 20.w),
                     child: SizedBox(
-                      height: 25,
+                      height: 25.h,
                       child: ListView.builder(
                         itemCount: 2,
                         itemBuilder: (context, index) {
@@ -529,10 +529,10 @@ class SleekTemplateState extends State<SleekTemplate> {
                             children: [
                               Image.asset(
                                 _iconsList1[index],
-                                height: 10,
-                                width: 10,
+                                height: 10.h,
+                                width: 10.w,
                               ),
-                              const SizedBox(width: 5),
+                              SizedBox(width: 5.h),
                               Expanded(
                                 child: TextField(
                                   onTapOutside: (event) {
@@ -558,8 +558,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                     });
                                   },
                                   controller: _controllersList1[index],
-                                  style: const TextStyle(
-                                    fontSize: 9,
+                                  style: TextStyle(
+                                    fontSize: 9.sp,
                                   ),
                                   decoration: const InputDecoration(
                                     isDense: true,
@@ -583,9 +583,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                 // PHONE NUMBER AND LINKEDIN
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 20),
+                    padding: EdgeInsets.only(right: 30.w, left: 20.w),
                     child: SizedBox(
-                      height: 25,
+                      height: 25.h,
                       child: ListView.builder(
                         itemCount: 2,
                         itemBuilder: (context, index) {
@@ -593,10 +593,10 @@ class SleekTemplateState extends State<SleekTemplate> {
                             children: [
                               Image.asset(
                                 _iconsList1[index + 2],
-                                height: 10,
-                                width: 10,
+                                height: 10.h,
+                                width: 10.w,
                               ),
-                              const SizedBox(width: 5),
+                              SizedBox(width: 5.w),
                               Expanded(
                                 child: TextField(
                                   onTapOutside: (event) {
@@ -622,8 +622,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                     });
                                   },
                                   controller: _controllersList1[index + 2],
-                                  style: const TextStyle(
-                                    fontSize: 9,
+                                  style: TextStyle(
+                                    fontSize: 9.sp,
                                   ),
                                   decoration: const InputDecoration(
                                     isDense: true,
@@ -647,9 +647,9 @@ class SleekTemplateState extends State<SleekTemplate> {
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Padding(
-            padding: const EdgeInsets.only(right: 30, left: 20),
+            padding: EdgeInsets.only(right: 30.w, left: 20.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -662,18 +662,18 @@ class SleekTemplateState extends State<SleekTemplate> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 30,
+                          height: 30.h,
                           width: MediaQuery.of(context).size.width * 0.58,
                           child: Row(
                             children: [
                               Image.asset('assets/Icons/briefcase.png',
-                                  height: 17, width: 17),
-                              const SizedBox(width: 5),
-                              const Text(
+                                  height: 17.h, width: 17.w),
+                              SizedBox(width: 5.w),
+                              Text(
                                 'WORK EXPERIENCE',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                 ),
                               ),
                             ],
@@ -682,7 +682,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                         templateData.workExperience.isEmpty
                             ? Container(
                                 width: MediaQuery.of(context).size.width * 0.4,
-                                height: 100,
+                                height: 100.h,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: const Color.fromARGB(
@@ -692,18 +692,18 @@ class SleekTemplateState extends State<SleekTemplate> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
-                                    const Text(
+                                    Text(
                                       'No Work Experience provided',
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 8,
+                                        fontSize: 8.sp,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -730,17 +730,17 @@ class SleekTemplateState extends State<SleekTemplate> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(5),
+                                              BorderRadius.circular(5.r),
                                           border: Border.all(
                                               color: const Color.fromARGB(
                                                   255, 73, 150, 159)),
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(2.0),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(2.0.r),
                                           child: Text(
                                             'Add Work Experience',
                                             style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 8.sp,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -779,8 +779,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  const SizedBox(
-                                                    height: 10,
+                                                  SizedBox(
+                                                    height: 10.h,
                                                   ),
                                                   SizedBox(
                                                     width:
@@ -817,10 +817,10 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                       controller:
                                                           workEndDateControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -876,10 +876,10 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                       controller:
                                                           jobTypeControllers[
                                                               index],
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.italic,
-                                                        fontSize: 8,
+                                                        fontSize: 8.sp,
                                                       ),
                                                       decoration:
                                                           const InputDecoration(
@@ -912,8 +912,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  SizedBox(
+                                                    height: 5.h,
                                                   ),
 
                                                   // work experience company name
@@ -946,9 +946,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                     controller:
                                                         companyNameControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 10,
+                                                      fontSize: 10.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -998,9 +998,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                     controller:
                                                         jobTitleControllers[
                                                             index],
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 8,
+                                                      fontSize: 8.sp,
                                                     ),
                                                     decoration:
                                                         const InputDecoration(
@@ -1032,16 +1032,13 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                                   .start,
                                                           children: [
                                                             Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .all(
-                                                                          3)
-                                                                      .copyWith(
-                                                                          left:
-                                                                              0),
+                                                              padding: EdgeInsets
+                                                                      .all(3.r)
+                                                                  .copyWith(
+                                                                      left: 0),
                                                               child: Container(
-                                                                height: 3,
-                                                                width: 3,
+                                                                height: 3.h,
+                                                                width: 3.w,
                                                                 decoration:
                                                                     const BoxDecoration(
                                                                   shape: BoxShape
@@ -1097,10 +1094,11 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                                         [
                                                                         innerIndex],
                                                                 style:
-                                                                    const TextStyle(
+                                                                    TextStyle(
                                                                   color: Colors
                                                                       .black,
-                                                                  fontSize: 8,
+                                                                  fontSize:
+                                                                      8.sp,
                                                                 ),
                                                                 decoration:
                                                                     const InputDecoration(
@@ -1151,19 +1149,19 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        2),
+                                                                        2.r),
                                                           ),
-                                                          height: 17,
-                                                          width: 17,
-                                                          child: const Icon(
+                                                          height: 17.r,
+                                                          width: 17.w,
+                                                          child: Icon(
                                                             Icons
                                                                 .arrow_downward_rounded,
                                                             color: Colors.white,
-                                                            size: 15,
+                                                            size: 15.r,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 3,
+                                                        SizedBox(
+                                                          width: 3.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1191,20 +1189,20 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.copy,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 3,
+                                                        SizedBox(
+                                                          width: 3.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1224,21 +1222,21 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.r),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons
                                                                   .delete_forever_rounded,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 2,
+                                                        SizedBox(
+                                                          width: 2.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -1257,21 +1255,21 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          2),
+                                                                          2.w),
                                                             ),
-                                                            height: 17,
-                                                            width: 17,
-                                                            child: const Icon(
+                                                            height: 17.h,
+                                                            width: 17.w,
+                                                            child: Icon(
                                                               Icons.more_vert,
                                                               color:
                                                                   Colors.white,
-                                                              size: 15,
+                                                              size: 15.r,
                                                             ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 3),
+                                                    SizedBox(height: 3.h),
                                                     _showAddAchievementOnly[
                                                             index]
                                                         ? GestureDetector(
@@ -1287,23 +1285,22 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            2),
+                                                                            2.r),
                                                               ),
                                                               width: MediaQuery.of(
                                                                           context)
                                                                       .size
                                                                       .width *
                                                                   0.2,
-                                                              height: 17,
-                                                              child:
-                                                                  const Center(
+                                                              height: 17.h,
+                                                              child: Center(
                                                                 child: Text(
                                                                   'Add Achievement',
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white,
                                                                       fontSize:
-                                                                          10),
+                                                                          10.sp),
                                                                 ),
                                                               ),
                                                             ),
@@ -1322,25 +1319,25 @@ class SleekTemplateState extends State<SleekTemplate> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 // EDUCATION SECTION
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                      height: 30,
+                      height: 30.h,
                       width: MediaQuery.of(context).size.width * 0.58,
                       child: Row(
                         children: [
                           Image.asset('assets/Icons/education.png',
-                              height: 17, width: 17),
-                          const SizedBox(width: 5),
-                          const Text(
+                              height: 17.h, width: 17.w),
+                          SizedBox(width: 5.h),
+                          Text(
                             'EDUCATION',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ],
@@ -1349,7 +1346,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                     templateData.educationBackground.isEmpty
                         ? Container(
                             width: MediaQuery.of(context).size.width * 0.4,
-                            height: 100,
+                            height: 100.h,
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color:
@@ -1359,18 +1356,18 @@ class SleekTemplateState extends State<SleekTemplate> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
-                                const Text(
+                                Text(
                                   'No education background provided',
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 8,
+                                    fontSize: 8.sp,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.sp,
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -1405,12 +1402,13 @@ class SleekTemplateState extends State<SleekTemplate> {
                                           color: const Color.fromARGB(
                                               255, 73, 150, 159)),
                                     ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(2.0),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(2.0.r),
                                       child: Text(
                                         'Add Education',
                                         style: TextStyle(
-                                            fontSize: 8, color: Colors.black),
+                                            fontSize: 8.sp,
+                                            color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -1447,8 +1445,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.w,
                                               ),
                                               SizedBox(
                                                 width: MediaQuery.of(context)
@@ -1486,9 +1484,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                   controller:
                                                       startDateControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontStyle: FontStyle.italic,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -1541,9 +1539,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                   controller:
                                                       institutionAddressControllers[
                                                           index],
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontStyle: FontStyle.italic,
-                                                    fontSize: 8,
+                                                    fontSize: 8.sp,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -1573,8 +1571,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
 
                                               // FIELD OF STUDY
@@ -1610,9 +1608,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                 controller:
                                                     fieldOfStudyControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                                 decoration:
@@ -1662,9 +1660,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                 controller:
                                                     institutionNameControllers[
                                                         index],
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 8,
+                                                  fontSize: 8.sp,
                                                 ),
                                                 decoration:
                                                     const InputDecoration(
@@ -1701,19 +1699,19 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                         color: Colors.green,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(2),
+                                                                .circular(2.r),
                                                       ),
-                                                      height: 17,
-                                                      width: 17,
-                                                      child: const Icon(
+                                                      height: 17.h,
+                                                      width: 17.w,
+                                                      child: Icon(
                                                         Icons
                                                             .arrow_downward_rounded,
                                                         color: Colors.white,
-                                                        size: 15,
+                                                        size: 15.r,
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 2,
+                                                    SizedBox(
+                                                      width: 2.w,
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
@@ -1739,19 +1737,20 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                           color: Colors.grey,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(
+                                                                      2.r),
                                                         ),
-                                                        height: 17,
-                                                        width: 17,
-                                                        child: const Icon(
+                                                        height: 17.h,
+                                                        width: 17.w,
+                                                        child: Icon(
                                                           Icons.copy,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 2,
+                                                    SizedBox(
+                                                      width: 2.w,
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
@@ -1771,24 +1770,25 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                           color: Colors.red,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(
+                                                                      2.r),
                                                         ),
-                                                        height: 17,
-                                                        width: 17,
-                                                        child: const Icon(
+                                                        height: 17.h,
+                                                        width: 17.w,
+                                                        child: Icon(
                                                           Icons
                                                               .delete_forever_rounded,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 2,
+                                                    SizedBox(
+                                                      width: 2.w,
                                                     ),
                                                   ],
                                                 ),
-                                                const SizedBox(height: 3),
+                                                SizedBox(height: 3.h),
                                               ],
                                             ),
                                           )
@@ -1800,7 +1800,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                           ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 // CERTIFICATES SECTION
                 Column(
                   mainAxisSize: MainAxisSize.min,
@@ -1808,21 +1808,21 @@ class SleekTemplateState extends State<SleekTemplate> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: 25.h,
                       width: MediaQuery.of(context).size.width * 0.35,
                       child: Row(
                         children: [
                           Image.asset(
                             'assets/Icons/certificate1.png',
-                            width: 17,
-                            height: 17,
+                            height: 17.h,
+                            width: 17.w,
                           ),
-                          const SizedBox(width: 5),
-                          const Text(
+                          SizedBox(width: 5.w),
+                          Text(
                             'CERTIFICATES',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 15.sp,
                             ),
                           ),
                         ],
@@ -1831,7 +1831,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                     templateData.certificates.isEmpty
                         ? Container(
                             width: MediaQuery.of(context).size.width * 0.3,
-                            height: 100,
+                            height: 100.h,
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color:
@@ -1841,18 +1841,18 @@ class SleekTemplateState extends State<SleekTemplate> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
-                                const Text(
+                                Text(
                                   'No Certificates provided',
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 8,
+                                    fontSize: 8.sp,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -1872,17 +1872,18 @@ class SleekTemplateState extends State<SleekTemplate> {
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(5.r),
                                       border: Border.all(
                                           color: const Color.fromARGB(
                                               255, 73, 150, 159)),
                                     ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(2.0),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(2.0.r),
                                       child: Text(
                                         'Add Certificate',
                                         style: TextStyle(
-                                            fontSize: 8, color: Colors.black),
+                                            fontSize: 8.sp,
+                                            color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -1944,7 +1945,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                                             style: TextStyle(
                                               fontStyle: FontStyle.italic,
                                               color: Colors.grey.shade900,
-                                              fontSize: 8,
+                                              fontSize: 8.sp,
                                             ),
                                             decoration: const InputDecoration(
                                               isDense: true,
@@ -1967,8 +1968,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
 
                                               // PROJECT NAME
@@ -2003,8 +2004,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                 controller:
                                                     certificateNameController[
                                                         index],
-                                                style: const TextStyle(
-                                                  fontSize: 10,
+                                                style: TextStyle(
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                                 decoration:
@@ -2042,19 +2043,19 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                         color: Colors.green,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(2),
+                                                                .circular(2.r),
                                                       ),
-                                                      height: 17,
-                                                      width: 17,
-                                                      child: const Icon(
+                                                      height: 17.h,
+                                                      width: 17.w,
+                                                      child: Icon(
                                                         Icons
                                                             .arrow_downward_rounded,
                                                         color: Colors.white,
-                                                        size: 15,
+                                                        size: 15.r,
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 2,
+                                                    SizedBox(
+                                                      width: 2.w,
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
@@ -2081,19 +2082,20 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                           color: Colors.grey,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(
+                                                                      2.r),
                                                         ),
-                                                        height: 17,
-                                                        width: 17,
-                                                        child: const Icon(
+                                                        height: 17.h,
+                                                        width: 17.w,
+                                                        child: Icon(
                                                           Icons.copy,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 2,
+                                                    SizedBox(
+                                                      width: 2.w,
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
@@ -2112,24 +2114,25 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                           color: Colors.red,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(
+                                                                      2.r),
                                                         ),
-                                                        height: 17,
-                                                        width: 17,
-                                                        child: const Icon(
+                                                        height: 17.h,
+                                                        width: 17.w,
+                                                        child: Icon(
                                                           Icons
                                                               .delete_forever_rounded,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 2,
+                                                    SizedBox(
+                                                      width: 2.w,
                                                     ),
                                                   ],
                                                 ),
-                                                const SizedBox(height: 3),
+                                                SizedBox(height: 3.h),
                                               ],
                                             ),
                                           )
@@ -2141,7 +2144,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                           ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 // SKILLS SECTION
                 Container(
                   decoration: BoxDecoration(
@@ -2161,25 +2164,25 @@ class SleekTemplateState extends State<SleekTemplate> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 30,
+                                  height: 30.h,
                                   // width: MediaQuery.of(context).size.width * 0.58,
                                   child: Row(
                                     children: [
                                       Image.asset('assets/Icons/skill.png',
-                                          height: 17, width: 17),
-                                      const SizedBox(width: 5),
-                                      const Text(
+                                          height: 17.h, width: 17.w),
+                                      SizedBox(width: 5.w),
+                                      Text(
                                         'SKILLS',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 14,
+                                          fontSize: 14.sp,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 _borderColorForSkills
                                     ? GestureDetector(
@@ -2190,19 +2193,18 @@ class SleekTemplateState extends State<SleekTemplate> {
                                           });
                                         },
                                         child: Wrap(
-                                            spacing: 4,
+                                            spacing: 4.r,
                                             children: List.generate(
                                               templateData.skills.length,
                                               (index) {
                                                 return IntrinsicWidth(
                                                   child: Container(
-                                                    height: 25,
+                                                    height: 25.h,
                                                     padding:
-                                                        const EdgeInsets.all(2),
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 4,
-                                                            bottom: 4),
+                                                        EdgeInsets.all(2.r),
+                                                    margin: EdgeInsets.only(
+                                                        right: 4.w,
+                                                        bottom: 4.h),
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
                                                         color: Colors.grey,
@@ -2210,7 +2212,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              4),
+                                                              4.r),
                                                     ),
                                                     child: Row(
                                                       mainAxisSize:
@@ -2219,13 +2221,12 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                         Text(
                                                           templateData
                                                               .skills[index],
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
+                                                          style: TextStyle(
+                                                            fontSize: 10.sp,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 4,
+                                                        SizedBox(
+                                                          width: 4.w,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -2246,11 +2247,11 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4),
+                                                                          4.r),
                                                             ),
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.close,
-                                                              size: 10,
+                                                              size: 10.r,
                                                             ),
                                                           ),
                                                         )
@@ -2273,32 +2274,30 @@ class SleekTemplateState extends State<SleekTemplate> {
                                           physics:
                                               const NeverScrollableScrollPhysics(),
                                           gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                              SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount:
                                                 1, // 2 items per row
                                             crossAxisSpacing:
-                                                1, // Spacing between columns
+                                                1.h, // Spacing between columns
                                             mainAxisSpacing:
-                                                1, // Spacing between rows
+                                                1.w, // Spacing between rows
                                             childAspectRatio:
                                                 12, // Adjust this to control the height of the items
                                           ),
                                           itemCount: templateData.skills.length,
                                           itemBuilder: (context, index) {
                                             return Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5,
-                                                      vertical: 2),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5.w,
+                                                  vertical: 2.h),
                                               child: Row(
                                                 children: [
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(3)
-                                                            .copyWith(left: 0),
+                                                    padding: EdgeInsets.all(3.r)
+                                                        .copyWith(left: 0),
                                                     child: Container(
-                                                      height: 3,
-                                                      width: 3,
+                                                      height: 3.h,
+                                                      width: 3.w,
                                                       decoration:
                                                           const BoxDecoration(
                                                         shape: BoxShape.circle,
@@ -2308,8 +2307,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                   ),
                                                   Text(
                                                     templateData.skills[index],
-                                                    style: const TextStyle(
-                                                        fontSize: 10),
+                                                    style: TextStyle(
+                                                        fontSize: 10.sp),
                                                   ),
                                                 ],
                                               ),
@@ -2340,7 +2339,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
-                                              height: 25,
+                                              height: 25.h,
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
@@ -2349,23 +2348,23 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                 children: [
                                                   Image.asset(
                                                     'assets/Icons/language2.png',
-                                                    width: 17,
-                                                    height: 17,
+                                                    width: 17.w,
+                                                    height: 17.h,
                                                   ),
-                                                  const SizedBox(width: 5),
-                                                  const Text(
+                                                  SizedBox(width: 5.w),
+                                                  Text(
                                                     'LANGUAGES',
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 15,
+                                                      fontSize: 15.sp,
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 10,
+                                            SizedBox(
+                                              height: 10.h,
                                             ),
                                             GestureDetector(
                                               onTap: () {
@@ -2375,24 +2374,24 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                 });
                                               },
                                               child: Column(
-                                                  spacing: 4,
+                                                  spacing: 4.r,
                                                   children: List.generate(
                                                     templateData
                                                         .languages.length,
                                                     (index) {
                                                       return IntrinsicWidth(
                                                         child: Container(
-                                                          height: 20,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal: 5,
-                                                                  vertical: 2),
+                                                          height: 20.h,
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5.w,
+                                                                  vertical:
+                                                                      2.h),
                                                           margin:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  right: 4,
-                                                                  bottom: 4),
+                                                              EdgeInsets.only(
+                                                                  right: 4.w,
+                                                                  bottom: 4.h),
                                                           decoration: BoxDecoration(
                                                               border: Border.all(
                                                                   color: Colors
@@ -2402,7 +2401,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          4)),
+                                                                          4.r)),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -2414,12 +2413,13 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                                         index]
                                                                     .language,
                                                                 style:
-                                                                    const TextStyle(
-                                                                  fontSize: 10,
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      10.sp,
                                                                 ),
                                                               ),
-                                                              const SizedBox(
-                                                                  width: 5),
+                                                              SizedBox(
+                                                                  width: 5.w),
                                                               GestureDetector(
                                                                 onTap: () {
                                                                   setState(() {
@@ -2438,13 +2438,12 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                                         .grey
                                                                         .shade400,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(4),
+                                                                        BorderRadius.circular(
+                                                                            4.r),
                                                                   ),
-                                                                  child:
-                                                                      const Icon(
+                                                                  child: Icon(
                                                                     Icons.close,
-                                                                    size: 10,
+                                                                    size: 10.r,
                                                                   ),
                                                                 ),
                                                               )
@@ -2459,8 +2458,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                                         ),
                                         _borderColorForLanguage
                                             ? Positioned(
-                                                top: 2,
-                                                right: 2,
+                                                top: 2.h,
+                                                right: 2.w,
                                                 child: Row(
                                                   children: [
                                                     GestureDetector(
@@ -2473,14 +2472,15 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                           color: Colors.green,
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(
+                                                                      2.r),
                                                         ),
-                                                        height: 20,
-                                                        width: 20,
-                                                        child: const Icon(
+                                                        height: 20.h,
+                                                        width: 20.w,
+                                                        child: Icon(
                                                           Icons.add,
                                                           color: Colors.white,
-                                                          size: 15,
+                                                          size: 15.r,
                                                         ),
                                                       ),
                                                     ),
@@ -2504,28 +2504,28 @@ class SleekTemplateState extends State<SleekTemplate> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: 25,
+                                        height: 25.h,
                                         child: Row(
                                           children: [
-                                            const SizedBox(width: 5),
+                                            SizedBox(width: 5.w),
                                             Image.asset(
                                               'assets/Icons/language2.png',
-                                              width: 17,
-                                              height: 17,
+                                              width: 17.w,
+                                              height: 17.h,
                                             ),
-                                            const SizedBox(width: 5),
-                                            const Text(
+                                            SizedBox(width: 5.w),
+                                            Text(
                                               'LANGUAGES',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15,
+                                                fontSize: 15.sp,
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 3,
+                                      SizedBox(
+                                        height: 3.h,
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -2540,22 +2540,22 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                 Text(
                                                   templateData.languages[index]
                                                       .language,
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
+                                                  style: TextStyle(
+                                                    fontSize: 12.sp,
                                                   ),
                                                 ),
                                                 Text(
                                                   templateData.languages[index]
                                                       .proficiency,
                                                   style: TextStyle(
-                                                      fontSize: 10,
+                                                      fontSize: 10.sp,
                                                       fontStyle:
                                                           FontStyle.italic,
                                                       color:
                                                           Colors.grey.shade900),
                                                 ),
-                                                const SizedBox(
-                                                  height: 5,
+                                                SizedBox(
+                                                  height: 5.h,
                                                 ),
                                               ],
                                             );
@@ -2565,15 +2565,15 @@ class SleekTemplateState extends State<SleekTemplate> {
                                     ],
                                   ),
                                 ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
                         ],
                       ),
                       _borderColorForSkills
                           ? Positioned(
-                              top: 2,
-                              right: 2,
+                              top: 2.h,
+                              right: 2.w,
                               child: Row(
                                 children: [
                                   GestureDetector(
@@ -2584,12 +2584,12 @@ class SleekTemplateState extends State<SleekTemplate> {
                                         color: Colors.green,
                                         borderRadius: BorderRadius.circular(2),
                                       ),
-                                      height: 20,
-                                      width: 20,
-                                      child: const Icon(
+                                      height: 20.h,
+                                      width: 20.w,
+                                      child: Icon(
                                         Icons.add,
                                         color: Colors.white,
-                                        size: 15,
+                                        size: 15.r,
                                       ),
                                     ),
                                   ),
@@ -2600,8 +2600,8 @@ class SleekTemplateState extends State<SleekTemplate> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
               ],
             ),
