@@ -121,6 +121,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -1304,7 +1305,7 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: Colors
-                                                                        .grey,
+                                                                        .green,
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             2.r),

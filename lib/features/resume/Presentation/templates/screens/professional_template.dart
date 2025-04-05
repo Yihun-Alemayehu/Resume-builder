@@ -120,6 +120,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -2621,7 +2622,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
-                                                                              Colors.grey,
+                                                                              Colors.green,
                                                                           borderRadius:
                                                                               BorderRadius.circular(2.r),
                                                                         ),

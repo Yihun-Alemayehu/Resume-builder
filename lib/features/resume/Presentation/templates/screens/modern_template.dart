@@ -92,6 +92,7 @@ class ModernTemplateState extends State<ModernTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -1173,7 +1174,7 @@ class ModernTemplateState extends State<ModernTemplate> {
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: Colors
-                                                                        .grey,
+                                                                        .green,
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             2.r),

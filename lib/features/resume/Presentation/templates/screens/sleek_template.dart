@@ -124,6 +124,7 @@ class SleekTemplateState extends State<SleekTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -1281,7 +1282,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color:
-                                                                    Colors.grey,
+                                                                    Colors.green,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(

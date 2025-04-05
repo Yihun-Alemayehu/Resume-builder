@@ -120,6 +120,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -1835,7 +1836,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                                                     decoration:
                                                                         BoxDecoration(
                                                                       color: Colors
-                                                                          .grey,
+                                                                          .green,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               2.r),

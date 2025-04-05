@@ -416,6 +416,7 @@ class DatabaseHelper {
       },
       where: 'id = ?',
       whereArgs: [id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 

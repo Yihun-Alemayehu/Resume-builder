@@ -6,7 +6,7 @@ import 'package:my_resume/features/profile/presentation/screens/profile_screen.d
 
 class MainScreen extends StatefulWidget {
   final int currentIndex;
-  const MainScreen(this.currentIndex,{super.key});
+  const MainScreen(this.currentIndex, {super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -31,6 +31,10 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: screens[currentTab],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         currentIndex: currentTab,
         onTap: (index) {
           setState(() {
@@ -45,7 +49,8 @@ class _MainScreenState extends State<MainScreen> {
                     width: 25.w,
                     height: 25.h,
                   )
-                : Image.asset('assets/Icons/home-0.png', width: 25.w, height: 25.h),
+                : Image.asset('assets/Icons/home-0.png',
+                    width: 25.w, height: 25.h),
             label: 'Home',
           ),
           BottomNavigationBarItem(
@@ -66,7 +71,8 @@ class _MainScreenState extends State<MainScreen> {
                     width: 25.w,
                     height: 25.h,
                   )
-                : Image.asset('assets/Icons/user-0.png', width: 25.w, height: 25.h),
+                : Image.asset('assets/Icons/user-0.png',
+                    width: 25.w, height: 25.h),
             label: 'Profile',
           ),
         ],

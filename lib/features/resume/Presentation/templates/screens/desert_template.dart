@@ -124,6 +124,7 @@ class DesertTemplateState extends State<DesertTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -998,7 +999,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: Colors
-                                                                      .grey,
+                                                                      .green,
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(

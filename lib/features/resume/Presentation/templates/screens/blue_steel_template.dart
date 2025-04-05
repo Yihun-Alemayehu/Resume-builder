@@ -123,6 +123,7 @@ class BlueSteelTemplateState extends State<BlueSteelTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -1275,7 +1276,7 @@ class BlueSteelTemplateState extends State<BlueSteelTemplate> {
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color:
-                                                                    Colors.grey,
+                                                                    Colors.green,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(

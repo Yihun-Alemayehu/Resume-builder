@@ -521,63 +521,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
             } else {
               return Center(
                 child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Spacer(),
-                    const Text('No Data Available, please add profile !'),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .3,
+                    ),
+                    Image.asset('assets/Icons/no_profile.jpg',
+                        width: 140.w, height: 140.h),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'No Data Found',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'You don\'t have a profile. When you create one,\n it will appear here.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey),
+                    ),
                     const Spacer(),
                     ElevatedButton(
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        fixedSize:
-                            Size(MediaQuery.of(context).size.width * .9, 50.h),
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
+                        fixedSize: Size(327.w, 42.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 10.h),
+                      ),
+                      child: Text(
+                        'Add Profile',
+                        style: TextStyle(
+                          fontSize: 16.sp,
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EditProfileScreen(),
-                            ));
-                      },
-                      child: const Text('Add Profile'),
                     ),
                   ],
                 ),
               );
             }
-          } else {
+          } else if (state is UserProfileError) {
             return Center(
-              child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  const Text('No Data Available, please add profile !'),
-                  const Spacer(),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width * .9, 50.h),
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const EditProfileScreen(),
-                          ));
-                    },
-                    child: const Text('Add Profile'),
-                  ),
-                ],
+              child: Text(
+                state.errorMessage,
+                style: const TextStyle(color: Colors.red),
               ),
+            );
+          } else {
+            return const Center(
+              child: Text('No data found'),
             );
           }
         },

@@ -24,12 +24,43 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.white,
       appBar: AppBar(title: const Text('My Resume')),
       body: BlocBuilder<UserDataBloc, TemplateDataState>(
         builder: (context, state) {
           if (state is TemplateDataLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is TemplateDataLoaded) {
+            if (state.userData.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/Icons/not_found.jpg',
+                        width: 140.w, height: 140.h),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'No Resume Found',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'You don\'t have a resume.When you create one,\n it will appear here.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey),
+                    ),
+                  ],
+                ),
+              );
+            }
             final userData = state.userData;
             debugPrint(userData.toString());
             return GridView.builder(
@@ -81,7 +112,7 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
               },
             );
           } else if (state is TemplateDataError) {
-            return Center(child: Text(state.message));
+            return Center(child: Text('state.message'));
           }
           return const SizedBox.shrink();
         },

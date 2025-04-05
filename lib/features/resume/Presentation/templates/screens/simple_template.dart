@@ -124,6 +124,7 @@ class SimpleTemplateState extends State<SimpleTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -1251,7 +1252,7 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color:
-                                                                    Colors.grey,
+                                                                    Colors.green,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(

@@ -21,28 +21,28 @@ class PdfApi {
     }
     PdfPageFormat customPageFormat = PdfPageFormat.a4;
 
-    if (userData.educationBackground.length + userData.workExperience.length ==
-        6) {
-      customPageFormat = PdfPageFormat.e6;
-    } else if (userData.educationBackground.length +
-            userData.workExperience.length ==
-        7) {
-      customPageFormat = PdfPageFormat.e7;
-    } else if (userData.educationBackground.length +
-            userData.workExperience.length ==
-        8) {
-      customPageFormat = PdfPageFormat.e8;
-    } else if (userData.educationBackground.length +
-            userData.workExperience.length ==
-        9) {
-      customPageFormat = PdfPageFormat.e9;
-    } else if (userData.educationBackground.length +
-            userData.workExperience.length ==
-        5) {
-      customPageFormat = PdfPageFormat.e5;
-    } else {
-      customPageFormat = PdfPageFormat.a4;
-    }
+    // if (userData.educationBackground.length + userData.workExperience.length ==
+    //     6) {
+    //   customPageFormat = PdfPageFormat.e6;
+    // } else if (userData.educationBackground.length +
+    //         userData.workExperience.length ==
+    //     7) {
+    //   customPageFormat = PdfPageFormat.e7;
+    // } else if (userData.educationBackground.length +
+    //         userData.workExperience.length ==
+    //     8) {
+    //   customPageFormat = PdfPageFormat.e8;
+    // } else if (userData.educationBackground.length +
+    //         userData.workExperience.length ==
+    //     9) {
+    //   customPageFormat = PdfPageFormat.e9;
+    // } else if (userData.educationBackground.length +
+    //         userData.workExperience.length ==
+    //     5) {
+    //   customPageFormat = PdfPageFormat.e5;
+    // } else {
+    //   customPageFormat = PdfPageFormat.a4;
+    // }
 
     pdf.addPage(
       Page(

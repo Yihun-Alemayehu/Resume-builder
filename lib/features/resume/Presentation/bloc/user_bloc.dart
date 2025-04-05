@@ -36,7 +36,7 @@ class UserDataBloc extends Bloc<TemplateDataEvent, TemplateDataState> {
       if (userData != null) {
         emit(TemplateDataLoaded(userData: userData));
       } else {
-        emit(const TemplateDataError(message: 'You do not have any resume'));
+        emit(const TemplateDataLoaded(userData: []));
       }
     } catch (e) {
       emit(TemplateDataError(message: 'Failed to load user data: $e'));
