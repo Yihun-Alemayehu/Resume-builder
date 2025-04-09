@@ -43,9 +43,23 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          insetPadding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.13,
+              left: 1.w,
+              right: 1.w),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-          title: const Text('Edit Education'),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+          title: Center(
+            child: Text(
+              'Edit Education',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 17.sp,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.titleLarge?.color,
+              ),
+            ),
+          ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -159,6 +173,7 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
         builder: (context, state) {
           if (state is UserProfileDataLoaded) {
@@ -168,59 +183,72 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Padding(
-                padding: EdgeInsets.all(5.0.r),
+                padding: EdgeInsets.only(top: 10.h),
                 child: Column(
                   children:
                       List.generate(userProfile.education.length, (index) {
                     return SizedBox(
                       width: double.infinity,
-                      child: Card(
-                        color: Colors.white,
-                        elevation: 5.r,
+                      child: Container(
+                        // padding: EdgeInsets.all(2.r),
+                        margin: EdgeInsets.only(bottom: 20.r),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Theme.of(context).appBarTheme.backgroundColor,
+                        ),
+                        // elevation: 5.r,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(8.0.r),
+                              padding: EdgeInsets.all(12.0.r),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     userProfile.education[index].fieldOfStudy,
                                     style: TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.grey,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: 14.sp,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.color,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(
+                                    height: 4.h,
                                   ),
                                   Text(
                                     userProfile
                                         .education[index].institutionName,
-                                    style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.color,
+                                        fontSize: 10.sp,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(right: 5.w),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           '${userProfile.education[index].startDate} - ${userProfile.education[index].endDate}',
                                           style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12.sp,
-                                              fontStyle: FontStyle.italic),
-                                        ),
-                                        Text(
-                                          userProfile.education[index]
-                                              .institutionAddress,
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12.sp,
-                                            fontStyle: FontStyle.italic,
-                                          ),
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.color,
+                                              fontSize: 10.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w400),
                                         ),
                                       ],
                                     ),
@@ -228,31 +256,34 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
                                 ],
                               ),
                             ),
-                            Container(
-                              height: 40.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(12.r),
-                                  bottomRight: Radius.circular(12.r),
-                                ),
-                                color: Colors.grey.shade300,
-                              ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: 12.w, bottom: 12.h),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  TextButton(
-                                    onPressed: () => _editEducation(
+                                  GestureDetector(
+                                    onTap: () => _editEducation(
                                         index: index,
                                         education:
                                             userProfile.education[index]),
-                                    child: const Text(
+                                    child: Text(
                                       'Edit',
                                       style: TextStyle(
-                                        color: Colors.green,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Theme.of(context)
+                                            .dialogTheme
+                                            .iconColor,
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
                                       // Delete education background at index
                                       setState(() {
                                         context
@@ -263,7 +294,10 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
                                     child: Text(
                                       'Delete',
                                       style: TextStyle(
-                                        color: Colors.red.shade300,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   ),

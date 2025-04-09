@@ -30,52 +30,60 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[currentTab],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor:
-            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
-        currentIndex: currentTab,
-        onTap: (index) {
-          setState(() {
-            currentTab = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: currentTab == 0
-                ? Image.asset(
-                    'assets/Icons/home-1.png',
-                    width: 25.w,
-                    height: 25.h,
-                  )
-                : Image.asset('assets/Icons/home-0.png',
-                    width: 25.w, height: 25.h),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: currentTab == 1
-                ? Image.asset(
-                    'assets/Icons/resume-1.png',
-                    width: 25.w,
-                    height: 25.h,
-                  )
-                : Image.asset('assets/Icons/resume-0.png',
-                    width: 25.w, height: 25.h),
-            label: 'My Resume',
-          ),
-          BottomNavigationBarItem(
-            icon: currentTab == 2
-                ? Image.asset(
-                    'assets/Icons/user-1.png',
-                    width: 25.w,
-                    height: 25.h,
-                  )
-                : Image.asset('assets/Icons/user-0.png',
-                    width: 25.w, height: 25.h),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.r),
+          topRight: Radius.circular(30.r),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor:
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          selectedItemColor:
+              Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          unselectedItemColor:
+              Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+          currentIndex: currentTab,
+          onTap: (index) {
+            setState(() {
+              currentTab = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: currentTab == 0
+                  ? Image.asset(
+                      'assets/Icons/home-1.png',
+                      width: 25.w,
+                      height: 25.h,
+                    )
+                  : Image.asset('assets/Icons/home-0.png',
+                      width: 25.w, height: 25.h),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: currentTab == 1
+                  ? Image.asset(
+                      'assets/Icons/resume-1.png',
+                      width: 25.w,
+                      height: 25.h,
+                    )
+                  : Image.asset('assets/Icons/resume-0.png',
+                      width: 25.w, height: 25.h),
+              label: 'My Resume',
+            ),
+            BottomNavigationBarItem(
+              icon: currentTab == 2
+                  ? Image.asset(
+                      'assets/Icons/user-1.png',
+                      width: 25.w,
+                      height: 25.h,
+                    )
+                  : Image.asset('assets/Icons/user-0.png',
+                      width: 25.w, height: 25.h),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }

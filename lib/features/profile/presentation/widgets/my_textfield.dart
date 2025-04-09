@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyTextField extends StatelessWidget {
   final String hintText;
@@ -13,25 +14,43 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey.shade400),
+    return SizedBox(
+      height: 41.h,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          // isDense: true,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(
+              color: Color.fromARGB(255, 199, 198, 198),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(
+              color: Color.fromARGB(255, 199, 198, 198),
+            ),
+          ),
+          hintText: hintText,
+          hintStyle: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w500,
+            fontSize: 12.sp,
+            color: Theme.of(context).textTheme.bodyMedium!.color!,
+          ),
+          border: const OutlineInputBorder(),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green),
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w500,
+          fontSize: 12.sp,
+          color: Theme.of(context).textTheme.bodyMedium!.color!,
         ),
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          fontStyle: FontStyle.italic,
-          color: Colors.grey,
-        ),
-        border: const OutlineInputBorder(),
-        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        onChanged: function,
       ),
-      style: const TextStyle(fontSize: 14),
-      onChanged: function,
     );
   }
 }

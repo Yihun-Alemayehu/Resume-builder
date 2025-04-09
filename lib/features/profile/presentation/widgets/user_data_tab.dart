@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
-import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class UserDataTab extends StatefulWidget {
   const UserDataTab({super.key});
@@ -30,6 +30,47 @@ class _UserDataTabState extends State<UserDataTab> {
       });
     }
     setState(() {});
+  }
+
+  Future<void> pickAndCropImage({required UserProfile userProfile}) async {
+    final ImagePicker _picker = ImagePicker();
+
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) return;
+
+    final CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: pickedFile.path,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Theme.of(context).dialogTheme.iconColor,
+          toolbarWidgetColor: Colors.white,
+          hideBottomControls: true,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+          ],
+        ),
+        IOSUiSettings(
+          title: 'Crop Image',
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+          ],
+        ),
+        WebUiSettings(
+          context: context,
+        ),
+      ],
+    );
+
+    if (croppedFile == null) return;
+    _image = File(croppedFile.path);
+    setState(() {
+      _image = File(_image!.path);
+      context.read<UserProfileDataCubit>().updateUserProfile(
+            user: userProfile.userdata.copyWith(profilePic: _image),
+          );
+    });
   }
 
   final TextEditingController professionController = TextEditingController();
@@ -64,46 +105,42 @@ class _UserDataTabState extends State<UserDataTab> {
             physics: const AlwaysScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             child: Padding(
-              padding: EdgeInsets.all(15.0.r),
+              padding: EdgeInsets.only(top: 30.h),
               child: Column(
                 children: [
-                  _image == null
-                      ? GestureDetector(
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 20.w),
+                        child: CircleAvatar(
+                          radius: 50.r,
+                          backgroundImage: _image == null
+                              ? const AssetImage('assets/copy.jpg')
+                              : FileImage(_image!) as ImageProvider<Object>?,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 78.w,
+                        child: GestureDetector(
                           onTap: () {
-                            pickImage(userProfile: userProfile);
+                            pickAndCropImage(userProfile: userProfile);
                           },
-                          child: CircleAvatar(
-                            radius: 50.r,
-                            backgroundImage: const AssetImage('assets/copy.jpg'),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            pickImage(userProfile: userProfile);
-                          },
-                          child: CircleAvatar(
-                            radius: 50.r,
-                            backgroundImage: FileImage(_image!),
+                          child: Image.asset(
+                            'assets/Icons/profile/profile-edit-pic.png',
+                            height: 20.h,
+                            width: 20.w,
                           ),
                         ),
-                  SizedBox(height: 30.h),
-                  MyTextField(
-                    controller: professionController,
-                    hintText: 'Profession title',
-                    function: (val) {
-                      setState(() {
-                        context.read<UserProfileDataCubit>().updateUserProfile(
-                              user: userProfile.userdata
-                                  .copyWith(profession: val),
-                            );
-                      });
-                    },
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
+                  SizedBox(height: 30.h),
+                  PersonalFieldRow(
+                    name: 'Name: ',
                     controller: fullNameController,
-                    hintText: 'Full name',
-                    function: (val) {
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
                       setState(() {
                         context.read<UserProfileDataCubit>().updateUserProfile(
                               user:
@@ -112,11 +149,24 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
+                  PersonalFieldRow(
+                    name: 'Profession: ',
+                    controller: professionController,
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
+                      setState(() {
+                        context.read<UserProfileDataCubit>().updateUserProfile(
+                              user: userProfile.userdata
+                                  .copyWith(profession: val),
+                            );
+                      });
+                    },
+                  ),
+                  PersonalFieldRow(
+                    name: 'Email: ',
                     controller: emailController,
-                    hintText: 'Email address',
-                    function: (val) {
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
                       setState(() {
                         context.read<UserProfileDataCubit>().updateUserProfile(
                               user: userProfile.userdata.copyWith(email: val),
@@ -124,48 +174,11 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
-                    controller: websiteController,
-                    hintText: 'Website URL',
-                    function: (val) {
-                      setState(() {
-                        context.read<UserProfileDataCubit>().updateUserProfile(
-                              user: userProfile.userdata.copyWith(website: val),
-                            );
-                      });
-                    },
-                  ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
-                    controller: githubController,
-                    hintText: 'Github',
-                    function: (val) {
-                      setState(() {
-                        context.read<UserProfileDataCubit>().updateUserProfile(
-                              user: userProfile.userdata.copyWith(github: val),
-                            );
-                      });
-                    },
-                  ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
-                    controller: linkedInController,
-                    hintText: 'LinkedIn',
-                    function: (val) {
-                      setState(() {
-                        context.read<UserProfileDataCubit>().updateUserProfile(
-                              user:
-                                  userProfile.userdata.copyWith(linkedIn: val),
-                            );
-                      });
-                    },
-                  ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
+                  PersonalFieldRow(
+                    name: 'Phone: ',
                     controller: phoneNumberController,
-                    hintText: 'Phone number',
-                    function: (val) {
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
                       setState(() {
                         context.read<UserProfileDataCubit>().updateUserProfile(
                               user: userProfile.userdata
@@ -174,11 +187,11 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
+                  PersonalFieldRow(
+                    name: 'Address: ',
                     controller: addressController,
-                    hintText: 'Address',
-                    function: (val) {
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
                       setState(() {
                         context.read<UserProfileDataCubit>().updateUserProfile(
                               user: userProfile.userdata.copyWith(address: val),
@@ -186,19 +199,105 @@ class _UserDataTabState extends State<UserDataTab> {
                       });
                     },
                   ),
-                  SizedBox(height: 15.h),
-                  MyTextField(
-                    controller: bioController,
-                    hintText: 'Brief Description about yourself',
-                    function: (val) {
+                  PersonalFieldRow(
+                    name: 'Linkedin: ',
+                    controller: linkedInController,
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
                       setState(() {
                         context.read<UserProfileDataCubit>().updateUserProfile(
-                              user: userProfile.userdata.copyWith(bio: val),
+                              user:
+                                  userProfile.userdata.copyWith(linkedIn: val),
                             );
                       });
                     },
                   ),
-                  SizedBox(height: 15.h),
+                  PersonalFieldRow(
+                    name: 'Github: ',
+                    controller: githubController,
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
+                      setState(() {
+                        context.read<UserProfileDataCubit>().updateUserProfile(
+                              user: userProfile.userdata.copyWith(github: val),
+                            );
+                      });
+                    },
+                  ),
+                  PersonalFieldRow(
+                    name: 'Website: ',
+                    controller: websiteController,
+                    userProfile: userProfile,
+                    onFieldChange: (val) {
+                      setState(() {
+                        context.read<UserProfileDataCubit>().updateUserProfile(
+                              user: userProfile.userdata.copyWith(website: val),
+                            );
+                      });
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 13.h),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 21.h,
+                          width: 77.w,
+                          child: Text(
+                            'About: ',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color:
+                                  Theme.of(context).textTheme.bodyMedium?.color,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 227.w,
+                          child: TextField(
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge?.color,
+                            ),
+                            cursorColor:
+                                Theme.of(context).textTheme.bodyLarge?.color,
+                            controller: bioController,
+                            onChanged: (val) {
+                              setState(() {
+                                context
+                                    .read<UserProfileDataCubit>()
+                                    .updateUserProfile(
+                                      user: userProfile.userdata
+                                          .copyWith(bio: val),
+                                    );
+                              });
+                            },
+                            maxLines: null,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              isDense: true,
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 199, 198, 198),
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 199, 198, 198),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -207,6 +306,74 @@ class _UserDataTabState extends State<UserDataTab> {
           return const Center(child: CircularProgressIndicator());
         }
       },
+    );
+  }
+}
+
+class PersonalFieldRow extends StatelessWidget {
+  final TextEditingController controller;
+  final Function(String)? onFieldChange;
+  final UserProfile userProfile;
+  final String name;
+
+  const PersonalFieldRow({
+    Key? key,
+    required this.controller,
+    required this.onFieldChange,
+    required this.userProfile,
+    required this.name,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 13.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 21.h,
+            width: 77.w,
+            child: Text(
+              name,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.bodyMedium?.color,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 227.w,
+            child: TextField(
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
+              cursorColor: Theme.of(context).textTheme.bodyLarge?.color,
+              controller: controller,
+              onChanged: onFieldChange,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                isDense: true,
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 199, 198, 198),
+                  ),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 199, 198, 198),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

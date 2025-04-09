@@ -19,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   void _showConfirmDialog(
       {required int index, required TemplateModel? userData}) {
     showDialog(
@@ -132,72 +131,185 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Resume Builder'),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
-            },
-            icon: const Icon(Icons.menu_open_sharp)),
-        
-      ),
       drawer: const AppDrawer(),
-      body: BlocBuilder<UserProfileBloc, UserProfileState>(
-        builder: (context, state) {
-          if (state is UserProfileLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is UserProfileLoaded) {
-            return GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.0.h,
-                mainAxisSpacing: 8.0.w,
-                childAspectRatio: 0.7,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 25.w),
+              height: 70.h,
+              width: 375.w,
+              decoration: BoxDecoration(
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30.r),
+                  bottomRight: Radius.circular(30.r),
+                ),
               ),
-              itemCount: templates.length,
-              itemBuilder: (context, index) {
-                final List<UserProfile> userProfileList = state.user.toList();
-                TemplateModel? userData;
-                if (userProfileList.isNotEmpty) {
-                  userData = TemplateModel.fromUserProfile(
-                      userProfile: state.user[0],
-                      templateName: templatesName[index],
-                      index: index);
-                }
-                return GestureDetector(
-                  onTap: () => _showConfirmDialog(
-                      index: index,
-                      userData: userProfileList.isEmpty ? null : userData),
-                  child: Card(
-                    elevation: 5.r,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0.r),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(1.0.r),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0.r),
-                        child: Image.asset(
-                          templates[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _scaffoldKey.currentState?.openDrawer();
+                    },
+                    child: Image.asset(
+                      'assets/Icons/menu.png',
+                      height: 26.h,
+                      width: 26.w,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
-                );
-              },
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+                  Text(
+                    'Resume Builder',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/Icons/search.png',
+                    height: 24.h,
+                    width: 24.w,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Flexible(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 5.h),
+                  child: BlocBuilder<UserProfileBloc, UserProfileState>(
+                    builder: (context, state) {
+                      if (state is UserProfileLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is UserProfileLoaded) {
+                        return Wrap(
+                          alignment: WrapAlignment.start,
+                          direction: Axis.horizontal,
+                          spacing: 10.w,
+                          children: List.generate(
+                            templates.length,
+                            (index) {
+                              final List<UserProfile> userProfileList =
+                                  state.user.toList();
+                              TemplateModel? userData;
+                              if (userProfileList.isNotEmpty) {
+                                userData = TemplateModel.fromUserProfile(
+                                    userProfile: state.user[0],
+                                    templateName: templatesName[index],
+                                    index: index);
+                              }
+                              return GestureDetector(
+                                onTap: () => _showConfirmDialog(
+                                    index: index,
+                                    userData: userProfileList.isEmpty
+                                        ? null
+                                        : userData),
+                                child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * .288,
+                                  width:
+                                      MediaQuery.of(context).size.width * .416,
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                        child: Image.asset(
+                                          templates[index],
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2.h),
+                                      Text(
+                                        templatesName[index],
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.color,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                        /*return GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          // padding: const EdgeInsets.all(8.0),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 13.0.w,
+                            mainAxisSpacing: 13.0.h,
+                            childAspectRatio: 0.7,
+                          ),
+                          itemCount: templates.length,
+                          itemBuilder: (context, index) {
+                            final List<UserProfile> userProfileList =
+                                state.user.toList();
+                            TemplateModel? userData;
+                            if (userProfileList.isNotEmpty) {
+                              userData = TemplateModel.fromUserProfile(
+                                  userProfile: state.user[0],
+                                  templateName: templatesName[index],
+                                  index: index);
+                            }
+                            return GestureDetector(
+                              onTap: () => _showConfirmDialog(
+                                  index: index,
+                                  userData:
+                                      userProfileList.isEmpty ? null : userData),
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    child: Image.asset(
+                                      templates[index],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.h),
+                                  Text(
+                                    templatesName[index],
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );*/
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
