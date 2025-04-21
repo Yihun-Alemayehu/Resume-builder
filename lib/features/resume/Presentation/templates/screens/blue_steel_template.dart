@@ -212,6 +212,7 @@ class BlueSteelTemplateState extends State<BlueSteelTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'company',
                       ),
                     );
                     _addCertificateController.clear();

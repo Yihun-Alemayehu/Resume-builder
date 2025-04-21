@@ -212,6 +212,7 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();
@@ -675,7 +676,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                       certificateName:
                                                           'Certificate Name',
                                                       issuedDate:
-                                                          'Issued date'),
+                                                          'Issued date',
+                                                          issuedCompanyName:'Company'),
                                                 ],
                                               );
                                               _addCertificateEntry(
@@ -1034,7 +1036,8 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   const AwardModel(
                                                       awardName: 'Award Name',
                                                       issuedDate:
-                                                          'Issued date'),
+                                                          'Issued date',
+                                                          issuedCompanyName: 'company',),
                                                 ],
                                               );
                                               _addAwardEntry(

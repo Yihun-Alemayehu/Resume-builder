@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
+import 'package:my_resume/features/profile/data/model/reference_model.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
@@ -206,6 +207,7 @@ class UserProfileDatabaseHelper {
                 ? CertificateModel(
                     certificateName: e['certificateName'] ?? '',
                     issuedDate: e['issuedDate'] ?? '',
+                    issuedCompanyName: e['issuedCompanyName'] ?? '',
                   )
                 : null)
             .whereType<CertificateModel>()
@@ -217,6 +219,7 @@ class UserProfileDatabaseHelper {
                 ? AwardModel(
                     awardName: e['awardName'] ?? '',
                     issuedDate: e['issuedDate'] ?? '',
+                    issuedCompanyName: e['issuedCompanyName'] ?? '',
                   )
                 : null)
             .whereType<AwardModel>()
@@ -231,6 +234,17 @@ class UserProfileDatabaseHelper {
                   )
                 : null)
             .whereType<ProjectModel>()
+            .toList();
+
+        // Decode Reference
+        final references = (jsonDecode(map['reference']) as List)
+            .map((e) => e is Map<String, dynamic>
+                ? ReferenceModel(
+                    name: e['name'] ?? '',
+                    referenceText: e['referenceText'] ?? '',
+                  )
+                : null)
+            .whereType<ReferenceModel>()
             .toList();
 
         // Decode MyUser
@@ -261,7 +275,7 @@ class UserProfileDatabaseHelper {
           personalProjects: personalProjects,
           languages: languages,
           interests: List<String>.from(jsonDecode(map['interests'])),
-          references: List<String>.from(jsonDecode(map['reference'])),
+          references: references,
         );
       } catch (e) {
         // Log or handle the error

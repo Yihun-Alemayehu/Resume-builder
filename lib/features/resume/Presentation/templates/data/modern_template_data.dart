@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
+import 'package:my_resume/features/profile/data/model/reference_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
@@ -113,29 +114,29 @@ TemplateModel modernTemplateData = TemplateModel(
   ],
   certificates: [
     CertificateModel(
-      certificateName: 'Software Engineering Certification',
-      issuedDate: '08/08/2020',
-    ),
+        certificateName: 'Software Engineering Certification',
+        issuedDate: '08/08/2020',
+        issuedCompanyName: 'Company'),
     CertificateModel(
-      certificateName: 'Data Structures and Algorithms Certification',
-      issuedDate: '08/08/2020',
-    ),
+        certificateName: 'Data Structures and Algorithms Certification',
+        issuedDate: '08/08/2020',
+        issuedCompanyName: 'Company'),
     CertificateModel(
-      certificateName: 'Software Engineering Certification',
-      issuedDate: '08/08/2020',
-    ),
+        certificateName: 'Software Engineering Certification',
+        issuedDate: '08/08/2020',
+        issuedCompanyName: 'Company'),
     CertificateModel(
-      certificateName: 'Data Structures and Algorithms Certification',
-      issuedDate: '08/08/2020',
-    ),
+        certificateName: 'Data Structures and Algorithms Certification',
+        issuedDate: '08/08/2020',
+        issuedCompanyName: 'Company'),
     CertificateModel(
-      certificateName: 'Software Engineering Certification',
-      issuedDate: '08/08/2020',
-    ),
+        certificateName: 'Software Engineering Certification',
+        issuedDate: '08/08/2020',
+        issuedCompanyName: 'Company'),
     CertificateModel(
-      certificateName: 'Data Structures and Algorithms Certification',
-      issuedDate: '08/08/2020',
-    ),
+        certificateName: 'Data Structures and Algorithms Certification',
+        issuedDate: '08/08/2020',
+        issuedCompanyName: 'Company'),
   ],
   awards: [],
   skills: [
@@ -152,8 +153,8 @@ TemplateModel modernTemplateData = TemplateModel(
     'Traveling',
   ],
   references: [
-    'John Doe',
-    'Jane Doe',
-    'Mr. Smith',
+    ReferenceModel(name: 'name', referenceText: 'reference text'),
+    ReferenceModel(name: 'name', referenceText: 'reference text'),
+    ReferenceModel(name: 'name', referenceText: 'reference text'),
   ],
 );

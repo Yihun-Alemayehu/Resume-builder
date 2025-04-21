@@ -213,6 +213,7 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();

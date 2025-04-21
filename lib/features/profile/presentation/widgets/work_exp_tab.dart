@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
-import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
+import 'package:my_resume/core/utils/date_utils.dart';
+import 'package:my_resume/core/utils/custom_dialog.dart';
 
 class WorkExpTab extends StatefulWidget {
   const WorkExpTab({super.key});
@@ -19,137 +20,104 @@ class _WorkExpTabState extends State<WorkExpTab> {
   TextEditingController dateRangeController = TextEditingController();
   TextEditingController achievementsController = TextEditingController();
 
-  Future<void> _selectDateRange() async {
-    DateTimeRange? picked = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2120),
-    );
+  DateTime? selectedStartDate;
+  DateTime? selectedEndDate;
 
-    if (picked != null) {
-      dateRangeController.text =
-          "${picked.start.toString().split(' ')[0]} - ${picked.end.toString().split(' ')[0]}";
-    }
-  }
-
-  void _editWorkExp(
-      {required int index, required WorkExperience workExperience}) {
+  void _editWorkExp({
+    required int index,
+    required WorkExperience workExperience,
+  }) {
     jobTitleController.text = workExperience.jobTitle;
     companyNameController.text = workExperience.companyName;
     jobTypeController.text = workExperience.jobType;
-    // achievementsController.text = workExperience.achievements;
+    // achievementsController.text = workExperience.achievements.join(', ');
+
+    // Set initial date range display
+    selectedStartDate = CustomDateUtils.parseDate(workExperience.startDate);
+    selectedEndDate = CustomDateUtils.parseDate(workExperience.endDate);
+    dateRangeController.text = selectedStartDate != null &&
+            selectedEndDate != null
+        ? '${CustomDateUtils.formatMonthYear(workExperience.startDate)} - ${CustomDateUtils.formatMonthYear(workExperience.endDate)}'
+        : '';
 
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          title: const Text('Edit Work Experience'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MyTextField(
-                  controller: jobTitleController,
-                  hintText: 'Job Title',
-                  function: (val) {
-                    setState(() {
-                      jobTitleController.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                MyTextField(
-                  controller: companyNameController,
-                  hintText: 'Company Name',
-                  function: (val) {
-                    setState(() {
-                      companyNameController.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                MyTextField(
-                  controller: jobTypeController,
-                  hintText: 'Job Type',
-                  function: (val) {
-                    setState(() {
-                      jobTypeController.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  controller: dateRangeController,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: _selectDateRange,
-                      icon: const Icon(Icons.date_range),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    hintText: 'Select start and end date',
-                    hintStyle: const TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey,
-                    ),
-                    border: const OutlineInputBorder(),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10.h),
-                  ),
-                  style: TextStyle(fontSize: 14.sp),
-                ),
-                SizedBox(height: 10.h),
-              ],
+        return DialogUtils.buildDialog(
+          context: context,
+          title: 'Edit Work Experience',
+          content: [
+            DialogUtils.styledTextField(
+              controller: dateRangeController,
+              hintText: 'Select Start and End dates',
+              onChanged: (_) {},
+              isDateField: true,
+              onDateTap: () => CustomDateUtils.selectDateRange(
+                context: context,
+                controller: dateRangeController,
+                onDatesSelected: (start, end) {
+                  setState(() {
+                    selectedStartDate = start;
+                    selectedEndDate = end;
+                  });
+                },
+              ),
+              context: context,
             ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // Update work experience at index
-                setState(() {
-                  context.read<UserProfileDataCubit>().updateWorkExperience(
-                        index: index,
-                        workExperience: WorkExperience(
-                          jobTitle: jobTitleController.text,
-                          companyName: companyNameController.text,
-                          startDate: dateRangeController.text
-                              .toString()
-                              .split(' -')[0],
-                          endDate: dateRangeController.text
-                              .toString()
-                              .split(' -')[1],
-                          jobType: jobTypeController.text,
-                          achievements: [
-                            'achievement',
-                            'achievement',
-                            'achievement',
-                          ],
-                        ),
-                      );
-                });
-                Navigator.pop(context);
-              },
-              child: const Text('Save', style: TextStyle(color: Colors.green)),
+            DialogUtils.styledTextField(
+              controller: jobTitleController,
+              hintText: 'Job Title',
+              onChanged: (val) => setState(() => jobTitleController.text = val),
+              context: context,
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
+            DialogUtils.styledTextField(
+              controller: companyNameController,
+              hintText: 'Company Name',
+              onChanged: (val) =>
+                  setState(() => companyNameController.text = val),
+              context: context,
+            ),
+            DialogUtils.styledTextField(
+              controller: jobTypeController,
+              hintText: 'Job Type',
+              onChanged: (val) => setState(() => jobTypeController.text = val),
+              context: context,
+            ),
+            DialogUtils.styledTextField(
+              controller: achievementsController,
+              hintText: 'Achievements (comma-separated)',
+              onChanged: (val) =>
+                  setState(() => achievementsController.text = val),
+              context: context,
             ),
           ],
+          actions: DialogUtils.dialogActions(
+            context: context,
+            onSave: () {
+              setState(() {
+                context.read<UserProfileDataCubit>().updateWorkExperience(
+                      index: index,
+                      workExperience: WorkExperience(
+                        jobTitle: jobTitleController.text,
+                        companyName: companyNameController.text,
+                        startDate:
+                            CustomDateUtils.formatForStorage(selectedStartDate),
+                        endDate:
+                            CustomDateUtils.formatForStorage(selectedEndDate),
+                        jobType: jobTypeController.text,
+                        achievements: achievementsController.text.isNotEmpty
+                            ? achievementsController.text
+                                .split(',')
+                                .map((e) => e.trim())
+                                .toList()
+                            : ['Achievement'],
+                      ),
+                    );
+              });
+              Navigator.pop(context);
+            },
+            onCancel: () => Navigator.pop(context),
+          ),
         );
       },
     );
@@ -158,6 +126,7 @@ class _WorkExpTabState extends State<WorkExpTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
         builder: (context, state) {
           if (state is UserProfileDataLoaded) {
@@ -167,92 +136,110 @@ class _WorkExpTabState extends State<WorkExpTab> {
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Padding(
-                padding: EdgeInsets.all(5.0.r),
+                padding: EdgeInsets.only(top: 10.h),
                 child: Column(
                   children:
                       List.generate(userProfile.workExperience.length, (index) {
                     return SizedBox(
                       width: double.infinity,
-                      child: Card(
-                        color: Colors.white,
-                        elevation: 5.r,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 20.r),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Theme.of(context).appBarTheme.backgroundColor,
+                        ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(8.0.r),
+                              padding: EdgeInsets.all(12.0.r),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     userProfile.workExperience[index].jobTitle,
                                     style: TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.grey,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 14.sp,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.color,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
+                                  SizedBox(height: 4.h),
                                   Text(
                                     userProfile
                                         .workExperience[index].companyName,
-                                    style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                      fontSize: 10.sp,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 5.w),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          '${userProfile.workExperience[index].startDate} - ${userProfile.workExperience[index].endDate}',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12.sp,
-                                              fontStyle: FontStyle.italic),
-                                        ),
-                                        Text(
-                                          userProfile
-                                              .workExperience[index].jobType,
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12.sp,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
-                                      ],
+                                  SizedBox(height: 2.h),
+                                  Text(
+                                    '${CustomDateUtils.formatMonthYear(userProfile.workExperience[index].startDate)} - ${CustomDateUtils.formatMonthYear(userProfile.workExperience[index].endDate)}',
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                      fontSize: 10.sp,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  SizedBox(height: 2.h),
+                                  Text(
+                                    userProfile.workExperience[index].jobType,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                      fontSize: 10.sp,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            Container(
-                              height: 40.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(12.r),
-                                  bottomRight: Radius.circular(12.r),
-                                ),
-                                color: Colors.grey.shade300,
-                              ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: 12.w, bottom: 12.h),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  TextButton(
-                                    onPressed: () => _editWorkExp(
-                                        index: index,
-                                        workExperience:
-                                            userProfile.workExperience[index]),
-                                    child: const Text(
+                                  GestureDetector(
+                                    onTap: () => _editWorkExp(
+                                      index: index,
+                                      workExperience:
+                                          userProfile.workExperience[index],
+                                    ),
+                                    child: Text(
                                       'Edit',
                                       style: TextStyle(
-                                        color: Colors.green,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Theme.of(context)
+                                            .dialogTheme
+                                            .iconColor,
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      // Delete education background at index
+                                  SizedBox(width: 20.w),
+                                  GestureDetector(
+                                    onTap: () {
                                       setState(() {
                                         context
                                             .read<UserProfileDataCubit>()
@@ -262,13 +249,16 @@ class _WorkExpTabState extends State<WorkExpTab> {
                                     child: Text(
                                       'Delete',
                                       style: TextStyle(
-                                        color: Colors.red.shade300,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -278,26 +268,25 @@ class _WorkExpTabState extends State<WorkExpTab> {
               ),
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).dialogTheme.iconColor,
+        foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
-          // Add education background
           setState(() {
             context.read<UserProfileDataCubit>().addWorkExperience(
                   workExperience: WorkExperience(
-                    jobTitle: 'job title',
-                    companyName: 'company Name',
-                    jobType: 'job type',
-                    startDate: 'start date',
-                    endDate: 'end date',
-                    achievements: [
-                      'achievement'
-                      'achievement'],
+                    jobTitle: 'Job Title',
+                    companyName: 'Company Name',
+                    jobType: 'Job Type',
+                    startDate: '',
+                    endDate: '',
+                    achievements: ['Achievement'],
                   ),
                 );
           });

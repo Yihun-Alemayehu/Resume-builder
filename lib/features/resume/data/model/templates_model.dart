@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
+import 'package:my_resume/features/profile/data/model/reference_model.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
@@ -39,7 +40,7 @@ class TemplateModel extends Equatable {
   final List<String> skills;
   final List<ProjectModel> personalProjects;
   final List<String> interests;
-  final List<String> references;
+  final List<ReferenceModel> references;
 
   TemplateModel copyWith({
     String? templateName,
@@ -53,7 +54,7 @@ class TemplateModel extends Equatable {
     List<String>? skills,
     List<ProjectModel>? personalProjects,
     List<String>? interests,
-    List<String>? references,
+    List<ReferenceModel>? references,
   }) {
     return TemplateModel(
       templateName: templateName ?? this.templateName,
@@ -101,7 +102,7 @@ class TemplateModel extends Equatable {
       'skills': skills,
       'personalProjects': personalProjects.map((x) => x.toMap()).toList(),
       'interests': interests,
-      'references': references,
+      'references': references.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -142,8 +143,10 @@ class TemplateModel extends Equatable {
           ),
         ),
         interests: List<String>.from((map['interests'] as List<String>)),
-        references: List<String>.from(
-          (map['references'] as List<String>),
+        references: List<ReferenceModel>.from(
+          (map['references'] as List<ReferenceModel>).map<ReferenceModel>(
+            (x) => ReferenceModel.fromMap(x as Map<String, dynamic>),
+          ),
         ));
   }
 

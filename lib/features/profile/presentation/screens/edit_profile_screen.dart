@@ -190,27 +190,27 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                   isSelected: _tabController.index == 5,
                                 ),
                                 CustomTab(
-                                  text: 'Skill',
-                                  iconPath:
-                                      'assets/Icons/profile/profile-skill.png',
-                                  isSelected: _tabController.index == 6,
-                                ),
-                                CustomTab(
                                   text: 'Project',
                                   iconPath:
                                       'assets/Icons/profile/profile-project.png',
-                                  isSelected: _tabController.index == 7,
-                                ),
-                                CustomTab(
-                                  text: 'Interest',
-                                  iconPath:
-                                      'assets/Icons/profile/profile-interest.png',
-                                  isSelected: _tabController.index == 8,
+                                  isSelected: _tabController.index == 6,
                                 ),
                                 CustomTab(
                                   text: 'Reference',
                                   iconPath:
                                       'assets/Icons/profile/profile-reference.png',
+                                  isSelected: _tabController.index == 7,
+                                ),
+                                CustomTab(
+                                  text: 'Skill',
+                                  iconPath:
+                                      'assets/Icons/profile/profile-skill.png',
+                                  isSelected: _tabController.index == 8,
+                                ),
+                                CustomTab(
+                                  text: 'Interest',
+                                  iconPath:
+                                      'assets/Icons/profile/profile-interest.png',
                                   isSelected: _tabController.index == 9,
                                 ),
                               ],
@@ -226,10 +226,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                   LanguagesTab(),
                                   CertificateTab(),
                                   AwardTab(),
-                                  SkillTab(),
                                   ProjectTab(),
-                                  InterestTab(),
                                   ReferenceTab(),
+                                  SkillTab(),
+                                  InterestTab(),
                                 ],
                               ),
                             ),

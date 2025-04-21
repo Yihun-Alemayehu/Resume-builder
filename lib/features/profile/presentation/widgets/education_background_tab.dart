@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:my_resume/core/utils/custom_dialog.dart';
+import 'package:my_resume/core/utils/date_utils.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
-import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 
 class EducationBackgroundTab extends StatefulWidget {
@@ -18,18 +20,8 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
   TextEditingController institutionAddressController = TextEditingController();
   TextEditingController dateRangeController = TextEditingController();
 
-  Future<void> _selectDateRange() async {
-    DateTimeRange? picked = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2120),
-    );
-
-    if (picked != null) {
-      dateRangeController.text =
-          "${picked.start.toString().split(' ')[0]} - ${picked.end.toString().split(' ')[0]}";
-    }
-  }
+  DateTime? selectedStartDate;
+  DateTime? selectedEndDate;
 
   void _editEducation({
     required int index,
@@ -39,132 +31,87 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
     institutionNameController.text = education.institutionName;
     institutionAddressController.text = education.institutionAddress;
 
+    // Set initial date range display
+    selectedStartDate = CustomDateUtils.parseDate(education.startDate);
+    selectedEndDate = CustomDateUtils.parseDate(education.endDate);
+    dateRangeController.text = selectedStartDate != null &&
+            selectedEndDate != null
+        ? '${CustomDateUtils.formatMonthYear(education.startDate)} - ${CustomDateUtils.formatMonthYear(education.endDate)}'
+        : '';
+
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          insetPadding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.13,
-              left: 1.w,
-              right: 1.w),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-          title: Center(
-            child: Text(
-              'Edit Education',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 17.sp,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).textTheme.titleLarge?.color,
+        return DialogUtils.buildDialog(
+          context: context,
+          title: 'Edit Education',
+          content: [
+            DialogUtils.styledTextField(
+              controller: dateRangeController,
+              hintText: 'Select Start and End dates',
+              onChanged: (_) {},
+              isDateField: true,
+              onDateTap: () => CustomDateUtils.selectDateRange(
+                context: context,
+                controller: dateRangeController,
+                onDatesSelected: (start, end) {
+                  setState(() {
+                    selectedStartDate = start;
+                    selectedEndDate = end;
+                  });
+                },
               ),
+              context: context,
             ),
-          ),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MyTextField(
-                  controller: fieldOfStudyController,
-                  hintText: 'Field of Study',
-                  function: (val) {
-                    setState(() {
-                      fieldOfStudyController.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                MyTextField(
-                  controller: institutionNameController,
-                  hintText: 'Institution Name',
-                  function: (val) {
-                    setState(() {
-                      institutionNameController.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                MyTextField(
-                  controller: institutionAddressController,
-                  hintText: 'Institution Address',
-                  function: (val) {
-                    setState(() {
-                      institutionAddressController.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  controller: dateRangeController,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: _selectDateRange,
-                      icon: const Icon(Icons.date_range),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    hintText: 'Select start and end date',
-                    hintStyle: const TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey,
-                    ),
-                    border: const OutlineInputBorder(),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 10.h),
-                  ),
-                  style: TextStyle(fontSize: 14.sp),
-                ),
-                SizedBox(height: 10.h),
-              ],
+            DialogUtils.styledTextField(
+              controller: fieldOfStudyController,
+              hintText: 'Field of Study',
+              onChanged: (val) =>
+                  setState(() => fieldOfStudyController.text = val),
+              context: context,
             ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // Update education background at index
-                setState(() {
-                  context.read<UserProfileDataCubit>().updateEducation(
-                        index: index,
-                        educationBackground: EducationBackground(
-                          fieldOfStudy: fieldOfStudyController.text,
-                          institutionName: institutionNameController.text,
-                          startDate: dateRangeController.text
-                              .toString()
-                              .split(' -')[0],
-                          endDate: dateRangeController.text
-                              .toString()
-                              .split(' -')[1],
-                          institutionAddress: institutionAddressController.text,
-                          courses: [
-                            'Course 1',
-                            'Course 2',
-                            'Course 3',
-                            'Course 4',
-                          ],
-                        ),
-                      );
-                });
-                Navigator.pop(context);
-              },
-              child: const Text('Save', style: TextStyle(color: Colors.green)),
+            DialogUtils.styledTextField(
+              controller: institutionNameController,
+              hintText: 'Institution Name',
+              onChanged: (val) =>
+                  setState(() => institutionNameController.text = val),
+              context: context,
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
+            DialogUtils.styledTextField(
+              controller: institutionAddressController,
+              hintText: 'Institution Address',
+              onChanged: (val) =>
+                  setState(() => institutionAddressController.text = val),
+              context: context,
             ),
           ],
+          actions: DialogUtils.dialogActions(
+            context: context,
+            onSave: () {
+              setState(() {
+                context.read<UserProfileDataCubit>().updateEducation(
+                      index: index,
+                      educationBackground: EducationBackground(
+                        fieldOfStudy: fieldOfStudyController.text,
+                        institutionName: institutionNameController.text,
+                        startDate:
+                            CustomDateUtils.formatForStorage(selectedStartDate),
+                        endDate:
+                            CustomDateUtils.formatForStorage(selectedEndDate),
+                        institutionAddress: institutionAddressController.text,
+                        courses: [
+                          'Course 1',
+                          'Course 2',
+                          'Course 3',
+                          'Course 4',
+                        ],
+                      ),
+                    );
+              });
+              Navigator.pop(context);
+            },
+            onCancel: () => Navigator.pop(context),
+          ),
         );
       },
     );
@@ -190,15 +137,14 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
                     return SizedBox(
                       width: double.infinity,
                       child: Container(
-                        // padding: EdgeInsets.all(2.r),
                         margin: EdgeInsets.only(bottom: 20.r),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
                           color: Theme.of(context).appBarTheme.backgroundColor,
                         ),
-                        // elevation: 5.r,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
                               padding: EdgeInsets.all(12.0.r),
@@ -209,48 +155,40 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
                                   Text(
                                     userProfile.education[index].fieldOfStudy,
                                     style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.color,
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w500),
+                                      fontSize: 14.sp,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.color,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  SizedBox(height: 4.h),
                                   Text(
                                     userProfile
                                         .education[index].institutionName,
                                     style: TextStyle(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.color,
-                                        fontSize: 10.sp,
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w400),
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                      fontSize: 10.sp,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 5.w),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          '${userProfile.education[index].startDate} - ${userProfile.education[index].endDate}',
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.color,
-                                              fontSize: 10.sp,
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
+                                  SizedBox(height: 2.h),
+                                  Text(
+                                    '${CustomDateUtils.formatMonthYear(userProfile.education[index].startDate)} - ${CustomDateUtils.formatMonthYear(userProfile.education[index].endDate)}',
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                      fontSize: 10.sp,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],
@@ -264,9 +202,9 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
                                 children: [
                                   GestureDetector(
                                     onTap: () => _editEducation(
-                                        index: index,
-                                        education:
-                                            userProfile.education[index]),
+                                      index: index,
+                                      education: userProfile.education[index],
+                                    ),
                                     child: Text(
                                       'Edit',
                                       style: TextStyle(
@@ -279,12 +217,9 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 20.w,
-                                  ),
+                                  SizedBox(width: 20.w),
                                   GestureDetector(
                                     onTap: () {
-                                      // Delete education background at index
                                       setState(() {
                                         context
                                             .read<UserProfileDataCubit>()
@@ -303,7 +238,7 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -313,23 +248,24 @@ class _EducationBackgroundTabState extends State<EducationBackgroundTab> {
               ),
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).dialogTheme.iconColor,
+        foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
-          // Add education background
           setState(() {
             context.read<UserProfileDataCubit>().addEducation(
                   education: EducationBackground(
                     fieldOfStudy: 'Field of Study',
                     institutionName: 'Institution Name',
-                    institutionAddress: 'institution Address',
-                    startDate: 'start date',
-                    endDate: 'end date',
+                    institutionAddress: 'Institution Address',
+                    startDate: '',
+                    endDate: '',
                     courses: ['Course 1', 'Course 2'],
                   ),
                 );

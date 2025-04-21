@@ -209,6 +209,7 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();
@@ -1080,7 +1081,8 @@ class ProfessionalTemplateState extends State<ProfessionalTemplate> {
                                                         certificateName:
                                                             'Certificate Name',
                                                         issuedDate:
-                                                            'Issued date'),
+                                                            'Issued date',
+                                                            issuedCompanyName:'Company'),
                                                   ],
                                                 );
                                                 _addCertificateEntry(

@@ -7,18 +7,22 @@ class CertificateModel extends Equatable {
   const CertificateModel({
     required this.certificateName,
     required this.issuedDate,
+    required this.issuedCompanyName,
   });
   
   final String certificateName;
   final String issuedDate;
+  final String issuedCompanyName;
 
   CertificateModel copyWith({
     String? certificateName,
     String? issuedDate,
+    String? issuedCompanyName,
   }) {
     return CertificateModel(
       certificateName: certificateName ?? this.certificateName,
       issuedDate: issuedDate ?? this.issuedDate,
+      issuedCompanyName: issuedCompanyName ?? this.issuedCompanyName,
     );
   }
 
@@ -26,6 +30,7 @@ class CertificateModel extends Equatable {
     return <String, dynamic>{
       'certificateName': certificateName,
       'issuedDate': issuedDate,
+      'issuedCompanyName': issuedCompanyName,
     };
   }
 
@@ -33,6 +38,7 @@ class CertificateModel extends Equatable {
     return CertificateModel(
       certificateName: map['certificateName'] as String,
       issuedDate: map['issuedDate'] as String,
+      issuedCompanyName: map['issuedCompanyName'] as String,
     );
   }
 
@@ -44,5 +50,5 @@ class CertificateModel extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [certificateName, issuedDate];
+  List<Object> get props => [certificateName, issuedDate, issuedCompanyName];
 }

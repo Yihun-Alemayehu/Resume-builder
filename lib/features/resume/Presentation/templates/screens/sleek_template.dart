@@ -213,6 +213,7 @@ class SleekTemplateState extends State<SleekTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();
@@ -1863,7 +1864,9 @@ class SleekTemplateState extends State<SleekTemplate> {
                                           const CertificateModel(
                                               certificateName:
                                                   'Certificate Name',
-                                              issuedDate: 'Issued date'),
+                                              issuedDate: 'Issued date',
+                                              issuedCompanyName:
+                                                  'Company'),
                                         ],
                                       );
                                       _addCertificateEntry(

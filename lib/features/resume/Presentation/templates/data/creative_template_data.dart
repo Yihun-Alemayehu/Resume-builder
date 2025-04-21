@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
+import 'package:my_resume/features/profile/data/model/reference_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
@@ -94,10 +95,12 @@ TemplateModel creativeTemplateData = TemplateModel(
     CertificateModel(
       certificateName: 'Software Engineering Certification',
       issuedDate: '08/08/2020',
+      issuedCompanyName: 'Coursera',
     ),
     CertificateModel(
       certificateName: 'Data Structures and Algorithms Certification',
       issuedDate: '08/08/2020',
+      issuedCompanyName: 'Coursera',
     )
   ],
   awards: [],
@@ -136,8 +139,8 @@ TemplateModel creativeTemplateData = TemplateModel(
     'Sports',
   ],
   references: [
-    'John Doe',
-    'Jane Doe',
-    'Mr. Smith',
+    ReferenceModel(name: 'name', referenceText: 'reference text'),
+    ReferenceModel(name: 'name', referenceText: 'reference text'),
+    ReferenceModel(name: 'name', referenceText: 'reference text'),
   ],
 );

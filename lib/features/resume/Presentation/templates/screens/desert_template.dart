@@ -213,6 +213,7 @@ class DesertTemplateState extends State<DesertTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();
@@ -1993,7 +1994,9 @@ class DesertTemplateState extends State<DesertTemplate> {
                                             const CertificateModel(
                                                 certificateName:
                                                     'Certificate Name',
-                                                issuedDate: 'Issued date'),
+                                                issuedDate: 'Issued date',
+                                                issuedCompanyName:
+                                                    'Company'),
                                           ],
                                         );
                                         _addCertificateEntry(

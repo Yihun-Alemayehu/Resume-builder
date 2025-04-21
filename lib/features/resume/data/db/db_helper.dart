@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
+import 'package:my_resume/features/profile/data/model/reference_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
@@ -186,6 +187,7 @@ class DatabaseHelper {
               .map((e) => {
                     'certificateName': e.certificateName,
                     'issuedDate': e.issuedDate,
+                    'issuedCompanyName': e.issuedCompanyName,
                   })
               .toList()),
           'awards': jsonEncode(template.awards
@@ -275,6 +277,7 @@ class DatabaseHelper {
                   ? CertificateModel(
                       certificateName: e['certificateName'] ?? '',
                       issuedDate: e['issuedDate'] ?? '',
+                      issuedCompanyName: e['issuedCompanyName'] ?? '',
                     )
                   : null)
               .whereType<CertificateModel>()
@@ -286,6 +289,7 @@ class DatabaseHelper {
                   ? AwardModel(
                       awardName: e['awardName'] ?? '',
                       issuedDate: e['issuedDate'] ?? '',
+                      issuedCompanyName: e['issuedCompanyName'] ?? '',
                     )
                   : null)
               .whereType<AwardModel>()
@@ -300,6 +304,17 @@ class DatabaseHelper {
                     )
                   : null)
               .whereType<ProjectModel>()
+              .toList();
+
+          // Decode Reference
+          final references = (jsonDecode(map['reference']) as List)
+              .map((e) => e is Map<String, dynamic>
+                  ? ReferenceModel(
+                      name: e['name'] ?? '',
+                      referenceText: e['referenceText'] ?? '',
+                    )
+                  : null)
+              .whereType<ReferenceModel>()
               .toList();
 
           // Decode MyUser
@@ -332,7 +347,7 @@ class DatabaseHelper {
             personalProjects: personalProjects,
             languages: languages,
             interests: List<String>.from(jsonDecode(map['interests'])),
-            references: List<String>.from(jsonDecode(map['reference'])),
+            references: references,
           );
         }).toList();
       } catch (e) {

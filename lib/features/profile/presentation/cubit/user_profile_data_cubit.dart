@@ -6,8 +6,8 @@ import 'package:my_resume/features/profile/data/db/user_profile_database_helper.
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
+import 'package:my_resume/features/profile/data/model/reference_model.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
-import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/user_model.dart';
@@ -284,7 +284,6 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
 
   void updatePersonalProject(
       {required int index, required ProjectModel project}) {
-    print('project: ' + project.toString());
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
       final updatedList = List<ProjectModel>.from(currentState.userProfile
@@ -295,7 +294,6 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
           .personalProjects);
       final updatedUserProfile =
           currentState.userProfile.copyWith(personalProjects: updatedList);
-      print('updatedList: ' + updatedList.toString());
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
@@ -345,22 +343,27 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
     }
   }
 
-  void addReference({required String reference}) {
+  void addReference({required ReferenceModel reference}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList = List<String>.from(currentState.userProfile.references)
-        ..add(reference);
+      final updatedList =
+          List<ReferenceModel>.from(currentState.userProfile.references)
+            ..add(reference);
       final updatedUserProfile =
           currentState.userProfile.copyWith(references: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
     }
   }
 
-  void updateReference({required int index, required String reference}) {
+  void updateReference({required int index, required ReferenceModel reference}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList = List<String>.from(currentState.userProfile.references)
-        ..[index] = reference;
+      final updatedList = List<ReferenceModel>.from(currentState.userProfile
+          .copyWith(
+            references: currentState.userProfile.references
+              ..[index] = reference,
+          )
+          .references);
       final updatedUserProfile =
           currentState.userProfile.copyWith(references: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));
@@ -370,8 +373,9 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
   void removeReference({required int index}) {
     if (state is UserProfileDataLoaded) {
       final currentState = state as UserProfileDataLoaded;
-      final updatedList = List<String>.from(currentState.userProfile.references)
-        ..removeAt(index);
+      final updatedList =
+          List<ReferenceModel>.from(currentState.userProfile.references)
+            ..removeAt(index);
       final updatedUserProfile =
           currentState.userProfile.copyWith(references: updatedList);
       emit(UserProfileDataLoaded(userProfile: updatedUserProfile));

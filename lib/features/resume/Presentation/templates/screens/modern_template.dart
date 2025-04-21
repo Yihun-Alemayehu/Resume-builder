@@ -181,6 +181,7 @@ class ModernTemplateState extends State<ModernTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();
@@ -1901,7 +1902,9 @@ class ModernTemplateState extends State<ModernTemplate> {
                                               const CertificateModel(
                                                   certificateName:
                                                       'certificateName',
-                                                  issuedDate: 'issuedDate'),
+                                                  issuedDate: 'issuedDate',
+                                                  issuedCompanyName:
+                                                      'Company'),
                                             ],
                                           );
                                           _addCertificateEntry(

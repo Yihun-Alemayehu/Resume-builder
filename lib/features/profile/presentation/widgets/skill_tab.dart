@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
-import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class SkillTab extends StatefulWidget {
   const SkillTab({super.key});
@@ -18,47 +18,29 @@ class _SkillTabState extends State<SkillTab> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-          title: const Text('Add Skill'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MyTextField(
-                  hintText: 'Skill Name',
-                  function: (val) {
-                    setState(() {
-                      _controller.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  context
-                      .read<UserProfileDataCubit>()
-                      .addSkill(skill: _controller.text);
-                });
-                Navigator.pop(context);
-              },
-              child: const Text('Save', style: TextStyle(color: Colors.green)),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
+        return DialogUtils.buildDialog(
+          context: context,
+          title: 'Add Skill',
+          content: [
+            DialogUtils.styledTextField(
+              controller: _controller,
+              hintText: 'Skill Name',
+              onChanged: (val) => setState(() => _controller.text = val),
+              context: context,
             ),
           ],
+          actions: DialogUtils.dialogActions(
+            context: context,
+            onSave: () {
+              setState(() {
+                context
+                    .read<UserProfileDataCubit>()
+                    .addSkill(skill: _controller.text);
+              });
+              Navigator.pop(context);
+            },
+            onCancel: () => Navigator.pop(context),
+          ),
         );
       },
     );
@@ -85,10 +67,10 @@ class _SkillTabState extends State<SkillTab> {
                       margin: EdgeInsets.only(right: 4.w, bottom: 4.h),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: const Color.fromARGB(255, 73, 150, 159),
+                          color: const Color.fromARGB(255, 220, 220, 220),
                         ),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4.r),
+                        // color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -128,6 +110,10 @@ class _SkillTabState extends State<SkillTab> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).dialogTheme.iconColor,
+        foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: _addSkill,
         child: const Icon(Icons.add),
       ),

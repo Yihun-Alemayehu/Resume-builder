@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_resume/core/utils/app_theme.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/profile/presentation/screens/edit_profile_screen.dart';
@@ -83,34 +84,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             SizedBox(height: 20.h),
             Flexible(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                primary: true,
-                child: BlocConsumer<UserProfileBloc, UserProfileState>(
-                  listener: (context, state) {
-                    if (state is UserProfileError) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(state.errorMessage)));
-                    } else if (state is UserProfileDeleted) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Profile deleted successfully')));
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is UserProfileLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is UserProfileLoaded ||
-                        state is UserProfileUpdated ||
-                        state is UserProfileSaved) {
-                      UserProfile userProfile;
-                      if ((state as UserProfileLoaded).user.isNotEmpty) {
-                        userProfile = state.user[0];
-                        print(
-                            '-------------USER PROFILE FROM PROFILE SCREEN --------------------------------');
-                        log(userProfile.toString());
-                        print(
-                            '-------------USER PROFILE FROM PROFILE SCREEN --------------------------------');
-                        return Column(
+              child: BlocConsumer<UserProfileBloc, UserProfileState>(
+                listener: (context, state) {
+                  if (state is UserProfileError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.errorMessage)));
+                  } else if (state is UserProfileDeleted) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Profile deleted successfully')));
+                  }
+                },
+                builder: (context, state) {
+                  if (state is UserProfileLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is UserProfileLoaded ||
+                      state is UserProfileUpdated ||
+                      state is UserProfileSaved) {
+                    UserProfile userProfile;
+                    if ((state as UserProfileLoaded).user.isNotEmpty) {
+                      userProfile = state.user[0];
+                      print(
+                          '-------------USER PROFILE FROM PROFILE SCREEN --------------------------------');
+                      log(userProfile.toString());
+                      print(
+                          '-------------USER PROFILE FROM PROFILE SCREEN --------------------------------');
+                      return SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
                           children: [
                             CircleAvatar(
                               radius: 50.r,
@@ -307,6 +307,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     },
                                   ),
                                   ProfileExpansionTile(
+                                    title: 'Projects',
+                                    icon:
+                                        'assets/Icons/profile/profile-project.png',
+                                    childrens: List.generate(
+                                      userProfile.personalProjects.length,
+                                      (index) {
+                                        return CustomTile(
+                                          title: userProfile
+                                              .personalProjects[index].name,
+                                          subtitle: userProfile
+                                              .personalProjects[index]
+                                              .description,
+                                        );
+                                      },
+                                    ),
+                                    isExpanded: isExpanded8,
+                                    onExpansionChanged: (value) {
+                                      setState(() {
+                                        isExpanded8 = value;
+                                      });
+                                    },
+                                  ),
+                                  ProfileExpansionTile(
+                                    title: 'References',
+                                    icon:
+                                        'assets/Icons/profile/profile-reference.png',
+                                    childrens: List.generate(
+                                      userProfile.references.length,
+                                      (index) {
+                                        return CustomTile(
+                                          title: userProfile
+                                              .references[index].name,
+                                          subtitle: userProfile
+                                              .references[index].referenceText,
+                                        );
+                                      },
+                                    ),
+                                    isExpanded: isExpanded10,
+                                    onExpansionChanged: (value) {
+                                      setState(() {
+                                        isExpanded10 = value;
+                                      });
+                                    },
+                                  ),
+                                  ProfileExpansionTile(
                                     title: 'Skills',
                                     icon:
                                         'assets/Icons/profile/profile-skill.png',
@@ -359,29 +404,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     },
                                   ),
                                   ProfileExpansionTile(
-                                    title: 'Projects',
-                                    icon:
-                                        'assets/Icons/profile/profile-project.png',
-                                    childrens: List.generate(
-                                      userProfile.personalProjects.length,
-                                      (index) {
-                                        return CustomTile(
-                                          title: userProfile
-                                              .personalProjects[index].name,
-                                          subtitle: userProfile
-                                              .personalProjects[index]
-                                              .description,
-                                        );
-                                      },
-                                    ),
-                                    isExpanded: isExpanded8,
-                                    onExpansionChanged: (value) {
-                                      setState(() {
-                                        isExpanded8 = value;
-                                      });
-                                    },
-                                  ),
-                                  ProfileExpansionTile(
                                     title: 'Interests',
                                     icon:
                                         'assets/Icons/profile/profile-interest.png',
@@ -430,27 +452,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     onExpansionChanged: (value) {
                                       setState(() {
                                         isExpanded9 = value;
-                                      });
-                                    },
-                                  ),
-                                  ProfileExpansionTile(
-                                    title: 'References',
-                                    icon:
-                                        'assets/Icons/profile/profile-reference.png',
-                                    childrens: List.generate(
-                                      userProfile.references.length,
-                                      (index) {
-                                        return CustomTile(
-                                          title: 'Joe Doe',
-                                          subtitle:
-                                              userProfile.references[index],
-                                        );
-                                      },
-                                    ),
-                                    isExpanded: isExpanded10,
-                                    onExpansionChanged: (value) {
-                                      setState(() {
-                                        isExpanded10 = value;
                                       });
                                     },
                                   ),
@@ -547,81 +548,84 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ],
-                        );
-                      } else {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * .3,
-                            ),
-                            Image.asset('assets/Icons/no_profile.jpg',
-                                width: 140.w, height: 140.h),
-                            SizedBox(height: 10.h),
-                            Text(
-                              'No Data Found',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            SizedBox(height: 10.h),
-                            Text(
-                              'You don\'t have a profile. When you create one,\n it will appear here.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey),
-                            ),
-                            const Spacer(),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditProfileScreen(),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(327.w, 42.h),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.r),
-                                ),
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.secondary,
-                                foregroundColor: Colors.white,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20.w, vertical: 10.h),
-                              ),
-                              child: Text(
-                                'Add Profile',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-                    } else if (state is UserProfileError) {
-                      return Center(
-                        child: Text(
-                          state.errorMessage,
-                          style: const TextStyle(color: Colors.red),
                         ),
                       );
                     } else {
-                      return const Center(
-                        child: Text('No data found'),
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * .3,
+                          ),
+                          Image.asset('assets/Icons/no_profile.png',
+                              width: 140.w, height: 140.h),
+                          SizedBox(height: 10.h),
+                          Text(
+                            'No Profile Data Found',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.color),
+                          ),
+                          SizedBox(height: 10.h),
+                          Text(
+                            'You don\'t have a profile. When you create one,\n it will appear here.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey),
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditProfileScreen(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(327.w, 42.h),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              backgroundColor: AppColors.accent,
+                              foregroundColor: Colors.white,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w, vertical: 10.h),
+                            ),
+                            child: Text(
+                              'Create Profile',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     }
-                  },
-                ),
+                  } else if (state is UserProfileError) {
+                    return Center(
+                      child: Text(
+                        state.errorMessage,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('No data found'),
+                    );
+                  }
+                },
               ),
             ),
           ],

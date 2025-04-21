@@ -200,6 +200,7 @@ class HybridTemplateState extends State<HybridTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();
@@ -2091,7 +2092,9 @@ class HybridTemplateState extends State<HybridTemplate> {
                                                 const CertificateModel(
                                                     certificateName:
                                                         'Certificate Name',
-                                                    issuedDate: 'Issued date'),
+                                                    issuedDate: 'Issued date',
+                                                    issuedCompanyName:
+                                                        'Company Name'),
                                               ],
                                             );
                                             _addCertificateEntry(
@@ -2442,7 +2445,8 @@ class HybridTemplateState extends State<HybridTemplate> {
                                               awards: [
                                                 const AwardModel(
                                                     awardName: 'Award Name',
-                                                    issuedDate: 'Issued date'),
+                                                    issuedDate: 'Issued date',
+                                                    issuedCompanyName: 'company',),
                                               ],
                                             );
                                             _addAwardEntry(

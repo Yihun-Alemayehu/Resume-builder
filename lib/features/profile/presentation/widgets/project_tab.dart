@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
-import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class ProjectTab extends StatefulWidget {
   const ProjectTab({super.key});
@@ -19,68 +19,44 @@ class _ProjectTabState extends State<ProjectTab> {
   void _editProject({required int index, required ProjectModel project}) {
     nameController.text = project.name;
     descriptionController.text = project.description;
+
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-          title: const Text('Edit Project'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MyTextField(
-                  controller: nameController,
-                  hintText: 'Project Name',
-                  function: (val) {
-                    setState(() {
-                      nameController.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                MyTextField(
-                  controller: descriptionController,
-                  hintText: 'Project Description',
-                  function: (val) {
-                    setState(() {
-                      descriptionController.text = val;
-                    });
-                  },
-                ),
-              ],
+        return DialogUtils.buildDialog(
+          context: context,
+          title: 'Edit Project',
+          content: [
+            DialogUtils.styledTextField(
+              controller: nameController,
+              hintText: 'Project Name',
+              onChanged: (val) => setState(() => nameController.text = val),
+              context: context,
             ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  context.read<UserProfileDataCubit>().updatePersonalProject(
-                      index: index,
-                      project: ProjectModel(
-                          name: nameController.text,
-                          description: descriptionController.text));
-                  print(
-                      '-------------------------------- PROJECT --------------------------------');
-                  print(nameController.text);
-                  print(descriptionController.text);
-                  print(
-                      '-------------------------------- PROJECT --------------------------------');
-                });
-                Navigator.pop(context);
-              },
-              child: const Text('Save', style: TextStyle(color: Colors.green)),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
+            DialogUtils.styledTextField(
+              controller: descriptionController,
+              hintText: 'Project Description',
+              onChanged: (val) =>
+                  setState(() => descriptionController.text = val),
+              context: context,
             ),
           ],
+          actions: DialogUtils.dialogActions(
+            context: context,
+            onSave: () {
+              setState(() {
+                context.read<UserProfileDataCubit>().updatePersonalProject(
+                      index: index,
+                      project: ProjectModel(
+                        name: nameController.text,
+                        description: descriptionController.text,
+                      ),
+                    );
+              });
+              Navigator.pop(context);
+            },
+            onCancel: () => Navigator.pop(context),
+          ),
         );
       },
     );
@@ -89,6 +65,7 @@ class _ProjectTabState extends State<ProjectTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<UserProfileDataCubit, UserProfileDataState>(
         builder: (context, state) {
           if (state is UserProfileDataLoaded) {
@@ -98,69 +75,84 @@ class _ProjectTabState extends State<ProjectTab> {
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               child: Padding(
-                padding: EdgeInsets.all(5.0.r),
+                padding: EdgeInsets.only(top: 10.h),
                 child: Column(
                   children: List.generate(userProfile.personalProjects.length,
                       (index) {
                     return SizedBox(
                       width: double.infinity,
-                      child: Card(
-                        color: Colors.white,
-                        elevation: 5.r,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 20.r),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Theme.of(context).appBarTheme.backgroundColor,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(8.0.r),
+                              padding: EdgeInsets.all(12.0.r),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     userProfile.personalProjects[index].name,
                                     style: TextStyle(
-                                        fontSize: 16.sp,
-                                        color: Colors.grey,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 14.sp,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.color,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
+                                  SizedBox(height: 4.h),
                                   Text(
                                     userProfile
                                         .personalProjects[index].description,
                                     style: TextStyle(
-                                        color: Colors.grey,
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12.sp),
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                      fontSize: 10.sp,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                            Container(
-                              height: 40.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(12.r),
-                                  bottomRight: Radius.circular(12.r),
-                                ),
-                                color: Colors.grey.shade300,
-                              ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: 12.w, bottom: 12.h),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  TextButton(
-                                    onPressed: () => _editProject(
-                                        index: index,
-                                        project: userProfile
-                                            .personalProjects[index]),
-                                    child: const Text(
+                                  GestureDetector(
+                                    onTap: () => _editProject(
+                                      index: index,
+                                      project:
+                                          userProfile.personalProjects[index],
+                                    ),
+                                    child: Text(
                                       'Edit',
                                       style: TextStyle(
-                                        color: Colors.green,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Theme.of(context)
+                                            .dialogTheme
+                                            .iconColor,
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      // Delete Language at index
+                                  SizedBox(width: 20.w),
+                                  GestureDetector(
+                                    onTap: () {
                                       setState(() {
                                         context
                                             .read<UserProfileDataCubit>()
@@ -171,13 +163,16 @@ class _ProjectTabState extends State<ProjectTab> {
                                     child: Text(
                                       'Delete',
                                       style: TextStyle(
-                                        color: Colors.red.shade300,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -192,13 +187,16 @@ class _ProjectTabState extends State<ProjectTab> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).dialogTheme.iconColor,
+        foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
-          // Add project
           setState(() {
             context.read<UserProfileDataCubit>().addPersonalProject(
                   project: ProjectModel(
-                    name: 'project Name',
-                    description: 'project description',
+                    name: 'Project Name',
+                    description: 'Project Description',
                   ),
                 );
           });

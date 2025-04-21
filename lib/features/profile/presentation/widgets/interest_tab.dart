@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
-import 'package:my_resume/features/profile/presentation/widgets/my_textfield.dart';
 
 class InterestTab extends StatefulWidget {
   const InterestTab({super.key});
@@ -18,47 +18,29 @@ class _InterestTabState extends State<InterestTab> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-          title: const Text('Add Interest'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MyTextField(
-                  hintText: 'interest',
-                  function: (val) {
-                    setState(() {
-                      _controller.text = val;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  context
-                      .read<UserProfileDataCubit>()
-                      .addInterest(interest: _controller.text);
-                });
-                Navigator.pop(context);
-              },
-              child: const Text('Save', style: TextStyle(color: Colors.green)),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
+        return DialogUtils.buildDialog(
+          context: context,
+          title: 'Add Interest',
+          content: [
+            DialogUtils.styledTextField(
+              controller: _controller,
+              hintText: 'Interest',
+              onChanged: (val) => setState(() => _controller.text = val),
+              context: context,
             ),
           ],
+          actions: DialogUtils.dialogActions(
+            context: context,
+            onSave: () {
+              setState(() {
+                context
+                    .read<UserProfileDataCubit>()
+                    .addInterest(interest: _controller.text);
+              });
+              Navigator.pop(context);
+            },
+            onCancel: () => Navigator.pop(context),
+          ),
         );
       },
     );
@@ -85,10 +67,10 @@ class _InterestTabState extends State<InterestTab> {
                       margin: EdgeInsets.only(right: 4.w, bottom: 4.h),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: const Color.fromARGB(255, 73, 150, 159),
+                          color: const Color.fromARGB(255, 220, 220, 220),
                         ),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4.r),
+                        // color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -100,7 +82,7 @@ class _InterestTabState extends State<InterestTab> {
                                 ),
                           ),
                           SizedBox(
-                            width: 4.w,
+                            width: 6.w,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -113,6 +95,7 @@ class _InterestTabState extends State<InterestTab> {
                             child: Icon(
                               Icons.close,
                               size: 14.r,
+                              color: Colors.red,
                             ),
                           )
                         ],
@@ -128,6 +111,10 @@ class _InterestTabState extends State<InterestTab> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).dialogTheme.iconColor,
+        foregroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: _addInterest,
         child: const Icon(Icons.add),
       ),

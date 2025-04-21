@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -7,18 +6,22 @@ class AwardModel extends Equatable {
   const AwardModel({
     required this.awardName,
     required this.issuedDate,
+    required this.issuedCompanyName,
   });
   
   final String awardName;
   final String issuedDate;
+  final String issuedCompanyName;
   
   AwardModel copyWith({
     String? awardName,
     String? issuedDate,
+    String? issuedCompanyName,
   }) {
     return AwardModel(
       awardName: awardName ?? this.awardName,
       issuedDate: issuedDate ?? this.issuedDate,
+      issuedCompanyName: issuedCompanyName ?? this.issuedCompanyName,
     );
   }
 
@@ -26,6 +29,7 @@ class AwardModel extends Equatable {
     return <String, dynamic>{
       'awardName': awardName,
       'issuedDate': issuedDate,
+      'issuedCompanyName': issuedCompanyName,
     };
   }
 
@@ -33,6 +37,7 @@ class AwardModel extends Equatable {
     return AwardModel(
       awardName: map['awardName'] as String,
       issuedDate: map['issuedDate'] as String,
+      issuedCompanyName: map['issuedCompanyName'] as String,
     );
   }
 
@@ -44,5 +49,5 @@ class AwardModel extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [awardName, issuedDate];
+  List<Object> get props => [awardName, issuedDate, issuedCompanyName];
 }

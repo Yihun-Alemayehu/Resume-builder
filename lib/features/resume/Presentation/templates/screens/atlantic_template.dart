@@ -209,6 +209,7 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                       CertificateModel(
                         certificateName: _addCertificateController.text,
                         issuedDate: 'description',
+                        issuedCompanyName: 'Company',
                       ),
                     );
                     _addCertificateController.clear();
@@ -686,7 +687,9 @@ class AtlanticTemplateState extends State<AtlanticTemplate> {
                                             const CertificateModel(
                                                 certificateName:
                                                     'Certificate Name',
-                                                issuedDate: 'Issued date'),
+                                                issuedDate: 'Issued date',
+                                                issuedCompanyName:
+                                                    'Company'),
                                           ],
                                         );
                                         _addCertificateEntry(

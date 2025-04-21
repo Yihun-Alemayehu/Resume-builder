@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:my_resume/features/profile/data/model/award_model.dart';
 import 'package:my_resume/features/profile/data/model/certificate_model.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
+import 'package:my_resume/features/profile/data/model/reference_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
 import 'package:my_resume/features/resume/data/model/user_model.dart';
@@ -35,7 +36,7 @@ class UserProfile extends Equatable {
   final List<String> skills;
   final List<ProjectModel> personalProjects;
   final List<String> interests;
-  final List<String> references;
+  final List<ReferenceModel> references;
 
   UserProfile copyWith({
     MyUser? userdata,
@@ -47,7 +48,7 @@ class UserProfile extends Equatable {
     List<String>? skills,
     List<ProjectModel>? personalProjects,
     List<String>? interests,
-    List<String>? references,
+    List<ReferenceModel>? references,
   }) {
     return UserProfile(
       userdata: userdata ?? this.userdata,
@@ -155,12 +156,14 @@ class UserProfile extends Equatable {
         CertificateModel(
           certificateName: 'certificate',
           issuedDate: 'date',
+          issuedCompanyName: 'company',
         ),
       ],
       awards: [
         AwardModel(
           awardName: 'award',
           issuedDate: 'date',
+          issuedCompanyName: 'company',
         ),
       ],
       skills: [
@@ -182,8 +185,14 @@ class UserProfile extends Equatable {
         'Interest 2',
       ],
       references: [
-        'Reference 1',
-        'Reference 2',
+        ReferenceModel(
+          name: 'John Doe',
+          referenceText: 'Yihun is a great developer and a good person to work with',
+        ),
+        ReferenceModel(
+          name: 'Jane Smith',
+          referenceText: 'Yihun is a great developer and a good person to work with',
+        ),
       ],
     );
   }
@@ -238,8 +247,10 @@ class UserProfile extends Equatable {
           ),
         ),
         interests: List<String>.from((map['interests'] as List<String>)),
-        references: List<String>.from(
-          (map['references'] as List<String>),
+        references: List<ReferenceModel>.from(
+          (map['references'] as List<ReferenceModel>).map<ReferenceModel>(
+            (x) => ReferenceModel.fromMap(x as Map<String, dynamic>),
+          ),
         ));
   }
 
