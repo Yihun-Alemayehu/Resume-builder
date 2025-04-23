@@ -115,8 +115,8 @@ class DialogUtils {
     return AlertDialog(
       insetPadding: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.13,
-        left: 1.w,
-        right: 1.w,
+        left: 25.w,
+        right: 25.w,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
       title: Center(
