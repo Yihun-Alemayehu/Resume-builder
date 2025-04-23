@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/app_theme.dart';
+import 'package:my_resume/features/drawer/presentation/screens/about_screen.dart';
+import 'package:my_resume/features/drawer/presentation/screens/help_support_screen.dart';
+import 'package:my_resume/features/drawer/presentation/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -56,6 +59,12 @@ class _AppDrawerState extends State<AppDrawer> {
                 trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
                 onTap: () {
                   // Add navigation logic here (e.g., Navigator.push())
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
@@ -90,7 +99,12 @@ class _AppDrawerState extends State<AppDrawer> {
                 leading: Icon(Icons.help_outline_outlined, size: 24.sp),
                 trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
                 onTap: () {
-                  // Add navigation logic here (e.g., Navigator.push())
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HelpSupportScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
@@ -106,6 +120,12 @@ class _AppDrawerState extends State<AppDrawer> {
                 trailing: Icon(Icons.arrow_forward_ios, size: 16.sp),
                 onTap: () {
                   // Add navigation logic here (e.g., Navigator.push())
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutScreen(),
+                    ),
+                  );
                 },
               ),
             ],
@@ -154,7 +174,7 @@ class _CustomSwitchState extends State<CustomSwitch>
             duration: const Duration(milliseconds: 300),
             width: 16,
             height: 16,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
             ),
