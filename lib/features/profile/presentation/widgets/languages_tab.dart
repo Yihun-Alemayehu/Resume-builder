@@ -57,6 +57,8 @@ class _LanguagesTabState extends State<LanguagesTab> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
+                      dropdownColor:
+                          Theme.of(context).appBarTheme.backgroundColor,
                       value: selectedProficiency,
                       isExpanded: true,
                       items: <String>[

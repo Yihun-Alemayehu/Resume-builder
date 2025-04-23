@@ -97,16 +97,16 @@ class UserProfile extends Equatable {
         EducationBackground(
           institutionName: 'AASTU',
           fieldOfStudy: 'SWEG',
-          startDate: '02/08/2021',
-          endDate: '02/02/2026',
+          startDate: '2021-08-02',
+          endDate: '2026-02-02',
           courses: ['description', 'description', 'OOP', 'DSA'],
           institutionAddress: 'AA',
         ),
         EducationBackground(
           institutionName: 'AMU',
           fieldOfStudy: 'Computer Science',
-          startDate: '10/10/2020',
-          endDate: '10/10/2025',
+          startDate: '2020-10-10',
+          endDate: '2025-10-10',
           courses: [
             'description',
             'mobile',
@@ -119,8 +119,8 @@ class UserProfile extends Equatable {
         EducationBackground(
           institutionName: 'oxford',
           fieldOfStudy: 'mathematics',
-          startDate: '05/05/2022',
-          endDate: '05/05/2024',
+          startDate: '2022-05-05',
+          endDate: '2024-05-05',
           courses: ['algebra', 'calculus', 'geometry', 'trigonometry'],
           institutionAddress: 'UK',
         ),
@@ -129,8 +129,8 @@ class UserProfile extends Equatable {
         WorkExperience(
           companyName: 'hex',
           jobTitle: 'flutter',
-          startDate: '03/03/2023',
-          endDate: '03/06/2023',
+          startDate: '2023-03-03',
+          endDate: '2023-03-06',
           jobType: 'remote',
           achievements: [
             'description',
@@ -140,8 +140,8 @@ class UserProfile extends Equatable {
         WorkExperience(
           companyName: 'horan',
           jobTitle: 'backend',
-          startDate: '07/07/2024',
-          endDate: '07/10/2024',
+          startDate: '2024-07-07',
+          endDate: '2024-07-10',
           jobType: 'contract',
           achievements: [
             'description',
@@ -155,14 +155,14 @@ class UserProfile extends Equatable {
       certificates: [
         CertificateModel(
           certificateName: 'certificate',
-          issuedDate: 'date',
+          issuedDate: '2021-01-01',
           issuedCompanyName: 'company',
         ),
       ],
       awards: [
         AwardModel(
           awardName: 'award',
-          issuedDate: 'date',
+          issuedDate: '2021-01-01',
           issuedCompanyName: 'company',
         ),
       ],
@@ -187,11 +187,13 @@ class UserProfile extends Equatable {
       references: [
         ReferenceModel(
           name: 'John Doe',
-          referenceText: 'Yihun is a great developer and a good person to work with',
+          referenceText:
+              'Yihun is a great developer and a good person to work with',
         ),
         ReferenceModel(
           name: 'Jane Smith',
-          referenceText: 'Yihun is a great developer and a good person to work with',
+          referenceText:
+              'Yihun is a great developer and a good person to work with',
         ),
       ],
     );

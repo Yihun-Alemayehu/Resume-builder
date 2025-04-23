@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -100,6 +101,8 @@ class _UserDataTabState extends State<UserDataTab> {
           linkedInController.text = userProfile.userdata.linkedIn!;
           _image = userProfile.userdata.profilePic;
 
+          log('_image: ${userProfile.userdata.profilePic}');
+
           return SingleChildScrollView(
             primary: true,
             physics: const AlwaysScrollableScrollPhysics(),
@@ -114,7 +117,8 @@ class _UserDataTabState extends State<UserDataTab> {
                         padding: EdgeInsets.only(right: 20.w),
                         child: CircleAvatar(
                           radius: 50.r,
-                          backgroundImage: _image == null
+                          backgroundImage: _image == null ||
+                                  _image!.path == 'profilePic'
                               ? const AssetImage('assets/copy.jpg')
                               : FileImage(_image!) as ImageProvider<Object>?,
                         ),

@@ -45,6 +45,19 @@ class CustomDateUtils {
       context: context,
       firstDate: DateTime(2020),
       lastDate: DateTime(2120),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            primaryColor: Theme.of(context).dialogTheme.iconColor,
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                  primary: Theme.of(context).dialogTheme.iconColor,
+                ),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (picked != null) {

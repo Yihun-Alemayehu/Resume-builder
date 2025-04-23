@@ -141,7 +141,12 @@ class UserProfileDatabaseHelper {
                 })
             .toList()),
         'interests': jsonEncode(userProfile.interests),
-        'reference': jsonEncode(userProfile.references),
+        'reference': jsonEncode(userProfile.references
+            .map((e) => {
+                  'name': e.name,
+                  'referenceText': e.referenceText,
+                })
+            .toList()),
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );

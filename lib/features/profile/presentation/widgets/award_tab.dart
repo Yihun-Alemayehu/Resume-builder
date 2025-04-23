@@ -24,12 +24,26 @@ class _AwardTabState extends State<AwardTab> {
       context: context,
       firstDate: DateTime(2020),
       lastDate: DateTime(2120),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            primaryColor: Theme.of(context).dialogTheme.iconColor,
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                  primary: Theme.of(context).dialogTheme.iconColor,
+                ),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (picked != null) {
       setState(() {
         selectedDate = picked;
-        dateController.text = CustomDateUtils.formatMonthYear(CustomDateUtils.formatForStorage(picked));
+        dateController.text = CustomDateUtils.formatMonthYear(
+            CustomDateUtils.formatForStorage(picked));
       });
     }
   }
@@ -67,7 +81,8 @@ class _AwardTabState extends State<AwardTab> {
             DialogUtils.styledTextField(
               controller: issuedCompanyController,
               hintText: 'Issued Company Name',
-              onChanged: (val) => setState(() => issuedCompanyController.text = val),
+              onChanged: (val) =>
+                  setState(() => issuedCompanyController.text = val),
               context: context,
             ),
           ],
@@ -79,7 +94,8 @@ class _AwardTabState extends State<AwardTab> {
                       index: index,
                       awardModel: AwardModel(
                         awardName: nameController.text,
-                        issuedDate: CustomDateUtils.formatForStorage(selectedDate),
+                        issuedDate:
+                            CustomDateUtils.formatForStorage(selectedDate),
                         issuedCompanyName: issuedCompanyController.text,
                       ),
                     );
@@ -131,7 +147,10 @@ class _AwardTabState extends State<AwardTab> {
                                     userProfile.awards[index].awardName,
                                     style: TextStyle(
                                       fontSize: 14.sp,
-                                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.color,
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -140,7 +159,10 @@ class _AwardTabState extends State<AwardTab> {
                                   Text(
                                     userProfile.awards[index].issuedCompanyName,
                                     style: TextStyle(
-                                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
                                       fontSize: 10.sp,
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w400,
@@ -148,9 +170,13 @@ class _AwardTabState extends State<AwardTab> {
                                   ),
                                   SizedBox(height: 2.h),
                                   Text(
-                                    CustomDateUtils.formatMonthYear(userProfile.awards[index].issuedDate),
+                                    CustomDateUtils.formatMonthYear(
+                                        userProfile.awards[index].issuedDate),
                                     style: TextStyle(
-                                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
                                       fontSize: 10.sp,
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w400,
@@ -160,7 +186,8 @@ class _AwardTabState extends State<AwardTab> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 12.w, bottom: 12.h),
+                              padding:
+                                  EdgeInsets.only(left: 12.w, bottom: 12.h),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -175,7 +202,9 @@ class _AwardTabState extends State<AwardTab> {
                                         fontFamily: 'Poppins',
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
-                                        color: Theme.of(context).dialogTheme.iconColor,
+                                        color: Theme.of(context)
+                                            .dialogTheme
+                                            .iconColor,
                                       ),
                                     ),
                                   ),
@@ -183,7 +212,9 @@ class _AwardTabState extends State<AwardTab> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        context.read<UserProfileDataCubit>().removeAward(index: index);
+                                        context
+                                            .read<UserProfileDataCubit>()
+                                            .removeAward(index: index);
                                       });
                                     },
                                     child: Text(
@@ -215,7 +246,8 @@ class _AwardTabState extends State<AwardTab> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).dialogTheme.iconColor,
         foregroundColor: Theme.of(context).scaffoldBackgroundColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
           setState(() {
             context.read<UserProfileDataCubit>().addAward(

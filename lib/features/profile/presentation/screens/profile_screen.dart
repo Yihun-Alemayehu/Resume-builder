@@ -33,6 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isExpanded9 = false;
   bool isExpanded10 = false;
 
+  bool canEdit = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
-                  GestureDetector(
+                  canEdit ? GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
@@ -78,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: 24.w,
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
-                  ),
+                  ): const SizedBox.shrink(),
                 ],
               ),
             ),
@@ -92,6 +94,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   } else if (state is UserProfileDeleted) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Profile deleted successfully')));
+                  } else if (state is UserProfileLoaded) {
+                    if (state.user.isNotEmpty) {
+                      setState(() {
+                        canEdit = true;
+                      });
+                    } else {
+                      setState(() {
+                        canEdit = false;
+                      });
+                    }
                   }
                 },
                 builder: (context, state) {

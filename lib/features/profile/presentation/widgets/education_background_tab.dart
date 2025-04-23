@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/core/utils/date_utils.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';

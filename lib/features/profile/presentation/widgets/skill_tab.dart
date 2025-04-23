@@ -95,6 +95,7 @@ class _SkillTabState extends State<SkillTab> {
                             child: Icon(
                               Icons.close,
                               size: 14.r,
+                              color: Colors.red,
                             ),
                           )
                         ],
