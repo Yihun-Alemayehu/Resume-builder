@@ -140,80 +140,98 @@ class DatabaseHelper {
       String profilePicPath =
           await saveImage(template.userData.profilePic.path);
 
-      final int id = await db.insert(
+      // Prepare data map
+      final data = {
+        'templateName': template.templateName,
+        'templateIndex': template.templateIndex,
+        'userData': jsonEncode({
+          'fullName': template.userData.fullName,
+          'profession': template.userData.profession,
+          'bio': template.userData.bio,
+          'profilePic': profilePicPath,
+          'email': template.userData.email,
+          'address': template.userData.address,
+          'phoneNumber': template.userData.phoneNumber,
+          'linkedIn': template.userData.linkedIn,
+          'github': template.userData.github,
+          'website': template.userData.website,
+        }),
+        'educationBackground': jsonEncode(template.educationBackground
+            .map((e) => {
+                  'fieldOfStudy': e.fieldOfStudy,
+                  'institutionName': e.institutionName,
+                  'startDate': e.startDate,
+                  'endDate': e.endDate,
+                  'institutionAddress': e.institutionAddress,
+                  'courses': e.courses,
+                })
+            .toList()),
+        'workExperience': jsonEncode(template.workExperience
+            .map((e) => {
+                  'jobTitle': e.jobTitle,
+                  'companyName': e.companyName,
+                  'startDate': e.startDate,
+                  'endDate': e.endDate,
+                  'jobType': e.jobType,
+                  'achievements': e.achievements,
+                })
+            .toList()),
+        'languages': jsonEncode(template.languages
+            .map((e) => {
+                  'language': e.language,
+                  'proficiency': e.proficiency,
+                })
+            .toList()),
+        'certificates': jsonEncode(template.certificates
+            .map((e) => {
+                  'certificateName': e.certificateName,
+                  'issuedDate': e.issuedDate,
+                  'issuedCompanyName': e.issuedCompanyName,
+                })
+            .toList()),
+        'awards': jsonEncode(template.awards
+            .map((e) => {
+                  'awardName': e.awardName,
+                  'issuedDate': e.issuedDate,
+                })
+            .toList()),
+        'skills': jsonEncode(template.skills),
+        'personalProjects': jsonEncode(template.personalProjects
+            .map((e) => {
+                  'name': e.name,
+                  'description': e.description,
+                })
+            .toList()),
+        'interests': jsonEncode(template.interests),
+        'reference': jsonEncode(template.references),
+      };
+
+      // Check if template exists
+      final existing = await db.query(
         'Templates',
-        {
-          'templateName': template.templateName,
-          'templateIndex': template.templateIndex,
-          'userData': jsonEncode({
-            'fullName': template.userData.fullName,
-            'profession': template.userData.profession,
-            'bio': template.userData.bio,
-            'profilePic': profilePicPath,
-            'email': template.userData.email,
-            'address': template.userData.address,
-            'phoneNumber': template.userData.phoneNumber,
-            'linkedIn': template.userData.linkedIn,
-            'github': template.userData.github,
-            'website': template.userData.website,
-          }),
-          'educationBackground': jsonEncode(template.educationBackground
-              .map((e) => {
-                    'fieldOfStudy': e.fieldOfStudy,
-                    'institutionName': e.institutionName,
-                    'startDate': e.startDate,
-                    'endDate': e.endDate,
-                    'institutionAddress': e.institutionAddress,
-                    'courses': e.courses,
-                  })
-              .toList()),
-          'workExperience': jsonEncode(template.workExperience
-              .map((e) => {
-                    'jobTitle': e.jobTitle,
-                    'companyName': e.companyName,
-                    'startDate': e.startDate,
-                    'endDate': e.endDate,
-                    'jobType': e.jobType,
-                    'achievements': e.achievements,
-                  })
-              .toList()),
-          'languages': jsonEncode(template.languages
-              .map((e) => {
-                    'language': e.language,
-                    'proficiency': e.proficiency,
-                  })
-              .toList()),
-          'certificates': jsonEncode(template.certificates
-              .map((e) => {
-                    'certificateName': e.certificateName,
-                    'issuedDate': e.issuedDate,
-                    'issuedCompanyName': e.issuedCompanyName,
-                  })
-              .toList()),
-          'awards': jsonEncode(template.awards
-              .map((e) => {
-                    'awardName': e.awardName,
-                    'issuedDate': e.issuedDate,
-                  })
-              .toList()),
-          'skills': jsonEncode(template.skills),
-          'personalProjects': jsonEncode(template.personalProjects
-              .map((e) => {
-                    'name': e.name,
-                    'description': e.description,
-                  })
-              .toList()),
-          'interests': jsonEncode(template.interests),
-          'reference': jsonEncode(template.references),
-        },
-        conflictAlgorithm: ConflictAlgorithm.replace,
+        where: 'templateName = ?',
+        whereArgs: [template.templateName],
       );
 
-      print('Insert successful, row ID: $id');
-      return id;
+      if (existing.isNotEmpty) {
+        // Update existing record
+        final id = await db.update(
+          'Templates',
+          data,
+          where: 'templateName = ?',
+          whereArgs: [template.templateName],
+        );
+        print('Update successful, row ID: $id');
+        return id;
+      } else {
+        // Insert new record
+        final id = await db.insert('Templates', data);
+        print('Insert successful, row ID: $id');
+        return id;
+      }
     } catch (e) {
-      print('Insert failed: $e');
-      return -1; // Use -1 to indicate failure
+      print('Insert/Update failed: $e');
+      return -1;
     }
   }
 
