@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/app_theme.dart';
+import 'package:my_resume/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:my_resume/features/profile/data/db/user_profile_database_helper.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
@@ -9,9 +10,14 @@ import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
 import 'package:my_resume/features/resume/data/db/db_helper.dart';
 import 'package:my_resume/features/resume/Presentation/screens/main_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+bool onboardingCompleted = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  onboardingCompleted = prefs.getBool('onboarding_completed') ?? false;
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),
@@ -49,7 +55,9 @@ class ResumeApp extends StatelessWidget {
             themeMode:
                 themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             debugShowCheckedModeBanner: false,
-            home: const MainScreen(0),
+            home: onboardingCompleted
+                ? const MainScreen(0)
+                : OnboardingScreen(),
           );
         },
       ),
