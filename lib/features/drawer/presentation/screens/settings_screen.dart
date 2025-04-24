@@ -5,6 +5,8 @@ import 'package:my_resume/features/drawer/presentation/screens/app_drawer.dart';
 import 'package:my_resume/features/drawer/presentation/screens/data_usage_screen.dart';
 import 'package:my_resume/features/drawer/presentation/screens/privacy_policy_screen.dart';
 import 'package:my_resume/features/drawer/presentation/screens/terms_and_conditions_screen.dart';
+import 'package:my_resume/features/drawer/presentation/widget/cache_mngmt.dart';
+import 'package:my_resume/features/resume/data/db/db_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -92,12 +94,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('$type deleted successfully')),
-              );
-              // TODO: Implement actual deletion logic
+              if (type == 'Clear Cache') {
+                final success = await CacheManager.clearCache();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      success
+                          ? 'Cache cleared successfully'
+                          : 'Failed to clear cache',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    backgroundColor: success
+                        ? Theme.of(context).dialogTheme.iconColor
+                        : Colors.red,
+                  ),
+                );
+              } else if (type == 'Delete All Resumes') {
+                // TODO: Implement resume deletion logic
+                DatabaseHelper.instance.deleteAllTemplates().then((_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'All resumes deleted successfully',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      backgroundColor: Theme.of(context).dialogTheme.iconColor,
+                    ),
+                  );
+                });
+              }
             },
             child: Text(
               'Delete',
@@ -463,7 +496,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(context, 
+                      Navigator.push(
+                        context,
                         MaterialPageRoute(
                           builder: (context) => const DataUsageScreen(),
                         ),
@@ -486,7 +520,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(context, 
+                      Navigator.push(
+                        context,
                         MaterialPageRoute(
                           builder: (context) => const PrivacyPolicyScreen(),
                         ),
@@ -509,9 +544,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(context, 
+                      Navigator.push(
+                        context,
                         MaterialPageRoute(
-                          builder: (context) => const TermsAndConditionsScreen(),
+                          builder: (context) =>
+                              const TermsAndConditionsScreen(),
                         ),
                       );
                     },
@@ -555,8 +592,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         onTap: () {
                           // TODO: Navigate to subscription details
-                          _launchUrl(
-                              'https://resumebuilderapp.com/subscription');
                         },
                       ),
                       ListTile(
@@ -575,7 +610,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         onTap: () {
                           // TODO: Navigate to in-app purchase screen
-                          _launchUrl('https://resumebuilderapp.com/upgrade');
                         },
                       ),
                     ],

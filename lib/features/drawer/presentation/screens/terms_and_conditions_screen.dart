@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:my_resume/features/drawer/presentation/widget/support_utils.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen({super.key});
-
-  // Launch URL helper
-  Future<void> _launchUrl(BuildContext context, String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not open $url')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +176,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        onTap: () => _launchUrl(
-                            context, 'mailto:support@resumebuilderapp.com'),
+                        onTap: () => SupportUtils.launchSupportEmail(context),
                       ),
                       SizedBox(height: 20.h),
                     ],

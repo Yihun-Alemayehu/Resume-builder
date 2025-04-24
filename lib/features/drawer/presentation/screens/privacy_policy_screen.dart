@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:my_resume/features/drawer/presentation/widget/support_utils.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
-
-  // Launch URL helper
-  Future<void> _launchUrl(BuildContext context, String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not open $url')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +174,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                         'Access, correct, or delete your personal data.\n'
                         'Opt out of analytics tracking.\n'
                         'Request data portability.\n'
-                        'Contact us at support@resumebuilderapp.com to exercise these rights.',
+                        'Contact us at resumebuilderapphelpcenter@gmail.com to exercise these rights.',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 14.sp,
@@ -221,8 +209,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        onTap: () => _launchUrl(
-                            context, 'mailto:support@resumebuilderapp.com'),
+                        onTap: () => SupportUtils.launchSupportEmail(context),
                       ),
                       SizedBox(height: 20.h),
                     ],

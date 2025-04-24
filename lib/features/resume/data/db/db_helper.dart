@@ -440,4 +440,10 @@ class DatabaseHelper {
     final db = await database;
     await db.delete('Templates', where: 'id = ?', whereArgs: [id]);
   }
+
+  // DELETE ALL TEMPLATES
+  Future<void> deleteAllTemplates() async {
+    final db = await database;
+    await db.delete('Templates');
+  }
 }

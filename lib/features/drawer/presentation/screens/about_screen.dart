@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/app_theme.dart';
+import 'package:my_resume/features/drawer/presentation/widget/support_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -192,14 +193,33 @@ class AboutScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
+                            onTap: () => _launchUrl(context,
+                                'https://yihun-alemayehu.netlify.app/'),
+                          ),
+                          ListTile(
+                            minTileHeight: 26.h,
+                            dense: true,
+                            leading: Image.asset(
+                              'assets/Icons/github.png',
+                              height: 24.h,
+                              width: 24.w,
+                            ),
+                            title: Text(
+                              'Github',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                             onTap: () => _launchUrl(
-                                context, 'https://resumebuilderapp.com'),
+                                context, 'https://github.com/Yihun-Alemayehu'),
                           ),
                           ListTile(
                             minTileHeight: 26.h,
                             dense: true,
                             leading: Icon(
-                              Icons.public,
+                              Icons.close,
                             ),
                             title: Text(
                               'Follow Us on X',
@@ -232,15 +252,14 @@ class AboutScreen extends StatelessWidget {
                           Icons.email,
                         ),
                         title: Text(
-                          'support@resumebuilderapp.com',
+                          'Email',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        onTap: () => _launchUrl(
-                            context, 'mailto:support@resumebuilderapp.com'),
+                        onTap: () => SupportUtils.launchSupportEmail(context),
                       ),
                       SizedBox(height: 20.h),
                     ],

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/app_theme.dart';
 import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/features/drawer/presentation/widget/faqs.dart';
+import 'package:my_resume/features/drawer/presentation/widget/support_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpSupportScreen extends StatefulWidget {
@@ -177,8 +178,7 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                         ),
                         onTap: () {
                           // TODO: Navigate to guide screen or launch URL
-                          _launchUrl(
-                              'https://resumebuilderapp.com/guides/create-resume');
+                          _launchUrl('https://yihun-alemayehu.netlify.app/');
                         },
                       ),
                       ListTile(
@@ -198,8 +198,7 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                         ),
                         onTap: () {
                           // TODO: Navigate to tips screen or launch URL
-                          _launchUrl(
-                              'https://resumebuilderapp.com/guides/resume-tips');
+                          _launchUrl('https://yihun-alemayehu.netlify.app/');
                         },
                       ),
                       SizedBox(height: 20.h),
@@ -231,28 +230,8 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            onTap: () {
-                              _launchUrl('mailto:support@resumebuilderapp.com');
-                            },
-                          ),
-                          ListTile(
-                            minTileHeight: 26.h,
-                            dense: true,
-                            leading: const Icon(
-                              Icons.chat_rounded,
-                            ),
-                            title: Text(
-                              'WhatsApp Support',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            onTap: () {
-                              _launchUrl(
-                                  'https://resumebuilderapp.com/support/chat');
-                            },
+                            onTap: () =>
+                                SupportUtils.launchSupportEmail(context),
                           ),
                           ListTile(
                             minTileHeight: 26.h,
@@ -422,7 +401,7 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                       // Version and Support Info
                       Center(
                         child: Text(
-                          'Resume Builder v1.0.0\nContact: support@resumebuilderapp.com',
+                          'Resume Builder v1.0.0\nContact: resumebuilderapphelpcenter@gmail.com',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Poppins',
