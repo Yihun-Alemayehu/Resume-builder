@@ -11,7 +11,7 @@ import 'package:my_resume/features/resume/data/model/user_model.dart';
 import 'package:my_resume/features/resume/data/model/work_experience_model.dart';
 
 TemplateModel blueSteelTemplateData = TemplateModel(
-  templateName: 'blue_steel',
+  templateName: 'blue steel',
   templateIndex: 8,
   userData: MyUser(
     fullName: 'Yihun Alemayehu',

@@ -32,7 +32,7 @@ final Map<String, TemplateModel> templatesDataMap = {
   'professional': professionalTemplateData,
   'atlantic': atlanticTemplateData,
   'desert': desertTemplateData,
-  'blue_steel': blueSteelTemplateData,
+  'blue steel': blueSteelTemplateData,
   'sleek': sleekTemplateData,
   'simple':simpleTemplateData,
 };
@@ -103,7 +103,7 @@ final Map<String, Widget Function(TemplateModel, GlobalKey)> templatesMap = {
         templateData: templateData,
         key: key,
       ),
-  'blue_steel': (TemplateModel templateData, GlobalKey key) => BlueSteelTemplate(
+  'blue steel': (TemplateModel templateData, GlobalKey key) => BlueSteelTemplate(
         templateData: templateData,
         key: key,
       ),

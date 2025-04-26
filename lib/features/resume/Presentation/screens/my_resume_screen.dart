@@ -141,7 +141,7 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                                       ),
                                       SizedBox(height: 2.h),
                                       Text(
-                                        templatesName[index],
+                                        userData[index].templateName,
                                         style: TextStyle(
                                           fontFamily: 'Poppins',
                                           fontSize: 10.sp,

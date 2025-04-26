@@ -9,8 +9,8 @@ class PdfParagraphApi {
   static Future<File> generate() async {
     final pdf = Document();
 
-    final customFont =
-        Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+    final openSansFont =
+        Font.ttf(await rootBundle.load('assets/Roboto-Regular.ttf'));
 
     pdf.addPage(
       MultiPage(
@@ -20,7 +20,7 @@ class PdfParagraphApi {
           Paragraph(
             text:
                 'This is my custom font that displays also characters such as €, Ł, ...',
-            style: TextStyle(font: customFont, fontSize: 20),
+            style: TextStyle(font: openSansFont, fontSize: 20),
           ),
           buildCustomHeadline(),
           buildLink(),

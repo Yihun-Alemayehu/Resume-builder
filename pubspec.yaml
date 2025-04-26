@@ -101,6 +101,18 @@ flutter:
           weight: 500
         - asset: assets/fonts/Poppins-Regular.ttf
           weight: 400
+    - family: PlaywriteRO
+      fonts:
+        - asset: assets/fonts/PlaywriteRO-Regular.ttf
+          weight: 400
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+          weight: 400
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/Ubuntu-Regular.ttf
+          weight: 400
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

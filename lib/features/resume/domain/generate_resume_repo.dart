@@ -12,9 +12,23 @@ import 'package:flutter/material.dart' as mt;
 class PdfApi {
   static Future<File> generateResume(
       {required TemplateModel userData, required List<File> icons}) async {
-    final pdf = Document();
+    // final pdf = Document();
     final imageUrl = await _loadImage(userData.userData.profilePic.path);
     final List<Uint8List> iconsList = [];
+
+    final robotoRegular = Font.ttf(await rootBundle.load('assets/fonts/Ubuntu-Regular.ttf')); 
+    final robotoBold = Font.ttf(await rootBundle.load('assets/fonts/Ubuntu-Regular.ttf'));
+    final robotoItalic = Font.ttf(await rootBundle.load('assets/fonts/Poppins-Bold.ttf'));
+
+    // Create the PDF document with Roboto set as the default font in the theme
+    final pdf = Document(
+      theme: ThemeData.withFont(
+        base: robotoRegular,    // Default font for regular text
+        bold: robotoBold,       // Font for bold text
+        italic: robotoItalic,   // Font for italic text
+      ),
+    );
+
     for (File icon in icons) {
       final iconFile = await _loadImage(icon.path);
       iconsList.add(iconFile);
@@ -47,7 +61,9 @@ class PdfApi {
     pdf.addPage(
       Page(
         build: (context) => getTemplateColumn(
-            userData: userData, imageUrl: imageUrl, icons: iconsList),
+            userData: userData,
+            imageUrl: imageUrl,
+            icons: iconsList),
         pageFormat: PdfPageFormat.roll57,
         margin: const EdgeInsets.all(0),
       ),

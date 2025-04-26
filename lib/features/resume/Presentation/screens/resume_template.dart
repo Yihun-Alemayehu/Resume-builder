@@ -17,6 +17,7 @@ import 'package:my_resume/features/resume/data/model/templates_model.dart';
 import 'package:my_resume/features/resume/domain/generate_resume_repo.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_bloc.dart';
 import 'package:my_resume/features/resume/Presentation/bloc/user_event.dart';
+import 'package:my_resume/features/resume/domain/paragraph_pdf_api.dart';
 
 class ResumeTemplate extends StatefulWidget {
   final TemplateModel templateData;
@@ -45,7 +46,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
     'professional': GlobalKey<ProfessionalTemplateState>(),
     'atlantic': GlobalKey<AtlanticTemplateState>(),
     'desert': GlobalKey<DesertTemplateState>(),
-    'blue_steel': GlobalKey<BlueSteelTemplateState>(),
+    'blue steel': GlobalKey<BlueSteelTemplateState>(),
     'sleek': GlobalKey<SleekTemplateState>(),
     'simple': GlobalKey<SimpleTemplateState>(),
     // Add more templates as needed
