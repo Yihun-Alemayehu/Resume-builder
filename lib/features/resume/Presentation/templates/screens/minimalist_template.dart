@@ -26,7 +26,7 @@ class MinimalistTemplate extends StatefulWidget {
 class MinimalistTemplateState extends State<MinimalistTemplate> {
   late TemplateModel templateData;
   List<File> icons = [
-    File('assets/Icons/email1.png'),
+    File('assets/Icons/mail.png'),
     File('assets/Icons/pin.png'),
     File('assets/Icons/linkedin.png'),
     File('assets/Icons/telephone.png'),
@@ -675,9 +675,9 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   const CertificateModel(
                                                       certificateName:
                                                           'Certificate Name',
-                                                      issuedDate:
-                                                          'Issued date',
-                                                          issuedCompanyName:'Company'),
+                                                      issuedDate: 'Issued date',
+                                                      issuedCompanyName:
+                                                          'Company'),
                                                 ],
                                               );
                                               _addCertificateEntry(
@@ -1034,10 +1034,11 @@ class MinimalistTemplateState extends State<MinimalistTemplate> {
                                                   templateData.copyWith(
                                                 awards: [
                                                   const AwardModel(
-                                                      awardName: 'Award Name',
-                                                      issuedDate:
-                                                          'Issued date',
-                                                          issuedCompanyName: 'company',),
+                                                    awardName: 'Award Name',
+                                                    issuedDate: 'Issued date',
+                                                    issuedCompanyName:
+                                                        'company',
+                                                  ),
                                                 ],
                                               );
                                               _addAwardEntry(

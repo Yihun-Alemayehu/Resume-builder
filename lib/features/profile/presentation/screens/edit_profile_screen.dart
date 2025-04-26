@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_resume/core/utils/app_theme.dart';
+import 'package:my_resume/core/widget/custom_snackbar.dart';
 import 'package:my_resume/features/profile/presentation/cubit/user_profile_data_cubit.dart';
 import 'package:my_resume/features/profile/presentation/widgets/award_tab.dart';
 import 'package:my_resume/features/profile/presentation/widgets/certificate_tab.dart';
@@ -39,10 +41,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     return BlocConsumer<UserProfileDataCubit, UserProfileDataState>(
       listener: (context, state) {
         if (state is UserProfileDataSaved) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Profile Saved'),
-            ),
+          showCustomErrorSnackbar(
+            context,
+            'Profile saved successfully',
+            AppColors.accent,
           );
           // Navigate back to Profile Screen after saving the profile
           Navigator.pushReplacement(
@@ -51,11 +53,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 builder: (context) => const MainScreen(2),
               ));
         } else if (state is UserProfileDataError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage),
-              backgroundColor: Colors.red,
-            ),
+          showCustomErrorSnackbar(
+            context,
+            state.errorMessage,
+            Colors.red,
           );
         }
       },

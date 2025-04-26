@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_resume/core/widget/custom_snackbar.dart';
 import 'package:my_resume/features/drawer/presentation/screens/app_drawer.dart';
 import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
@@ -63,10 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.of(context).pop();
                 if (userData == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('No profile data available.'),
-                    ),
+                  showCustomErrorSnackbar(
+                    context,
+                    'Please fill in your profile data first',
+                    Colors.red,
                   );
                   return;
                 }
@@ -435,6 +436,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                               BorderRadius.circular(12.r),
                                           child: Image.asset(
                                             filteredTemplates[index],
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .2697,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .416,
                                             fit: BoxFit.cover,
                                           ),
                                         ),

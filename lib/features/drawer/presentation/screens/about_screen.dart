@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/app_theme.dart';
+import 'package:my_resume/core/widget/custom_snackbar.dart';
 import 'package:my_resume/features/drawer/presentation/widget/support_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,8 +14,10 @@ class AboutScreen extends StatelessWidget {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not open $url')),
+      showCustomErrorSnackbar(
+        context,
+        'Could not launch $url',
+        Colors.red,
       );
     }
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/custom_dialog.dart';
+import 'package:my_resume/core/widget/custom_snackbar.dart';
 import 'package:my_resume/features/drawer/presentation/screens/app_drawer.dart';
 import 'package:my_resume/features/drawer/presentation/screens/data_usage_screen.dart';
 import 'package:my_resume/features/drawer/presentation/screens/privacy_policy_screen.dart';
@@ -55,8 +56,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not open $url')),
+      showCustomErrorSnackbar(
+        context,
+        'Could not launch $url',
+        Colors.red,
       );
     }
   }

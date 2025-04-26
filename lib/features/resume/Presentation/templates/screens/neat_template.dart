@@ -129,7 +129,7 @@ class NeatTemplateState extends State<NeatTemplate> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: neatColours['white'],
           title: Text(title),
           content: type == 'language'
               ? ConstrainedBox(
@@ -193,7 +193,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r),
                 ),
-                foregroundColor: Colors.white,
+                foregroundColor: neatColours['white'],
                 backgroundColor: Colors.red,
               ),
               child: const Text('Cancel'),
@@ -206,7 +206,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r),
                 ),
-                foregroundColor: Colors.white,
+                foregroundColor: neatColours['white'],
                 backgroundColor: Colors.blue.shade900,
               ),
               child: const Text('Done'),
@@ -363,6 +363,16 @@ class NeatTemplateState extends State<NeatTemplate> {
     }
   }
 
+  final Map<String, dynamic> neatColours = {
+    'white': Colors.white,
+    'black': Colors.black,
+    'darkBlue': const Color.fromARGB(255, 49, 60, 75),
+    'lightBlue': const Color.fromARGB(255, 73, 150, 159),
+    'deepBlue': const Color.fromARGB(255, 34, 42, 51),
+    'grey': Colors.grey,
+    'greyShade': Colors.grey[400],
+  };
+
   @override
   void initState() {
     templateData = widget.templateData;
@@ -387,11 +397,11 @@ class NeatTemplateState extends State<NeatTemplate> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: neatColours['white'],
       child: Column(
         children: [
           Container(
-            color: const Color.fromARGB(255, 49, 60, 75),
+            color: neatColours['darkBlue'],
             child: Padding(
               padding: EdgeInsets.only(right: 30.w, left: 20.w, top: 20.h),
               child: Row(
@@ -417,17 +427,18 @@ class NeatTemplateState extends State<NeatTemplate> {
                           },
                           controller: _nameController,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: neatColours['white'],
                             fontSize: 20.sp.sp,
                             fontWeight: FontWeight.bold,
                           ),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.zero,
                             border: InputBorder.none,
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide:
+                                  BorderSide(color: neatColours['white']),
                             ),
                           ),
                         ),
@@ -449,17 +460,18 @@ class NeatTemplateState extends State<NeatTemplate> {
                           },
                           controller: _professionController,
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 73, 150, 159),
+                            color: neatColours['lightBlue'],
                             fontSize: 11.sp,
                             fontWeight: FontWeight.normal,
                           ),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.zero,
                             border: InputBorder.none,
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide:
+                                  BorderSide(color: neatColours['white']),
                             ),
                           ),
                         ),
@@ -482,16 +494,17 @@ class NeatTemplateState extends State<NeatTemplate> {
                           },
                           controller: _bioController,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: neatColours['white'],
                             fontSize: 8.sp,
                           ),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.zero,
                             border: InputBorder.none,
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.zero,
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide:
+                                  BorderSide(color: neatColours['white']),
                             ),
                           ),
                         ),
@@ -505,7 +518,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                           },
                           child: CircleAvatar(
                             radius: 50.r,
-                            backgroundColor: Colors.white,
+                            backgroundColor: neatColours['white'],
                             backgroundImage:
                                 File(templateData.userData.profilePic.path)
                                         .existsSync()
@@ -517,7 +530,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                         )
                       : CircleAvatar(
                           radius: 50.r,
-                          backgroundColor: Colors.white,
+                          backgroundColor: neatColours['white'],
                           backgroundImage: FileImage(_image!),
                         ),
                 ],
@@ -529,7 +542,7 @@ class NeatTemplateState extends State<NeatTemplate> {
               // EMAIL, ADDRESS AND LINKEDIN
               Expanded(
                 child: Container(
-                  color: const Color.fromARGB(255, 34, 42, 51),
+                  color: neatColours['deepBlue'],
                   child: Padding(
                     padding: EdgeInsets.only(
                         right: 30.w, left: 20.w, top: 10.h, bottom: 10.h),
@@ -580,17 +593,17 @@ class NeatTemplateState extends State<NeatTemplate> {
                                   },
                                   controller: _controllersList1[index],
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: neatColours['white'],
                                     fontSize: 8.sp,
                                   ),
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.zero,
                                     border: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.zero,
-                                      borderSide:
-                                          BorderSide(color: Colors.white),
+                                      borderSide: BorderSide(
+                                          color: neatColours['white']),
                                     ),
                                   ),
                                 ),
@@ -607,7 +620,7 @@ class NeatTemplateState extends State<NeatTemplate> {
               // Phone number, github and website section
               Expanded(
                 child: Container(
-                  color: const Color.fromARGB(255, 34, 42, 51),
+                  color: neatColours['deepBlue'],
                   child: Padding(
                     padding: EdgeInsets.only(
                         right: 30.w, left: 20.w, top: 10.h, bottom: 10.h),
@@ -657,17 +670,17 @@ class NeatTemplateState extends State<NeatTemplate> {
                                   },
                                   controller: _controllersList2[index],
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: neatColours['white'],
                                     fontSize: 8.sp,
                                   ),
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     isDense: true,
                                     contentPadding: EdgeInsets.zero,
                                     border: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.zero,
-                                      borderSide:
-                                          BorderSide(color: Colors.white),
+                                      borderSide: BorderSide(
+                                          color: neatColours['white']),
                                     ),
                                   ),
                                 ),
@@ -693,17 +706,17 @@ class NeatTemplateState extends State<NeatTemplate> {
                     children: [
                       // EDUCATIONAL BACKGROUND
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             'EDUCATION',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
-                              decorationColor:
-                                  const Color.fromARGB(255, 73, 150, 159),
+                              decorationColor: neatColours['lightBlue'],
                               decorationThickness: 3.r,
                               fontWeight: FontWeight.bold,
-                              color: const Color.fromARGB(255, 73, 150, 159),
+                              color: neatColours['lightBlue'],
                               fontSize: 15.sp,
                             ),
                           ),
@@ -725,10 +738,10 @@ class NeatTemplateState extends State<NeatTemplate> {
                                       SizedBox(
                                         height: 10.h,
                                       ),
-                                      const Text(
+                                      Text(
                                         'No education background provided',
                                         style: TextStyle(
-                                          color: Colors.grey,
+                                          color: neatColours['grey'],
                                           fontSize: 8,
                                         ),
                                       ),
@@ -777,7 +790,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                               'Add Education',
                                               style: TextStyle(
                                                   fontSize: 8.sp,
-                                                  color: Colors.black),
+                                                  color: neatColours['black']),
                                             ),
                                           ),
                                         ),
@@ -797,7 +810,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           color: _borderColorForEdu[index]
                                               ? const Color.fromARGB(
                                                   255, 73, 150, 159)
-                                              : Colors.white,
+                                              : neatColours['white'],
                                         ),
                                       ),
                                       child: Stack(
@@ -842,7 +855,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     fieldOfStudyControllers[
                                                         index],
                                                 style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: neatColours['black'],
                                                   fontSize: 10.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -894,7 +907,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     institutionAddressControllers[
                                                         index],
                                                 style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: neatColours['black'],
                                                   fontSize: 8.sp,
                                                 ),
                                                 decoration:
@@ -1109,7 +1122,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                                     index]
                                                                 [innerIndex],
                                                         style: TextStyle(
-                                                          color: Colors.black,
+                                                          color: neatColours[
+                                                              'black'],
                                                           fontSize: 8.sp,
                                                         ),
                                                         decoration:
@@ -1163,7 +1177,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               Icons
                                                                   .arrow_downward_rounded,
                                                               color:
-                                                                  Colors.white,
+                                                                  neatColours[
+                                                                      'white'],
                                                               size: 15.r,
                                                             ),
                                                           ),
@@ -1194,7 +1209,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color:
-                                                                    Colors.grey,
+                                                                    neatColours[
+                                                                        'grey'],
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
@@ -1261,7 +1277,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color:
-                                                                    Colors.grey,
+                                                                    neatColours[
+                                                                        'grey'],
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
@@ -1339,12 +1356,10 @@ class NeatTemplateState extends State<NeatTemplate> {
                                 'WORK EXPERIENCE',
                                 style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  decorationColor:
-                                      const Color.fromARGB(255, 73, 150, 159),
+                                  decorationColor: neatColours['lightBlue'],
                                   decorationThickness: 3.r,
                                   fontWeight: FontWeight.bold,
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159),
+                                  color: neatColours['lightBlue'],
                                   fontSize: 15.sp,
                                 ),
                               ),
@@ -1370,7 +1385,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                           Text(
                                             'No Work Experience provided',
                                             style: TextStyle(
-                                              color: Colors.grey,
+                                              color: neatColours['grey'],
                                               fontSize: 8.sp,
                                             ),
                                           ),
@@ -1415,7 +1430,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                   'Add Work Experience',
                                                   style: TextStyle(
                                                       fontSize: 8.sp,
-                                                      color: Colors.black),
+                                                      color:
+                                                          neatColours['black']),
                                                 ),
                                               ),
                                             ),
@@ -1437,7 +1453,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                   _borderColorForWorkExp[index]
                                                       ? const Color.fromARGB(
                                                           255, 73, 150, 159)
-                                                      : Colors.white,
+                                                      : neatColours['white'],
                                             ),
                                           ),
                                           child: Stack(
@@ -1477,7 +1493,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                         jobTitleControllers[
                                                             index],
                                                     style: TextStyle(
-                                                      color: Colors.black,
+                                                      color:
+                                                          neatColours['black'],
                                                       fontSize: 10.sp,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -1530,7 +1547,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                         companyNameControllers[
                                                             index],
                                                     style: TextStyle(
-                                                      color: Colors.black,
+                                                      color:
+                                                          neatColours['black'],
                                                       fontSize: 8.sp,
                                                     ),
                                                     decoration:
@@ -1969,7 +1987,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                                         'Add Achievement',
                                                                         style: TextStyle(
                                                                             color:
-                                                                                Colors.white,
+                                                                                neatColours['white'],
                                                                             fontSize: 10.sp),
                                                                       ),
                                                                     ),
@@ -2005,8 +2023,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: _borderColorForSkills
-                                ? const Color.fromARGB(255, 73, 150, 159)
-                                : Colors.white,
+                                ? neatColours['lightBlue']
+                                : neatColours['white'],
                           ),
                         ),
                         child: Stack(
@@ -2018,12 +2036,10 @@ class NeatTemplateState extends State<NeatTemplate> {
                                   'SKILLS',
                                   style: TextStyle(
                                     decoration: TextDecoration.underline,
-                                    decorationColor:
-                                        const Color.fromARGB(255, 73, 150, 159),
+                                    decorationColor: neatColours['lightBlue'],
                                     decorationThickness: 3.r,
                                     fontWeight: FontWeight.bold,
-                                    color:
-                                        const Color.fromARGB(255, 73, 150, 159),
+                                    color: neatColours['lightBlue'],
                                     fontSize: 15.sp,
                                   ),
                                 ),
@@ -2057,7 +2073,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             .fromARGB(
                                                             255, 73, 150, 159),
                                                       ),
-                                                      color: Colors.white,
+                                                      color:
+                                                          neatColours['white'],
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               4.r),
@@ -2090,8 +2107,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                           child: Container(
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: Colors.grey
-                                                                  .shade400,
+                                                              color: neatColours[
+                                                                  'greyShade'],
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -2131,7 +2148,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                     color: const Color.fromARGB(
                                                         255, 73, 150, 159),
                                                   ),
-                                                  color: Colors.white,
+                                                  color: neatColours['white'],
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           4.r),
@@ -2169,7 +2186,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                             width: 20.w,
                                             child: Icon(
                                               Icons.add,
-                                              color: Colors.white,
+                                              color: neatColours['white'],
                                               size: 15.r,
                                             ),
                                           ),
@@ -2189,8 +2206,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: _borderColorForPersonalProjects
-                                      ? const Color.fromARGB(255, 73, 150, 159)
-                                      : Colors.white,
+                                      ? neatColours['lightBlue']
+                                      : neatColours['white'],
                                 ),
                               ),
                               child: Stack(
@@ -2242,7 +2259,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             .fromARGB(
                                                             255, 73, 150, 159),
                                                       ),
-                                                      color: Colors.white,
+                                                      color:
+                                                          neatColours['white'],
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               4.r),
@@ -2277,8 +2295,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                           child: Container(
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: Colors.grey
-                                                                  .shade400,
+                                                              color: neatColours[
+                                                                  'greyShade'],
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -2321,7 +2339,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                   width: 20.w,
                                                   child: Icon(
                                                     Icons.add,
-                                                    color: Colors.white,
+                                                    color: neatColours['white'],
                                                     size: 15.r,
                                                   ),
                                                 ),
@@ -2393,8 +2411,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: _borderColorForLanguage
-                                      ? const Color.fromARGB(255, 73, 150, 159)
-                                      : Colors.white,
+                                      ? neatColours['lightBlue']
+                                      : neatColours['white'],
                                 ),
                               ),
                               child: Stack(
@@ -2445,7 +2463,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             .fromARGB(
                                                             255, 73, 150, 159),
                                                       ),
-                                                      color: Colors.white,
+                                                      color:
+                                                          neatColours['white'],
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               4.r),
@@ -2496,8 +2515,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                           child: Container(
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: Colors.grey
-                                                                  .shade400,
+                                                              color: neatColours[
+                                                                  'greyShade'],
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -2539,7 +2558,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                   width: 20.w,
                                                   child: Icon(
                                                     Icons.add,
-                                                    color: Colors.white,
+                                                    color: neatColours['white'],
                                                     size: 15.r,
                                                   ),
                                                 ),
@@ -2622,8 +2641,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: _borderColorForInterests
-                                    ? const Color.fromARGB(255, 73, 150, 159)
-                                    : Colors.white,
+                                    ? neatColours['lightBlue']
+                                    : neatColours['white'],
                               ),
                             ),
                             child: Stack(
@@ -2686,7 +2705,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color:
-                                                                  Colors.white,
+                                                                  neatColours[
+                                                                      'white'],
                                                             ),
                                                           ),
                                                           SizedBox(
@@ -2706,9 +2726,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                             child: Container(
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade400,
+                                                                color: neatColours[
+                                                                    'greyShade'],
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
@@ -2762,7 +2781,8 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                           .interests[index],
                                                       style: TextStyle(
                                                         fontSize: 8.sp,
-                                                        color: Colors.white,
+                                                        color: neatColours[
+                                                            'white'],
                                                       ),
                                                     ),
                                                   );
@@ -2793,7 +2813,7 @@ class NeatTemplateState extends State<NeatTemplate> {
                                                 width: 20.w,
                                                 child: Icon(
                                                   Icons.add,
-                                                  color: Colors.white,
+                                                  color: neatColours['white'],
                                                   size: 15.r,
                                                 ),
                                               ),
@@ -2819,9 +2839,9 @@ class NeatTemplateState extends State<NeatTemplate> {
               color: Colors.amber,
               child: Padding(
                 padding: EdgeInsets.all(8.0.r),
-                child: const Text(
+                child: Text(
                   'Tap on any section to edit',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: neatColours['black']),
                 ),
               ),
             ),

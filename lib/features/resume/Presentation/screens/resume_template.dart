@@ -74,8 +74,10 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
       appBar: AppBar(
         title: const Text('Tap to edit'),
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu_open_sharp),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios),
         ),
         actions: [
           IconButton(
@@ -83,8 +85,7 @@ class _ResumeTemplateState extends State<ResumeTemplate> {
             onPressed: () async {
               final updatedData =
                   (selectedKey.currentState as dynamic)?.templateData;
-              final updatedIcons =
-                  (selectedKey.currentState as dynamic)?.icons;
+              final updatedIcons = (selectedKey.currentState as dynamic)?.icons;
 
               // Save the resume
               final pdfFile = await PdfApi.generateResume(

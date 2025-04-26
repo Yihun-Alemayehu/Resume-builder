@@ -523,7 +523,8 @@ class CreativeTemplateState extends State<CreativeTemplate> {
                 // EMAIL, ADDRESS,
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(right: 30.w, left: 20.w),
+                    padding: EdgeInsets.only(
+                        right: 30.w, left: 20.w, top: 10.h, bottom: 10.h),
                     child: SizedBox(
                       height: 25.h,
                       child: ListView.builder(

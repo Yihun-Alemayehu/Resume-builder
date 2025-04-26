@@ -95,68 +95,71 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                     debugPrint(userData.toString());
                     return Align(
                       alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.w),
-                        child: Wrap(
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          runAlignment: WrapAlignment.start,
-                          direction: Axis.horizontal,
-                          spacing: 10.w,
-                          children: List.generate(
-                            userData.length,
-                            (index) {
-                              return GestureDetector(
-                                onLongPress: () {
-                                  context
-                                      .read<UserDataBloc>()
-                                      .add(const DeleteTemplateData(id: 2));
-                                },
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ResumeTemplate(
-                                              templateData: userData[index],
-                                              isNewTemplate: false,
-                                              index: index + 1,
-                                            )),
-                                  );
-                                },
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * .288,
-                                  width:
-                                      MediaQuery.of(context).size.width * .416,
-                                  child: Column(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(12.r),
-                                        child: Image.asset(
-                                          templates[
-                                              userData[index].templateIndex],
-                                          fit: BoxFit.cover,
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25.w),
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            runAlignment: WrapAlignment.start,
+                            direction: Axis.horizontal,
+                            spacing: 10.w,
+                            children: List.generate(
+                              userData.length,
+                              (index) {
+                                return GestureDetector(
+                                  onLongPress: () {
+                                    context
+                                        .read<UserDataBloc>()
+                                        .add(const DeleteTemplateData(id: 2));
+                                  },
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ResumeTemplate(
+                                                templateData: userData[index],
+                                                isNewTemplate: false,
+                                                index: index + 1,
+                                              )),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        .288,
+                                    width: MediaQuery.of(context).size.width *
+                                        .416,
+                                    child: Column(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12.r),
+                                          child: Image.asset(
+                                            templates[
+                                                userData[index].templateIndex],
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 2.h),
-                                      Text(
-                                        userData[index].templateName,
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.color,
+                                        SizedBox(height: 2.h),
+                                        Text(
+                                          userData[index].templateName,
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge
+                                                ?.color,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),

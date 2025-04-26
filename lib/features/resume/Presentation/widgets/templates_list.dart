@@ -1,15 +1,15 @@
 List<String> templates = [
-  'assets/0.png',
-  'assets/6.png',
-  'assets/2.png',
-  'assets/4.png',
-  'assets/5.png',
-  'assets/3.png',
-  'assets/8.png',
-  'assets/7.png',
-  'assets/9.png',
-  'assets/2.png',
-  'assets/10.png',
+  'assets/templates/neat.png',
+  'assets/templates/creative.png',
+  'assets/templates/modern.png',
+  'assets/templates/minimalist.png',
+  'assets/templates/hybrid.png',
+  'assets/templates/professional.png',
+  'assets/templates/atlantic.png',
+  'assets/templates/desert.png',
+  'assets/templates/blue_steel.png',
+  'assets/templates/sleek.png',
+  'assets/templates/simple.png',
 ];
 
 List<String> templatesName = [

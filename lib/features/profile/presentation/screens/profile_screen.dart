@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/app_theme.dart';
+import 'package:my_resume/core/widget/custom_snackbar.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/profile/presentation/screens/edit_profile_screen.dart';
@@ -65,22 +66,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
-                  canEdit ? GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const EditProfileScreen(),
-                        ),
-                      );
-                    },
-                    child: Image.asset(
-                      'assets/Icons/profile/profile-edit.png',
-                      height: 24.h,
-                      width: 24.w,
-                      color: Theme.of(context).textTheme.bodyLarge?.color,
-                    ),
-                  ): const SizedBox.shrink(),
+                  canEdit
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EditProfileScreen(),
+                              ),
+                            );
+                          },
+                          child: Image.asset(
+                            'assets/Icons/profile/profile-edit.png',
+                            height: 24.h,
+                            width: 24.w,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),
@@ -89,11 +92,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: BlocConsumer<UserProfileBloc, UserProfileState>(
                 listener: (context, state) {
                   if (state is UserProfileError) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.errorMessage)));
+                    showCustomErrorSnackbar(
+                      context,
+                      state.errorMessage,
+                      Colors.red,
+                    );
                   } else if (state is UserProfileDeleted) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Profile deleted successfully')));
+                    showCustomErrorSnackbar(
+                      context,
+                      'Profile Deleted Successfully',
+                      AppColors.accent,
+                    );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen(),
+                      ),
+                    );
+                  } else if (state is UserProfileUpdated) {
+                    showCustomErrorSnackbar(
+                      context,
+                      'Profile Updated Successfully',
+                      AppColors.accent,
+                    );
                   } else if (state is UserProfileLoaded) {
                     if (state.user.isNotEmpty) {
                       setState(() {
