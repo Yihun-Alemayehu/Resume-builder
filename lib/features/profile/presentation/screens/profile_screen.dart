@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/app_theme.dart';
 import 'package:my_resume/core/widget/custom_snackbar.dart';
+import 'package:my_resume/features/drawer/presentation/screens/settings_screen.dart';
 import 'package:my_resume/features/profile/data/model/user_profile_model.dart';
 import 'package:my_resume/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:my_resume/features/profile/presentation/screens/edit_profile_screen.dart';
@@ -66,6 +67,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
+                  Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsScreen(),
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.settings,
+                          size: 24.sp,
+                          color: Theme.of(context).textTheme.bodyLarge?.color)),
+                  SizedBox(width: 10.w),
                   canEdit
                       ? GestureDetector(
                           onTap: () {

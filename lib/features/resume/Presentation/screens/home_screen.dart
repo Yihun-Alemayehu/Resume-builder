@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_resume/core/utils/app_theme.dart';
 import 'package:my_resume/core/widget/custom_snackbar.dart';
 import 'package:my_resume/features/drawer/presentation/screens/app_drawer.dart';
 import 'package:my_resume/core/utils/custom_dialog.dart';
@@ -10,6 +11,7 @@ import 'package:my_resume/features/resume/Presentation/templates/utils/templates
 import 'package:my_resume/features/resume/data/model/templates_model.dart';
 import 'package:my_resume/features/resume/Presentation/screens/resume_template.dart';
 import 'package:my_resume/features/resume/Presentation/widgets/templates_list.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -187,6 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       key: _scaffoldKey,
       drawer: const AppDrawer(),
@@ -210,13 +213,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      _scaffoldKey.currentState?.openDrawer();
+                      // _scaffoldKey.currentState?.openDrawer();
+                      setState(() {
+                        themeProvider.toggleTheme();
+                      });
                     },
                     child: Image.asset(
-                      'assets/Icons/menu.png',
-                      height: 26.h,
-                      width: 26.w,
-                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                      'assets/Icons/light-mode.png',
+                      height: 30.h,
+                      width: 30.w,
+                      // color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
                   Text(

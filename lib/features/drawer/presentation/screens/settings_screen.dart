@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/core/widget/custom_snackbar.dart';
+import 'package:my_resume/features/drawer/presentation/screens/about_screen.dart';
 import 'package:my_resume/features/drawer/presentation/screens/app_drawer.dart';
 import 'package:my_resume/features/drawer/presentation/screens/data_usage_screen.dart';
+import 'package:my_resume/features/drawer/presentation/screens/help_support_screen.dart';
 import 'package:my_resume/features/drawer/presentation/screens/privacy_policy_screen.dart';
 import 'package:my_resume/features/drawer/presentation/screens/terms_and_conditions_screen.dart';
 import 'package:my_resume/features/drawer/presentation/widget/cache_mngmt.dart';
@@ -404,7 +406,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                   // Data Management
                   Text(
-                    'Data Management',
+                    'Account & Data',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 16.sp,
@@ -474,7 +476,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                   // Privacy and Security
                   Text(
-                    'Privacy & Security',
+                    'Privacy',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 16.sp,
@@ -552,6 +554,67 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         MaterialPageRoute(
                           builder: (context) =>
                               const TermsAndConditionsScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 20.h),
+
+                  // Privacy and Security
+                  Text(
+                    'Support',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).textTheme.titleLarge?.color,
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  ListTile(
+                    minTileHeight: 26.h,
+                    dense: true,
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.sp,
+                    ),
+                    title: Text(
+                      'Help & Support',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HelpSupportScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    minTileHeight: 26.h,
+                    dense: true,
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16.sp,
+                    ),
+                    title: Text(
+                      'About',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutScreen(),
                         ),
                       );
                     },
