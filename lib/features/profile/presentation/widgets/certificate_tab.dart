@@ -18,6 +18,41 @@ class _CertificateTabState extends State<CertificateTab> {
   final TextEditingController issuedCompanyController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   DateTime? selectedDate;
+  bool _isTemporaryCertificate = false; // Flag to track temporary certificate
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if certificates is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.certificates.isEmpty) {
+      _userProfileDataCubit.addCertificate(
+        certificate: CertificateModel(
+          certificateName: 'Certificate Name',
+          issuedDate: CustomDateUtils.formatForStorage(DateTime.now()),
+          issuedCompanyName: 'Issuing Company',
+        ),
+      );
+      _isTemporaryCertificate = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporaryCertificate) {
+      _userProfileDataCubit.removeCertificate(index: 0);
+    }
+    // Dispose controllers to prevent memory leaks
+    nameController.dispose();
+    issuedCompanyController.dispose();
+    dateController.dispose();
+    super.dispose();
+  }
 
   Future<void> _selectDate() async {
     DateTime? picked = await showDatePicker(
@@ -44,7 +79,8 @@ class _CertificateTabState extends State<CertificateTab> {
       setState(() {
         selectedDate = picked;
         dateController.text = CustomDateUtils.formatMonthYear(
-            CustomDateUtils.formatForStorage(picked));
+          CustomDateUtils.formatForStorage(picked),
+        );
       });
     }
   }
@@ -92,15 +128,15 @@ class _CertificateTabState extends State<CertificateTab> {
             context: context,
             onSave: () {
               setState(() {
-                context.read<UserProfileDataCubit>().updateCertificate(
-                      index: index,
-                      certificateModel: CertificateModel(
-                        certificateName: nameController.text,
-                        issuedDate:
-                            CustomDateUtils.formatForStorage(selectedDate),
-                        issuedCompanyName: issuedCompanyController.text,
-                      ),
-                    );
+                _userProfileDataCubit.updateCertificate(
+                  index: index,
+                  certificateModel: CertificateModel(
+                    certificateName: nameController.text,
+                    issuedDate: CustomDateUtils.formatForStorage(selectedDate),
+                    issuedCompanyName: issuedCompanyController.text,
+                  ),
+                );
+                _isTemporaryCertificate = false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -176,8 +212,10 @@ class _CertificateTabState extends State<CertificateTab> {
                                   ),
                                   SizedBox(height: 2.h),
                                   Text(
-                                    CustomDateUtils.formatMonthYear(userProfile
-                                        .certificates[index].issuedDate),
+                                    CustomDateUtils.formatMonthYear(
+                                      userProfile
+                                          .certificates[index].issuedDate,
+                                    ),
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .textTheme
@@ -219,9 +257,10 @@ class _CertificateTabState extends State<CertificateTab> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        context
-                                            .read<UserProfileDataCubit>()
-                                            .removeCertificate(index: index);
+                                        _userProfileDataCubit.removeCertificate(
+                                            index: index);
+                                        _isTemporaryCertificate =
+                                            false; // Clear flag on delete
                                       });
                                     },
                                     child: Text(
@@ -257,13 +296,14 @@ class _CertificateTabState extends State<CertificateTab> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
           setState(() {
-            context.read<UserProfileDataCubit>().addCertificate(
-                  certificate: CertificateModel(
-                    certificateName: 'Certificate Name',
-                    issuedDate: DateTime.now().toString(),
-                    issuedCompanyName: 'Issuing Company',
-                  ),
-                );
+            _userProfileDataCubit.addCertificate(
+              certificate: CertificateModel(
+                certificateName: 'Certificate Name',
+                issuedDate: CustomDateUtils.formatForStorage(DateTime.now()),
+                issuedCompanyName: 'Issuing Company',
+              ),
+            );
+            _isTemporaryCertificate = true; // Mark new certificate as temporary
           });
         },
         child: const Icon(Icons.add),

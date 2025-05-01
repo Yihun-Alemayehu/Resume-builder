@@ -96,9 +96,9 @@ class _UserDataTabState extends State<UserDataTab> {
           phoneNumberController.text = userProfile.userdata.phoneNumber;
           addressController.text = userProfile.userdata.address;
           bioController.text = userProfile.userdata.bio;
-          websiteController.text = userProfile.userdata.website!;
-          githubController.text = userProfile.userdata.github!;
-          linkedInController.text = userProfile.userdata.linkedIn!;
+          websiteController.text = userProfile.userdata.website ?? '';
+          githubController.text = userProfile.userdata.github ?? '';
+          linkedInController.text = userProfile.userdata.linkedIn ?? '';
           _image = userProfile.userdata.profilePic;
 
           log('_image: ${userProfile.userdata.profilePic}');
@@ -117,8 +117,7 @@ class _UserDataTabState extends State<UserDataTab> {
                         padding: EdgeInsets.only(right: 20.w),
                         child: CircleAvatar(
                           radius: 50.r,
-                          backgroundImage: _image == null ||
-                                  _image!.path == 'profilePic'
+                          backgroundImage: _image == null || _image!.path == ''
                               ? const AssetImage('assets/copy.jpg')
                               : FileImage(_image!) as ImageProvider<Object>?,
                         ),
@@ -142,6 +141,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   SizedBox(height: 30.h),
                   PersonalFieldRow(
                     name: 'Name: ',
+                    hintText: 'Yihun Alemayehu',
                     controller: fullNameController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -155,6 +155,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   ),
                   PersonalFieldRow(
                     name: 'Profession: ',
+                    hintText: 'Software Engineer',
                     controller: professionController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -168,6 +169,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   ),
                   PersonalFieldRow(
                     name: 'Email: ',
+                    hintText: 'yankure01@gmail.com',
                     controller: emailController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -180,6 +182,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   ),
                   PersonalFieldRow(
                     name: 'Phone: ',
+                    hintText: '+251 982 394 038',
                     controller: phoneNumberController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -193,6 +196,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   ),
                   PersonalFieldRow(
                     name: 'Address: ',
+                    hintText: 'Addis Ababa',
                     controller: addressController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -205,6 +209,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   ),
                   PersonalFieldRow(
                     name: 'Linkedin: ',
+                    hintText: 'https://linkedin.com/in/Yihun-Alemayehu',
                     controller: linkedInController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -218,6 +223,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   ),
                   PersonalFieldRow(
                     name: 'Github: ',
+                    hintText: 'https://github.com/Yihun-Alemayehu',
                     controller: githubController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -230,6 +236,7 @@ class _UserDataTabState extends State<UserDataTab> {
                   ),
                   PersonalFieldRow(
                     name: 'Website: ',
+                    hintText: 'https://example.com',
                     controller: websiteController,
                     userProfile: userProfile,
                     onFieldChange: (val) {
@@ -283,15 +290,26 @@ class _UserDataTabState extends State<UserDataTab> {
                               });
                             },
                             maxLines: null,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                              hintText:
+                                  'I am a passionate software engineer with 5 years of experience in mobile and web development.',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color,
+                              ),
                               contentPadding: EdgeInsets.zero,
                               isDense: true,
-                              focusedBorder: UnderlineInputBorder(
+                              focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color.fromARGB(255, 199, 198, 198),
                                 ),
                               ),
-                              enabledBorder: UnderlineInputBorder(
+                              enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color.fromARGB(255, 199, 198, 198),
                                 ),
@@ -319,6 +337,7 @@ class PersonalFieldRow extends StatelessWidget {
   final Function(String)? onFieldChange;
   final UserProfile userProfile;
   final String name;
+  final String hintText;
 
   const PersonalFieldRow({
     Key? key,
@@ -326,6 +345,7 @@ class PersonalFieldRow extends StatelessWidget {
     required this.onFieldChange,
     required this.userProfile,
     required this.name,
+    required this.hintText,
   }) : super(key: key);
 
   @override
@@ -360,15 +380,22 @@ class PersonalFieldRow extends StatelessWidget {
               cursorColor: Theme.of(context).textTheme.bodyLarge?.color,
               controller: controller,
               onChanged: onFieldChange,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                ),
                 contentPadding: EdgeInsets.zero,
                 isDense: true,
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Color.fromARGB(255, 199, 198, 198),
                   ),
                 ),
-                enabledBorder: UnderlineInputBorder(
+                enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Color.fromARGB(255, 199, 198, 198),
                   ),

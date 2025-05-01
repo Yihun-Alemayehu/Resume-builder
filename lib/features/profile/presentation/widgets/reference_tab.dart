@@ -19,6 +19,34 @@ class _ReferenceTabState extends State<ReferenceTab> {
     name: 'John Doe',
     referenceText: 'A highly skilled and dedicated professional.',
   );
+  bool _isTemporaryReference = false; // Flag to track temporary reference
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if references is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.references.isEmpty) {
+      _userProfileDataCubit.addReference(reference: referenceSample);
+      _isTemporaryReference = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporaryReference) {
+      _userProfileDataCubit.removeReference(index: 0);
+    }
+    // Dispose controllers to prevent memory leaks
+    nameController.dispose();
+    referenceTextController.dispose();
+    super.dispose();
+  }
 
   void _editReference(int index, ReferenceModel reference) {
     nameController.text = reference.name;
@@ -50,13 +78,14 @@ class _ReferenceTabState extends State<ReferenceTab> {
             context: context,
             onSave: () {
               setState(() {
-                context.read<UserProfileDataCubit>().updateReference(
-                      index: index,
-                      reference: ReferenceModel(
-                        name: nameController.text,
-                        referenceText: referenceTextController.text,
-                      ),
-                    );
+                _userProfileDataCubit.updateReference(
+                  index: index,
+                  reference: ReferenceModel(
+                    name: nameController.text,
+                    referenceText: referenceTextController.text,
+                  ),
+                );
+                _isTemporaryReference = false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -155,9 +184,10 @@ class _ReferenceTabState extends State<ReferenceTab> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        context
-                                            .read<UserProfileDataCubit>()
-                                            .removeReference(index: index);
+                                        _userProfileDataCubit.removeReference(
+                                            index: index);
+                                        _isTemporaryReference =
+                                            false; // Clear flag on delete
                                       });
                                     },
                                     child: Text(
@@ -193,9 +223,8 @@ class _ReferenceTabState extends State<ReferenceTab> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
           setState(() {
-            context
-                .read<UserProfileDataCubit>()
-                .addReference(reference: referenceSample);
+            _userProfileDataCubit.addReference(reference: referenceSample);
+            _isTemporaryReference = true; // Mark new reference as temporary
           });
         },
         child: const Icon(Icons.add),

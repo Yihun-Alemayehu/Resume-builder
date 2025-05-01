@@ -82,16 +82,16 @@ class UserProfile extends Equatable {
   factory UserProfile.dummyData() {
     return UserProfile(
       userdata: MyUser(
-        fullName: 'fullName',
-        profession: 'profession',
-        bio: 'bio',
+        fullName: '',
+        profession: '',
+        bio: '',
         profilePic: File('profilePic'),
-        email: 'email',
-        address: 'address',
-        phoneNumber: 'phoneNumber',
-        linkedIn: 'linkedIn',
-        github: 'github',
-        website: 'website',
+        email: '',
+        address: '',
+        phoneNumber: '',
+        linkedIn: '',
+        github: '',
+        website: '',
       ),
       education: [
         EducationBackground(
@@ -102,28 +102,6 @@ class UserProfile extends Equatable {
           courses: ['description', 'description', 'OOP', 'DSA'],
           institutionAddress: 'AA',
         ),
-        EducationBackground(
-          institutionName: 'AMU',
-          fieldOfStudy: 'Computer Science',
-          startDate: '2020-10-10',
-          endDate: '2025-10-10',
-          courses: [
-            'description',
-            'mobile',
-            'website',
-            'algorithm',
-            'structure'
-          ],
-          institutionAddress: 'AM',
-        ),
-        EducationBackground(
-          institutionName: 'oxford',
-          fieldOfStudy: 'mathematics',
-          startDate: '2022-05-05',
-          endDate: '2024-05-05',
-          courses: ['algebra', 'calculus', 'geometry', 'trigonometry'],
-          institutionAddress: 'UK',
-        ),
       ],
       workExperience: [
         WorkExperience(
@@ -132,17 +110,6 @@ class UserProfile extends Equatable {
           startDate: '2023-03-03',
           endDate: '2023-03-06',
           jobType: 'remote',
-          achievements: [
-            'description',
-            'description',
-          ],
-        ),
-        WorkExperience(
-          companyName: 'horan',
-          jobTitle: 'backend',
-          startDate: '2024-07-07',
-          endDate: '2024-07-10',
-          jobType: 'contract',
           achievements: [
             'description',
             'description',

@@ -13,8 +13,36 @@ class SkillTab extends StatefulWidget {
 
 class _SkillTabState extends State<SkillTab> {
   final TextEditingController _controller = TextEditingController();
+  bool _isTemporarySkill = false; // Flag to track temporary skill
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if skills is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.skills.isEmpty) {
+      _userProfileDataCubit.addSkill(skill: 'Skill Name');
+      _isTemporarySkill = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporarySkill) {
+      _userProfileDataCubit.removeSkill(index: 0);
+    }
+    // Dispose controller to prevent memory leaks
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _addSkill() {
+    _controller.clear(); // Clear the controller for a new entry
     showDialog(
       context: context,
       builder: (context) {
@@ -33,9 +61,8 @@ class _SkillTabState extends State<SkillTab> {
             context: context,
             onSave: () {
               setState(() {
-                context
-                    .read<UserProfileDataCubit>()
-                    .addSkill(skill: _controller.text);
+                _userProfileDataCubit.addSkill(skill: _controller.text);
+                _isTemporarySkill = false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -61,15 +88,12 @@ class _SkillTabState extends State<SkillTab> {
                   return IntrinsicWidth(
                     child: Container(
                       height: 30.h,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20.h,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20.h),
                       margin: EdgeInsets.only(right: 4.w, bottom: 4.h),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: const Color.fromARGB(255, 220, 220, 220),
                         ),
-                        // color: Colors.white,
                         borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: Row(
@@ -77,19 +101,15 @@ class _SkillTabState extends State<SkillTab> {
                         children: [
                           Text(
                             userProfile.skills[index],
-                            style: const TextStyle(
-                                // fontSize: 16,
-                                ),
+                            style: const TextStyle(),
                           ),
-                          SizedBox(
-                            width: 4.w,
-                          ),
+                          SizedBox(width: 4.w),
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                context
-                                    .read<UserProfileDataCubit>()
-                                    .removeSkill(index: index);
+                                _userProfileDataCubit.removeSkill(index: index);
+                                _isTemporarySkill =
+                                    false; // Clear flag on delete
                               });
                             },
                             child: Icon(
@@ -97,7 +117,7 @@ class _SkillTabState extends State<SkillTab> {
                               size: 14.r,
                               color: Colors.red,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

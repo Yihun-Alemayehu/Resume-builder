@@ -13,8 +13,36 @@ class InterestTab extends StatefulWidget {
 
 class _InterestTabState extends State<InterestTab> {
   final TextEditingController _controller = TextEditingController();
+  bool _isTemporaryInterest = false; // Flag to track temporary interest
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if interests is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.interests.isEmpty) {
+      _userProfileDataCubit.addInterest(interest: 'Interest Name');
+      _isTemporaryInterest = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporaryInterest) {
+      _userProfileDataCubit.removeInterest(index: 0);
+    }
+    // Dispose controller to prevent memory leaks
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _addInterest() {
+    _controller.clear(); // Clear the controller for a new entry
     showDialog(
       context: context,
       builder: (context) {
@@ -33,9 +61,8 @@ class _InterestTabState extends State<InterestTab> {
             context: context,
             onSave: () {
               setState(() {
-                context
-                    .read<UserProfileDataCubit>()
-                    .addInterest(interest: _controller.text);
+                _userProfileDataCubit.addInterest(interest: _controller.text);
+                _isTemporaryInterest = false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -61,15 +88,12 @@ class _InterestTabState extends State<InterestTab> {
                   return IntrinsicWidth(
                     child: Container(
                       height: 30.h,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20.h,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20.h),
                       margin: EdgeInsets.only(right: 4.w, bottom: 4.h),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: const Color.fromARGB(255, 220, 220, 220),
                         ),
-                        // color: Colors.white,
                         borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: Row(
@@ -77,19 +101,16 @@ class _InterestTabState extends State<InterestTab> {
                         children: [
                           Text(
                             userProfile.interests[index],
-                            style: const TextStyle(
-                                // fontSize: 16,
-                                ),
+                            style: const TextStyle(),
                           ),
-                          SizedBox(
-                            width: 6.w,
-                          ),
+                          SizedBox(width: 6.w),
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                context
-                                    .read<UserProfileDataCubit>()
-                                    .removeInterest(index: index);
+                                _userProfileDataCubit.removeInterest(
+                                    index: index);
+                                _isTemporaryInterest =
+                                    false; // Clear flag on delete
                               });
                             },
                             child: Icon(
@@ -97,7 +118,7 @@ class _InterestTabState extends State<InterestTab> {
                               size: 14.r,
                               color: Colors.red,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

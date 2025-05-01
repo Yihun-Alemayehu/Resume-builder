@@ -22,6 +22,47 @@ class _WorkExpTabState extends State<WorkExpTab> {
 
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
+  bool _isTemporaryWorkExperience =
+      false; // Flag to track temporary work experience
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if work experience is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.workExperience.isEmpty) {
+      _userProfileDataCubit.addWorkExperience(
+        workExperience: WorkExperience(
+          jobTitle: 'Job Title',
+          companyName: 'Company Name',
+          jobType: 'Job Type',
+          startDate: '',
+          endDate: '',
+          achievements: ['Achievement'],
+        ),
+      );
+      _isTemporaryWorkExperience = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporaryWorkExperience) {
+      _userProfileDataCubit.removeWorkExperience(index: 0);
+    }
+    // Dispose controllers to prevent memory leaks
+    jobTitleController.dispose();
+    companyNameController.dispose();
+    jobTypeController.dispose();
+    dateRangeController.dispose();
+    achievementsController.dispose();
+    super.dispose();
+  }
 
   void _editWorkExp({
     required int index,
@@ -30,7 +71,7 @@ class _WorkExpTabState extends State<WorkExpTab> {
     jobTitleController.text = workExperience.jobTitle;
     companyNameController.text = workExperience.companyName;
     jobTypeController.text = workExperience.jobType;
-    // achievementsController.text = workExperience.achievements.join(', ');
+    achievementsController.text = workExperience.achievements.join(', ');
 
     // Set initial date range display
     selectedStartDate = CustomDateUtils.parseDate(workExperience.startDate);
@@ -95,24 +136,25 @@ class _WorkExpTabState extends State<WorkExpTab> {
             context: context,
             onSave: () {
               setState(() {
-                context.read<UserProfileDataCubit>().updateWorkExperience(
-                      index: index,
-                      workExperience: WorkExperience(
-                        jobTitle: jobTitleController.text,
-                        companyName: companyNameController.text,
-                        startDate:
-                            CustomDateUtils.formatForStorage(selectedStartDate),
-                        endDate:
-                            CustomDateUtils.formatForStorage(selectedEndDate),
-                        jobType: jobTypeController.text,
-                        achievements: achievementsController.text.isNotEmpty
-                            ? achievementsController.text
-                                .split(',')
-                                .map((e) => e.trim())
-                                .toList()
-                            : ['Achievement'],
-                      ),
-                    );
+                _userProfileDataCubit.updateWorkExperience(
+                  index: index,
+                  workExperience: WorkExperience(
+                    jobTitle: jobTitleController.text,
+                    companyName: companyNameController.text,
+                    startDate:
+                        CustomDateUtils.formatForStorage(selectedStartDate),
+                    endDate: CustomDateUtils.formatForStorage(selectedEndDate),
+                    jobType: jobTypeController.text,
+                    achievements: achievementsController.text.isNotEmpty
+                        ? achievementsController.text
+                            .split(',')
+                            .map((e) => e.trim())
+                            .toList()
+                        : ['Achievement'],
+                  ),
+                );
+                _isTemporaryWorkExperience =
+                    false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -241,9 +283,10 @@ class _WorkExpTabState extends State<WorkExpTab> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        context
-                                            .read<UserProfileDataCubit>()
+                                        _userProfileDataCubit
                                             .removeWorkExperience(index: index);
+                                        _isTemporaryWorkExperience =
+                                            false; // Clear flag on delete
                                       });
                                     },
                                     child: Text(
@@ -279,16 +322,18 @@ class _WorkExpTabState extends State<WorkExpTab> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
           setState(() {
-            context.read<UserProfileDataCubit>().addWorkExperience(
-                  workExperience: WorkExperience(
-                    jobTitle: 'Job Title',
-                    companyName: 'Company Name',
-                    jobType: 'Job Type',
-                    startDate: '',
-                    endDate: '',
-                    achievements: ['Achievement'],
-                  ),
-                );
+            _userProfileDataCubit.addWorkExperience(
+              workExperience: WorkExperience(
+                jobTitle: 'Job Title',
+                companyName: 'Company Name',
+                jobType: 'Job Type',
+                startDate: '',
+                endDate: '',
+                achievements: ['Achievement'],
+              ),
+            );
+            _isTemporaryWorkExperience =
+                true; // Mark new work experience as temporary
           });
         },
         child: const Icon(Icons.add),

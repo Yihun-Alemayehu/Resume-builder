@@ -23,7 +23,7 @@ class UserProfileDataCubit extends Cubit<UserProfileDataState> {
   Future<void> loadUserProfile() async {
     await dbHelper.fetchUserProfile().then((value) {
       emit(
-          UserProfileDataLoaded(userProfile: value ?? UserProfile.dummyData()));
+          UserProfileDataLoaded(userProfile: value ?? UserProfile.empty()));
     }).catchError((e) {
       emit(UserProfileDataError(
           errorMessage: 'Failed to load user profile: $e'));

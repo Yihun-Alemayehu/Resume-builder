@@ -15,6 +15,39 @@ class ProjectTab extends StatefulWidget {
 class _ProjectTabState extends State<ProjectTab> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  bool _isTemporaryProject = false; // Flag to track temporary project
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if personalProjects is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.personalProjects.isEmpty) {
+      _userProfileDataCubit.addPersonalProject(
+        project: ProjectModel(
+          name: 'Project Name',
+          description: 'Project Description',
+        ),
+      );
+      _isTemporaryProject = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporaryProject) {
+      _userProfileDataCubit.removePersonalProject(index: 0);
+    }
+    // Dispose controllers to prevent memory leaks
+    nameController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   void _editProject({required int index, required ProjectModel project}) {
     nameController.text = project.name;
@@ -45,13 +78,14 @@ class _ProjectTabState extends State<ProjectTab> {
             context: context,
             onSave: () {
               setState(() {
-                context.read<UserProfileDataCubit>().updatePersonalProject(
-                      index: index,
-                      project: ProjectModel(
-                        name: nameController.text,
-                        description: descriptionController.text,
-                      ),
-                    );
+                _userProfileDataCubit.updatePersonalProject(
+                  index: index,
+                  project: ProjectModel(
+                    name: nameController.text,
+                    description: descriptionController.text,
+                  ),
+                );
+                _isTemporaryProject = false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -154,10 +188,11 @@ class _ProjectTabState extends State<ProjectTab> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        context
-                                            .read<UserProfileDataCubit>()
+                                        _userProfileDataCubit
                                             .removePersonalProject(
                                                 index: index);
+                                        _isTemporaryProject =
+                                            false; // Clear flag on delete
                                       });
                                     },
                                     child: Text(
@@ -193,12 +228,13 @@ class _ProjectTabState extends State<ProjectTab> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
           setState(() {
-            context.read<UserProfileDataCubit>().addPersonalProject(
-                  project: ProjectModel(
-                    name: 'Project Name',
-                    description: 'Project Description',
-                  ),
-                );
+            _userProfileDataCubit.addPersonalProject(
+              project: ProjectModel(
+                name: 'Project Name',
+                description: 'Project Description',
+              ),
+            );
+            _isTemporaryProject = true; // Mark new project as temporary
           });
         },
         child: const Icon(Icons.add),

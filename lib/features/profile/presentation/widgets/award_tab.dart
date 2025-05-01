@@ -18,6 +18,41 @@ class _AwardTabState extends State<AwardTab> {
   final TextEditingController issuedCompanyController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   DateTime? selectedDate;
+  bool _isTemporaryAward = false; // Flag to track temporary award
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if awards is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.awards.isEmpty) {
+      _userProfileDataCubit.addAward(
+        award: AwardModel(
+          awardName: 'Award Name',
+          issuedDate: CustomDateUtils.formatForStorage(DateTime.now()),
+          issuedCompanyName: 'Issuing Organization',
+        ),
+      );
+      _isTemporaryAward = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporaryAward) {
+      _userProfileDataCubit.removeAward(index: 0);
+    }
+    // Dispose controllers to prevent memory leaks
+    nameController.dispose();
+    issuedCompanyController.dispose();
+    dateController.dispose();
+    super.dispose();
+  }
 
   Future<void> _selectDate() async {
     DateTime? picked = await showDatePicker(
@@ -43,7 +78,8 @@ class _AwardTabState extends State<AwardTab> {
       setState(() {
         selectedDate = picked;
         dateController.text = CustomDateUtils.formatMonthYear(
-            CustomDateUtils.formatForStorage(picked));
+          CustomDateUtils.formatForStorage(picked),
+        );
       });
     }
   }
@@ -90,15 +126,15 @@ class _AwardTabState extends State<AwardTab> {
             context: context,
             onSave: () {
               setState(() {
-                context.read<UserProfileDataCubit>().updateAward(
-                      index: index,
-                      awardModel: AwardModel(
-                        awardName: nameController.text,
-                        issuedDate:
-                            CustomDateUtils.formatForStorage(selectedDate),
-                        issuedCompanyName: issuedCompanyController.text,
-                      ),
-                    );
+                _userProfileDataCubit.updateAward(
+                  index: index,
+                  awardModel: AwardModel(
+                    awardName: nameController.text,
+                    issuedDate: CustomDateUtils.formatForStorage(selectedDate),
+                    issuedCompanyName: issuedCompanyController.text,
+                  ),
+                );
+                _isTemporaryAward = false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -171,7 +207,8 @@ class _AwardTabState extends State<AwardTab> {
                                   SizedBox(height: 2.h),
                                   Text(
                                     CustomDateUtils.formatMonthYear(
-                                        userProfile.awards[index].issuedDate),
+                                      userProfile.awards[index].issuedDate,
+                                    ),
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .textTheme
@@ -212,9 +249,10 @@ class _AwardTabState extends State<AwardTab> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        context
-                                            .read<UserProfileDataCubit>()
-                                            .removeAward(index: index);
+                                        _userProfileDataCubit.removeAward(
+                                            index: index);
+                                        _isTemporaryAward =
+                                            false; // Clear flag on delete
                                       });
                                     },
                                     child: Text(
@@ -250,13 +288,14 @@ class _AwardTabState extends State<AwardTab> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
           setState(() {
-            context.read<UserProfileDataCubit>().addAward(
-                  award: AwardModel(
-                    awardName: 'Award Name',
-                    issuedDate: DateTime.now().toString(),
-                    issuedCompanyName: 'Issuing Organization',
-                  ),
-                );
+            _userProfileDataCubit.addAward(
+              award: AwardModel(
+                awardName: 'Award Name',
+                issuedDate: CustomDateUtils.formatForStorage(DateTime.now()),
+                issuedCompanyName: 'Issuing Organization',
+              ),
+            );
+            _isTemporaryAward = true; // Mark new award as temporary
           });
         },
         child: const Icon(Icons.add),

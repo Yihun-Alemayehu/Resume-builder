@@ -15,6 +15,38 @@ class LanguagesTab extends StatefulWidget {
 class _LanguagesTabState extends State<LanguagesTab> {
   final TextEditingController languageController = TextEditingController();
   String? selectedProficiency;
+  bool _isTemporaryLanguage = false; // Flag to track temporary language
+  late UserProfileDataCubit _userProfileDataCubit; // Store cubit reference
+
+  @override
+  void initState() {
+    super.initState();
+    // Save reference to the cubit
+    _userProfileDataCubit = context.read<UserProfileDataCubit>();
+    // Check if languages is empty and add a default section
+    final userProfile = _userProfileDataCubit.state;
+    if (userProfile is UserProfileDataLoaded &&
+        userProfile.userProfile.languages.isEmpty) {
+      _userProfileDataCubit.addLanguage(
+        language: LanguageModel(
+          language: 'Language',
+          proficiency: 'Advanced',
+        ),
+      );
+      _isTemporaryLanguage = true; // Mark as temporary
+    }
+  }
+
+  @override
+  void dispose() {
+    // Use stored cubit reference instead of context
+    if (_isTemporaryLanguage) {
+      _userProfileDataCubit.removeLanguage(index: 0);
+    }
+    // Dispose controller to prevent memory leaks
+    languageController.dispose();
+    super.dispose();
+  }
 
   void _editLanguage({required int index, required LanguageModel language}) {
     languageController.text = language.language;
@@ -105,13 +137,14 @@ class _LanguagesTabState extends State<LanguagesTab> {
             context: context,
             onSave: () {
               setState(() {
-                context.read<UserProfileDataCubit>().updateLanguage(
-                      index: index,
-                      languageModel: LanguageModel(
-                        language: languageController.text,
-                        proficiency: selectedProficiency ?? 'Advanced',
-                      ),
-                    );
+                _userProfileDataCubit.updateLanguage(
+                  index: index,
+                  languageModel: LanguageModel(
+                    language: languageController.text,
+                    proficiency: selectedProficiency ?? 'Advanced',
+                  ),
+                );
+                _isTemporaryLanguage = false; // Clear temporary flag on save
               });
               Navigator.pop(context);
             },
@@ -212,9 +245,10 @@ class _LanguagesTabState extends State<LanguagesTab> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        context
-                                            .read<UserProfileDataCubit>()
-                                            .removeLanguage(index: index);
+                                        _userProfileDataCubit.removeLanguage(
+                                            index: index);
+                                        _isTemporaryLanguage =
+                                            false; // Clear flag on delete
                                       });
                                     },
                                     child: Text(
@@ -250,12 +284,13 @@ class _LanguagesTabState extends State<LanguagesTab> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         onPressed: () {
           setState(() {
-            context.read<UserProfileDataCubit>().addLanguage(
-                  language: LanguageModel(
-                    language: 'Language',
-                    proficiency: 'Advanced',
-                  ),
-                );
+            _userProfileDataCubit.addLanguage(
+              language: LanguageModel(
+                language: 'Language',
+                proficiency: 'Advanced',
+              ),
+            );
+            _isTemporaryLanguage = true; // Mark new language as temporary
           });
         },
         child: const Icon(Icons.add),
