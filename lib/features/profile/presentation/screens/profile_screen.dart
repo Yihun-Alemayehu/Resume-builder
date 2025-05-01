@@ -118,12 +118,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Profile Deleted Successfully',
                       AppColors.accent,
                     );
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const EditProfileScreen(),
-                      ),
-                    );
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const EditProfileScreen(),
+                    //   ),
+                    // );
                   } else if (state is UserProfileUpdated) {
                     showCustomErrorSnackbar(
                       context,
@@ -599,67 +599,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       );
                     } else {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * .3,
-                          ),
-                          Image.asset('assets/Icons/no_profile.png',
-                              width: 140.w, height: 140.h),
-                          SizedBox(height: 10.h),
-                          Text(
-                            'No Profile Data Found',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.color),
-                          ),
-                          SizedBox(height: 10.h),
-                          Text(
-                            'You don\'t have a profile. When you create one,\n it will appear here.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey),
-                          ),
-                          const Spacer(),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const EditProfileScreen(),
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: Size(327.w, 42.h),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.r),
-                              ),
-                              backgroundColor: AppColors.accent,
-                              foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.w, vertical: 10.h),
-                            ),
-                            child: Text(
-                              'Create Profile',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
+                      return const _buildEmptyProfile();
                     }
                   } else if (state is UserProfileError) {
                     return Center(
@@ -668,6 +608,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: const TextStyle(color: Colors.red),
                       ),
                     );
+                  } else if (state is UserProfileDeleted) {
+                    return const _buildEmptyProfile();
                   } else {
                     return const Center(
                       child: Text('No data found'),
@@ -679,6 +621,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _buildEmptyProfile extends StatelessWidget {
+  const _buildEmptyProfile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * .3,
+        ),
+        Image.asset('assets/Icons/no_profile.png', width: 140.w, height: 140.h),
+        SizedBox(height: 10.h),
+        Text(
+          'No Profile Data Found',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).textTheme.titleLarge?.color),
+        ),
+        SizedBox(height: 10.h),
+        Text(
+          'You don\'t have a profile. When you create one,\n it will appear here.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 12.sp, fontWeight: FontWeight.w400, color: Colors.grey),
+        ),
+        const Spacer(),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EditProfileScreen(),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(327.w, 42.h),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            backgroundColor: AppColors.accent,
+            foregroundColor: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          ),
+          child: Text(
+            'Create Profile',
+            style: TextStyle(
+              fontSize: 16.sp,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1453,7 +1453,7 @@ class PdfApi {
                         Text(
                           'EDUCATION',
                           style: TextStyle(
-                            decoration: TextDecoration.underline,
+                            // decoration: TextDecoration.underline,
                             decorationColor: PdfColor.fromHex('#4793a4'),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
@@ -1554,7 +1554,7 @@ class PdfApi {
                         Text(
                           'WORK EXPERIENCE',
                           style: TextStyle(
-                            decoration: TextDecoration.underline,
+                            // decoration: TextDecoration.underline,
                             decorationColor: PdfColor.fromHex('#4793a4'),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
@@ -1680,7 +1680,7 @@ class PdfApi {
                         Text(
                           'SKILLS',
                           style: TextStyle(
-                            decoration: TextDecoration.underline,
+                            // decoration: TextDecoration.underline,
                             decorationColor: PdfColor.fromHex('#4793a4'),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
@@ -1731,7 +1731,7 @@ class PdfApi {
                         Text(
                           'PERSONAL PROJECTS',
                           style: TextStyle(
-                            decoration: TextDecoration.underline,
+                            // decoration: TextDecoration.underline,
                             decorationColor: PdfColor.fromHex('#4793a4'),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
@@ -1773,7 +1773,7 @@ class PdfApi {
                         Text(
                           'LANGUAGES',
                           style: TextStyle(
-                            decoration: TextDecoration.underline,
+                            // decoration: TextDecoration.underline,
                             decorationColor: PdfColor.fromHex('#4793a4'),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,
@@ -1829,7 +1829,7 @@ class PdfApi {
                         Text(
                           'INTERESTS',
                           style: TextStyle(
-                            decoration: TextDecoration.underline,
+                            // decoration: TextDecoration.underline,
                             decorationColor: PdfColor.fromHex('#49969f'),
                             decorationThickness: 3,
                             fontWeight: FontWeight.bold,

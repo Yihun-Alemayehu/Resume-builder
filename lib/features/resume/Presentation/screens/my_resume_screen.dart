@@ -138,6 +138,14 @@ class _MyResumeScreenState extends State<MyResumeScreen> {
                                           child: Image.asset(
                                             templates[
                                                 userData[index].templateIndex],
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .2697,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .416,
                                             fit: BoxFit.cover,
                                           ),
                                         ),

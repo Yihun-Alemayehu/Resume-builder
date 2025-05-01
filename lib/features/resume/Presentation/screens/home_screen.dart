@@ -431,8 +431,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ? null
                                           : userData),
                                   child: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        .288,
+                                    height:
+                                        MediaQuery.of(context).size.height * .3,
                                     width: MediaQuery.of(context).size.width *
                                         .416,
                                     child: Column(
@@ -466,6 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ?.color,
                                           ),
                                         ),
+                                        SizedBox(height: 6.h),
                                       ],
                                     ),
                                   ),

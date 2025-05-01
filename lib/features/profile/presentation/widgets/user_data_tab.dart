@@ -48,6 +48,7 @@ class _UserDataTabState extends State<UserDataTab> {
           toolbarColor: Theme.of(context).dialogTheme.iconColor,
           toolbarWidgetColor: Colors.white,
           hideBottomControls: true,
+          lockAspectRatio: true,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,
           ],
