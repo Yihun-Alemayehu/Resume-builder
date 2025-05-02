@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_resume/core/utils/custom_dialog.dart';
 import 'package:my_resume/features/profile/data/model/project_model.dart';
 import 'package:my_resume/features/resume/data/model/education_model.dart';
 import 'package:my_resume/features/resume/data/model/language_model.dart';
@@ -122,123 +123,147 @@ class NeatTemplateState extends State<NeatTemplate> {
       'Intermediate Proficient',
       'Basic Proficient',
     ];
-    String dropDownValue = proficiencyList[0];
 
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: neatColours['white'],
-          title: Text(title),
-          content: type == 'language'
-              ? ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 90.h),
-                  child: Column(
+        String dropDownValue = proficiencyList[0]; // Initial dropdown value
+
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return DialogUtils.buildDialog(
+              context: context,
+              title: title,
+              content: [
+                if (type == 'language') ...[
+                  DialogUtils.styledTextField(
+                    context: context,
+                    controller: _addLanguageControllerForLanguageName,
+                    hintText: 'Language',
+                    onChanged: (val) {
+                      _addLanguageControllerForLanguageName.text = val;
+                    },
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 40.h,
-                        child: TextField(
-                          controller: _addLanguageControllerForLanguageName,
-                          decoration: InputDecoration(
-                            hintText: 'Add Language',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.r),
+                      Text(
+                        'Proficiency',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                        ),
+                      ),
+                      SizedBox(height: 5.h),
+                      Container(
+                        height: 41.h,
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 199, 198, 198),
+                          ),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            dropdownColor:
+                                Theme.of(context).appBarTheme.backgroundColor,
+                            value: dropDownValue,
+                            isExpanded: true,
+                            items: proficiencyList.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14.sp,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setDialogState(() {
+                                dropDownValue = newValue!;
+                              });
+                            },
+                            hint: Text(
+                              'Select Proficiency',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14.sp,
+                                fontStyle: FontStyle.italic,
+                                color: const Color.fromARGB(255, 199, 198, 198),
+                              ),
                             ),
                           ),
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      SizedBox(
-                        height: 40.h,
-                        child: DropdownButton(
-                          items: proficiencyList
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              dropDownValue = value.toString();
-                            });
-                          },
-                          value: dropDownValue,
-                        ),
-                      ),
                     ],
                   ),
-                )
-              : SizedBox(
-                  height: 40.h,
-                  width: MediaQuery.of(context).size.width * .9,
-                  child: TextField(
+                ] else
+                  DialogUtils.styledTextField(
+                    context: context,
                     controller: title == 'Add Skill'
                         ? _addSkillController
                         : title == 'Add Personal Project'
                             ? _addPersonalProjectController
                             : _addInterestsController,
-                    decoration: InputDecoration(
-                      hintText: title,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                    ),
+                    hintText: title,
+                    onChanged: (val) {
+                      final controller = title == 'Add Skill'
+                          ? _addSkillController
+                          : title == 'Add Personal Project'
+                              ? _addPersonalProjectController
+                              : _addInterestsController;
+                      controller.text = val;
+                    },
                   ),
-                ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                foregroundColor: neatColours['white'],
-                backgroundColor: Colors.red,
+              ],
+              actions: DialogUtils.dialogActions(
+                context: context,
+                onSave: () {
+                  setState(() {
+                    if (title == 'Add Skill') {
+                      templateData.skills.add(_addSkillController.text);
+                      _addSkillController.clear();
+                    } else if (title == 'Add Personal Project') {
+                      templateData.personalProjects.add(
+                        ProjectModel(
+                          name: _addPersonalProjectController.text,
+                          description: 'description',
+                        ),
+                      );
+                      _addPersonalProjectController.clear();
+                    } else if (title == 'Add Interest') {
+                      templateData.interests.add(_addInterestsController.text);
+                      _addInterestsController.clear();
+                    } else {
+                      templateData.languages.add(
+                        LanguageModel(
+                          language: _addLanguageControllerForLanguageName.text,
+                          proficiency: dropDownValue,
+                        ),
+                      );
+                      _addLanguageControllerForLanguageName.clear();
+                    }
+                  });
+                  Navigator.of(context).pop();
+                },
+                onCancel: () {
+                  Navigator.of(context).pop();
+                },
               ),
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                foregroundColor: neatColours['white'],
-                backgroundColor: Colors.blue.shade900,
-              ),
-              child: const Text('Done'),
-              onPressed: () {
-                setState(() {
-                  if (title == 'Add Skill') {
-                    templateData.skills.add(_addSkillController.text);
-                    _addSkillController.clear();
-                  } else if (title == 'Add Personal Project') {
-                    templateData.personalProjects.add(
-                      ProjectModel(
-                        name: _addPersonalProjectController.text,
-                        description: 'description',
-                      ),
-                    );
-                    _addPersonalProjectController.clear();
-                  } else if (title == 'Add Interest') {
-                    templateData.interests.add(_addInterestsController.text);
-                    _addInterestsController.clear();
-                  } else {
-                    templateData.languages.add(
-                      LanguageModel(
-                        language: _addLanguageControllerForLanguageName.text,
-                        proficiency: dropDownValue,
-                      ),
-                    );
-                  }
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+            );
+          },
         );
       },
     );

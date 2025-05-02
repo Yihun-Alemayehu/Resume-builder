@@ -375,822 +375,770 @@ class SimpleTemplateState extends State<SimpleTemplate> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10.r),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(right: 30.w, left: 20.w, top: 20.h),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // FULL NAME
-                      TextField(
-                        onTapOutside: (event) {
-                          FocusScope.of(context).unfocus();
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            templateData = templateData.copyWith(
-                              userData: templateData.userData.copyWith(
-                                fullName: value,
-                              ),
-                            );
-                          });
-                          print(templateData.userData.fullName);
-                        },
-                        controller: _nameController,
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 67, 33, 113),
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.zero,
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
-                      ),
-
-                      // PROFESSION
-                      TextField(
-                        onTapOutside: (event) {
-                          FocusScope.of(context).unfocus();
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            templateData = templateData.copyWith(
-                              userData: templateData.userData.copyWith(
-                                profession: value,
-                              ),
-                            );
-                          });
-                          print(templateData.userData.profession);
-                        },
-                        controller: _professionController,
-                        style: TextStyle(
-                          fontSize: 11.sp,
-                          fontWeight: FontWeight.normal,
-                        ),
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.zero,
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
-                      ),
-
-                      // BIO
-                      TextField(
-                        maxLines: null,
-                        onTapOutside: (event) {
-                          FocusScope.of(context).unfocus();
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            templateData = templateData.copyWith(
-                              userData: templateData.userData.copyWith(
-                                bio: value,
-                              ),
-                            );
-                          });
-                          print(templateData.userData.bio);
-                        },
-                        controller: _bioController,
-                        style: TextStyle(
-                          fontSize: 8.sp,
-                        ),
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.zero,
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(right: 30.w),
-            child: Row(
-              children: [
-                // EMAIL, ADDRESS,
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 30.w, left: 20.w),
-                    child: SizedBox(
-                      height: 25.h,
-                      child: ListView.builder(
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              Image.asset(
-                                _iconsList1[index],
-                                height: 10.h,
-                                width: 10.w,
-                              ),
-                              SizedBox(width: 5.w),
-                              Expanded(
-                                child: TextField(
-                                  onTapOutside: (event) {
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (index == 0) {
-                                        templateData = templateData.copyWith(
-                                          userData:
-                                              templateData.userData.copyWith(
-                                            email: value,
-                                          ),
-                                        );
-                                      } else if (index == 1) {
-                                        templateData = templateData.copyWith(
-                                          userData:
-                                              templateData.userData.copyWith(
-                                            address: value,
-                                          ),
-                                        );
-                                      }
-                                    });
-                                  },
-                                  controller: _controllersList1[index],
-                                  style: TextStyle(
-                                    fontSize: 9.sp,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.zero,
-                                    border: InputBorder.none,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.zero,
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                // PHONE NUMBER AND LINKEDIN
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 30.w, left: 20.w),
-                    child: SizedBox(
-                      height: 25.h,
-                      child: ListView.builder(
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              Image.asset(
-                                _iconsList1[index + 2],
-                                height: 10.h,
-                                width: 10.w,
-                              ),
-                              SizedBox(width: 5.w),
-                              Expanded(
-                                child: TextField(
-                                  onTapOutside: (event) {
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (index == 0) {
-                                        templateData = templateData.copyWith(
-                                          userData:
-                                              templateData.userData.copyWith(
-                                            phoneNumber: value,
-                                          ),
-                                        );
-                                      } else if (index == 1) {
-                                        templateData = templateData.copyWith(
-                                          userData:
-                                              templateData.userData.copyWith(
-                                            linkedIn: value,
-                                          ),
-                                        );
-                                      }
-                                    });
-                                  },
-                                  controller: _controllersList1[index + 2],
-                                  style: TextStyle(
-                                    fontSize: 9.sp,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.zero,
-                                    border: InputBorder.none,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.zero,
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(right: 30.w, left: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // WORK EXPERIENCE SECTION
-                Column(
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(10.r),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(right: 30.w, left: 20.w, top: 20.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 30.h,
-                          width: MediaQuery.of(context).size.width * 0.58,
-                          child: Row(
-                            children: [
-                              Image.asset('assets/Icons/briefcase.png',
-                                  height: 17.h, width: 17.w),
-                              SizedBox(width: 5.w),
-                              Text(
-                                'WORK EXPERIENCE',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.sp,
+                        // FULL NAME
+                        TextField(
+                          onTapOutside: (event) {
+                            FocusScope.of(context).unfocus();
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              templateData = templateData.copyWith(
+                                userData: templateData.userData.copyWith(
+                                  fullName: value,
                                 ),
-                              ),
-                            ],
+                              );
+                            });
+                            print(templateData.userData.fullName);
+                          },
+                          controller: _nameController,
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 67, 33, 113),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.zero,
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
                           ),
                         ),
-                        templateData.workExperience.isEmpty
-                            ? Container(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: 100.h,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 73, 150, 159)),
+
+                        // PROFESSION
+                        TextField(
+                          onTapOutside: (event) {
+                            FocusScope.of(context).unfocus();
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              templateData = templateData.copyWith(
+                                userData: templateData.userData.copyWith(
+                                  profession: value,
                                 ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 10.h,
+                              );
+                            });
+                            print(templateData.userData.profession);
+                          },
+                          controller: _professionController,
+                          style: TextStyle(
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.zero,
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
+                        ),
+
+                        // BIO
+                        TextField(
+                          maxLines: null,
+                          onTapOutside: (event) {
+                            FocusScope.of(context).unfocus();
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              templateData = templateData.copyWith(
+                                userData: templateData.userData.copyWith(
+                                  bio: value,
+                                ),
+                              );
+                            });
+                            print(templateData.userData.bio);
+                          },
+                          controller: _bioController,
+                          style: TextStyle(fontSize: 8.sp, color: Colors.black),
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            border: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.zero,
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10.h),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(right: 30.w),
+              child: Row(
+                children: [
+                  // EMAIL, ADDRESS,
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 30.w, left: 20.w),
+                      child: SizedBox(
+                        height: 25.h,
+                        child: ListView.builder(
+                          itemCount: 2,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              children: [
+                                Image.asset(
+                                  _iconsList1[index],
+                                  height: 10.h,
+                                  width: 10.w,
+                                ),
+                                SizedBox(width: 5.w),
+                                Expanded(
+                                  child: TextField(
+                                    onTapOutside: (event) {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (index == 0) {
+                                          templateData = templateData.copyWith(
+                                            userData:
+                                                templateData.userData.copyWith(
+                                              email: value,
+                                            ),
+                                          );
+                                        } else if (index == 1) {
+                                          templateData = templateData.copyWith(
+                                            userData:
+                                                templateData.userData.copyWith(
+                                              address: value,
+                                            ),
+                                          );
+                                        }
+                                      });
+                                    },
+                                    controller: _controllersList1[index],
+                                    style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.black,
                                     ),
-                                    Text(
-                                      'No Work Experience provided',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 8.sp,
+                                    decoration: const InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.zero,
+                                      border: InputBorder.none,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  // PHONE NUMBER AND LINKEDIN
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 30.w, left: 20.w),
+                      child: SizedBox(
+                        height: 25.h,
+                        child: ListView.builder(
+                          itemCount: 2,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              children: [
+                                Image.asset(
+                                  _iconsList1[index + 2],
+                                  height: 10.h,
+                                  width: 10.w,
+                                ),
+                                SizedBox(width: 5.w),
+                                Expanded(
+                                  child: TextField(
+                                    onTapOutside: (event) {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (index == 0) {
                                           templateData = templateData.copyWith(
-                                            workExperience: [
-                                              WorkExperience(
-                                                jobTitle: 'Flutter Developer',
-                                                companyName: 'Hex-labs',
-                                                startDate: '29/08/2023',
-                                                endDate: '04/09/2024',
-                                                jobType: 'Remote',
-                                                achievements: [
-                                                  'Implemented Payment Gateway Transition: Successfully facilitated the transition from Telebirr to Chapa as the payment gateway, streamlining transaction processes and enhancing payment reliability.',
-                                                ],
-                                              )
-                                            ],
+                                            userData:
+                                                templateData.userData.copyWith(
+                                              phoneNumber: value,
+                                            ),
                                           );
-                                          _addWorkExperienceEntry(
-                                              work: templateData
-                                                  .workExperience[0]);
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.r),
-                                          border: Border.all(
-                                              color: const Color.fromARGB(
-                                                  255, 73, 150, 159)),
+                                        } else if (index == 1) {
+                                          templateData = templateData.copyWith(
+                                            userData:
+                                                templateData.userData.copyWith(
+                                              linkedIn: value,
+                                            ),
+                                          );
+                                        }
+                                      });
+                                    },
+                                    controller: _controllersList1[index + 2],
+                                    style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.black,
+                                    ),
+                                    decoration: const InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.zero,
+                                      border: InputBorder.none,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(right: 30.w, left: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // WORK EXPERIENCE SECTION
+                  Column(
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 30.h,
+                            width: MediaQuery.of(context).size.width * 0.58,
+                            child: Row(
+                              children: [
+                                Image.asset('assets/Icons/briefcase.png',
+                                    height: 17.h, width: 17.w),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'WORK EXPERIENCE',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          templateData.workExperience.isEmpty
+                              ? Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  height: 100.h,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 73, 150, 159)),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text(
+                                        'No Work Experience provided',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
                                         ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.0.r),
-                                          child: Text(
-                                            'Add Work Experience',
-                                            style: TextStyle(
-                                                fontSize: 8.sp,
-                                                color: Colors.black),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            templateData =
+                                                templateData.copyWith(
+                                              workExperience: [
+                                                WorkExperience(
+                                                  jobTitle: 'Flutter Developer',
+                                                  companyName: 'Hex-labs',
+                                                  startDate: '29/08/2023',
+                                                  endDate: '04/09/2024',
+                                                  jobType: 'Remote',
+                                                  achievements: [
+                                                    'Implemented Payment Gateway Transition: Successfully facilitated the transition from Telebirr to Chapa as the payment gateway, streamlining transaction processes and enhancing payment reliability.',
+                                                  ],
+                                                )
+                                              ],
+                                            );
+                                            _addWorkExperienceEntry(
+                                                work: templateData
+                                                    .workExperience[0]);
+                                          });
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.r),
+                                            border: Border.all(
+                                                color: const Color.fromARGB(
+                                                    255, 73, 150, 159)),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(2.0.r),
+                                            child: Text(
+                                              'Add Work Experience',
+                                              style: TextStyle(
+                                                  fontSize: 8.sp,
+                                                  color: Colors.black),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: templateData.workExperience.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: _borderColorForWorkExp[index]
-                                            ? const Color.fromARGB(
-                                                255, 73, 150, 159)
-                                            : Colors.white,
+                                    ],
+                                  ),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: templateData.workExperience.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: _borderColorForWorkExp[index]
+                                              ? const Color.fromARGB(
+                                                  255, 73, 150, 159)
+                                              : Colors.white,
+                                        ),
                                       ),
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.56,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    height: 5.h,
-                                                  ),
-
-                                                  // work experience company name
-                                                  TextField(
-                                                    maxLines: null,
-                                                    onTap: () {
-                                                      setState(() {
-                                                        _borderColorForWorkExp[
-                                                                index] =
-                                                            !_borderColorForWorkExp[
-                                                                index];
-                                                      });
-                                                    },
-                                                    onTapOutside: (event) {
-                                                      setState(() {});
-                                                      FocusScope.of(context)
-                                                          .unfocus();
-                                                    },
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        templateData = templateData.copyWith(
-                                                            workExperience: templateData
-                                                                .workExperience
-                                                                .map((e) => e.copyWith(
-                                                                    companyName:
-                                                                        value))
-                                                                .toList());
-                                                      });
-                                                    },
-                                                    controller:
-                                                        companyNameControllers[
-                                                            index],
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 10.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                      child: Stack(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.56,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 5.h,
                                                     ),
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      isDense: true,
-                                                      contentPadding:
-                                                          EdgeInsets.zero,
-                                                      border: InputBorder.none,
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius.zero,
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.green),
+
+                                                    // work experience company name
+                                                    TextField(
+                                                      maxLines: null,
+                                                      onTap: () {
+                                                        setState(() {
+                                                          _borderColorForWorkExp[
+                                                                  index] =
+                                                              !_borderColorForWorkExp[
+                                                                  index];
+                                                        });
+                                                      },
+                                                      onTapOutside: (event) {
+                                                        setState(() {});
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                      },
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          templateData = templateData.copyWith(
+                                                              workExperience: templateData
+                                                                  .workExperience
+                                                                  .map((e) => e
+                                                                      .copyWith(
+                                                                          companyName:
+                                                                              value))
+                                                                  .toList());
+                                                        });
+                                                      },
+                                                      controller:
+                                                          companyNameControllers[
+                                                              index],
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 10.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                      decoration:
+                                                          const InputDecoration(
+                                                        isDense: true,
+                                                        contentPadding:
+                                                            EdgeInsets.zero,
+                                                        border:
+                                                            InputBorder.none,
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius.zero,
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .green),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  // Work experience Job title
-                                                  TextField(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        _borderColorForWorkExp[
-                                                                index] =
-                                                            !_borderColorForWorkExp[
-                                                                index];
-                                                      });
-                                                    },
-                                                    onTapOutside: (event) {
-                                                      setState(() {});
-                                                      FocusScope.of(context)
-                                                          .unfocus();
-                                                    },
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        templateData = templateData.copyWith(
-                                                            workExperience: templateData
-                                                                .workExperience
-                                                                .map((e) =>
-                                                                    e.copyWith(
-                                                                        jobTitle:
-                                                                            value))
-                                                                .toList());
-                                                      });
-                                                    },
-                                                    controller:
-                                                        jobTitleControllers[
-                                                            index],
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 8.sp,
-                                                    ),
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      isDense: true,
-                                                      contentPadding:
-                                                          EdgeInsets.zero,
-                                                      border: InputBorder.none,
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius.zero,
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.green),
+                                                    // Work experience Job title
+                                                    TextField(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          _borderColorForWorkExp[
+                                                                  index] =
+                                                              !_borderColorForWorkExp[
+                                                                  index];
+                                                        });
+                                                      },
+                                                      onTapOutside: (event) {
+                                                        setState(() {});
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                      },
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          templateData = templateData.copyWith(
+                                                              workExperience: templateData
+                                                                  .workExperience
+                                                                  .map((e) => e
+                                                                      .copyWith(
+                                                                          jobTitle:
+                                                                              value))
+                                                                  .toList());
+                                                        });
+                                                      },
+                                                      controller:
+                                                          jobTitleControllers[
+                                                              index],
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 8.sp,
+                                                      ),
+                                                      decoration:
+                                                          const InputDecoration(
+                                                        isDense: true,
+                                                        contentPadding:
+                                                            EdgeInsets.zero,
+                                                        border:
+                                                            InputBorder.none,
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius.zero,
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .green),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
 
-                                                  Column(
-                                                    children: List.generate(
-                                                      templateData
-                                                          .workExperience[index]
-                                                          .achievements
-                                                          .length,
-                                                      (innerIndex) {
-                                                        return Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                      .all(3.r)
-                                                                  .copyWith(
-                                                                      left: 0),
-                                                              child: Container(
-                                                                height: 3.h,
-                                                                width: 3.w,
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.45,
-                                                              child: TextField(
-                                                                maxLines: null,
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    _borderColorForWorkExp[
-                                                                            index] =
-                                                                        !_borderColorForWorkExp[
-                                                                            index];
-                                                                  });
-                                                                },
-                                                                onTapOutside:
-                                                                    (event) {
-                                                                  setState(
-                                                                      () {});
-                                                                  FocusScope.of(
-                                                                          context)
-                                                                      .unfocus();
-                                                                },
-                                                                onChanged:
-                                                                    (value) {
-                                                                  setState(() {
-                                                                    templateData =
-                                                                        templateData
-                                                                            .copyWith(
-                                                                      workExperience: templateData
-                                                                          .workExperience
-                                                                          .map((e) =>
-                                                                              e.copyWith(
-                                                                                achievements: e.achievements.asMap().map((i, c) => MapEntry(i, i == innerIndex ? value : c)).values.toList().toList(),
-                                                                              ))
-                                                                          .toList(),
-                                                                    );
-                                                                  });
-                                                                },
-                                                                controller:
-                                                                    achievementsControllers[
-                                                                            index]
-                                                                        [
-                                                                        innerIndex],
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize:
-                                                                      8.sp,
-                                                                ),
-                                                                decoration:
-                                                                    const InputDecoration(
-                                                                  isDense: true,
-                                                                  contentPadding:
-                                                                      EdgeInsets
-                                                                          .zero,
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  focusedBorder:
-                                                                      OutlineInputBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .zero,
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                            color:
-                                                                                Colors.green),
+                                                    Column(
+                                                      children: List.generate(
+                                                        templateData
+                                                            .workExperience[
+                                                                index]
+                                                            .achievements
+                                                            .length,
+                                                        (innerIndex) {
+                                                          return Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                        .all(
+                                                                            3.r)
+                                                                    .copyWith(
+                                                                        left:
+                                                                            0),
+                                                                child:
+                                                                    Container(
+                                                                  height: 3.h,
+                                                                  width: 3.w,
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                    color: Colors
+                                                                        .black,
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
+                                                              SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.45,
+                                                                child:
+                                                                    TextField(
+                                                                  maxLines:
+                                                                      null,
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      _borderColorForWorkExp[
+                                                                              index] =
+                                                                          !_borderColorForWorkExp[
+                                                                              index];
+                                                                    });
+                                                                  },
+                                                                  onTapOutside:
+                                                                      (event) {
+                                                                    setState(
+                                                                        () {});
+                                                                    FocusScope.of(
+                                                                            context)
+                                                                        .unfocus();
+                                                                  },
+                                                                  onChanged:
+                                                                      (value) {
+                                                                    setState(
+                                                                        () {
+                                                                      templateData =
+                                                                          templateData
+                                                                              .copyWith(
+                                                                        workExperience: templateData
+                                                                            .workExperience
+                                                                            .map((e) =>
+                                                                                e.copyWith(
+                                                                                  achievements: e.achievements.asMap().map((i, c) => MapEntry(i, i == innerIndex ? value : c)).values.toList().toList(),
+                                                                                ))
+                                                                            .toList(),
+                                                                      );
+                                                                    });
+                                                                  },
+                                                                  controller: achievementsControllers[
+                                                                          index]
+                                                                      [
+                                                                      innerIndex],
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        8.sp,
+                                                                  ),
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    isDense:
+                                                                        true,
+                                                                    contentPadding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    border:
+                                                                        InputBorder
+                                                                            .none,
+                                                                    focusedBorder:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .zero,
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                              color: Colors.green),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.22,
-                                                    child: TextField(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          _borderColorForWorkExp[
-                                                                  index] =
-                                                              !_borderColorForWorkExp[
-                                                                  index];
-                                                        });
-                                                      },
-                                                      onTapOutside: (event) {
-                                                        setState(() {});
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                      },
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          templateData = templateData.copyWith(
-                                                              workExperience: templateData
-                                                                  .workExperience
-                                                                  .map((e) => e
-                                                                      .copyWith(
-                                                                          startDate:
-                                                                              value))
-                                                                  .toList());
-                                                        });
-                                                      },
-                                                      controller:
-                                                          workEndDateControllers[
-                                                              index],
-                                                      style: TextStyle(
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        fontSize: 8.sp,
-                                                      ),
-                                                      decoration:
-                                                          const InputDecoration(
-                                                        isDense: true,
-                                                        contentPadding:
-                                                            EdgeInsets.zero,
-                                                        border:
-                                                            InputBorder.none,
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius.zero,
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .green),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.15,
-                                                    child: TextField(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          _borderColorForWorkExp[
-                                                                  index] =
-                                                              !_borderColorForWorkExp[
-                                                                  index];
-                                                        });
-                                                      },
-                                                      onTapOutside: (event) {
-                                                        setState(() {});
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                      },
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          templateData = templateData.copyWith(
-                                                              workExperience: templateData
-                                                                  .workExperience
-                                                                  .map((e) => e
-                                                                      .copyWith(
-                                                                          jobType:
-                                                                              value))
-                                                                  .toList());
-                                                        });
-                                                      },
-                                                      controller:
-                                                          jobTypeControllers[
-                                                              index],
-                                                      style: TextStyle(
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        fontSize: 8.sp,
-                                                      ),
-                                                      decoration:
-                                                          const InputDecoration(
-                                                        isDense: true,
-                                                        contentPadding:
-                                                            EdgeInsets.zero,
-                                                        border:
-                                                            InputBorder.none,
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius.zero,
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .green),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        _borderColorForWorkExp[index]
-                                            ? Positioned(
-                                                top: 0,
-                                                right: 0,
+                                              SizedBox(
                                                 child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.green,
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.22,
+                                                      child: TextField(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _borderColorForWorkExp[
+                                                                    index] =
+                                                                !_borderColorForWorkExp[
+                                                                    index];
+                                                          });
+                                                        },
+                                                        onTapOutside: (event) {
+                                                          setState(() {});
+                                                          FocusScope.of(context)
+                                                              .unfocus();
+                                                        },
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            templateData = templateData.copyWith(
+                                                                workExperience: templateData
+                                                                    .workExperience
+                                                                    .map((e) => e.copyWith(
+                                                                        startDate:
+                                                                            value))
+                                                                    .toList());
+                                                          });
+                                                        },
+                                                        controller:
+                                                            workEndDateControllers[
+                                                                index],
+                                                        style: TextStyle(
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          fontSize: 8.sp,
+                                                          color: Colors.black,
+                                                        ),
+                                                        decoration:
+                                                            const InputDecoration(
+                                                          isDense: true,
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          border:
+                                                              InputBorder.none,
+                                                          focusedBorder:
+                                                              OutlineInputBorder(
                                                             borderRadius:
                                                                 BorderRadius
-                                                                    .circular(
-                                                                        2.r),
-                                                          ),
-                                                          height: 17.h,
-                                                          width: 17.w,
-                                                          child: Icon(
-                                                            Icons
-                                                                .arrow_downward_rounded,
-                                                            color: Colors.white,
-                                                            size: 15.r,
+                                                                    .zero,
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .green),
                                                           ),
                                                         ),
-                                                        SizedBox(
-                                                          width: 3.w,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.15,
+                                                      child: TextField(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _borderColorForWorkExp[
+                                                                    index] =
+                                                                !_borderColorForWorkExp[
+                                                                    index];
+                                                          });
+                                                        },
+                                                        onTapOutside: (event) {
+                                                          setState(() {});
+                                                          FocusScope.of(context)
+                                                              .unfocus();
+                                                        },
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            templateData = templateData.copyWith(
+                                                                workExperience: templateData
+                                                                    .workExperience
+                                                                    .map((e) => e.copyWith(
+                                                                        jobType:
+                                                                            value))
+                                                                    .toList());
+                                                          });
+                                                        },
+                                                        controller:
+                                                            jobTypeControllers[
+                                                                index],
+                                                        style: TextStyle(
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          fontSize: 8.sp,
+                                                          color: Colors.black,
                                                         ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              _addWorkExperienceEntry(
-                                                                  work: templateData
-                                                                          .workExperience[
-                                                                      index]);
-
-                                                              templateData
-                                                                  .workExperience
-                                                                  .insert(
-                                                                      index,
-                                                                      templateData
-                                                                          .workExperience
-                                                                          .elementAt(
-                                                                              index));
-                                                            });
-                                                          },
-                                                          child: Container(
+                                                        decoration:
+                                                            const InputDecoration(
+                                                          isDense: true,
+                                                          contentPadding:
+                                                              EdgeInsets.zero,
+                                                          border:
+                                                              InputBorder.none,
+                                                          focusedBorder:
+                                                              OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .zero,
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .green),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          _borderColorForWorkExp[index]
+                                              ? Positioned(
+                                                  top: 0,
+                                                  right: 0,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Container(
                                                             decoration:
                                                                 BoxDecoration(
                                                               color:
-                                                                  Colors.grey,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          2.r),
-                                                            ),
-                                                            height: 17.h,
-                                                            width: 17.w,
-                                                            child: Icon(
-                                                              Icons.copy,
-                                                              color:
-                                                                  Colors.white,
-                                                              size: 15.r,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 3.w,
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              templateData = templateData.copyWith(
-                                                                  workExperience: List.from(
-                                                                      templateData
-                                                                          .workExperience)
-                                                                    ..removeAt(
-                                                                        index));
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors.red,
+                                                                  Colors.green,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -1200,347 +1148,305 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                                                             width: 17.w,
                                                             child: Icon(
                                                               Icons
-                                                                  .delete_forever_rounded,
+                                                                  .arrow_downward_rounded,
                                                               color:
                                                                   Colors.white,
                                                               size: 15.r,
                                                             ),
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 2.w,
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              _showAddAchievementOnly[
-                                                                      index] =
-                                                                  !_showAddAchievementOnly[
-                                                                      index];
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  Colors.grey,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          2.r),
-                                                            ),
-                                                            height: 17.h,
-                                                            width: 17.w,
-                                                            child: Icon(
-                                                              Icons.more_vert,
-                                                              color:
-                                                                  Colors.white,
-                                                              size: 15.r,
-                                                            ),
+                                                          SizedBox(
+                                                            width: 3.w,
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 3.h),
-                                                    _showAddAchievementOnly[
-                                                            index]
-                                                        ? GestureDetector(
-                                                            onTap: () =>
-                                                                _addAchievement(
-                                                                    index:
-                                                                        index),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                _addWorkExperienceEntry(
+                                                                    work: templateData
+                                                                            .workExperience[
+                                                                        index]);
+
+                                                                templateData
+                                                                    .workExperience
+                                                                    .insert(
+                                                                        index,
+                                                                        templateData
+                                                                            .workExperience
+                                                                            .elementAt(index));
+                                                              });
+                                                            },
                                                             child: Container(
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color:
-                                                                    Colors.green,
+                                                                    Colors.grey,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
                                                                             2.r),
                                                               ),
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.2,
                                                               height: 17.h,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  'Add Achievement',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          10.sp),
-                                                                ),
+                                                              width: 17.w,
+                                                              child: Icon(
+                                                                Icons.copy,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 15.r,
                                                               ),
                                                             ),
-                                                          )
-                                                        : const SizedBox(),
-                                                  ],
-                                                ),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                // EDUCATION SECTION
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: 30.h,
-                      width: MediaQuery.of(context).size.width * 0.58,
-                      child: Row(
-                        children: [
-                          Image.asset('assets/Icons/education.png',
-                              height: 17.h, width: 17.w),
-                          SizedBox(width: 5.w),
-                          Text(
-                            'EDUCATION',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.sp,
-                            ),
-                          ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 3.w,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                templateData = templateData.copyWith(
+                                                                    workExperience: List.from(
+                                                                        templateData
+                                                                            .workExperience)
+                                                                      ..removeAt(
+                                                                          index));
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    Colors.red,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            2.r),
+                                                              ),
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
+                                                                Icons
+                                                                    .delete_forever_rounded,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 15.r,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 2.w,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                _showAddAchievementOnly[
+                                                                        index] =
+                                                                    !_showAddAchievementOnly[
+                                                                        index];
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    Colors.grey,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            2.r),
+                                                              ),
+                                                              height: 17.h,
+                                                              width: 17.w,
+                                                              child: Icon(
+                                                                Icons.more_vert,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 15.r,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 3.h),
+                                                      _showAddAchievementOnly[
+                                                              index]
+                                                          ? GestureDetector(
+                                                              onTap: () =>
+                                                                  _addAchievement(
+                                                                      index:
+                                                                          index),
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .green,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              2.r),
+                                                                ),
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.2,
+                                                                height: 17.h,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'Add Achievement',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            10.sp),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : const SizedBox(),
+                                                    ],
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
                         ],
                       ),
-                    ),
-                    templateData.educationBackground.isEmpty
-                        ? Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: 100.h,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 73, 150, 159)),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  // EDUCATION SECTION
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: 30.h,
+                        width: MediaQuery.of(context).size.width * 0.58,
+                        child: Row(
+                          children: [
+                            Image.asset('assets/Icons/education.png',
+                                height: 17.h, width: 17.w),
+                            SizedBox(width: 5.w),
+                            Text(
+                              'EDUCATION',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14.sp,
+                              ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Text(
-                                  'No education background provided',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 8.sp,
+                          ],
+                        ),
+                      ),
+                      templateData.educationBackground.isEmpty
+                          ? Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: 100.h,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color.fromARGB(
+                                        255, 73, 150, 159)),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      templateData = templateData.copyWith(
-                                        educationBackground: [
-                                          EducationBackground(
-                                            fieldOfStudy:
-                                                'Software Engineering',
-                                            institutionName: 'AASTU',
-                                            startDate: '02/08/2021',
-                                            endDate: '02/08/2026',
-                                            institutionAddress: 'Addis Ababa',
-                                            courses: [
-                                              'Data Structures',
-                                              'Algorithms',
-                                              'Software Engineering',
-                                              'Project Management',
-                                            ],
-                                          )
-                                        ],
-                                      );
-                                      _addEducationEntry(
-                                          edu: templateData
-                                              .educationBackground[0]);
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          color: const Color.fromARGB(
-                                              255, 73, 150, 159)),
+                                  Text(
+                                    'No education background provided',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 8.sp,
                                     ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(2.0.r),
-                                      child: Text(
-                                        'Add Education',
-                                        style: TextStyle(
-                                            fontSize: 8.sp,
-                                            color: Colors.black),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        templateData = templateData.copyWith(
+                                          educationBackground: [
+                                            EducationBackground(
+                                              fieldOfStudy:
+                                                  'Software Engineering',
+                                              institutionName: 'AASTU',
+                                              startDate: '02/08/2021',
+                                              endDate: '02/08/2026',
+                                              institutionAddress: 'Addis Ababa',
+                                              courses: [
+                                                'Data Structures',
+                                                'Algorithms',
+                                                'Software Engineering',
+                                                'Project Management',
+                                              ],
+                                            )
+                                          ],
+                                        );
+                                        _addEducationEntry(
+                                            edu: templateData
+                                                .educationBackground[0]);
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255, 73, 150, 159)),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(2.0.r),
+                                        child: Text(
+                                          'Add Education',
+                                          style: TextStyle(
+                                              fontSize: 8.sp,
+                                              color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: templateData.educationBackground.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: _borderColorForEdu[index]
-                                        ? const Color.fromARGB(
-                                            255, 73, 150, 159)
-                                        : Colors.white,
+                                ],
+                              ),
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount:
+                                  templateData.educationBackground.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: _borderColorForEdu[index]
+                                          ? const Color.fromARGB(
+                                              255, 73, 150, 159)
+                                          : Colors.white,
+                                    ),
                                   ),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.56,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                height: 5.h,
-                                              ),
+                                  child: Stack(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.56,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
 
-                                              // FIELD OF STUDY
-                                              TextField(
-                                                maxLines: null,
-                                                onTap: () {
-                                                  setState(() {
-                                                    _borderColorForEdu[index] =
-                                                        !_borderColorForEdu[
-                                                            index];
-                                                  });
-                                                },
-                                                onTapOutside: (event) {
-                                                  setState(() {});
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                },
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    templateData =
-                                                        templateData.copyWith(
-                                                      educationBackground:
-                                                          templateData
-                                                              .educationBackground
-                                                              .map((e) =>
-                                                                  e.copyWith(
-                                                                      fieldOfStudy:
-                                                                          value))
-                                                              .toList(),
-                                                    );
-                                                  });
-                                                },
-                                                controller:
-                                                    fieldOfStudyControllers[
-                                                        index],
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 10.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                decoration:
-                                                    const InputDecoration(
-                                                  isDense: true,
-                                                  contentPadding:
-                                                      EdgeInsets.zero,
-                                                  border: InputBorder.none,
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.zero,
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                ),
-                                              ),
-
-                                              // INSTITUTION NAME
-                                              TextField(
-                                                maxLines: null,
-                                                onTap: () {
-                                                  setState(() {
-                                                    _borderColorForEdu[index] =
-                                                        !_borderColorForEdu[
-                                                            index];
-                                                  });
-                                                },
-                                                onTapOutside: (event) {
-                                                  setState(() {});
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                },
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    templateData =
-                                                        templateData.copyWith(
-                                                      educationBackground: templateData
-                                                          .educationBackground
-                                                          .map((e) => e.copyWith(
-                                                              institutionName:
-                                                                  value))
-                                                          .toList(),
-                                                    );
-                                                  });
-                                                },
-                                                controller:
-                                                    institutionNameControllers[
-                                                        index],
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 8.sp,
-                                                ),
-                                                decoration:
-                                                    const InputDecoration(
-                                                  isDense: true,
-                                                  contentPadding:
-                                                      EdgeInsets.zero,
-                                                  border: InputBorder.none,
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.zero,
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.22,
-                                                child: TextField(
+                                                // FIELD OF STUDY
+                                                TextField(
+                                                  maxLines: null,
                                                   onTap: () {
                                                     setState(() {
                                                       _borderColorForEdu[
@@ -1562,18 +1468,19 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                                                             .educationBackground
                                                             .map((e) =>
                                                                 e.copyWith(
-                                                                    startDate:
+                                                                    fieldOfStudy:
                                                                         value))
                                                             .toList(),
                                                       );
                                                     });
                                                   },
                                                   controller:
-                                                      startDateControllers[
+                                                      fieldOfStudyControllers[
                                                           index],
                                                   style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    fontSize: 8.sp,
+                                                    color: Colors.black,
+                                                    fontSize: 10.sp,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration:
                                                       const InputDecoration(
@@ -1590,13 +1497,10 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.15,
-                                                child: TextField(
+
+                                                // INSTITUTION NAME
+                                                TextField(
+                                                  maxLines: null,
                                                   onTap: () {
                                                     setState(() {
                                                       _borderColorForEdu[
@@ -1617,17 +1521,17 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                                                         educationBackground: templateData
                                                             .educationBackground
                                                             .map((e) => e.copyWith(
-                                                                institutionAddress:
+                                                                institutionName:
                                                                     value))
                                                             .toList(),
                                                       );
                                                     });
                                                   },
                                                   controller:
-                                                      institutionAddressControllers[
+                                                      institutionNameControllers[
                                                           index],
                                                   style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
+                                                    color: Colors.black,
                                                     fontSize: 8.sp,
                                                   ),
                                                   decoration:
@@ -1645,96 +1549,155 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    _borderColorForEdu[index]
-                                        ? Positioned(
-                                            top: 0,
-                                            right: 0,
+                                          SizedBox(
                                             child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.green,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2.r),
-                                                      ),
-                                                      height: 17.h,
-                                                      width: 17.w,
-                                                      child: Icon(
-                                                        Icons
-                                                            .arrow_downward_rounded,
-                                                        color: Colors.white,
-                                                        size: 15.r,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2.w,
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          _addEducationEntry(
-                                                              edu: templateData
-                                                                      .educationBackground[
-                                                                  index]);
-
-                                                          templateData
+                                                SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.22,
+                                                  child: TextField(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _borderColorForEdu[
+                                                                index] =
+                                                            !_borderColorForEdu[
+                                                                index];
+                                                      });
+                                                    },
+                                                    onTapOutside: (event) {
+                                                      setState(() {});
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                    },
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        templateData =
+                                                            templateData
+                                                                .copyWith(
+                                                          educationBackground: templateData
                                                               .educationBackground
-                                                              .insert(
-                                                                  index,
-                                                                  templateData
-                                                                      .educationBackground
-                                                                      .elementAt(
-                                                                          index));
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.grey,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      2.r),
-                                                        ),
-                                                        height: 17.h,
-                                                        width: 17.w,
-                                                        child: Icon(
-                                                          Icons.copy,
-                                                          color: Colors.white,
-                                                          size: 15.r,
-                                                        ),
+                                                              .map((e) =>
+                                                                  e.copyWith(
+                                                                      startDate:
+                                                                          value))
+                                                              .toList(),
+                                                        );
+                                                      });
+                                                    },
+                                                    controller:
+                                                        startDateControllers[
+                                                            index],
+                                                    style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontSize: 8.sp,
+                                                      color: Colors.black,
+                                                    ),
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      isDense: true,
+                                                      contentPadding:
+                                                          EdgeInsets.zero,
+                                                      border: InputBorder.none,
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.zero,
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.green),
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 2.w,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.15,
+                                                  child: TextField(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _borderColorForEdu[
+                                                                index] =
+                                                            !_borderColorForEdu[
+                                                                index];
+                                                      });
+                                                    },
+                                                    onTapOutside: (event) {
+                                                      setState(() {});
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                    },
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        templateData =
+                                                            templateData
+                                                                .copyWith(
+                                                          educationBackground: templateData
+                                                              .educationBackground
+                                                              .map((e) => e.copyWith(
+                                                                  institutionAddress:
+                                                                      value))
+                                                              .toList(),
+                                                        );
+                                                      });
+                                                    },
+                                                    controller:
+                                                        institutionAddressControllers[
+                                                            index],
+                                                    style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontSize: 8.sp,
+                                                      color: Colors.black,
                                                     ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          templateData = templateData.copyWith(
-                                                              educationBackground:
-                                                                  List.from(
-                                                                      templateData
-                                                                          .educationBackground)
-                                                                    ..removeAt(
-                                                                        index));
-                                                        });
-                                                      },
-                                                      child: Container(
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      isDense: true,
+                                                      contentPadding:
+                                                          EdgeInsets.zero,
+                                                      border: InputBorder.none,
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.zero,
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.green),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      _borderColorForEdu[index]
+                                          ? Positioned(
+                                              top: 0,
+                                              right: 0,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
                                                         decoration:
                                                             BoxDecoration(
-                                                          color: Colors.red,
+                                                          color: Colors.green,
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
@@ -1744,493 +1707,577 @@ class SimpleTemplateState extends State<SimpleTemplate> {
                                                         width: 17.w,
                                                         child: Icon(
                                                           Icons
-                                                              .delete_forever_rounded,
+                                                              .arrow_downward_rounded,
                                                           color: Colors.white,
                                                           size: 15.r,
                                                         ),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2.w,
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: 3.h),
-                                              ],
-                                            ),
-                                          )
-                                        : const SizedBox(),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                  ],
-                ),
-                SizedBox(height: 20.h),
-                // SKILLS SECTION
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: _borderColorForSkills
-                          ? const Color.fromARGB(255, 73, 150, 159)
-                          : Colors.white,
-                    ),
-                  ),
-                  child: Stack(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.43,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 30.h,
-                                  // width: MediaQuery.of(context).size.width * 0.58,
-                                  child: Row(
-                                    children: [
-                                      Image.asset('assets/Icons/skill.png',
-                                          height: 17.h, width: 17.w),
-                                      SizedBox(width: 5.h),
-                                      Text(
-                                        'SKILLS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14.sp,
-                                        ),
-                                      ),
+                                                      SizedBox(
+                                                        width: 2.w,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _addEducationEntry(
+                                                                edu: templateData
+                                                                        .educationBackground[
+                                                                    index]);
+
+                                                            templateData
+                                                                .educationBackground
+                                                                .insert(
+                                                                    index,
+                                                                    templateData
+                                                                        .educationBackground
+                                                                        .elementAt(
+                                                                            index));
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        2.r),
+                                                          ),
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
+                                                            Icons.copy,
+                                                            color: Colors.white,
+                                                            size: 15.r,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 2.w,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            templateData = templateData.copyWith(
+                                                                educationBackground: List.from(
+                                                                    templateData
+                                                                        .educationBackground)
+                                                                  ..removeAt(
+                                                                      index));
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.red,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        2.r),
+                                                          ),
+                                                          height: 17.h,
+                                                          width: 17.w,
+                                                          child: Icon(
+                                                            Icons
+                                                                .delete_forever_rounded,
+                                                            color: Colors.white,
+                                                            size: 15.r,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 2.w,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 3.h),
+                                                ],
+                                              ),
+                                            )
+                                          : const SizedBox(),
                                     ],
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                _borderColorForSkills
-                                    ? GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            _borderColorForSkills =
-                                                !_borderColorForSkills;
-                                          });
-                                        },
-                                        child: Wrap(
-                                            spacing: 4.r,
-                                            children: List.generate(
-                                              templateData.skills.length,
-                                              (index) {
-                                                return IntrinsicWidth(
-                                                  child: Container(
-                                                    height: 25.h,
-                                                    padding:
-                                                        EdgeInsets.all(2.r),
-                                                    margin: EdgeInsets.only(
-                                                        right: 4.w,
-                                                        bottom: 4.h),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        color: Colors.grey,
-                                                      ),
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4.r),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Text(
-                                                          templateData
-                                                              .skills[index],
-                                                          style: TextStyle(
-                                                            fontSize: 10.sp,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 4.w,
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              templateData = templateData.copyWith(
-                                                                  skills: List.from(
-                                                                      templateData
-                                                                          .skills)
-                                                                    ..removeAt(
-                                                                        index));
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors.grey
-                                                                  .shade400,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4.r),
-                                                            ),
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              size: 10.r,
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            )),
-                                      )
-                                    : GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            _borderColorForSkills =
-                                                !_borderColorForSkills;
-                                          });
-                                        },
-                                        child: GridView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount:
-                                                1, // 2 items per row
-                                            crossAxisSpacing:
-                                                1.h, // Spacing between columns
-                                            mainAxisSpacing:
-                                                1.w, // Spacing between rows
-                                            childAspectRatio:
-                                                12, // Adjust this to control the height of the items
-                                          ),
-                                          itemCount: templateData.skills.length,
-                                          itemBuilder: (context, index) {
-                                            return Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 5.w,
-                                                  vertical: 2.h),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding: EdgeInsets.all(3.r)
-                                                        .copyWith(left: 0),
-                                                    child: Container(
-                                                      height: 3.h,
-                                                      width: 3.w,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    templateData.skills[index],
-                                                    style: TextStyle(
-                                                        fontSize: 10.sp),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                              ],
+                                );
+                              },
                             ),
-                          ),
-                          // LANGUAGE SECTION
-                          _borderColorForLanguage
-                              ? SizedBox(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: _borderColorForLanguage
-                                            ? const Color.fromARGB(
-                                                255, 73, 150, 159)
-                                            : const Color.fromARGB(
-                                                255, 214, 200, 188),
-                                      ),
-                                    ),
-                                    child: Stack(
+                    ],
+                  ),
+                  SizedBox(height: 20.h),
+                  // SKILLS SECTION
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: _borderColorForSkills
+                            ? const Color.fromARGB(255, 73, 150, 159)
+                            : Colors.white,
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 30.h,
+                                    // width: MediaQuery.of(context).size.width * 0.58,
+                                    child: Row(
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: 25.h,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.35,
-                                              child: Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/Icons/language2.png',
-                                                    height: 17.h,
-                                                    width: 17.w,
-                                                  ),
-                                                  SizedBox(width: 5.w),
-                                                  Text(
-                                                    'LANGUAGES',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15.sp,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  _borderColorForLanguage =
-                                                      !_borderColorForLanguage;
-                                                });
-                                              },
-                                              child: Column(
-                                                  spacing: 4.r,
-                                                  children: List.generate(
-                                                    templateData
-                                                        .languages.length,
-                                                    (index) {
-                                                      return IntrinsicWidth(
-                                                        child: Container(
-                                                          height: 20.h,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      5.w,
-                                                                  vertical:
-                                                                      2.h),
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  right: 4.w,
-                                                                  bottom: 4.h),
-                                                          decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .grey),
-                                                              color:
-                                                                  Colors.white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4.r)),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Text(
-                                                                templateData
-                                                                    .languages[
-                                                                        index]
-                                                                    .language,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      10.sp,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                  width: 5.h),
-                                                              GestureDetector(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    templateData = templateData.copyWith(
-                                                                        languages: List.from(templateData
-                                                                            .languages)
-                                                                          ..removeAt(
-                                                                              index));
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade400,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            4.r),
-                                                                  ),
-                                                                  child: Icon(
-                                                                    Icons.close,
-                                                                    size: 10.r,
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  )),
-                                            ),
-                                          ],
+                                        Image.asset('assets/Icons/skill.png',
+                                            height: 17.h, width: 17.w),
+                                        SizedBox(width: 5.h),
+                                        Text(
+                                          'SKILLS',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14.sp,
+                                          ),
                                         ),
-                                        _borderColorForLanguage
-                                            ? Positioned(
-                                                top: 2.h,
-                                                right: 2.w,
-                                                child: Row(
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () => _showMyDialog(
-                                                          title: 'Add Language',
-                                                          type: 'language'),
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.green,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      2.w),
-                                                        ),
-                                                        height: 20.h,
-                                                        width: 20.w,
-                                                        child: Icon(
-                                                          Icons.add,
-                                                          color: Colors.white,
-                                                          size: 15.r,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            : const SizedBox(),
                                       ],
                                     ),
                                   ),
-                                )
-                              : GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _borderColorForLanguage =
-                                          !_borderColorForLanguage;
-                                    });
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 25.h,
-                                        child: Row(
-                                          children: [
-                                            SizedBox(width: 5.w),
-                                            Image.asset(
-                                              'assets/Icons/language2.png',
-                                              height: 17.h,
-                                              width: 17.w,
-                                            ),
-                                            SizedBox(width: 5.w),
-                                            Text(
-                                              'LANGUAGES',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.sp,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: List.generate(
-                                          templateData.languages.length,
-                                          (index) {
-                                            return Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  templateData.languages[index]
-                                                      .language,
-                                                  style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  templateData.languages[index]
-                                                      .proficiency,
-                                                  style: TextStyle(
-                                                      fontSize: 10.sp,
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      color:
-                                                          Colors.grey.shade900),
-                                                ),
-                                                SizedBox(
-                                                  height: 5.h,
-                                                ),
-                                              ],
-                                            );
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  _borderColorForSkills
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _borderColorForSkills =
+                                                  !_borderColorForSkills;
+                                            });
                                           },
+                                          child: Wrap(
+                                              spacing: 4.r,
+                                              children: List.generate(
+                                                templateData.skills.length,
+                                                (index) {
+                                                  return IntrinsicWidth(
+                                                    child: Container(
+                                                      height: 25.h,
+                                                      padding:
+                                                          EdgeInsets.all(2.r),
+                                                      margin: EdgeInsets.only(
+                                                          right: 4.w,
+                                                          bottom: 4.h),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: Colors.grey,
+                                                        ),
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4.r),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Text(
+                                                            templateData
+                                                                .skills[index],
+                                                            style: TextStyle(
+                                                              fontSize: 10.sp,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 4.w,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                templateData = templateData.copyWith(
+                                                                    skills: List.from(
+                                                                        templateData
+                                                                            .skills)
+                                                                      ..removeAt(
+                                                                          index));
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade400,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4.r),
+                                                              ),
+                                                              child: Icon(
+                                                                Icons.close,
+                                                                size: 10.r,
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )),
+                                        )
+                                      : GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _borderColorForSkills =
+                                                  !_borderColorForSkills;
+                                            });
+                                          },
+                                          child: GridView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount:
+                                                  1, // 2 items per row
+                                              crossAxisSpacing: 1
+                                                  .h, // Spacing between columns
+                                              mainAxisSpacing:
+                                                  1.w, // Spacing between rows
+                                              childAspectRatio:
+                                                  12, // Adjust this to control the height of the items
+                                            ),
+                                            itemCount:
+                                                templateData.skills.length,
+                                            itemBuilder: (context, index) {
+                                              return Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 5.w,
+                                                    vertical: 2.h),
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(3.r)
+                                                              .copyWith(
+                                                                  left: 0),
+                                                      child: Container(
+                                                        height: 3.h,
+                                                        width: 3.w,
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      templateData
+                                                          .skills[index],
+                                                      style: TextStyle(
+                                                          fontSize: 10.sp),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                        ],
-                      ),
-                      _borderColorForSkills
-                          ? Positioned(
-                              top: 2.h,
-                              right: 2.w,
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () => _showMyDialog(
-                                        title: 'Add Skill', type: 'skills'),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius:
-                                            BorderRadius.circular(2.r),
-                                      ),
-                                      height: 20.h,
-                                      width: 20.w,
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 15.r,
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
-                            )
-                          : const SizedBox(),
-                    ],
+                            ),
+                            // LANGUAGE SECTION
+                            _borderColorForLanguage
+                                ? SizedBox(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: _borderColorForLanguage
+                                              ? const Color.fromARGB(
+                                                  255, 73, 150, 159)
+                                              : const Color.fromARGB(
+                                                  255, 214, 200, 188),
+                                        ),
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: 25.h,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.35,
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      'assets/Icons/language2.png',
+                                                      height: 17.h,
+                                                      width: 17.w,
+                                                    ),
+                                                    SizedBox(width: 5.w),
+                                                    Text(
+                                                      'LANGUAGES',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15.sp,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10.h,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _borderColorForLanguage =
+                                                        !_borderColorForLanguage;
+                                                  });
+                                                },
+                                                child: Column(
+                                                    spacing: 4.r,
+                                                    children: List.generate(
+                                                      templateData
+                                                          .languages.length,
+                                                      (index) {
+                                                        return IntrinsicWidth(
+                                                          child: Container(
+                                                            height: 20.h,
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        5.w,
+                                                                    vertical:
+                                                                        2.h),
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    right: 4.w,
+                                                                    bottom:
+                                                                        4.h),
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(
+                                                                    color: Colors
+                                                                        .grey),
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4.r)),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Text(
+                                                                  templateData
+                                                                      .languages[
+                                                                          index]
+                                                                      .language,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    width: 5.h),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      templateData = templateData.copyWith(
+                                                                          languages: List.from(
+                                                                              templateData.languages)
+                                                                            ..removeAt(index));
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .shade400,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              4.r),
+                                                                    ),
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .close,
+                                                                      size:
+                                                                          10.r,
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                          _borderColorForLanguage
+                                              ? Positioned(
+                                                  top: 2.h,
+                                                  right: 2.w,
+                                                  child: Row(
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () => _showMyDialog(
+                                                            title:
+                                                                'Add Language',
+                                                            type: 'language'),
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.green,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        2.w),
+                                                          ),
+                                                          height: 20.h,
+                                                          width: 20.w,
+                                                          child: Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                            size: 15.r,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _borderColorForLanguage =
+                                            !_borderColorForLanguage;
+                                      });
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 25.h,
+                                          child: Row(
+                                            children: [
+                                              SizedBox(width: 5.w),
+                                              Image.asset(
+                                                'assets/Icons/language2.png',
+                                                height: 17.h,
+                                                width: 17.w,
+                                              ),
+                                              SizedBox(width: 5.w),
+                                              Text(
+                                                'LANGUAGES',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: List.generate(
+                                            templateData.languages.length,
+                                            (index) {
+                                              return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    templateData
+                                                        .languages[index]
+                                                        .language,
+                                                    style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    templateData
+                                                        .languages[index]
+                                                        .proficiency,
+                                                    style: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        color: Colors
+                                                            .grey.shade900),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5.h,
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                          ],
+                        ),
+                        _borderColorForSkills
+                            ? Positioned(
+                                top: 2.h,
+                                right: 2.w,
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => _showMyDialog(
+                                          title: 'Add Skill', type: 'skills'),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(2.r),
+                                        ),
+                                        height: 20.h,
+                                        width: 20.w,
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                          size: 15.r,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-              ],
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
